@@ -7,9 +7,40 @@
 <link rel="stylesheet" href="style.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 <script defer src="script.js"></script>
+
+<style>
+
+/* FLOATING DOTS BACKGROUND */
+canvas{
+position:fixed;
+top:0;
+left:0;
+z-index:-1;
+}
+
+.stats{
+text-align:center;
+padding:40px;
+}
+
+.counter{
+font-size:30px;
+color:#38bdf8;
+}
+
+footer{
+text-align:center;
+padding:20px;
+background:#020617;
+}
+
+</style>
+
 </head>
 
 <body>
+
+<canvas id="bg"></canvas>
 
 <nav>
 <div><b>DeployLynx</b></div>
@@ -24,14 +55,80 @@
 </nav>
 
 <section>
+
 <h1 style="font-size:70px;-webkit-text-stroke:1px #38bdf8;color:transparent;">
 DeployLynx
 </h1>
 
 <p>AI Automation • DevOps • Cloud Solutions</p>
 
-<a href="contact.html" class="btn">Get Started</a>
 </section>
+
+<!-- GitHub Stats -->
+
+<section class="stats">
+
+<h2>GitHub Activity</h2>
+
+⭐ Stars: <span id="stars" class="counter">0</span><br><br>
+🍴 Forks: <span id="forks" class="counter">0</span>
+
+</section>
+
+<footer>
+DeployLynx © 2026 All Rights Reserved
+</footer>
+
+<script>
+
+/* FLOATING DOTS */
+const canvas = document.getElementById("bg");
+const ctx = canvas.getContext("2d");
+
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
+
+let dots = [];
+
+for(let i=0;i<80;i++){
+dots.push({
+x:Math.random()*canvas.width,
+y:Math.random()*canvas.height,
+dx:(Math.random()-0.5),
+dy:(Math.random()-0.5)
+});
+}
+
+function animate(){
+ctx.clearRect(0,0,canvas.width,canvas.height);
+
+dots.forEach(d=>{
+d.x+=d.dx;
+d.y+=d.dy;
+
+if(d.x<0||d.x>canvas.width) d.dx*=-1;
+if(d.y<0||d.y>canvas.height) d.dy*=-1;
+
+ctx.fillStyle="#38bdf8";
+ctx.beginPath();
+ctx.arc(d.x,d.y,2,0,Math.PI*2);
+ctx.fill();
+});
+
+requestAnimationFrame(animate);
+}
+
+animate();
+
+/* GITHUB API */
+fetch("https://api.github.com/repos/Deploylynx/deploylynx-devsecops-pipeline")
+.then(res=>res.json())
+.then(data=>{
+document.getElementById("stars").innerText=data.stargazers_count;
+document.getElementById("forks").innerText=data.forks_count;
+});
+
+</script>
 
 </body>
 </html>
