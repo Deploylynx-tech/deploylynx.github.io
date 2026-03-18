@@ -1,42 +1,363 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>DeployLynx | Smart Tech Solutions</title>
-<link rel="stylesheet" href="style.css">
+
+<title>DeployLynx</title>
+
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+<style>
+
+body{
+margin:0;
+font-family:Arial;
+background:#0f172a;
+color:white;
+overflow-x:hidden;
+}
+
+/* animated background canvas */
+
+canvas{
+position:fixed;
+top:0;
+left:0;
+z-index:-1;
+}
+
+/* navbar */
+
+nav{
+display:flex;
+justify-content:space-between;
+padding:20px 40px;
+background:#020617;
+position:sticky;
+top:0;
+}
+
+nav a{
+color:white;
+text-decoration:none;
+margin-left:20px;
+}
+
+nav a:hover{
+color:#38bdf8;
+}
+
+/* hero */
+
+.hero{
+height:80vh;
+display:flex;
+flex-direction:column;
+justify-content:center;
+align-items:center;
+text-align:center;
+}
+
+.hero h1{
+font-size:70px;
+color:#38bdf8;
+}
+
+.hero p{
+font-size:22px;
+color:#cbd5f5;
+}
+
+/* projects */
+
+.projects{
+display:flex;
+flex-wrap:wrap;
+justify-content:center;
+gap:30px;
+padding:80px;
+}
+
+.card{
+background:#1e293b;
+padding:20px;
+width:260px;
+border-radius:12px;
+transition:.3s;
+}
+
+.card:hover{
+transform:translateY(-10px);
+}
+
+.card img{
+width:100%;
+border-radius:10px;
+}
+
+.card h3{
+margin:15px 0;
+}
+
+.card a{
+color:#38bdf8;
+text-decoration:none;
+}
+
+/* devops stack */
+
+.stack{
+text-align:center;
+padding:60px;
+}
+
+.stack img{
+width:60px;
+margin:15px;
+transition:.3s;
+}
+
+.stack img:hover{
+transform:scale(1.2);
+}
+
+/* stats */
+
+.stats{
+text-align:center;
+padding:60px;
+}
+
+.counter{
+font-size:35px;
+color:#38bdf8;
+}
+
+/* social */
+
+.social{
+font-size:40px;
+text-align:center;
+padding:40px;
+}
+
+.social a{
+margin:15px;
+color:white;
+}
+
+.social a:hover{
+color:#38bdf8;
+}
+
+/* footer */
+
+footer{
+background:#020617;
+padding:20px;
+text-align:center;
+}
+
+</style>
 </head>
 
 <body>
 
-<header>
-  <h1>DeployLynx</h1>
-  <nav>
-    <a href="index.html">Home</a>
-    <a href="about.html">About</a>
-    <a href="contact.html">Contact</a>
-  </nav>
-</header>
+<canvas id="network"></canvas>
 
-<section class="hero">
-  <h2>AI Automation • DevOps • Cloud Solutions</h2>
-  <p>We build scalable, secure, and smart digital systems.</p>
-  <a href="contact.html" class="btn">Get Started</a>
+<nav>
+
+<div><strong>DeployLynx</strong></div>
+
+<div>
+<a href="#projects">Projects</a>
+<a href="#tools">Tools</a>
+<a href="#stats">Stats</a>
+<a href="#connect">Connect</a>
+</div>
+
+</nav>
+
+<div class="hero">
+
+<h1>DeployLynx</h1>
+<p>DevOps • Cloud • Automation</p>
+
+</div>
+
+<!-- Projects -->
+
+<section id="projects" class="projects">
+
+<div class="card">
+
+<img src="https://images.unsplash.com/photo-1555949963-aa79dcee981c">
+
+<h3>DevSecOps Pipeline</h3>
+
+<a href="https://github.com/Deploylynx-tech/deploylynx-devsecops-pipeline" target="_blank">
+Open Repository
+</a>
+
+</div>
+
+<div class="card">
+
+<img src="https://images.unsplash.com/photo-1451187580459-43490279c0fa">
+
+<h3>Terraform Infrastructure</h3>
+
+<a href="https://github.com/Deploylynx-tech/deploylynx-infrastructure" target="_blank">
+Open Repository
+</a>
+
+</div>
+
+<div class="card">
+
+<img src="https://images.unsplash.com/photo-1558494949-ef010cbdcc31">
+
+<h3>Monitoring Stack</h3>
+
+<a href="https://github.com/Deploylynx-tech/deploylynx-monitoring" target="_blank">
+Open Repository
+</a>
+
+</div>
+
+<div class="card">
+
+<img src="https://images.unsplash.com/photo-1677442136019-21780ecad995">
+
+<h3>AI Automation Tools</h3>
+
+<a href="https://github.com/Deploylynx-tech/ai-automation-tools" target="_blank">
+Open Repository
+</a>
+
+</div>
+
 </section>
 
-<section>
-  <h2>Our Services</h2>
-  <div class="cards">
-    <div class="card">DevSecOps Pipelines</div>
-    <div class="card">Cloud Infrastructure</div>
-    <div class="card">Automation Systems</div>
-    <div class="card">Monitoring & Security</div>
-  </div>
+<!-- DevOps tools -->
+
+<section id="tools" class="stack">
+
+<h2>DevOps Tool Stack</h2>
+
+<img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/docker/docker-original.svg">
+<img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/kubernetes/kubernetes-plain.svg">
+<img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/terraform/terraform-original.svg">
+<img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/jenkins/jenkins-original.svg">
+<img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/linux/linux-original.svg">
+<img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/github/github-original.svg">
+
+</section>
+
+<!-- GitHub stats -->
+
+<section id="stats" class="stats">
+
+<h2>GitHub Activity</h2>
+
+⭐ Stars: <span id="stars" class="counter">0</span><br><br>
+🍴 Forks: <span id="forks" class="counter">0</span>
+
+</section>
+
+<!-- social -->
+
+<section id="connect" class="social">
+
+<a href="https://github.com/Deploylynx-tech" target="_blank">
+<i class="fab fa-github"></i>
+</a>
+
+<a href="https://www.linkedin.com/company/linkedin-deploylynx-devops/" target="_blank">
+<i class="fab fa-linkedin"></i>
+</a>
+
+<a href="https://www.instagram.com/deploylynx26/" target="_blank">
+<i class="fab fa-instagram"></i>
+</a>
+
+<a href="mailto:deploylynx@email.com">
+<i class="fas fa-envelope"></i>
+</a>
+
 </section>
 
 <footer>
-  <p>© 2026 DeployLynx. All rights reserved.</p>
+
+DeployLynx © 2026
+
 </footer>
+
+<script>
+
+/* animated bubbles */
+
+const canvas = document.getElementById("network");
+const ctx = canvas.getContext("2d");
+
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
+
+let particles = [];
+
+for (let i = 0; i < 80; i++) {
+
+particles.push({
+
+x: Math.random() * canvas.width,
+y: Math.random() * canvas.height,
+dx: (Math.random() - 0.5),
+dy: (Math.random() - 0.5)
+
+});
+
+}
+
+function animate(){
+
+ctx.clearRect(0,0,canvas.width,canvas.height);
+
+particles.forEach(p=>{
+
+p.x += p.dx;
+p.y += p.dy;
+
+if(p.x < 0 || p.x > canvas.width) p.dx *= -1;
+if(p.y < 0 || p.y > canvas.height) p.dy *= -1;
+
+ctx.fillStyle="#38bdf8";
+ctx.beginPath();
+ctx.arc(p.x,p.y,2,0,Math.PI*2);
+ctx.fill();
+
+});
+
+requestAnimationFrame(animate);
+
+}
+
+animate();
+
+/* GitHub stats */
+
+fetch("https://api.github.com/repos/Deploylynx-tech/deploylynx-devsecops-pipeline")
+
+.then(res=>res.json())
+
+.then(data=>{
+document.getElementById("stars").innerText=data.stargazers_count
+document.getElementById("forks").innerText=data.forks_count
+})
+
+</script>
 
 </body>
 </html>
