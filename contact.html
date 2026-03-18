@@ -1,6 +1,8 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Contact | DeployLynx</title>
 <link rel="stylesheet" href="style.css">
 </head>
@@ -16,20 +18,29 @@
   </nav>
 </header>
 
-<section>
+<section class="contact-section">
   <h2>Contact Us</h2>
+  <p>Let’s build something powerful together 🚀</p>
 
-  <form action="mailto:your@email.com" method="post" enctype="text/plain">
-    <input type="text" name="name" placeholder="Your Name" required><br><br>
-    <input type="email" name="email" placeholder="Your Email" required><br><br>
-    <textarea name="message" placeholder="Your Message"></textarea><br><br>
+  <form action="https://formspree.io/f/xpqykbvr" method="POST" class="contact-form">
+    
+    <input type="text" name="name" placeholder="Your Name" required>
+    
+    <input type="email" name="email" placeholder="Your Email" required>
+
+    <textarea name="message" rows="5" placeholder="Your Message" required></textarea>
+
+    <!-- Optional hidden fields -->
+    <input type="hidden" name="_subject" value="New DeployLynx Inquiry">
+    <input type="hidden" name="_replyto" value="deploylynx26@gmail.com">
+
     <button type="submit">Send Message</button>
   </form>
 
 </section>
 
 <footer>
-  <p>© 2026 DeployLynx</p>
+  <p>© 2026 DeployLynx. All rights reserved.</p>
 </footer>
 
 </body>
