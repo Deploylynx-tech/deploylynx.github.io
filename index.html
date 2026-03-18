@@ -9,14 +9,11 @@
 
 <style>
 
-/* TOP RIGHT TYPING */
-.top-typing{
-position:fixed;
-top:10px;
-right:20px;
-font-size:13px;
-color:gold;
+/* NAV LOGO ANIMATION */
+.logo{
 font-weight:bold;
+font-size:18px;
+color:white;
 }
 
 /* QUOTE */
@@ -27,6 +24,7 @@ color:#ffb6c1;
 height:25px;
 }
 
+/* BACKGROUND */
 canvas{
 position:fixed;
 top:0;
@@ -56,12 +54,11 @@ background:#020617;
 
 <body>
 
-<div class="top-typing" id="topText"></div>
-
 <canvas id="bg"></canvas>
 
 <nav>
-<div><b>DeployLynx</b></div>
+<div class="logo" id="logoText"></div>
+
 <div>
 <a href="index.html">Home</a>
 <a href="about.html">About</a>
@@ -147,24 +144,25 @@ document.getElementById("stars").innerText=data.stargazers_count;
 document.getElementById("forks").innerText=data.forks_count;
 });
 
-/* TOP RIGHT LOOP TYPING */
-let text="DeployLynx.com";
+/* LOGO LOOP ANIMATION */
+let text="DeployLynx";
 let i=0;
 
-function loopTyping(){
+function animateLogo(){
 if(i<text.length){
-document.getElementById("topText").innerHTML+=text.charAt(i);
+document.getElementById("logoText").innerHTML+=text.charAt(i);
 i++;
-setTimeout(loopTyping,100);
+setTimeout(animateLogo,120);
 }else{
 setTimeout(()=>{
-document.getElementById("topText").innerHTML="";
+document.getElementById("logoText").innerHTML="";
 i=0;
-loopTyping();
+animateLogo();
 },1500);
 }
 }
-loopTyping();
+
+animateLogo();
 
 /* QUOTE TYPING */
 let quoteText="Engineering scalable systems. Automating the future.";
@@ -177,6 +175,7 @@ j++;
 setTimeout(typeQuote,50);
 }
 }
+
 typeQuote();
 
 </script>
