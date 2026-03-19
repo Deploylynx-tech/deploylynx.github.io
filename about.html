@@ -2,16 +2,16 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>DeployLynx | About</title>
+<title>DeployLynx</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <style>
 *{margin:0;padding:0;box-sizing:border-box;font-family:'Segoe UI',sans-serif;}
+html{scroll-behavior:smooth;}
 
 body{
   background:#0a0f1c;
   color:#fff;
-  overflow-x:hidden;
 }
 
 /* NAVBAR */
@@ -19,6 +19,11 @@ nav{
   display:flex;
   justify-content:space-between;
   padding:20px 50px;
+  position:fixed;
+  top:0;
+  width:100%;
+  background:#0a0f1c;
+  z-index:9999;
 }
 
 .logo{
@@ -27,28 +32,32 @@ nav{
   color:#fff;
 }
 
-/* MENU */
-.menu a{
-  margin-left:25px;
-  text-decoration:none;
+/* MENU (REAL BUTTONS NOW) */
+.menu button{
+  margin-left:20px;
+  background:none;
+  border:none;
   color:#ccc;
-  transition:0.3s;
+  font-size:14px;
+  cursor:pointer;
 }
 
-.menu a:hover{
+.menu button:hover{
   color:#00c6ff;
+}
+
+/* SECTIONS */
+.section{
+  min-height:100vh;
+  padding-top:120px;
+  text-align:center;
 }
 
 /* HERO */
-.hero{
-  text-align:center;
-  margin-top:80px;
-}
-
 .title{
   font-size:42px;
-  font-weight:bold;
   color:#00c6ff;
+  font-weight:bold;
 }
 
 .quote{
@@ -57,33 +66,14 @@ nav{
   color:#ff6ec7;
 }
 
-/* ABOUT */
-.about{
-  max-width:900px;
-  margin:80px auto;
-  text-align:center;
-  line-height:1.8;
-  color:#ccc;
-}
-
 /* TEAM */
-.team{
-  text-align:center;
-  margin:80px 0;
-}
-
-.team h2{
-  color:#00c6ff;
-  margin-bottom:30px;
-}
-
 .team-grid{
   display:flex;
   justify-content:center;
   gap:30px;
+  margin-top:40px;
 }
 
-/* BLUE CARDS */
 .card{
   width:220px;
   padding:25px;
@@ -94,39 +84,29 @@ nav{
 }
 
 .card:hover{
-  transform:translateY(-10px) scale(1.05);
+  transform:translateY(-10px);
   box-shadow:0 0 25px #00c6ff;
-}
-
-/* SCROLL */
-.fade{
-  opacity:0;
-  transform:translateY(40px);
-  transition:1s;
-}
-.fade.show{
-  opacity:1;
-  transform:translateY(0);
 }
 
 /* DOT BG */
 canvas{
   position:fixed;
   top:0;
+  left:0;
   z-index:-1;
+  pointer-events:none;
 }
 
 /* CURSOR */
 .cursor{
-  width:10px;
-  height:10px;
+  width:10px;height:10px;
   background:gold;
   border-radius:50%;
   position:fixed;
   pointer-events:none;
-  box-shadow:0 0 15px gold;
+  z-index:9999;
   transform:translate(-50%,-50%);
-  z-index:999;
+  box-shadow:0 0 15px gold;
 }
 </style>
 </head>
@@ -137,76 +117,92 @@ canvas{
 <div class="cursor"></div>
 
 <nav>
-  <div class="logo" id="typingLogo"></div>
+  <div class="logo" id="logo"></div>
 
   <div class="menu">
-    <a href="index.html">Home</a>
-    <a href="about.html">About</a>
-    <a href="#">Services</a>
-    <a href="#">Projects</a>
-    <a href="#">Contact</a>
-    <a href="#"><span>🌙</span> Theme</a>
+    <button onclick="go('home')">Home</button>
+    <button onclick="go('about')">About</button>
+    <button onclick="go('services')">Services</button>
+    <button onclick="go('projects')">Projects</button>
+    <button onclick="go('contact')">Contact</button>
+    <button onclick="alert('Theme coming soon 🌙')">🌙 Theme</button>
   </div>
 </nav>
 
-<!-- HERO -->
-<div class="hero">
+<!-- HOME -->
+<div id="home" class="section">
   <div class="title">DeployLynx</div>
-  <div class="quote">
-    Engineering the future with scalable systems, intelligent automation, and cloud-native excellence.
-  </div>
+  <div class="quote" id="quote"></div>
 </div>
 
 <!-- ABOUT -->
-<div class="about fade">
-<p>
-DeployLynx builds scalable, secure and production-ready systems using DevOps, Cloud and AI Automation.
-We design cloud-native architectures, automate workflows and deliver enterprise-grade solutions.
-</p>
+<div id="about" class="section">
+  <h2>About</h2>
+  <p>DeployLynx builds scalable, secure systems using DevOps, Cloud and AI.</p>
+</div>
+
+<!-- SERVICES -->
+<div id="services" class="section">
+  <h2>Services</h2>
+  <p>DevOps • Cloud • Automation</p>
+</div>
+
+<!-- PROJECTS -->
+<div id="projects" class="section">
+  <h2>Projects</h2>
+  <p>Coming Soon</p>
 </div>
 
 <!-- TEAM -->
-<div class="team fade">
-<h2>Our Team</h2>
-<div class="team-grid">
-
-  <div class="card">
-    <h3>DevOps Engineer</h3>
-    <p>CI/CD • Automation</p>
+<div class="section">
+  <h2>Our Team</h2>
+  <div class="team-grid">
+    <div class="card"><h3>DevOps Engineer</h3><p>CI/CD • Automation</p></div>
+    <div class="card"><h3>Cloud Architect</h3><p>AWS • Infrastructure</p></div>
+    <div class="card"><h3>AI Engineer</h3><p>Automation • Intelligence</p></div>
   </div>
-
-  <div class="card">
-    <h3>Cloud Architect</h3>
-    <p>AWS • Infrastructure</p>
-  </div>
-
-  <div class="card">
-    <h3>AI Engineer</h3>
-    <p>Automation • Intelligence</p>
-  </div>
-
 </div>
+
+<!-- CONTACT -->
+<div id="contact" class="section">
+  <h2>Contact</h2>
+  <p>your@email.com</p>
 </div>
 
 <script>
-/* typing logo LEFT */
-let text="DeployLynx";
-let i=0;
-function type(){
+/* FORCE NAVIGATION */
+function go(id){
+  document.getElementById(id).scrollIntoView({behavior:"smooth"});
+}
+
+/* LOGO TYPING */
+let text="DeployLynx",i=0;
+function typeLogo(){
   if(i<text.length){
-    document.getElementById("typingLogo").innerHTML+=text[i++];
-    setTimeout(type,120);
+    logo.innerHTML+=text[i++];
+    setTimeout(typeLogo,100);
   }
 }
-type();
+typeLogo();
 
-/* cursor */
+/* QUOTE TYPING (RESTORED) */
+let q="Engineering the future with scalable systems, intelligent automation, and cloud-native excellence.";
+let j=0;
+function typeQuote(){
+  if(j<q.length){
+    document.getElementById("quote").innerHTML+=q[j++];
+    setTimeout(typeQuote,30);
+  }
+}
+typeQuote();
+
+/* CURSOR */
 document.addEventListener("mousemove",e=>{
-  document.querySelector(".cursor").style.top=e.clientY+"px";
   document.querySelector(".cursor").style.left=e.clientX+"px";
+  document.querySelector(".cursor").style.top=e.clientY+"px";
 });
 
-/* dots */
+/* DOTS */
 let c=dots.getContext("2d");
 dots.width=innerWidth;
 dots.height=innerHeight;
@@ -226,15 +222,6 @@ function draw(){
   requestAnimationFrame(draw);
 }
 draw();
-
-/* scroll */
-window.addEventListener("scroll",()=>{
-  document.querySelectorAll(".fade").forEach(el=>{
-    if(el.getBoundingClientRect().top<window.innerHeight-100){
-      el.classList.add("show");
-    }
-  });
-});
 </script>
 
 </body>
