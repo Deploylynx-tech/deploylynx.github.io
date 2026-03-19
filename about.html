@@ -1,16 +1,393 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>DeployLynx | About</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family:'Segoe UI',sans-serif;
+}
+
+body{
+  background:#0a0f1c;
+  color:#fff;
+  overflow-x:hidden;
+}
+
+/* NAV */
+nav{
+  display:flex;
+  justify-content:space-between;
+  padding:20px 50px;
+}
+
+.logo{
+  font-size:22px;
+  color:#00c6ff;
+  font-weight:bold;
+}
+
+.menu a{
+  margin-left:25px;
+  color:#ccc;
+  text-decoration:none;
+}
+
+.menu a:hover{
+  color:#00c6ff;
+}
+
+/* HERO */
+.hero{
+  text-align:center;
+  margin-top:80px;
+}
+
+.typing-title{
+  font-size:42px;
+  background: linear-gradient(90deg,#00c6ff,#ff6ec7,#00c6ff);
+  background-size:200%;
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+  animation:gradientMove 3s linear infinite;
+}
+
+@keyframes gradientMove{
+  0%{background-position:0%}
+  100%{background-position:200%}
+}
+
+.quote-wrapper{
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+}
+
+.typing-quote{
+  margin-top:15px;
+  font-size:18px;
+  color:#ff6ec7;
+}
+
+.star{
+  color:gold;
+  font-size:20px;
+  text-shadow:0 0 10px gold;
+}
+
+/* ABOUT */
+.about{
+  max-width:900px;
+  margin:80px auto;
+  text-align:center;
+  line-height:1.8;
+  color:#ccc;
+}
+
+/* GLASS */
+.glass{
+  background:rgba(255,255,255,0.05);
+  backdrop-filter:blur(10px);
+  border:1px solid rgba(255,255,255,0.1);
+  border-radius:15px;
+  transition:0.3s;
+}
+
+.glass:hover{
+  transform:translateY(-8px);
+  box-shadow:0 0 20px #00c6ff;
+}
+
+/* STATS */
+.stats{
+  display:flex;
+  justify-content:center;
+  gap:40px;
+  margin:80px 0;
+}
+
+.stat{
+  padding:25px;
+  text-align:center;
+  width:150px;
+}
+
+.stat h2{
+  color:#00c6ff;
+  font-size:35px;
+}
+
+/* TEAM */
+.team{
+  text-align:center;
+  margin:80px 0;
+}
+
+.team h2{
+  color:#00c6ff;
+  margin-bottom:30px;
+}
+
+.team-grid{
+  display:flex;
+  justify-content:center;
+  gap:30px;
+}
+
+.card{
+  padding:25px;
+  width:200px;
+  border-radius:15px;
+  background:rgba(255,255,255,0.05);
+  backdrop-filter:blur(10px);
+  transition:0.3s;
+}
+
+.card:hover{
+  box-shadow:0 0 20px #ff6ec7;
+}
+
+/* PROJECTS */
+.projects{
+  text-align:center;
+  margin:100px 0;
+}
+
+.projects h2{
+  color:#00c6ff;
+  margin-bottom:40px;
+}
+
+.project-grid{
+  display:flex;
+  justify-content:center;
+  gap:30px;
+}
+
+.project-card{
+  width:260px;
+  padding:25px;
+  border-radius:15px;
+  background:linear-gradient(135deg,#11182b,#0a0f1c);
+  position:relative;
+  transition:0.4s;
+}
+
+.project-card:hover{
+  transform:translateY(-10px) scale(1.05);
+  box-shadow:0 0 25px #00c6ff;
+}
+
+.project-card::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  border-radius:15px;
+  padding:1px;
+  background:linear-gradient(45deg,#00c6ff,#ff6ec7,#00c6ff);
+  -webkit-mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  opacity:0;
+}
+
+.project-card:hover::before{
+  opacity:1;
+}
+
+/* SCROLL */
+.fade{
+  opacity:0;
+  transform:translateY(40px);
+  transition:1s;
+}
+
+.fade.show{
+  opacity:1;
+  transform:translateY(0);
+}
+
+/* DOT BG */
+canvas{
+  position:fixed;
+  top:0;
+  z-index:-1;
+}
+
+/* CURSOR */
+.cursor{
+  width:10px;
+  height:10px;
+  background:gold;
+  border-radius:50%;
+  position:fixed;
+  pointer-events:none;
+  box-shadow:0 0 15px gold;
+  transform:translate(-50%,-50%);
+  z-index:999;
+}
+</style>
+</head>
+
+<body>
+
+<canvas id="dots"></canvas>
+<div class="cursor"></div>
+
+<nav>
+  <div class="logo">DeployLynx</div>
+  <div class="menu">
+    <a href="#">Home</a>
+    <a href="#">About</a>
+    <a href="#">Services</a>
+    <a href="#">Projects</a>
+    <a href="#">Contact</a>
+    <a href="#">Theme</a>
+  </div>
+</nav>
+
+<div class="hero">
+  <div class="typing-title" id="title"></div>
+
+  <div class="quote-wrapper">
+    <div class="typing-quote" id="quote"></div>
+    <div class="star">★</div>
+  </div>
+</div>
+
+<div class="about fade">
+<p>
+DeployLynx builds scalable, secure and production-ready systems using DevOps, Cloud and AI Automation. 
+We design cloud-native architectures, automate workflows and deliver enterprise-grade solutions.
+</p>
+</div>
+
 <div class="stats fade">
   <div class="glass stat">
     <h2 id="clients">0</h2>
     <p>Clients</p>
   </div>
-
   <div class="glass stat">
     <h2 id="deployments">0</h2>
     <p>Deployments</p>
   </div>
-
   <div class="glass stat">
     <h2 id="uptime">0</h2>
     <p>Uptime %</p>
   </div>
 </div>
+
+<div class="team fade">
+<h2>Our Team</h2>
+<div class="team-grid">
+  <div class="card">
+    <h3>DevOps Engineer</h3>
+    <p>CI/CD • Automation</p>
+  </div>
+  <div class="card">
+    <h3>Cloud Architect</h3>
+    <p>AWS • Infrastructure</p>
+  </div>
+  <div class="card">
+    <h3>AI Engineer</h3>
+    <p>Automation • Intelligence</p>
+  </div>
+</div>
+</div>
+
+<div class="projects fade">
+<h2>Featured Projects</h2>
+<div class="project-grid">
+  <div class="project-card">
+    <h3>DevSecOps Pipeline</h3>
+    <p>CI/CD with GitHub Actions & Docker</p>
+  </div>
+  <div class="project-card">
+    <h3>Kubernetes Cluster</h3>
+    <p>Production container orchestration</p>
+  </div>
+  <div class="project-card">
+    <h3>Terraform AWS</h3>
+    <p>Infrastructure as Code</p>
+  </div>
+</div>
+</div>
+
+<script>
+/* typing */
+let t="DeployLynx",q="Engineering the future with scalable systems, intelligent automation, and cloud-native excellence.";
+let i=0,j=0;
+
+function tt(){
+  if(i<t.length){
+    title.innerHTML+=t[i++];
+    setTimeout(tt,100);
+  } else tq();
+}
+function tq(){
+  if(j<q.length){
+    quote.innerHTML+=q[j++];
+    setTimeout(tq,30);
+  }
+}
+tt();
+
+/* cursor */
+document.addEventListener("mousemove",e=>{
+  document.querySelector(".cursor").style.cssText=`top:${e.clientY}px;left:${e.clientX}px`;
+});
+
+/* dots */
+let c=dots.getContext("2d");
+dots.width=innerWidth;
+dots.height=innerHeight;
+let d=[];
+for(let i=0;i<100;i++) d.push({x:Math.random()*dots.width,y:Math.random()*dots.height});
+function draw(){
+  c.clearRect(0,0,dots.width,dots.height);
+  c.fillStyle="#00c6ff";
+  d.forEach(p=>{
+    c.beginPath();
+    c.arc(p.x,p.y,2,0,6.28);
+    c.fill();
+    p.y+=0.3;
+    if(p.y>dots.height)p.y=0;
+  });
+  requestAnimationFrame(draw);
+}
+draw();
+
+/* scroll */
+window.addEventListener("scroll",()=>{
+  document.querySelectorAll(".fade").forEach(el=>{
+    if(el.getBoundingClientRect().top<window.innerHeight-100){
+      el.classList.add("show");
+    }
+  });
+
+  if(clients.innerText==0){
+    count("clients",12);
+    count("deployments",35);
+    count("uptime",99);
+  }
+});
+
+function count(id,end){
+  let n=0;
+  let x=setInterval(()=>{
+    n++;
+    document.getElementById(id).innerText=n;
+    if(n>=end) clearInterval(x);
+  },30);
+}
+</script>
+
+</body>
+</html>
