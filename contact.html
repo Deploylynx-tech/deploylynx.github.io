@@ -21,7 +21,6 @@ body{
   overflow:hidden;
 }
 
-/* NAV */
 nav{
   display:flex;
   justify-content:space-between;
@@ -46,7 +45,6 @@ nav{
   color:#00c6ff;
 }
 
-/* BACKGROUND */
 canvas{
   position:fixed;
   top:0;
@@ -55,7 +53,6 @@ canvas{
   pointer-events:none;
 }
 
-/* MAIN */
 .container{
   display:flex;
   flex-direction:column;
@@ -67,13 +64,11 @@ canvas{
   gap:20px;
 }
 
-/* LOTTIE */
 .visual{
   position:absolute;
   left:80px;
 }
 
-/* FORM CARD */
 .form-card{
   background:rgba(0,0,0,0.75);
   padding:30px;
@@ -122,7 +117,6 @@ canvas{
   background:#ff6ec7;
 }
 
-/* SUCCESS MESSAGE */
 .success{
   display:none;
   margin-top:15px;
@@ -131,15 +125,8 @@ canvas{
   color:#000;
   border-radius:8px;
   text-align:center;
-  animation:fadeIn 0.6s ease;
 }
 
-@keyframes fadeIn{
-  from{opacity:0; transform:translateY(10px);}
-  to{opacity:1; transform:translateY(0);}
-}
-
-/* SOCIAL (NOW BELOW CARD WITH SPACE) */
 .social{
   display:flex;
   gap:20px;
@@ -160,7 +147,6 @@ canvas{
   color:#000;
 }
 
-/* CURSOR */
 .cursor{
   width:10px;
   height:10px;
@@ -172,7 +158,6 @@ canvas{
   transform:translate(-50%,-50%);
   z-index:999;
 }
-
 </style>
 </head>
 
@@ -194,7 +179,6 @@ canvas{
 
 <div class="container">
 
-  <!-- LOTTIE -->
   <div class="visual">
     <lottie-player 
       src="https://assets2.lottiefiles.com/packages/lf20_kyu7xb1v.json"
@@ -205,14 +189,14 @@ canvas{
     </lottie-player>
   </div>
 
-  <!-- FORM -->
   <div class="form-card">
     <h2>Contact Us</h2>
 
-    <form id="contactForm">
-      <input type="text" placeholder="Your Name" required>
-      <input type="email" placeholder="Your Email" required>
-      <textarea rows="4" placeholder="Message" required></textarea>
+    <!-- ✅ FORMSPREE CONNECTED -->
+    <form id="contactForm" action="https://formspree.io/f/xpqykbvr" method="POST">
+      <input type="text" name="name" placeholder="Your Name" required>
+      <input type="email" name="email" placeholder="Your Email" required>
+      <textarea name="message" rows="4" placeholder="Message" required></textarea>
 
       <button type="submit">Send Message</button>
     </form>
@@ -222,7 +206,6 @@ canvas{
     </div>
   </div>
 
-  <!-- SOCIAL -->
   <div class="social">
     <a href="https://github.com/Deploylynx-tech" target="_blank">GitHub</a>
     <a href="https://linkedin.com" target="_blank">LinkedIn</a>
@@ -239,14 +222,26 @@ document.addEventListener("mousemove",e=>{
   document.querySelector(".cursor").style.top=e.clientY+"px";
 });
 
-/* SUCCESS MESSAGE */
-document.getElementById("contactForm").addEventListener("submit",function(e){
+/* FORMSPREE AJAX SUBMIT */
+const form = document.getElementById("contactForm");
+form.addEventListener("submit", async function(e){
   e.preventDefault();
-  document.getElementById("successMsg").style.display="block";
-  this.reset();
+
+  const data = new FormData(form);
+
+  await fetch(form.action, {
+    method: "POST",
+    body: data,
+    headers: {
+      'Accept': 'application/json'
+    }
+  });
+
+  document.getElementById("successMsg").style.display = "block";
+  form.reset();
 });
 
-/* NETWORK BACKGROUND */
+/* BACKGROUND */
 const canvas = document.getElementById("bg");
 const ctx = canvas.getContext("2d");
 
