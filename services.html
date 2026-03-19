@@ -2,36 +2,241 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Services - DeployLynx</title>
+<title>DeployLynx | Services</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<link rel="stylesheet" href="style.css">
-<script defer src="script.js"></script>
+<style>
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family:'Segoe UI',sans-serif;
+}
+
+body{
+  background:#0a0f1c;
+  color:#fff;
+  overflow:hidden;
+}
+
+/* NAV */
+nav{
+  display:flex;
+  justify-content:space-between;
+  padding:20px 50px;
+  position:relative;
+  z-index:2;
+}
+
+.logo{
+  font-size:22px;
+  color:#00c6ff;
+  font-weight:bold;
+}
+
+.menu a{
+  margin-left:25px;
+  color:#ccc;
+  text-decoration:none;
+}
+
+.menu a:hover{
+  color:#00c6ff;
+}
+
+/* BACKGROUND ANIMATION */
+.bg{
+  position:fixed;
+  width:100%;
+  height:100%;
+  overflow:hidden;
+  z-index:0;
+}
+
+.circle{
+  position:absolute;
+  border-radius:50%;
+  background:linear-gradient(45deg,#00c6ff,#ff6ec7);
+  opacity:0.15;
+  animation:move 15s linear infinite;
+}
+
+.circle:nth-child(1){
+  width:200px;height:200px;top:10%;left:10%;
+}
+.circle:nth-child(2){
+  width:300px;height:300px;top:60%;left:70%;
+  animation-duration:20s;
+}
+.circle:nth-child(3){
+  width:150px;height:150px;top:40%;left:40%;
+  animation-duration:25s;
+}
+
+@keyframes move{
+  0%{transform:translateY(0) rotate(0deg);}
+  100%{transform:translateY(-100px) rotate(360deg);}
+}
+
+/* LAYOUT */
+.container{
+  display:flex;
+  height:90vh;
+  align-items:center;
+  justify-content:space-around;
+  position:relative;
+  z-index:1;
+}
+
+/* LEFT SIDE (ANIMATION CIRCLE) */
+.visual{
+  position:relative;
+  width:350px;
+  height:350px;
+  border-radius:50%;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  border:2px dashed rgba(255,255,255,0.1);
+  animation:rotate 20s linear infinite;
+}
+
+@keyframes rotate{
+  100%{transform:rotate(360deg);}
+}
+
+.node{
+  position:absolute;
+  width:70px;
+  height:70px;
+  border-radius:50%;
+  background:linear-gradient(45deg,#00c6ff,#ff6ec7);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:12px;
+  text-align:center;
+  padding:5px;
+  transition:0.3s;
+}
+
+.node:hover{
+  transform:scale(1.2);
+  box-shadow:0 0 20px #00c6ff;
+}
+
+/* POSITION NODES */
+.node:nth-child(1){ top:-30px; left:140px;}
+.node:nth-child(2){ top:140px; right:-30px;}
+.node:nth-child(3){ bottom:-30px; left:140px;}
+.node:nth-child(4){ top:140px; left:-30px;}
+
+/* RIGHT SIDE SERVICES */
+.services{
+  max-width:500px;
+}
+
+.services h1{
+  font-size:36px;
+  margin-bottom:30px;
+  color:#00c6ff;
+}
+
+/* SERVICE CARDS */
+.service-card{
+  background:rgba(255,255,255,0.05);
+  padding:20px;
+  margin-bottom:20px;
+  border-radius:12px;
+  transition:0.3s;
+  border:1px solid rgba(255,255,255,0.1);
+}
+
+.service-card:hover{
+  transform:translateX(10px);
+  box-shadow:0 0 20px #ff6ec7;
+}
+
+.service-card h3{
+  margin-bottom:5px;
+}
+
+/* FOOTER TEXT */
+.tagline{
+  position:absolute;
+  bottom:20px;
+  width:100%;
+  text-align:center;
+  color:#888;
+  font-size:14px;
+}
+
+</style>
 </head>
 
 <body>
 
-<nav>
-<div><b>DeployLynx</b></div>
-<div>
-<a href="index.html">Home</a>
-<a href="about.html">About</a>
-<a href="services.html">Services</a>
-<a href="projects.html">Projects</a>
-<a href="contact.html">Contact</a>
-<a onclick="toggleTheme()">Theme</a>
+<!-- BACKGROUND -->
+<div class="bg">
+  <div class="circle"></div>
+  <div class="circle"></div>
+  <div class="circle"></div>
 </div>
+
+<!-- NAV -->
+<nav>
+  <div class="logo">DeployLynx</div>
+  <div class="menu">
+    <a href="index.html">Home</a>
+    <a href="about.html">About</a>
+    <a href="services.html">Services</a>
+    <a href="projects.html">Projects</a>
+    <a href="contact.html">Contact</a>
+  </div>
 </nav>
 
-<section>
+<!-- MAIN -->
+<div class="container">
 
-<h2>Our Services</h2>
+  <!-- LEFT VISUAL -->
+  <div class="visual">
+    <div class="node">CI/CD</div>
+    <div class="node">AWS</div>
+    <div class="node">AI</div>
+    <div class="node">Docker</div>
+  </div>
 
-<div class="card">DevOps CI/CD Pipelines</div>
-<div class="card">AWS Cloud Infrastructure</div>
-<div class="card">AI Automation Systems</div>
-<div class="card">Docker & Kubernetes</div>
+  <!-- RIGHT SERVICES -->
+  <div class="services">
+    <h1>Our Services</h1>
 
-</section>
+    <div class="service-card">
+      <h3>DevOps CI/CD Pipelines</h3>
+      <p>Automated build, test and deployment pipelines for fast and reliable delivery.</p>
+    </div>
+
+    <div class="service-card">
+      <h3>AWS Cloud Infrastructure</h3>
+      <p>Scalable, secure and production-ready cloud architectures.</p>
+    </div>
+
+    <div class="service-card">
+      <h3>AI Automation Systems</h3>
+      <p>Smart automation solutions to optimize workflows and reduce manual effort.</p>
+    </div>
+
+    <div class="service-card">
+      <h3>Docker & Kubernetes</h3>
+      <p>Containerization and orchestration for modern scalable applications.</p>
+    </div>
+
+  </div>
+
+</div>
+
+<div class="tagline">
+  Building intelligent, scalable systems for the future 🚀
+</div>
 
 </body>
 </html>
