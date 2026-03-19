@@ -2,51 +2,273 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Contact - DeployLynx</title>
+<title>DeployLynx | Contact</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<link rel="stylesheet" href="style.css">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-<script defer src="script.js"></script>
+<script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
+
+<style>
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family:'Segoe UI',sans-serif;
+}
+
+body{
+  background:#0a0f1c;
+  color:#fff;
+  overflow:hidden;
+}
+
+/* NAV */
+nav{
+  display:flex;
+  justify-content:space-between;
+  padding:20px 50px;
+  position:relative;
+  z-index:2;
+}
+
+.logo{
+  font-size:22px;
+  color:#00c6ff;
+  font-weight:bold;
+}
+
+.menu a{
+  margin-left:25px;
+  color:#ccc;
+  text-decoration:none;
+}
+
+.menu a:hover{
+  color:#00c6ff;
+}
+
+/* BACKGROUND CANVAS */
+canvas{
+  position:fixed;
+  top:0;
+  left:0;
+  z-index:0;
+}
+
+/* MAIN */
+.container{
+  display:flex;
+  align-items:center;
+  justify-content:space-around;
+  height:90vh;
+  position:relative;
+  z-index:1;
+  flex-wrap:wrap;
+}
+
+/* LEFT ANIMATION */
+.visual{
+  max-width:400px;
+}
+
+/* FORM CARD */
+.form-card{
+  background:rgba(0,0,0,0.7);
+  padding:30px;
+  border-radius:15px;
+  width:320px;
+  backdrop-filter:blur(10px);
+  border:1px solid rgba(255,255,255,0.1);
+  transition:0.3s;
+}
+
+.form-card:hover{
+  box-shadow:0 0 25px #00c6ff;
+  transform:translateY(-5px);
+}
+
+.form-card h2{
+  margin-bottom:20px;
+  color:#00c6ff;
+}
+
+.form-card input,
+.form-card textarea{
+  width:100%;
+  margin-bottom:15px;
+  padding:10px;
+  border:none;
+  border-radius:8px;
+  background:#111;
+  color:#fff;
+}
+
+.form-card button{
+  width:100%;
+  padding:10px;
+  border:none;
+  border-radius:8px;
+  background:#00c6ff;
+  color:#000;
+  cursor:pointer;
+  transition:0.3s;
+}
+
+.form-card button:hover{
+  background:#ff6ec7;
+}
+
+/* SOCIAL LINKS */
+.social{
+  margin-top:20px;
+  display:flex;
+  justify-content:space-between;
+  gap:15px;
+}
+
+.social a{
+  flex:1;
+  text-align:center;
+  padding:10px;
+  background:#111;
+  border-radius:8px;
+  color:#fff;
+  text-decoration:none;
+  font-size:14px;
+  transition:0.3s;
+}
+
+.social a:hover{
+  background:#00c6ff;
+  color:#000;
+}
+
+/* CURSOR */
+.cursor{
+  width:10px;
+  height:10px;
+  background:gold;
+  border-radius:50%;
+  position:fixed;
+  pointer-events:none;
+  box-shadow:0 0 15px gold;
+  transform:translate(-50%,-50%);
+  z-index:999;
+}
+
+</style>
 </head>
 
 <body>
 
+<canvas id="bg"></canvas>
+<div class="cursor"></div>
+
 <nav>
-<div><b>DeployLynx</b></div>
-<div>
-<a href="index.html">Home</a>
-<a href="about.html">About</a>
-<a href="services.html">Services</a>
-<a href="case-studies.html">Case Studies</a>
-<a href="contact.html">Contact</a>
-<a onclick="toggleTheme()">Theme</a>
-</div>
+  <div class="logo">DeployLynx</div>
+  <div class="menu">
+    <a href="index.html">Home</a>
+    <a href="about.html">About</a>
+    <a href="services.html">Services</a>
+    <a href="case-studies.html">Case Studies</a>
+    <a href="contact.html">Contact</a>
+  </div>
 </nav>
 
-<section>
+<div class="container">
 
-<h2>Contact Us</h2>
+  <!-- LEFT LOTTIE -->
+  <div class="visual">
+    <lottie-player 
+      src="https://assets2.lottiefiles.com/packages/lf20_kyu7xb1v.json"
+      background="transparent"
+      speed="1"
+      style="width:350px;height:350px;"
+      loop autoplay>
+    </lottie-player>
+  </div>
 
-<form onsubmit="sendMail(event)" class="card">
+  <!-- FORM -->
+  <div class="form-card">
+    <h2>Contact Us</h2>
 
-<input type="text" id="name" placeholder="Your Name" required>
-<input type="email" id="email" placeholder="Your Email" required>
-<textarea id="message" placeholder="Message"></textarea>
+    <input type="text" placeholder="Your Name">
+    <input type="email" placeholder="Your Email">
+    <textarea rows="4" placeholder="Message"></textarea>
 
-<button class="btn">Send Message</button>
+    <button>Send Message</button>
 
-</form>
-
-<div class="social">
-
-<a href="https://github.com/Deploylynx" target="_blank"><i class="fab fa-github"></i></a>
-<a href="https://www.linkedin.com/company/linkedin-deploylynx-devops/?viewAsMember=true" target="_blank"><i class="fab fa-linkedin"></i></a>
-<a href="https://www.instagram.com/deploylynx26/?hl=en" target="_blank"><i class="fab fa-instagram"></i></a>
-<a href="mailto:deploylynx26@gmail.com"><i class="fas fa-envelope"></i></a>
+    <div class="social">
+      <a href="https://github.com/Deploylynx-tech" target="_blank">GitHub</a>
+      <a href="https://linkedin.com" target="_blank">LinkedIn</a>
+      <a href="mailto:deploylynx26@gmail.com">Email</a>
+      <a href="https://instagram.com" target="_blank">Instagram</a>
+    </div>
+  </div>
 
 </div>
 
-</section>
+<script>
+/* CURSOR */
+document.addEventListener("mousemove",e=>{
+  document.querySelector(".cursor").style.left=e.clientX+"px";
+  document.querySelector(".cursor").style.top=e.clientY+"px";
+});
+
+/* NETWORK BACKGROUND */
+const canvas = document.getElementById("bg");
+const ctx = canvas.getContext("2d");
+
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
+
+let nodes = [];
+
+for(let i=0;i<60;i++){
+  nodes.push({
+    x:Math.random()*canvas.width,
+    y:Math.random()*canvas.height,
+    dx:(Math.random()-0.5)*1,
+    dy:(Math.random()-0.5)*1
+  });
+}
+
+function draw(){
+  ctx.clearRect(0,0,canvas.width,canvas.height);
+
+  nodes.forEach(n=>{
+    n.x+=n.dx;
+    n.y+=n.dy;
+
+    if(n.x<0||n.x>canvas.width) n.dx*=-1;
+    if(n.y<0||n.y>canvas.height) n.dy*=-1;
+
+    ctx.beginPath();
+    ctx.arc(n.x,n.y,2,0,Math.PI*2);
+    ctx.fillStyle="#00c6ff";
+    ctx.fill();
+  });
+
+  for(let i=0;i<nodes.length;i++){
+    for(let j=i+1;j<nodes.length;j++){
+      let dx=nodes[i].x-nodes[j].x;
+      let dy=nodes[i].y-nodes[j].y;
+      let dist=Math.sqrt(dx*dx+dy*dy);
+
+      if(dist<120){
+        ctx.beginPath();
+        ctx.moveTo(nodes[i].x,nodes[i].y);
+        ctx.lineTo(nodes[j].x,nodes[j].y);
+        ctx.strokeStyle="rgba(0,198,255,0.2)";
+        ctx.stroke();
+      }
+    }
+  }
+
+  requestAnimationFrame(draw);
+}
+
+draw();
+</script>
 
 </body>
 </html>
