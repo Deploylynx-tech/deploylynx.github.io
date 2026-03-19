@@ -9,29 +9,61 @@
 
 <style>
 
-/* NAV LOGO ANIMATION */
+/* BACKGROUND GRADIENT ANIMATION */
+body{
+background:linear-gradient(270deg,#0f172a,#020617,#1e293b);
+background-size:600% 600%;
+animation:bgMove 12s ease infinite;
+}
+
+@keyframes bgMove{
+0%{background-position:0% 50%;}
+50%{background-position:100% 50%;}
+100%{background-position:0% 50%;}
+}
+
+/* GLASS CARD */
+.card{
+background:rgba(255,255,255,0.05);
+backdrop-filter:blur(12px);
+border:1px solid rgba(255,255,255,0.1);
+border-radius:12px;
+padding:20px;
+transition:.3s;
+}
+
+.card:hover{
+transform:scale(1.05);
+box-shadow:0 0 25px rgba(56,189,248,0.5);
+}
+
+/* NAV LOGO */
 .logo{
-font-weight:bold;
-font-size:18px;
 color:white;
+font-weight:bold;
+}
+
+/* SERVICE ICON ANIMATION */
+.icon{
+font-size:30px;
+margin-bottom:10px;
+display:block;
+animation:float 3s ease-in-out infinite;
+}
+
+@keyframes float{
+0%,100%{transform:translateY(0);}
+50%{transform:translateY(-8px);}
 }
 
 /* QUOTE */
 .quote{
 margin-top:20px;
-font-size:18px;
 color:#ffb6c1;
 height:25px;
 }
 
-/* BACKGROUND */
-canvas{
-position:fixed;
-top:0;
-left:0;
-z-index:-1;
-}
-
+/* STATS */
 .stats{
 text-align:center;
 padding:40px;
@@ -42,6 +74,7 @@ font-size:30px;
 color:#38bdf8;
 }
 
+/* FOOTER */
 footer{
 text-align:center;
 padding:20px;
@@ -53,8 +86,6 @@ background:#020617;
 </head>
 
 <body>
-
-<canvas id="bg"></canvas>
 
 <nav>
 <div class="logo" id="logoText"></div>
@@ -81,7 +112,38 @@ DeployLynx
 
 </section>
 
-<!-- GitHub Stats -->
+<!-- SERVICES PREVIEW -->
+<section>
+
+<h2>Core Services</h2>
+
+<div style="display:flex;gap:20px;flex-wrap:wrap;justify-content:center;">
+
+<div class="card">
+<span class="icon">⚙️</span>
+DevOps CI/CD
+</div>
+
+<div class="card">
+<span class="icon">☁️</span>
+AWS Cloud
+</div>
+
+<div class="card">
+<span class="icon">🤖</span>
+AI Automation
+</div>
+
+<div class="card">
+<span class="icon">🐳</span>
+Docker & Kubernetes
+</div>
+
+</div>
+
+</section>
+
+<!-- GITHUB STATS -->
 <section class="stats">
 
 <h2>GitHub Activity</h2>
@@ -97,54 +159,7 @@ DeployLynx © 2026 All Rights Reserved
 
 <script>
 
-/* FLOATING DOTS */
-const canvas = document.getElementById("bg");
-const ctx = canvas.getContext("2d");
-
-canvas.width = window.innerWidth;
-canvas.height = window.innerHeight;
-
-let dots = [];
-
-for(let i=0;i<80;i++){
-dots.push({
-x:Math.random()*canvas.width,
-y:Math.random()*canvas.height,
-dx:(Math.random()-0.5),
-dy:(Math.random()-0.5)
-});
-}
-
-function animate(){
-ctx.clearRect(0,0,canvas.width,canvas.height);
-
-dots.forEach(d=>{
-d.x+=d.dx;
-d.y+=d.dy;
-
-if(d.x<0||d.x>canvas.width) d.dx*=-1;
-if(d.y<0||d.y>canvas.height) d.dy*=-1;
-
-ctx.fillStyle="#38bdf8";
-ctx.beginPath();
-ctx.arc(d.x,d.y,2,0,Math.PI*2);
-ctx.fill();
-});
-
-requestAnimationFrame(animate);
-}
-
-animate();
-
-/* GITHUB STATS */
-fetch("https://api.github.com/repos/Deploylynx/deploylynx-devsecops-pipeline")
-.then(res=>res.json())
-.then(data=>{
-document.getElementById("stars").innerText=data.stargazers_count;
-document.getElementById("forks").innerText=data.forks_count;
-});
-
-/* LOGO LOOP ANIMATION */
+/* LOGO LOOP */
 let text="DeployLynx";
 let i=0;
 
@@ -161,10 +176,9 @@ animateLogo();
 },1500);
 }
 }
-
 animateLogo();
 
-/* QUOTE TYPING */
+/* QUOTE */
 let quoteText="Engineering scalable systems. Automating the future.";
 let j=0;
 
@@ -175,8 +189,31 @@ j++;
 setTimeout(typeQuote,50);
 }
 }
-
 typeQuote();
+
+/* FIXED GITHUB STATS (MULTIPLE REPOS) */
+
+const repos = [
+"deploylynx-monitoring",
+"deploylynx-infrastructure",
+"deploylynx-devsecops-pipeline",
+"ai-automation-tools"
+];
+
+let totalStars = 0;
+let totalForks = 0;
+
+repos.forEach(repo=>{
+fetch(`https://api.github.com/repos/Deploylynx/${repo}`)
+.then(res=>res.json())
+.then(data=>{
+totalStars += data.stargazers_count || 0;
+totalForks += data.forks_count || 0;
+
+document.getElementById("stars").innerText = totalStars;
+document.getElementById("forks").innerText = totalForks;
+});
+});
 
 </script>
 
