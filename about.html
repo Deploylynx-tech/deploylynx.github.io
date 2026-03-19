@@ -2,30 +2,236 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>About - DeployLynx</title>
+<title>DeployLynx | About</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<link rel="stylesheet" href="style.css">
-<script defer src="script.js"></script>
+<style>
+/* RESET */
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+body{
+  background:#0a0f1c;
+  color:#fff;
+  overflow-x:hidden;
+}
+
+/* NAVBAR */
+nav{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:20px 50px;
+}
+
+.logo{
+  font-size:22px;
+  font-weight:bold;
+  color:#00c6ff;
+}
+
+.menu a{
+  margin-left:25px;
+  text-decoration:none;
+  color:#ccc;
+  transition:0.3s;
+}
+
+.menu a:hover{
+  color:#00c6ff;
+}
+
+/* HERO */
+.hero{
+  text-align:center;
+  margin-top:80px;
+}
+
+.typing-title{
+  font-size:42px;
+  font-weight:bold;
+  color:#00c6ff;
+}
+
+.typing-quote{
+  margin-top:15px;
+  font-size:18px;
+  color:#ff6ec7;
+}
+
+/* ABOUT SECTION */
+.about{
+  max-width:900px;
+  margin:80px auto;
+  text-align:center;
+  line-height:1.8;
+  font-size:17px;
+  color:#ccc;
+}
+
+/* DOTS BACKGROUND */
+canvas{
+  position:fixed;
+  top:0;
+  left:0;
+  z-index:-1;
+}
+
+/* STAR CURSOR */
+.cursor{
+  width:20px;
+  height:20px;
+  position:fixed;
+  pointer-events:none;
+  transform:translate(-50%,-50%);
+  z-index:999;
+}
+
+.star{
+  width:100%;
+  height:100%;
+  background:gold;
+  clip-path: polygon(
+    50% 0%, 61% 35%, 98% 35%, 
+    68% 57%, 79% 91%, 
+    50% 70%, 21% 91%, 
+    32% 57%, 2% 35%, 
+    39% 35%
+  );
+  box-shadow:0 0 15px gold;
+}
+</style>
 </head>
 
 <body>
 
+<!-- DOT BACKGROUND -->
+<canvas id="dots"></canvas>
+
+<!-- CURSOR -->
+<div class="cursor"><div class="star"></div></div>
+
+<!-- NAVBAR -->
 <nav>
-<div><b>DeployLynx</b></div>
-<div>
-<a href="index.html">Home</a>
-<a href="about.html">About</a>
-<a href="services.html">Services</a>
-<a href="projects.html">Projects</a>
-<a href="contact.html">Contact</a>
-<a onclick="toggleTheme()">Theme</a>
-</div>
+  <div class="logo">DeployLynx</div>
+  <div class="menu">
+    <a href="#">Home</a>
+    <a href="#">About</a>
+    <a href="#">Services</a>
+    <a href="#">Projects</a>
+    <a href="#">Contact</a>
+    <a href="#">Theme</a>
+  </div>
 </nav>
 
-<section>
-<h2>About Us</h2>
-<p>DeployLynx builds scalable, secure and production-ready systems using DevOps, Cloud and AI Automation.</p>
-</section>
+<!-- HERO -->
+<div class="hero">
+  <div class="typing-title" id="title"></div>
+  <div class="typing-quote" id="quote"></div>
+</div>
+
+<!-- ABOUT TEXT -->
+<div class="about">
+  <p>
+    DeployLynx is a modern technology initiative focused on building scalable, resilient,
+    and production-grade digital systems powered by DevOps, Cloud Infrastructure, and
+    AI-driven automation. Our mission is to transform ideas into robust, real-world solutions
+    that are secure, efficient, and engineered for long-term growth.
+  </p>
+
+  <br>
+
+  <p>
+    We specialize in designing cloud-native architectures, automating complex workflows,
+    and implementing industry-level CI/CD pipelines that reflect real enterprise environments.
+    Every solution we build follows an automation-first mindset, ensuring speed, reliability,
+    and consistency across deployments.
+  </p>
+
+  <br>
+
+  <p>
+    At DeployLynx, we believe in building systems that are not only functional but also
+    intelligent — capable of scaling seamlessly, adapting to modern challenges, and delivering
+    high performance in production environments. Our work reflects precision, innovation,
+    and a commitment to engineering excellence.
+  </p>
+</div>
+
+<script>
+/* TYPING ANIMATION */
+const titleText = "DeployLynx";
+const quoteText = "Engineering the future with scalable systems, intelligent automation, and cloud-native excellence.";
+
+let i = 0;
+let j = 0;
+
+function typeTitle(){
+  if(i < titleText.length){
+    document.getElementById("title").innerHTML += titleText.charAt(i);
+    i++;
+    setTimeout(typeTitle,100);
+  } else {
+    setTimeout(typeQuote,500);
+  }
+}
+
+function typeQuote(){
+  if(j < quoteText.length){
+    document.getElementById("quote").innerHTML += quoteText.charAt(j);
+    j++;
+    setTimeout(typeQuote,40);
+  }
+}
+
+typeTitle();
+
+/* STAR CURSOR */
+const cursor = document.querySelector(".cursor");
+document.addEventListener("mousemove", e => {
+  cursor.style.top = e.clientY + "px";
+  cursor.style.left = e.clientX + "px";
+});
+
+/* DOT BACKGROUND */
+const canvas = document.getElementById("dots");
+const ctx = canvas.getContext("2d");
+
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
+
+let dots = [];
+
+for(let i=0;i<100;i++){
+  dots.push({
+    x:Math.random()*canvas.width,
+    y:Math.random()*canvas.height,
+    r:Math.random()*2
+  });
+}
+
+function draw(){
+  ctx.clearRect(0,0,canvas.width,canvas.height);
+  ctx.fillStyle="#00c6ff";
+
+  dots.forEach(d=>{
+    ctx.beginPath();
+    ctx.arc(d.x,d.y,d.r,0,Math.PI*2);
+    ctx.fill();
+
+    d.y += 0.3;
+    if(d.y > canvas.height) d.y = 0;
+  });
+
+  requestAnimationFrame(draw);
+}
+
+draw();
+</script>
 
 </body>
 </html>
