@@ -6,12 +6,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <style>
-*{
-  margin:0;
-  padding:0;
-  box-sizing:border-box;
-  font-family:'Segoe UI',sans-serif;
-}
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Segoe UI',sans-serif;}
 
 body{
   background:#0a0f1c;
@@ -19,7 +14,7 @@ body{
   overflow-x:hidden;
 }
 
-/* NAV */
+/* NAVBAR */
 nav{
   display:flex;
   justify-content:space-between;
@@ -28,14 +23,25 @@ nav{
 
 .logo{
   font-size:22px;
+  font-weight:bold;
   color:#00c6ff;
+}
+
+/* typing logo top-right */
+.typing-logo{
+  position:absolute;
+  right:50px;
+  top:25px;
+  color:#fff;
   font-weight:bold;
 }
 
+/* MENU */
 .menu a{
   margin-left:25px;
-  color:#ccc;
   text-decoration:none;
+  color:#ccc;
+  transition:0.3s;
 }
 
 .menu a:hover{
@@ -48,36 +54,16 @@ nav{
   margin-top:80px;
 }
 
-.typing-title{
+.title{
   font-size:42px;
-  background: linear-gradient(90deg,#00c6ff,#ff6ec7,#00c6ff);
-  background-size:200%;
-  -webkit-background-clip:text;
-  -webkit-text-fill-color:transparent;
-  animation:gradientMove 3s linear infinite;
+  font-weight:bold;
+  color:#00c6ff;
 }
 
-@keyframes gradientMove{
-  0%{background-position:0%}
-  100%{background-position:200%}
-}
-
-.quote-wrapper{
-  display:inline-flex;
-  align-items:center;
-  gap:8px;
-}
-
-.typing-quote{
+.quote{
   margin-top:15px;
   font-size:18px;
   color:#ff6ec7;
-}
-
-.star{
-  color:gold;
-  font-size:20px;
-  text-shadow:0 0 10px gold;
 }
 
 /* ABOUT */
@@ -87,39 +73,6 @@ nav{
   text-align:center;
   line-height:1.8;
   color:#ccc;
-}
-
-/* GLASS */
-.glass{
-  background:rgba(255,255,255,0.05);
-  backdrop-filter:blur(10px);
-  border:1px solid rgba(255,255,255,0.1);
-  border-radius:15px;
-  transition:0.3s;
-}
-
-.glass:hover{
-  transform:translateY(-8px);
-  box-shadow:0 0 20px #00c6ff;
-}
-
-/* STATS */
-.stats{
-  display:flex;
-  justify-content:center;
-  gap:40px;
-  margin:80px 0;
-}
-
-.stat{
-  padding:25px;
-  text-align:center;
-  width:150px;
-}
-
-.stat h2{
-  color:#00c6ff;
-  font-size:35px;
 }
 
 /* TEAM */
@@ -139,17 +92,19 @@ nav{
   gap:30px;
 }
 
+/* BLUE CARDS */
 .card{
+  width:220px;
   padding:25px;
-  width:200px;
   border-radius:15px;
-  background:rgba(255,255,255,0.05);
-  backdrop-filter:blur(10px);
-  transition:0.3s;
+  background:#0f1a33;
+  border:1px solid rgba(0,198,255,0.2);
+  transition:0.4s;
 }
 
 .card:hover{
-  box-shadow:0 0 20px #ff6ec7;
+  transform:translateY(-10px) scale(1.05);
+  box-shadow:0 0 25px #00c6ff;
 }
 
 /* PROJECTS */
@@ -174,32 +129,12 @@ nav{
   padding:25px;
   border-radius:15px;
   background:linear-gradient(135deg,#11182b,#0a0f1c);
-  position:relative;
   transition:0.4s;
 }
 
 .project-card:hover{
-  transform:translateY(-10px) scale(1.05);
+  transform:translateY(-10px);
   box-shadow:0 0 25px #00c6ff;
-}
-
-.project-card::before{
-  content:"";
-  position:absolute;
-  inset:0;
-  border-radius:15px;
-  padding:1px;
-  background:linear-gradient(45deg,#00c6ff,#ff6ec7,#00c6ff);
-  -webkit-mask:
-    linear-gradient(#000 0 0) content-box,
-    linear-gradient(#000 0 0);
-  -webkit-mask-composite: xor;
-  mask-composite: exclude;
-  opacity:0;
-}
-
-.project-card:hover::before{
-  opacity:1;
 }
 
 /* SCROLL */
@@ -208,7 +143,6 @@ nav{
   transform:translateY(40px);
   transition:1s;
 }
-
 .fade.show{
   opacity:1;
   transform:translateY(0);
@@ -243,76 +177,73 @@ canvas{
 
 <nav>
   <div class="logo">DeployLynx</div>
+
   <div class="menu">
-    <a href="#">Home</a>
-    <a href="#">About</a>
+    <a href="index.html">Home</a>
+    <a href="about.html">About</a>
     <a href="#">Services</a>
     <a href="#">Projects</a>
     <a href="#">Contact</a>
-    <a href="#">Theme</a>
+    <a href="#"><span>🌙</span> Theme</a>
   </div>
+
+  <div class="typing-logo" id="typingLogo"></div>
 </nav>
 
+<!-- HERO -->
 <div class="hero">
-  <div class="typing-title" id="title"></div>
-
-  <div class="quote-wrapper">
-    <div class="typing-quote" id="quote"></div>
-    <div class="star">★</div>
+  <div class="title">DeployLynx</div>
+  <div class="quote">
+    Engineering the future with scalable systems, intelligent automation, and cloud-native excellence.
   </div>
 </div>
 
+<!-- ABOUT -->
 <div class="about fade">
 <p>
-DeployLynx builds scalable, secure and production-ready systems using DevOps, Cloud and AI Automation. 
+DeployLynx builds scalable, secure and production-ready systems using DevOps, Cloud and AI Automation.
 We design cloud-native architectures, automate workflows and deliver enterprise-grade solutions.
 </p>
 </div>
 
-<div class="stats fade">
-  <div class="glass stat">
-    <h2 id="clients">0</h2>
-    <p>Clients</p>
-  </div>
-  <div class="glass stat">
-    <h2 id="deployments">0</h2>
-    <p>Deployments</p>
-  </div>
-  <div class="glass stat">
-    <h2 id="uptime">0</h2>
-    <p>Uptime %</p>
-  </div>
-</div>
-
+<!-- TEAM -->
 <div class="team fade">
 <h2>Our Team</h2>
 <div class="team-grid">
+
   <div class="card">
     <h3>DevOps Engineer</h3>
     <p>CI/CD • Automation</p>
   </div>
+
   <div class="card">
     <h3>Cloud Architect</h3>
     <p>AWS • Infrastructure</p>
   </div>
+
   <div class="card">
     <h3>AI Engineer</h3>
     <p>Automation • Intelligence</p>
   </div>
+
 </div>
 </div>
 
+<!-- PROJECTS -->
 <div class="projects fade">
 <h2>Featured Projects</h2>
+
 <div class="project-grid">
   <div class="project-card">
     <h3>DevSecOps Pipeline</h3>
-    <p>CI/CD with GitHub Actions & Docker</p>
+    <p>CI/CD with GitHub Actions</p>
   </div>
+
   <div class="project-card">
     <h3>Kubernetes Cluster</h3>
-    <p>Production container orchestration</p>
+    <p>Production orchestration</p>
   </div>
+
   <div class="project-card">
     <h3>Terraform AWS</h3>
     <p>Infrastructure as Code</p>
@@ -321,27 +252,21 @@ We design cloud-native architectures, automate workflows and deliver enterprise-
 </div>
 
 <script>
-/* typing */
-let t="DeployLynx",q="Engineering the future with scalable systems, intelligent automation, and cloud-native excellence.";
-let i=0,j=0;
-
-function tt(){
-  if(i<t.length){
-    title.innerHTML+=t[i++];
-    setTimeout(tt,100);
-  } else tq();
-}
-function tq(){
-  if(j<q.length){
-    quote.innerHTML+=q[j++];
-    setTimeout(tq,30);
+/* typing top-right */
+let text="DeployLynx";
+let i=0;
+function type(){
+  if(i<text.length){
+    document.getElementById("typingLogo").innerHTML+=text[i++];
+    setTimeout(type,120);
   }
 }
-tt();
+type();
 
 /* cursor */
 document.addEventListener("mousemove",e=>{
-  document.querySelector(".cursor").style.cssText=`top:${e.clientY}px;left:${e.clientX}px`;
+  document.querySelector(".cursor").style.top=e.clientY+"px";
+  document.querySelector(".cursor").style.left=e.clientX+"px";
 });
 
 /* dots */
@@ -350,6 +275,7 @@ dots.width=innerWidth;
 dots.height=innerHeight;
 let d=[];
 for(let i=0;i<100;i++) d.push({x:Math.random()*dots.width,y:Math.random()*dots.height});
+
 function draw(){
   c.clearRect(0,0,dots.width,dots.height);
   c.fillStyle="#00c6ff";
@@ -371,22 +297,7 @@ window.addEventListener("scroll",()=>{
       el.classList.add("show");
     }
   });
-
-  if(clients.innerText==0){
-    count("clients",12);
-    count("deployments",35);
-    count("uptime",99);
-  }
 });
-
-function count(id,end){
-  let n=0;
-  let x=setInterval(()=>{
-    n++;
-    document.getElementById(id).innerText=n;
-    if(n>=end) clearInterval(x);
-  },30);
-}
 </script>
 
 </body>
