@@ -222,40 +222,51 @@ document.addEventListener("mousemove",e=>{
   document.querySelector(".cursor").style.top=e.clientY+"px";
 });
 
-/* ✅ FIXED FORM (FORMSPREE + GOOGLE SHEETS BOTH) */
+/* ✅ FIXED ONE-CLICK FORM */
 const form = document.getElementById("contactForm");
+const button = form.querySelector("button");
 
 form.addEventListener("submit", async function(e){
   e.preventDefault();
 
+  button.disabled = true;
+  button.innerText = "Sending...";
+
   const data = new FormData(form);
 
-  /* 1️⃣ SEND EMAIL (FORMSPREE) */
-  await fetch(form.action, {
-    method: "POST",
-    body: data,
-    headers: {
-      'Accept': 'application/json'
-    }
-  });
+  try {
+    await Promise.all([
 
-  /* 2️⃣ SEND TO GOOGLE SHEETS (FIXED JSON ✅) */
-  await fetch("https://script.google.com/macros/s/AKfycbztEuM2vU1PhSe5x4qr7N-FSvyFriPQtkuAEP74UxieW6sRRxQXps-Q-tjmhAmbSJ-KFg/exec", {
-    method: "POST",
-    body: JSON.stringify({
-      name: data.get("name"),
-      email: data.get("email"),
-      message: data.get("message")
-    }),
-    headers: {
-      "Content-Type": "application/json"
-    },
-    mode: "no-cors"   // 🔥 REQUIRED for Google Apps Script
-  });
+      /* 1️⃣ Formspree */
+      fetch(form.action, {
+        method: "POST",
+        body: data,
+        headers: { 'Accept': 'application/json' }
+      }),
 
-  /* SUCCESS UI */
-  document.getElementById("successMsg").style.display = "block";
-  form.reset();
+      /* 2️⃣ Google Sheets */
+      fetch("https://script.google.com/macros/s/AKfycbztEuM2vU1PhSe5x4qr7N-FSvyFriPQtkuAEP74UxieW6sRRxQXps-Q-tjmhAmbSJ-KFg/exec", {
+        method: "POST",
+        body: JSON.stringify({
+          name: data.get("name"),
+          email: data.get("email"),
+          message: data.get("message")
+        }),
+        headers: { "Content-Type": "application/json" },
+        mode: "no-cors"
+      })
+
+    ]);
+
+    document.getElementById("successMsg").style.display = "block";
+    form.reset();
+
+  } catch (err) {
+    alert("❌ Failed to send. Try again.");
+  }
+
+  button.disabled = false;
+  button.innerText = "Send Message";
 });
 
 /* BACKGROUND */
@@ -313,6 +324,5 @@ function draw(){
 
 draw();
 </script>
-
 </body>
 </html>
