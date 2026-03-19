@@ -36,6 +36,7 @@ nav{
   margin-left:25px;
   color:#ccc;
   text-decoration:none;
+  transition:0.3s;
 }
 
 .menu a:hover{
@@ -62,22 +63,10 @@ nav{
   100%{background-position:200%}
 }
 
-.quote-wrapper{
-  display:inline-flex;
-  align-items:center;
-  gap:8px;
-}
-
 .typing-quote{
   margin-top:15px;
   font-size:18px;
-  color:#ff6ec7;
-}
-
-.star{
-  color:gold;
-  font-size:20px;
-  text-shadow:0 0 10px gold;
+  color:#ffffff; /* changed to white */
 }
 
 /* ABOUT */
@@ -244,11 +233,11 @@ canvas{
 <nav>
   <div class="logo">DeployLynx</div>
   <div class="menu">
-    <a href="#">Home</a>
-    <a href="#">About</a>
-    <a href="#">Services</a>
-    <a href="#">Projects</a>
-    <a href="#">Contact</a>
+    <a href="index.html">Home</a>
+    <a href="about.html">About</a>
+    <a href="services.html">Services</a>
+    <a href="projects.html">Projects</a>
+    <a href="contact.html">Contact</a>
     <a href="#">Theme</a>
   </div>
 </nav>
@@ -256,10 +245,7 @@ canvas{
 <div class="hero">
   <div class="typing-title" id="title"></div>
 
-  <div class="quote-wrapper">
-    <div class="typing-quote" id="quote"></div>
-    <div class="star">★</div>
-  </div>
+  <div class="typing-quote" id="quote"></div>
 </div>
 
 <div class="about fade">
