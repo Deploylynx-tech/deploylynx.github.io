@@ -12,14 +12,27 @@ font-family:Arial;
 background:#0f172a;
 color:white;
 overflow-x:hidden;
+cursor:none;
 }
 
-/* TECH BACKGROUND */
+/* CANVAS BACKGROUND */
 canvas{
 position:fixed;
 top:0;
 left:0;
 z-index:-1;
+}
+
+/* STAR CURSOR */
+.cursor{
+position:fixed;
+width:20px;
+height:20px;
+pointer-events:none;
+border-radius:50%;
+background:radial-gradient(circle,#ffd700,transparent);
+box-shadow:0 0 15px #ffd700,0 0 30px #ffd700;
+z-index:9999;
 }
 
 /* NAVBAR */
@@ -77,28 +90,49 @@ backdrop-filter:blur(10px);
 border-radius:12px;
 padding:20px;
 width:220px;
-transition:.3s;
 text-align:center;
+transition:.3s;
 }
 
 .card:hover{
 transform:translateY(-8px);
-box-shadow:0 0 20px #38bdf8;
+box-shadow:0 0 25px #38bdf8;
 }
 
-/* TESTIMONIALS */
+/* ICON ANIMATION */
+.icon{
+font-size:30px;
+display:block;
+margin-bottom:10px;
+animation:float 3s ease-in-out infinite;
+}
+
+@keyframes float{
+0%,100%{transform:translateY(0);}
+50%{transform:translateY(-10px);}
+}
+
+/* TESTIMONIAL CARDS */
 .testimonials{
-text-align:center;
+display:flex;
+flex-wrap:wrap;
+justify-content:center;
+gap:20px;
 padding:40px;
 }
 
-.testimonial{
-display:inline-block;
-margin:10px;
-padding:15px 20px;
+.test-card{
 background:rgba(255,255,255,0.05);
-border-radius:10px;
-font-size:14px;
+backdrop-filter:blur(10px);
+padding:20px;
+border-radius:12px;
+width:260px;
+transition:.3s;
+}
+
+.test-card:hover{
+transform:scale(1.05);
+box-shadow:0 0 25px #38bdf8;
 }
 
 /* STATS */
@@ -124,6 +158,7 @@ text-align:center;
 
 <body>
 
+<div class="cursor" id="cursor"></div>
 <canvas id="tech"></canvas>
 
 <nav>
@@ -147,19 +182,34 @@ text-align:center;
 <!-- SERVICES -->
 <section class="services">
 
-<div class="card">⚙️ DevOps CI/CD</div>
-<div class="card">☁️ AWS Cloud</div>
-<div class="card">🤖 AI Automation</div>
-<div class="card">🐳 Docker & Kubernetes</div>
+<div class="card">
+<span class="icon">⚙️</span>
+DevOps CI/CD
+</div>
+
+<div class="card">
+<span class="icon">☁️</span>
+AWS Cloud
+</div>
+
+<div class="card">
+<span class="icon">🤖</span>
+AI Automation
+</div>
+
+<div class="card">
+<span class="icon">🐳</span>
+Docker & Kubernetes
+</div>
 
 </section>
 
-<!-- TESTIMONIALS (SAFE ADD — NO BREAK) -->
+<!-- TESTIMONIALS -->
 <section class="testimonials">
 
-<div class="testimonial">Scalable systems built for production.</div>
-<div class="testimonial">Automation-first modern solutions.</div>
-<div class="testimonial">Secure cloud-native infrastructure.</div>
+<div class="test-card">Scalable systems built for production.</div>
+<div class="test-card">Automation-first modern solutions.</div>
+<div class="test-card">Secure cloud-native infrastructure.</div>
 
 </section>
 
@@ -179,14 +229,21 @@ DeployLynx © 2026 All Rights Reserved
 
 <script>
 
-/* TECH ANIMATED BACKGROUND */
-const canvas = document.getElementById("tech");
-const ctx = canvas.getContext("2d");
+/* CURSOR */
+const cursor=document.getElementById("cursor");
+document.addEventListener("mousemove",e=>{
+cursor.style.left=e.clientX+"px";
+cursor.style.top=e.clientY+"px";
+});
 
-canvas.width = window.innerWidth;
-canvas.height = window.innerHeight;
+/* TECH BACKGROUND */
+const canvas=document.getElementById("tech");
+const ctx=canvas.getContext("2d");
 
-let particles = [];
+canvas.width=window.innerWidth;
+canvas.height=window.innerHeight;
+
+let particles=[];
 
 for(let i=0;i<70;i++){
 particles.push({
@@ -213,7 +270,6 @@ ctx.arc(p.x,p.y,2,0,Math.PI*2);
 ctx.fill();
 });
 
-/* CONNECTING LINES */
 for(let i=0;i<particles.length;i++){
 for(let j=i+1;j<particles.length;j++){
 let dx=particles[i].x-particles[j].x;
@@ -234,7 +290,7 @@ requestAnimationFrame(draw);
 }
 draw();
 
-/* LOGO ANIMATION */
+/* LOGO */
 let t="DeployLynx";
 let i=0;
 
