@@ -8,6 +8,8 @@
 <style>
 *{margin:0;padding:0;box-sizing:border-box;font-family:'Segoe UI',sans-serif;}
 
+html{scroll-behavior:smooth;}
+
 body{
   background:#0a0f1c;
   color:#fff;
@@ -19,6 +21,9 @@ nav{
   display:flex;
   justify-content:space-between;
   padding:20px 50px;
+  position:sticky;
+  top:0;
+  background:#0a0f1c;
 }
 
 .logo{
@@ -57,30 +62,26 @@ nav{
   color:#ff6ec7;
 }
 
+/* SECTION */
+.section{
+  padding:100px 20px;
+  text-align:center;
+}
+
 /* ABOUT */
 .about{
   max-width:900px;
-  margin:80px auto;
-  text-align:center;
+  margin:auto;
   line-height:1.8;
   color:#ccc;
 }
 
 /* TEAM */
-.team{
-  text-align:center;
-  margin:80px 0;
-}
-
-.team h2{
-  color:#00c6ff;
-  margin-bottom:30px;
-}
-
 .team-grid{
   display:flex;
   justify-content:center;
   gap:30px;
+  margin-top:30px;
 }
 
 /* BLUE CARDS */
@@ -136,21 +137,22 @@ canvas{
 <canvas id="dots"></canvas>
 <div class="cursor"></div>
 
+<!-- NAV -->
 <nav>
   <div class="logo" id="typingLogo"></div>
 
   <div class="menu">
-    <a href="index.html">Home</a>
-    <a href="about.html">About</a>
-    <a href="#">Services</a>
-    <a href="#">Projects</a>
-    <a href="#">Contact</a>
+    <a href="#home">Home</a>
+    <a href="#about">About</a>
+    <a href="#services">Services</a>
+    <a href="#projects">Projects</a>
+    <a href="#contact">Contact</a>
     <a href="#"><span>🌙</span> Theme</a>
   </div>
 </nav>
 
-<!-- HERO -->
-<div class="hero">
+<!-- HOME -->
+<div id="home" class="hero section">
   <div class="title">DeployLynx</div>
   <div class="quote">
     Engineering the future with scalable systems, intelligent automation, and cloud-native excellence.
@@ -158,44 +160,61 @@ canvas{
 </div>
 
 <!-- ABOUT -->
-<div class="about fade">
-<p>
-DeployLynx builds scalable, secure and production-ready systems using DevOps, Cloud and AI Automation.
-We design cloud-native architectures, automate workflows and deliver enterprise-grade solutions.
-</p>
+<div id="about" class="section fade">
+  <h2 style="color:#00c6ff;">About</h2>
+  <div class="about">
+    DeployLynx builds scalable, secure and production-ready systems using DevOps, Cloud and AI Automation.
+  </div>
+</div>
+
+<!-- SERVICES -->
+<div id="services" class="section fade">
+  <h2 style="color:#00c6ff;">Services</h2>
+  <p>DevOps • Cloud • AI Automation Solutions</p>
+</div>
+
+<!-- PROJECTS -->
+<div id="projects" class="section fade">
+  <h2 style="color:#00c6ff;">Projects</h2>
+  <p>Coming Soon — Real DevOps Projects</p>
 </div>
 
 <!-- TEAM -->
-<div class="team fade">
-<h2>Our Team</h2>
-<div class="team-grid">
+<div class="section fade">
+  <h2 style="color:#00c6ff;">Our Team</h2>
 
-  <div class="card">
-    <h3>DevOps Engineer</h3>
-    <p>CI/CD • Automation</p>
+  <div class="team-grid">
+    <div class="card">
+      <h3>DevOps Engineer</h3>
+      <p>CI/CD • Automation</p>
+    </div>
+
+    <div class="card">
+      <h3>Cloud Architect</h3>
+      <p>AWS • Infrastructure</p>
+    </div>
+
+    <div class="card">
+      <h3>AI Engineer</h3>
+      <p>Automation • Intelligence</p>
+    </div>
   </div>
-
-  <div class="card">
-    <h3>Cloud Architect</h3>
-    <p>AWS • Infrastructure</p>
-  </div>
-
-  <div class="card">
-    <h3>AI Engineer</h3>
-    <p>Automation • Intelligence</p>
-  </div>
-
 </div>
+
+<!-- CONTACT -->
+<div id="contact" class="section fade">
+  <h2 style="color:#00c6ff;">Contact</h2>
+  <p>your@email.com</p>
 </div>
 
 <script>
-/* typing logo LEFT */
+/* typing logo */
 let text="DeployLynx";
 let i=0;
 function type(){
   if(i<text.length){
     document.getElementById("typingLogo").innerHTML+=text[i++];
-    setTimeout(type,120);
+    setTimeout(type,100);
   }
 }
 type();
@@ -227,7 +246,7 @@ function draw(){
 }
 draw();
 
-/* scroll */
+/* scroll animation */
 window.addEventListener("scroll",()=>{
   document.querySelectorAll(".fade").forEach(el=>{
     if(el.getBoundingClientRect().top<window.innerHeight-100){
