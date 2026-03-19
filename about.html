@@ -24,16 +24,7 @@ nav{
 .logo{
   font-size:22px;
   font-weight:bold;
-  color:#00c6ff;
-}
-
-/* typing logo top-right */
-.typing-logo{
-  position:absolute;
-  right:50px;
-  top:25px;
   color:#fff;
-  font-weight:bold;
 }
 
 /* MENU */
@@ -107,36 +98,6 @@ nav{
   box-shadow:0 0 25px #00c6ff;
 }
 
-/* PROJECTS */
-.projects{
-  text-align:center;
-  margin:100px 0;
-}
-
-.projects h2{
-  color:#00c6ff;
-  margin-bottom:40px;
-}
-
-.project-grid{
-  display:flex;
-  justify-content:center;
-  gap:30px;
-}
-
-.project-card{
-  width:260px;
-  padding:25px;
-  border-radius:15px;
-  background:linear-gradient(135deg,#11182b,#0a0f1c);
-  transition:0.4s;
-}
-
-.project-card:hover{
-  transform:translateY(-10px);
-  box-shadow:0 0 25px #00c6ff;
-}
-
 /* SCROLL */
 .fade{
   opacity:0;
@@ -176,7 +137,7 @@ canvas{
 <div class="cursor"></div>
 
 <nav>
-  <div class="logo">DeployLynx</div>
+  <div class="logo" id="typingLogo"></div>
 
   <div class="menu">
     <a href="index.html">Home</a>
@@ -186,8 +147,6 @@ canvas{
     <a href="#">Contact</a>
     <a href="#"><span>🌙</span> Theme</a>
   </div>
-
-  <div class="typing-logo" id="typingLogo"></div>
 </nav>
 
 <!-- HERO -->
@@ -229,30 +188,8 @@ We design cloud-native architectures, automate workflows and deliver enterprise-
 </div>
 </div>
 
-<!-- PROJECTS -->
-<div class="projects fade">
-<h2>Featured Projects</h2>
-
-<div class="project-grid">
-  <div class="project-card">
-    <h3>DevSecOps Pipeline</h3>
-    <p>CI/CD with GitHub Actions</p>
-  </div>
-
-  <div class="project-card">
-    <h3>Kubernetes Cluster</h3>
-    <p>Production orchestration</p>
-  </div>
-
-  <div class="project-card">
-    <h3>Terraform AWS</h3>
-    <p>Infrastructure as Code</p>
-  </div>
-</div>
-</div>
-
 <script>
-/* typing top-right */
+/* typing logo LEFT */
 let text="DeployLynx";
 let i=0;
 function type(){
