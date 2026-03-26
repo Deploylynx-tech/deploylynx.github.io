@@ -1,271 +1,174 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<title>DeployLynx Contact</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
+<!-- ================= CHATBOT UI ================= -->
 <style>
-*{margin:0;padding:0;box-sizing:border-box;font-family:sans-serif;}
-
-body{
-background:#0a0f1c;
-color:white;
-overflow-x:hidden;
+#chatbotIcon{
+  position:fixed;
+  bottom:20px;
+  right:20px;
+  background:#00c6ff;
+  color:#000;
+  padding:12px 15px;
+  border-radius:50%;
+  cursor:pointer;
+  z-index:9999;
+  font-size:18px;
+  box-shadow:0 0 15px #00c6ff;
 }
 
-/* FIX CLICK ISSUE */
-canvas{
-position:fixed;
-top:0;
-left:0;
-z-index:0;
-pointer-events:none;
+#chatbotWindow{
+  position:fixed;
+  bottom:80px;
+  right:20px;
+  width:300px;
+  height:400px;
+  background:#0a0f1c;
+  border:1px solid #00c6ff;
+  border-radius:12px;
+  display:none;
+  flex-direction:column;
+  z-index:9999;
 }
 
-nav{
-position:relative;
-z-index:10;
-display:flex;
-justify-content:space-between;
-padding:20px 40px;
+#chatbotHeader{
+  background:#00c6ff;
+  color:#000;
+  padding:10px;
+  cursor:pointer;
+  font-weight:bold;
 }
 
-nav a{
-color:white;
-margin-left:20px;
-text-decoration:none;
-cursor:pointer;
+#chatbotMessages{
+  flex:1;
+  padding:10px;
+  overflow-y:auto;
+  display:flex;
+  flex-direction:column;
+  gap:8px;
 }
 
-.container{
-position:relative;
-z-index:5;
-display:flex;
-flex-direction:column;
-align-items:center;
-margin-top:80px;
+#chatbotInput{
+  display:flex;
 }
 
-.form-card{
-background:#111;
-padding:25px;
-border-radius:12px;
-width:320px;
+#chatbotInput input{
+  flex:1;
+  padding:8px;
+  border:none;
+  outline:none;
 }
 
-input,textarea{
-width:100%;
-padding:10px;
-margin-bottom:10px;
-background:#000;
-border:none;
-color:white;
-border-radius:6px;
-}
-
-button{
-padding:10px;
-width:100%;
-background:#00c6ff;
-border:none;
-cursor:pointer;
-}
-
-.whatsapp-btn{
-display:block;
-text-align:center;
-margin-top:10px;
-background:#25D366;
-padding:10px;
-color:white;
-text-decoration:none;
-border-radius:6px;
-}
-
-/* CHATBOT */
-#chatIcon{
-position:fixed;
-right:20px;
-bottom:20px;
-background:#00c6ff;
-width:60px;
-height:60px;
-border-radius:50%;
-display:flex;
-justify-content:center;
-align-items:center;
-cursor:pointer;
-z-index:1000;
-}
-
-#chatBox{
-position:fixed;
-right:20px;
-bottom:90px;
-width:320px;
-height:420px;
-background:black;
-display:none;
-flex-direction:column;
-border-radius:12px;
-z-index:1000;
-}
-
-#messages{
-flex:1;
-overflow:auto;
-padding:10px;
-display:flex;
-flex-direction:column;
-}
-
-.msg{
-padding:8px;
-margin:5px;
-border-radius:6px;
-max-width:80%;
-}
-
-.user{background:#00c6ff;color:black;align-self:flex-end;}
-.ai{background:#111;color:#00c6ff;}
-
-#inputBox{
-display:flex;
-}
-
-#inputBox input{
-flex:1;
-padding:10px;
-background:#111;
-border:none;
-color:white;
-}
-
-#inputBox button{
-padding:10px;
-background:#00c6ff;
-border:none;
+#chatbotInput button{
+  background:#00c6ff;
+  border:none;
+  padding:8px;
+  cursor:pointer;
 }
 </style>
-</head>
 
-<body>
+<div id="chatbotIcon">💬</div>
 
-<canvas></canvas>
+<div id="chatbotWindow">
+  <div id="chatbotHeader">AI Assistant (Click to Close)</div>
+  <div id="chatbotMessages"></div>
 
-<nav>
-<div>DeployLynx</div>
-<div>
-<a href="#">Home</a>
-<a href="#">Services</a>
-<a href="#">Contact</a>
-</div>
-</nav>
-
-<div class="container">
-
-<div class="form-card">
-<h3>Contact</h3>
-
-<form action="https://formspree.io/f/xpqykbvr" method="POST">
-<input type="text" placeholder="Name" required>
-<input type="email" placeholder="Email" required>
-<textarea placeholder="Message"></textarea>
-<button>Send Message</button>
-</form>
-
-<a class="whatsapp-btn" href="https://wa.me/message/VXHPTQC4ZU46A1" target="_blank">
-💬 Chat on WhatsApp
-</a>
-</div>
-
-</div>
-
-<!-- CHATBOT -->
-<div id="chatIcon">💬</div>
-
-<div id="chatBox">
-<div id="messages"></div>
-
-<div id="inputBox">
-<input id="input" placeholder="Type...">
-<button onclick="send()">Send</button>
-</div>
+  <div id="chatbotInput">
+    <input type="text" id="chatInput" placeholder="Type a message...">
+    <button id="sendBtn">Send</button>
+  </div>
 </div>
 
 <script>
-let history=[];
-let askedEmail=false;
+const icon = document.getElementById("chatbotIcon");
+const windowBox = document.getElementById("chatbotWindow");
+const header = document.getElementById("chatbotHeader");
+const messages = document.getElementById("chatbotMessages");
+const input = document.getElementById("chatInput");
+const send = document.getElementById("sendBtn");
 
-function add(text,type){
-let d=document.createElement("div");
-d.className="msg "+type;
-d.innerText=text;
-document.getElementById("messages").appendChild(d);
-d.scrollIntoView();
+let userEmail = "";
+let stage = "start";
+
+icon.onclick = ()=> windowBox.style.display="flex";
+header.onclick = ()=> windowBox.style.display="none";
+
+function addMsg(text,type){
+  const div = document.createElement("div");
+  div.style.padding="8px";
+  div.style.borderRadius="8px";
+  div.style.maxWidth="85%";
+
+  if(type==="user"){
+    div.style.background="#00c6ff";
+    div.style.color="#000";
+    div.style.alignSelf="flex-end";
+  } else {
+    div.style.background="#111";
+    div.style.color="#00c6ff";
+    div.style.alignSelf="flex-start";
+  }
+
+  div.innerText=text;
+  messages.appendChild(div);
+  messages.scrollTop = messages.scrollHeight;
 }
 
-function ai(text){
-let t=text.toLowerCase();
-history.push(t);
-let full=history.join(" ");
-
-if(t.includes("hi")||t.includes("hello")){
-return "Hi 👋 This is DeployLynx team. How can we help you today?";
+function botReply(text){
+  setTimeout(()=> addMsg(text,"bot"),500);
 }
 
-if(full.includes("ecommerce")){
-return "Got it — eCommerce projects require strong performance and uptime. We can help you scale your website so it handles traffic smoothly without crashes.";
+/* 🔥 SMART HUMAN-LIKE FLOW */
+function handleAI(text){
+
+  const t = text.toLowerCase();
+
+  if(stage==="start"){
+    stage="ask_problem";
+    return "Hi 👋 Thanks for reaching out to DeployLynx.\n\nCould you briefly tell me about your project or what you're trying to achieve?";
+  }
+
+  if(t.includes("traffic") || t.includes("ecommerce")){
+    stage="solution";
+    return "Got it 👍\n\nFor eCommerce growth, traffic alone isn’t enough — your infrastructure must handle users smoothly.\n\nWe usually help with:\n✔ Fast loading speeds\n✔ Scalable backend (no crashes)\n✔ Optimized deployments\n\nThis directly improves both traffic retention & conversions.\n\nCan I ask — are you currently hosted on AWS, VPS, or shared hosting?";
+  }
+
+  if(t.includes("aws") || t.includes("server") || t.includes("hosting")){
+    stage="pricing";
+    return "Perfect — that helps.\n\nBased on your requirement (high availability within 1 week), we can set up:\n\n✔ CI/CD pipeline\n✔ Load-balanced deployment\n✔ Auto-scaling infrastructure\n\n💰 Pricing depends on complexity, but most projects range between **$150 – $500**.\n\nTo guide you properly, may I have your email?";
+  }
+
+  if(stage==="pricing"){
+    userEmail = text;
+
+    /* 🔥 SAVE LEAD TO GOOGLE SHEET */
+    fetch("https://script.google.com/macros/s/AKfycbztEuM2vU1PhSe5x4qr7N-FSvyFriPQtkuAEP74UxieW6sRRxQXps-Q-tjmhAmbSJ-KFg/exec",{
+      method:"POST",
+      body:JSON.stringify({
+        email:userEmail,
+        message:"Chatbot Lead"
+      }),
+      headers:{"Content-Type":"application/json"},
+      mode:"no-cors"
+    });
+
+    stage="close";
+
+    return "Thanks! 🙌\n\nI’ve noted your details.\n\n👉 For faster communication, let’s continue on WhatsApp where we can discuss your project in real-time:\n\nhttps://wa.me/923XXXXXXXXX?text=Hi%20I%20need%20DevOps%20help\n\nLooking forward to helping you scale 🚀";
+  }
+
+  return "I understand 👍 Could you share a bit more detail so I can guide you better?";
 }
 
-if(full.includes("traffic")){
-return "To increase traffic, we focus on improving speed, uptime, and SEO performance. A fast and stable site naturally ranks better and converts more users.";
-}
+send.onclick = ()=>{
+  const val = input.value.trim();
+  if(!val) return;
 
-if(full.includes("deploy")||full.includes("launch")){
-return "We can deploy your project with high availability, load balancing, and zero-downtime setup so your users always get a smooth experience.";
-}
+  addMsg(val,"user");
+  input.value="";
 
-if(full.includes("ci")||full.includes("cd")){
-return "We’ll automate your entire deployment using CI/CD so updates become fast, reliable, and error-free.";
-}
-
-if(t.includes("price")||t.includes("cost")){
-return "It depends on your project requirements. The best way is a quick discussion so we can understand your goals and suggest the right solution. You can connect with us on WhatsApp for a faster response.";
-}
-
-if(!askedEmail && history.length>3){
-askedEmail=true;
-return "This looks like a serious project 🚀 Can you share your email? We’ll send you a proper plan tailored to your needs.";
-}
-
-if(askedEmail && t.includes("@")){
-return "Perfect 👍 Our team will contact you shortly. For faster communication, feel free to message us on WhatsApp as well.";
-}
-
-return "Got it 👍 Can you tell me a bit more about your project so I can guide you better?";
-}
-
-function send(){
-let input=document.getElementById("input");
-let val=input.value.trim();
-if(!val) return;
-
-add(val,"user");
-input.value="";
-
-setTimeout(()=>{
-add(ai(val),"ai");
-},500);
-}
-
-// toggle
-document.getElementById("chatIcon").onclick=()=>{
-let box=document.getElementById("chatBox");
-box.style.display=box.style.display==="flex"?"none":"flex";
+  const reply = handleAI(val);
+  botReply(reply);
 };
-</script>
 
-</body>
-</html>
+input.addEventListener("keypress",e=>{
+  if(e.key==="Enter") send.click();
+});
+</script>
