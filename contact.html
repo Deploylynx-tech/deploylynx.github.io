@@ -158,6 +158,62 @@ canvas{
   transform:translate(-50%,-50%);
   z-index:999;
 }
+
+/* 🤖 CHATBOT */
+.chatbot{
+  position:fixed;
+  bottom:20px;
+  right:20px;
+  width:300px;
+  background:#111;
+  border-radius:15px;
+  box-shadow:0 0 20px rgba(0,198,255,0.3);
+  overflow:hidden;
+  z-index:9999;
+  display:flex;
+  flex-direction:column;
+}
+
+.chat-header{
+  background:#00c6ff;
+  color:#000;
+  padding:10px;
+  font-weight:bold;
+}
+
+.chat-body{
+  height:250px;
+  overflow-y:auto;
+  padding:10px;
+  font-size:14px;
+}
+
+.chat-msg{
+  margin-bottom:10px;
+}
+
+.user{ text-align:right; color:#00c6ff; }
+.bot{ text-align:left; color:#fff; }
+
+.chat-input{
+  display:flex;
+}
+
+.chat-input input{
+  flex:1;
+  padding:8px;
+  border:none;
+  outline:none;
+  background:#000;
+  color:#fff;
+}
+
+.chat-input button{
+  padding:8px 12px;
+  border:none;
+  background:#00c6ff;
+  cursor:pointer;
+}
 </style>
 </head>
 
@@ -192,7 +248,6 @@ canvas{
   <div class="form-card">
     <h2>Contact Us</h2>
 
-    <!-- ✅ FORMSPREE CONNECTED -->
     <form id="contactForm" action="https://formspree.io/f/xpqykbvr" method="POST">
       <input type="text" name="name" placeholder="Your Name" required>
       <input type="email" name="email" placeholder="Your Email" required>
@@ -215,6 +270,18 @@ canvas{
 
 </div>
 
+<!-- 🤖 CHATBOT -->
+<div class="chatbot">
+  <div class="chat-header">DeployLynx AI</div>
+  <div class="chat-body" id="chatBody">
+    <div class="chat-msg bot">Hi 👋 I'm DeployLynx AI. How can I help with your DevOps needs?</div>
+  </div>
+  <div class="chat-input">
+    <input type="text" id="chatInput" placeholder="Ask something...">
+    <button onclick="sendMsg()">➤</button>
+  </div>
+</div>
+
 <script>
 /* CURSOR */
 document.addEventListener("mousemove",e=>{
@@ -222,131 +289,80 @@ document.addEventListener("mousemove",e=>{
   document.querySelector(".cursor").style.top=e.clientY+"px";
 });
 
-<script>
-// AI Chatbot logic
-const chatbotIcon = document.getElementById("chatbotIcon");
-const chatbotWindow = document.getElementById("chatbotWindow");
-const chatbotHeader = document.getElementById("chatbotHeader");
-const chatbotMessages = document.getElementById("chatbotMessages");
-const chatInput = document.getElementById("chatInput");
-const sendBtn = document.getElementById("sendBtn");
-
-chatbotIcon.addEventListener("click", ()=>{
-  chatbotWindow.style.display = chatbotWindow.style.display==="flex"?"none":"flex";
-});
-
-chatbotHeader.addEventListener("click", ()=>{
-  chatbotWindow.style.display="none";
-});
-
-function addMessage(text, sender){
-  const msg = document.createElement("div");
-  msg.style.marginBottom="10px";
-  msg.style.padding="5px 8px";
-  msg.style.borderRadius="6px";
-  msg.style.maxWidth="90%";
-  msg.style.wordWrap="break-word";
-
-  if(sender==="user"){
-    msg.style.background="#00c6ff";
-    msg.style.color="#000";
-    msg.style.alignSelf="flex-end";
-    msg.textContent = text;
-  } else {
-    msg.style.background="#111";
-    msg.style.color="#00c6ff";
-    msg.style.alignSelf="flex-start";
-    msg.textContent = text;
-  }
-
-  chatbotMessages.appendChild(msg);
-  chatbotMessages.scrollTop = chatbotMessages.scrollHeight;
-}
-
-// Professional AI response logic
-function getAIResponse(userText){
-  const text = userText.toLowerCase();
-
-  if(text.includes("hello") || text.includes("hi")){
-    return "Hello! 👋 How can I assist you with your DevOps, deployment, or technical queries today?";
-  } else if(text.includes("help") || text.includes("support")){
-    return "Sure! I’m here to help. Could you please specify the area you need assistance with: CI/CD, AWS, Kubernetes, or automation?";
-  } else if(text.includes("contact") || text.includes("email")){
-    return "You can reach us directly at deploylynx26@gmail.com or via our WhatsApp chat for instant support.";
-  } else if(text.includes("services")){
-    return "We provide end-to-end DevOps solutions including CI/CD pipelines, cloud deployments, automation, and monitoring.";
-  } else if(text.includes("thank")){
-    return "You're welcome! If you have any more questions, feel free to ask.";
-  } else {
-    return "Thank you for your message. I’ll do my best to assist you! Could you please provide more details about your request?";
-  }
-}
-
-sendBtn.addEventListener("click", ()=>{
-  const val = chatInput.value.trim();
-  if(!val) return;
-  addMessage(val,"user");
-  chatInput.value="";
-  
-  setTimeout(()=>{
-    const aiReply = getAIResponse(val);
-    addMessage(aiReply,"ai");
-  },500);
-});
-
-chatInput.addEventListener("keypress", e=>{
-  if(e.key==="Enter") sendBtn.click();
-});
-</script>  
-
-/* ✅ FIXED ONE-CLICK FORM */
+/* FORM */
 const form = document.getElementById("contactForm");
 const button = form.querySelector("button");
 
 form.addEventListener("submit", async function(e){
   e.preventDefault();
-
   button.disabled = true;
   button.innerText = "Sending...";
-
   const data = new FormData(form);
 
   try {
     await Promise.all([
-
-      /* 1️⃣ Formspree */
-      fetch(form.action, {
-        method: "POST",
-        body: data,
-        headers: { 'Accept': 'application/json' }
-      }),
-
-      /* 2️⃣ Google Sheets */
-      fetch("https://script.google.com/macros/s/AKfycbztEuM2vU1PhSe5x4qr7N-FSvyFriPQtkuAEP74UxieW6sRRxQXps-Q-tjmhAmbSJ-KFg/exec", {
-        method: "POST",
-        body: JSON.stringify({
-          name: data.get("name"),
-          email: data.get("email"),
-          message: data.get("message")
+      fetch(form.action,{method:"POST",body:data,headers:{'Accept':'application/json'}}),
+      fetch("https://script.google.com/macros/s/AKfycbztEuM2vU1PhSe5x4qr7N-FSvyFriPQtkuAEP74UxieW6sRRxQXps-Q-tjmhAmbSJ-KFg/exec",{
+        method:"POST",
+        body:JSON.stringify({
+          name:data.get("name"),
+          email:data.get("email"),
+          message:data.get("message")
         }),
-        headers: { "Content-Type": "application/json" },
-        mode: "no-cors"
+        headers:{"Content-Type":"application/json"},
+        mode:"no-cors"
       })
-
     ]);
-
-    document.getElementById("successMsg").style.display = "block";
+    document.getElementById("successMsg").style.display="block";
     form.reset();
-
-  } catch (err) {
-    alert("❌ Failed to send. Try again.");
+  } catch {
+    alert("❌ Failed to send.");
   }
-
-  button.disabled = false;
-  button.innerText = "Send Message";
+  button.disabled=false;
+  button.innerText="Send Message";
 });
 
-/* BACKGROUND */
+/* 🤖 AI CHATBOT */
+function sendMsg(){
+  const input=document.getElementById("chatInput");
+  const msg=input.value.trim();
+  if(!msg) return;
+
+  addMsg(msg,"user");
+  input.value="";
+
+  setTimeout(()=>{
+    addMsg(getAIReply(msg),"bot");
+  },600);
+}
+
+function addMsg(text,type){
+  const div=document.createElement("div");
+  div.className="chat-msg "+type;
+  div.innerText=text;
+  document.getElementById("chatBody").appendChild(div);
+  document.getElementById("chatBody").scrollTop=9999;
+}
+
+function getAIReply(msg){
+  msg=msg.toLowerCase();
+
+  if(msg.includes("price")||msg.includes("cost"))
+    return "Pricing depends on your infrastructure and scale. Share details via contact form and we’ll provide a tailored quote.";
+
+  if(msg.includes("deploy")||msg.includes("ci/cd"))
+    return "We build automated CI/CD pipelines using GitHub Actions, Docker, and AWS for zero-downtime deployments.";
+
+  if(msg.includes("aws")||msg.includes("cloud"))
+    return "We specialize in AWS architecture, scaling, and cost optimization for production-grade systems.";
+
+  if(msg.includes("help")||msg.includes("service"))
+    return "We help startups fix deployments, scale infrastructure, and automate everything.";
+
+  return "That’s a great question. For detailed discussion, please use the contact form and our team will respond professionally.";
+}
+
+/* BACKGROUND (UNCHANGED) */
 const canvas = document.getElementById("bg");
 const ctx = canvas.getContext("2d");
 
