@@ -237,6 +237,8 @@ canvas{
   padding:10px;
   overflow-y:auto;
   font-size:14px;
+  display:flex;
+  flex-direction:column;
 }
 
 #chatbotInput{
@@ -307,7 +309,6 @@ canvas{
       <button type="submit">Send Message</button>
     </form>
 
-    <!-- ✅ WHATSAPP BUTTON -->
     <a href="https://wa.me/message/VXHPTQC4ZU46A1" target="_blank" class="whatsapp-btn">
       💬 Chat on WhatsApp
     </a>
@@ -439,7 +440,7 @@ function draw(){
 
 draw();
 
-// AI Chatbot logic
+// ------------------- PROFESSIONAL AI CHATBOT -------------------
 const chatbotIcon = document.getElementById("chatbotIcon");
 const chatbotWindow = document.getElementById("chatbotWindow");
 const chatbotHeader = document.getElementById("chatbotHeader");
@@ -458,24 +459,61 @@ chatbotHeader.addEventListener("click", ()=>{
 function addMessage(text, sender){
   const msg = document.createElement("div");
   msg.style.marginBottom="10px";
-  msg.textContent = (sender==="user"? "You: ":"AI: ") + text;
+  msg.style.padding="5px 8px";
+  msg.style.borderRadius="6px";
+  msg.style.maxWidth="90%";
+  msg.style.wordWrap="break-word";
+
+  if(sender==="user"){
+    msg.style.background="#00c6ff";
+    msg.style.color="#000";
+    msg.style.alignSelf="flex-end";
+    msg.textContent = text;
+  } else {
+    msg.style.background="#111";
+    msg.style.color="#00c6ff";
+    msg.style.alignSelf="flex-start";
+    msg.textContent = text;
+  }
+
   chatbotMessages.appendChild(msg);
   chatbotMessages.scrollTop = chatbotMessages.scrollHeight;
 }
 
-// Simple AI placeholder
+// Professional AI response logic
+function getAIResponse(userText){
+  const text = userText.toLowerCase();
+
+  if(text.includes("hello") || text.includes("hi")){
+    return "Hello! 👋 How can I assist you with your DevOps, deployment, or technical queries today?";
+  } else if(text.includes("help") || text.includes("support")){
+    return "Sure! I’m here to help. Could you please specify the area you need assistance with: CI/CD, AWS, Kubernetes, or automation?";
+  } else if(text.includes("contact") || text.includes("email")){
+    return "You can reach us directly at deploylynx26@gmail.com or via our WhatsApp chat for instant support.";
+  } else if(text.includes("services")){
+    return "We provide end-to-end DevOps solutions including CI/CD pipelines, cloud deployments, automation, and monitoring.";
+  } else if(text.includes("thank")){
+    return "You're welcome! If you have any more questions, feel free to ask.";
+  } else {
+    return "Thank you for your message. I’ll do my best to assist you! Could you please provide more details about your request?";
+  }
+}
+
 sendBtn.addEventListener("click", ()=>{
   const val = chatInput.value.trim();
   if(!val) return;
   addMessage(val,"user");
   chatInput.value="";
-  setTimeout(()=>{ addMessage("Hello! This is a demo AI response. 🔹","ai"); },500);
+  
+  setTimeout(()=>{
+    const aiReply = getAIResponse(val);
+    addMessage(aiReply,"ai");
+  },500);
 });
 
 chatInput.addEventListener("keypress", e=>{
   if(e.key==="Enter") sendBtn.click();
 });
 </script>
-
 </body>
 </html>
