@@ -92,8 +92,7 @@ canvas{
 }
 
 .form-card input,
-.form-card textarea,
-.form-card select{
+.form-card textarea{
   width:100%;
   margin-bottom:15px;
   padding:10px;
@@ -279,7 +278,7 @@ canvas{
     <div class="chat-msg bot">Hi 👋 What’s your project?</div>
   </div>
   <div class="chat-input">
-    <input type="text" id="chatInput" placeholder="Hi I need CICD...">
+    <input type="text" id="chatInput" placeholder="Type your message...">
     <select id="serviceSelect">
       <option value="">What service do you need?</option>
       <option value="CI/CD">CI/CD</option>
@@ -293,9 +292,9 @@ canvas{
 
 <script>
 /* CURSOR */
-document.addEventListener("mousemove",e=>{
-  document.querySelector(".cursor").style.left=e.clientX+"px";
-  document.querySelector(".cursor").style.top=e.clientY+"px";
+document.addEventListener("mousemove", e => {
+  document.querySelector(".cursor").style.left = e.clientX + "px";
+  document.querySelector(".cursor").style.top = e.clientY + "px";
 });
 
 /* FORM */
@@ -331,7 +330,7 @@ form.addEventListener("submit", async function(e){
   button.innerText="Send Message";
 });
 
-/* 🤖 CHATBOT */
+/* CHATBOT */
 function sendMsg(){
   const input = document.getElementById("chatInput");
   const select = document.getElementById("serviceSelect");
@@ -339,66 +338,58 @@ function sendMsg(){
   if(select.value) msg += " | Service: " + select.value;
   if(!msg) return;
 
-  addMsg(msg,"user");
-  input.value="";
-  select.value="";
+  addMsg(msg, "user");
+  input.value = "";
+  select.value = "";
 
-  setTimeout(()=>{
-    addMsg("Thanks! Redirecting you to WhatsApp...", "bot");
-    setTimeout(()=>{
-      window.open("https://wa.me/yourwhatsappnumber?text=" + encodeURIComponent(msg), "_blank");
-    }, 1000);
+  setTimeout(() => {
+    const reply = getBotReply(msg);
+    addMsg(reply, "bot");
   }, 600);
 }
 
-function addMsg(text,type){
+function addMsg(text, type){
   const div = document.createElement("div");
-  div.className="chat-msg "+type;
-  div.innerText=text;
+  div.className = "chat-msg " + type;
+  div.innerText = text;
   document.getElementById("chatBody").appendChild(div);
-  document.getElementById("chatBody").scrollTop=9999;
+  document.getElementById("chatBody").scrollTop = 9999;
+}
+
+function getBotReply(msg){
+  msg = msg.toLowerCase();
+  if(msg.includes("ci/cd") || msg.includes("deploy")) return "We build automated CI/CD pipelines using GitHub Actions, Docker, and AWS.";
+  if(msg.includes("aws") || msg.includes("cloud")) return "We specialize in AWS architecture, scaling, and cost optimization.";
+  if(msg.includes("automation")) return "We can automate your deployments and infrastructure for efficiency.";
+  if(msg.includes("scaling")) return "We help scale your systems for production-grade traffic.";
+
+  return "That’s great! For detailed discussion, we can continue on WhatsApp. Click here after this message.";
 }
 
 /* BACKGROUND */
 const canvas = document.getElementById("bg");
 const ctx = canvas.getContext("2d");
-
 canvas.width = window.innerWidth;
 canvas.height = window.innerHeight;
 
 let nodes = [];
-
 for(let i=0;i<60;i++){
-  nodes.push({
-    x:Math.random()*canvas.width,
-    y:Math.random()*canvas.height,
-    dx:(Math.random()-0.5),
-    dy:(Math.random()-0.5)
-  });
+  nodes.push({x:Math.random()*canvas.width,y:Math.random()*canvas.height,dx:(Math.random()-0.5),dy:(Math.random()-0.5)});
 }
 
 function draw(){
   ctx.clearRect(0,0,canvas.width,canvas.height);
-
   nodes.forEach(n=>{
-    n.x+=n.dx;
-    n.y+=n.dy;
-
+    n.x+=n.dx; n.y+=n.dy;
     if(n.x<0||n.x>canvas.width) n.dx*=-1;
     if(n.y<0||n.y>canvas.height) n.dy*=-1;
-
-    ctx.beginPath();
-    ctx.arc(n.x,n.y,2,0,Math.PI*2);
-    ctx.fillStyle="#00c6ff";
-    ctx.fill();
+    ctx.beginPath(); ctx.arc(n.x,n.y,2,0,Math.PI*2); ctx.fillStyle="#00c6ff"; ctx.fill();
   });
-
   for(let i=0;i<nodes.length;i++){
     for(let j=i+1;j<nodes.length;j++){
       let dx=nodes[i].x-nodes[j].x;
       let dy=nodes[i].y-nodes[j].y;
       let dist=Math.sqrt(dx*dx+dy*dy);
-
       if(dist<120){
         ctx.beginPath();
         ctx.moveTo(nodes[i].x,nodes[i].y);
@@ -408,10 +399,8 @@ function draw(){
       }
     }
   }
-
   requestAnimationFrame(draw);
 }
-
 draw();
 </script>
 </body>
