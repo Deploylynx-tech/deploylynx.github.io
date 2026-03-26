@@ -15,6 +15,30 @@
   font-family:'Segoe UI',sans-serif;
 }
 
+/* 📲 WhatsApp Floating Button */
+.whatsapp-btn{
+  position:fixed;
+  bottom:20px;
+  left:20px;
+  width:55px;
+  height:55px;
+  background:#25D366;
+  color:#fff;
+  font-size:26px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  border-radius:50%;
+  text-decoration:none;
+  box-shadow:0 0 15px rgba(37,211,102,0.6);
+  z-index:9999;
+  transition:0.3s;
+}
+
+.whatsapp-btn:hover{
+  transform:scale(1.1);
+  box-shadow:0 0 25px rgba(37,211,102,1);
+}  
 body{
   background:#0a0f1c;
   color:#fff;
@@ -417,5 +441,10 @@ function draw(){
 
 draw();
 </script>
+
+<!-- 📲 WhatsApp Button -->
+<a href="https://wa.me/message/VXHPTQC4ZU46A1" target="_blank" class="whatsapp-btn">
+  💬
+</a>  
 </body>
 </html>
