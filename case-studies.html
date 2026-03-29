@@ -1,265 +1,384 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<title>DeployLynx | Case Studies</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
+    <title>DeployLynx | Case Studies</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
+    <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
 
-<style>
-*{
-  margin:0;
-  padding:0;
-  box-sizing:border-box;
-  font-family:'Segoe UI',sans-serif;
-}
+    <style>
+        :root {
+            --primary-cyan: #00c6ff;
+            --accent-pink: #ff6ec7;
+            --dark-bg: #0a0f1c;
+        }
 
-body{
-  background:#0a0f1c;
-  color:#fff;
-  overflow-x:hidden;
-}
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+        }
 
-/* NAV */
-nav{
-  display:flex;
-  justify-content:space-between;
-  padding:20px 50px;
-}
+        body {
+            background: var(--dark-bg);
+            color: #fff;
+            overflow-x: hidden;
+            /* Cursor hidden for gold dot on desktop */
+            cursor: none;
+            line-height: 1.6;
+        }
 
-.logo{
-  font-size:22px;
-  color:#00c6ff;
-  font-weight:bold;
-}
+        /* NAVIGATION */
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 5%;
+            background: rgba(10, 15, 28, 0.9);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            backdrop-filter: blur(10px);
+        }
 
-.menu a{
-  margin-left:25px;
-  color:#ccc;
-  text-decoration:none;
-}
+        .logo {
+            font-size: 24px;
+            color: var(--primary-cyan);
+            font-weight: bold;
+        }
 
-.menu a:hover{
-  color:#00c6ff;
-}
+        .menu {
+            display: flex;
+            align-items: center;
+        }
 
-/* HERO */
-.hero{
-  display:flex;
-  align-items:center;
-  justify-content:space-around;
-  margin-top:60px;
-  flex-wrap:wrap;
-  gap:30px;
-}
+        .menu a {
+            margin-left: 25px;
+            color: #ccc;
+            text-decoration: none;
+            transition: 0.3s;
+            font-size: 0.95rem;
+        }
 
-.hero-text{
-  max-width:500px;
-}
+        .menu a:hover {
+            color: var(--primary-cyan);
+        }
 
-.hero-text h1{
-  font-size:42px;
-  margin-bottom:15px;
-  background: linear-gradient(90deg,#00c6ff,#ff6ec7);
-  -webkit-background-clip:text;
-  -webkit-text-fill-color:transparent;
-}
+        /* MOBILE MENU TOGGLE */
+        .menu-toggle {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+        }
 
-.hero-text p{
-  color:#aaa;
-  line-height:1.6;
-}
+        .menu-toggle span {
+            width: 25px;
+            height: 3px;
+            background: white;
+            border-radius: 2px;
+        }
 
-/* SECTION */
-.section{
-  margin:80px auto;
-  max-width:1100px;
-  padding:0 20px;
-}
+        /* HERO SECTION */
+        .hero {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 50px;
+            padding: 80px 10% 40px;
+            flex-wrap: wrap;
+        }
 
-.section h2{
-  text-align:center;
-  margin-bottom:40px;
-  color:#00c6ff;
-}
+        .hero-text {
+            flex: 1;
+            min-width: 300px;
+            max-width: 600px;
+        }
 
-/* GRID */
-.grid{
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
-  gap:30px;
-}
+        .hero-text h1 {
+            font-size: clamp(36px, 8vw, 52px);
+            margin-bottom: 20px;
+            font-weight: 800;
+            background: linear-gradient(90deg, var(--primary-cyan), var(--accent-pink));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
 
-/* CLICKABLE CARD (ANCHOR) */
-.card{
-  display:block;
-  text-decoration:none;
-  color:inherit;
-  background:rgba(255,255,255,0.05);
-  padding:25px;
-  border-radius:15px;
-  position:relative;
-  overflow:hidden;
-  transition:0.4s;
-  border:1px solid rgba(255,255,255,0.1);
-  cursor:pointer;
-}
+        .hero-text p {
+            color: #cbd5e1;
+            font-size: 1.1rem;
+            max-width: 500px;
+        }
 
-/* glowing border */
-.card::before{
-  content:"";
-  position:absolute;
-  inset:0;
-  border-radius:15px;
-  padding:1px;
-  background:linear-gradient(45deg,#00c6ff,#ff6ec7,#00c6ff);
-  -webkit-mask:
-    linear-gradient(#000 0 0) content-box,
-    linear-gradient(#000 0 0);
-  -webkit-mask-composite:xor;
-  mask-composite:exclude;
-  opacity:0;
-  transition:0.4s;
-}
+        .lottie-container {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            min-width: 300px;
+        }
 
-.card:hover::before{
-  opacity:1;
-}
+        /* MAIN CONTENT SECTION */
+        .section {
+            padding: 60px 10%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
 
-.card:hover{
-  transform:translateY(-10px) scale(1.03);
-  box-shadow:0 0 25px #00c6ff;
-}
+        .section h2 {
+            text-align: center;
+            margin-bottom: 50px;
+            color: var(--primary-cyan);
+            font-size: 2rem;
+            letter-spacing: 1px;
+        }
 
-/* TEXT */
-.card h3{
-  margin-bottom:10px;
-}
+        /* GRID SYSTEM */
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+        }
 
-.metric{
-  color:#00c6ff;
-  font-size:18px;
-  margin-bottom:10px;
-}
+        /* CASE STUDY CARDS */
+        .card {
+            display: flex;
+            flex-direction: column;
+            text-decoration: none;
+            color: inherit;
+            background: rgba(255, 255, 255, 0.03);
+            padding: 30px;
+            border-radius: 15px;
+            position: relative;
+            overflow: hidden;
+            transition: 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            cursor: pointer;
+        }
 
-.card p{
-  color:#aaa;
-  font-size:14px;
-}
+        /* Neon Border Hover Effect */
+        .card::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            border-radius: 15px;
+            padding: 2px;
+            background: linear-gradient(45deg, var(--primary-cyan), var(--accent-pink), var(--primary-cyan));
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            mask-composite: exclude;
+            opacity: 0;
+            transition: 0.4s;
+        }
 
-/* BUTTON */
-.btn{
-  display:inline-block;
-  margin-top:15px;
-  padding:8px 15px;
-  border-radius:8px;
-  background:#00c6ff;
-  color:#000;
-  font-size:14px;
-}
+        .card:hover::before {
+            opacity: 1;
+        }
 
-/* CURSOR */
-.cursor{
-  width:10px;
-  height:10px;
-  background:gold;
-  border-radius:50%;
-  position:fixed;
-  pointer-events:none;
-  box-shadow:0 0 15px gold;
-  transform:translate(-50%,-50%);
-  z-index:999;
-}
+        .card:hover {
+            transform: translateY(-12px);
+            box-shadow: 0 15px 35px rgba(0, 198, 255, 0.2);
+            background: rgba(255, 255, 255, 0.06);
+        }
 
-/* FOOTER */
-.footer{
-  text-align:center;
-  margin:80px 0 30px;
-  color:#666;
-  font-size:14px;
-}
-</style>
+        .card h3 {
+            margin-bottom: 12px;
+            font-size: 1.4rem;
+            color: #fff;
+        }
+
+        .metric {
+            color: var(--primary-cyan);
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .card p {
+            color: #94a3b8;
+            font-size: 0.95rem;
+            margin-bottom: 25px;
+            flex-grow: 1;
+        }
+
+        /* ACTION BUTTON */
+        .btn {
+            align-self: flex-start;
+            padding: 10px 20px;
+            border-radius: 8px;
+            background: var(--primary-cyan);
+            color: #000;
+            font-size: 0.9rem;
+            font-weight: 700;
+            transition: 0.3s;
+        }
+
+        .card:hover .btn {
+            background: #fff;
+            transform: scale(1.05);
+        }
+
+        /* CURSOR */
+        .cursor {
+            width: 12px;
+            height: 12px;
+            background: gold;
+            border-radius: 50%;
+            position: fixed;
+            pointer-events: none;
+            box-shadow: 0 0 15px gold;
+            transform: translate(-50%, -50%);
+            z-index: 9999;
+        }
+
+        /* FOOTER */
+        .footer {
+            text-align: center;
+            padding: 60px 20px 40px;
+            color: #64748b;
+            font-size: 0.9rem;
+            border-top: 1px solid rgba(255,255,255,0.05);
+        }
+
+        /* MOBILE RESPONSIVE FIXES */
+        @media screen and (max-width: 768px) {
+            body { cursor: default; }
+            .cursor { display: none; }
+
+            nav { padding: 15px 20px; }
+            .menu-toggle { display: flex; }
+
+            .menu {
+                display: none;
+                flex-direction: column;
+                position: absolute;
+                top: 70px;
+                left: 0;
+                width: 100%;
+                background: var(--dark-bg);
+                padding: 30px 0;
+                text-align: center;
+                border-bottom: 2px solid var(--primary-cyan);
+            }
+
+            .menu.active { display: flex; }
+            .menu a { margin: 15px 0; font-size: 1.2rem; }
+
+            .hero { padding: 60px 5% 30px; text-align: center; }
+            .hero-text p { margin: 0 auto; }
+            
+            lottie-player {
+                width: 280px !important;
+                height: 280px !important;
+            }
+
+            .section { padding: 40px 5%; }
+            .section h2 { margin-bottom: 30px; }
+        }
+    </style>
 </head>
 
 <body>
 
-<div class="cursor"></div>
+<div class="cursor" id="cursor"></div>
 
 <nav>
-  <div class="logo">DeployLynx</div>
-  <div class="menu">
-    <a href="index.html">Home</a>
-    <a href="about.html">About</a>
-    <a href="services.html">Services</a>
-    <a href="case-studies.html">Case Studies</a>
-    <a href="contact.html">Contact</a>
-  </div>
+    <div class="logo">DeployLynx</div>
+    <div class="menu-toggle" id="mobile-menu">
+        <span></span>
+        <span></span>
+        <span></span>
+    </div>
+    <div class="menu" id="nav-links">
+        <a href="index.html">Home</a>
+        <a href="about.html">About</a>
+        <a href="services.html">Services</a>
+        <a href="case-studies.html" style="color:var(--primary-cyan)">Case Studies</a>
+        <a href="contact.html">Contact</a>
+    </div>
 </nav>
 
-<div class="hero">
-  <div class="hero-text">
-    <h1>Case Studies</h1>
-    <p>
-      Real-world engineering solutions built with DevOps, Cloud and AI automation.
-      Delivering performance, scalability and measurable business impact.
-    </p>
-  </div>
+<header class="hero">
+    <div class="hero-text">
+        <h1>Case Studies</h1>
+        <p>
+            Explore real-world engineering solutions where we've implemented DevOps, Cloud, and AI automation to solve complex infrastructure challenges.
+        </p>
+    </div>
 
-  <lottie-player 
-    src="https://assets2.lottiefiles.com/packages/lf20_jcikwtux.json"
-    background="transparent"
-    speed="1"
-    style="width:380px;height:380px;"
-    loop autoplay>
-  </lottie-player>
-</div>
+    <div class="lottie-container">
+        <lottie-player 
+            src="https://assets2.lottiefiles.com/packages/lf20_jcikwtux.json"
+            background="transparent"
+            speed="1"
+            style="width:380px; height:380px;"
+            loop autoplay>
+        </lottie-player>
+    </div>
+</header>
 
-<div class="section">
-  <h2>Featured Work</h2>
+<main class="section">
+    <h2>Featured Projects</h2>
 
-  <div class="grid">
+    <div class="grid">
 
-    <a href="https://github.com/Deploylynx/deploylynx-devsecops-pipeline" target="_blank" class="card">
-  <h3>DevSecOps Pipeline</h3>
-  <div class="metric">⬇ Deployment time reduced by 60%</div>
-  <p>CI/CD automation using GitHub Actions, Docker, and security scanning tools.</p>
-  <div class="btn">View Project</div>
-</a>
+        <a href="https://github.com/Deploylynx/deploylynx-devsecops-pipeline" target="_blank" class="card">
+            <h3>DevSecOps Pipeline</h3>
+            <div class="metric">⬇ Deployment time: -60%</div>
+            <p>Full CI/CD automation utilizing GitHub Actions, Docker, and integrated automated security scanning tools for rapid, safe delivery.</p>
+            <div class="btn">View Project</div>
+        </a>
 
-    <a href="https://github.com/Deploylynx-tech" target="_blank" class="card">
-      <h3>Kubernetes Infrastructure</h3>
-      <div class="metric">⚡ 1M+ requests/day handled</div>
-      <p>Scalable Kubernetes cluster with load balancing, monitoring and autoscaling.</p>
-      <div class="btn">View Details</div>
-    </a>
+        <a href="https://github.com/Deploylynx-tech" target="_blank" class="card">
+            <h3>K8s Infrastructure</h3>
+            <div class="metric">⚡ 1M+ requests/day</div>
+            <p>A production-grade Kubernetes cluster featuring internal load balancing, Prometheus monitoring, and dynamic horizontal autoscaling.</p>
+            <div class="btn">View Details</div>
+        </a>
 
-    <a href="https://github.com/Deploylynx-tech" target="_blank" class="card">
-      <h3>AWS Cloud Architecture</h3>
-      <div class="metric">☁ 99.9% uptime achieved</div>
-      <p>Secure infrastructure built with Terraform, EC2, S3 and VPC networking.</p>
-      <div class="btn">View Details</div>
-    </a>
+        <a href="https://github.com/Deploylynx-tech" target="_blank" class="card">
+            <h3>AWS Cloud Architecture</h3>
+            <div class="metric">☁ 99.9% Uptime</div>
+            <p>Multi-region infrastructure designed with Terraform, featuring custom VPCs, S3 data lakes, and automated RDS failover systems.</p>
+            <div class="btn">View Details</div>
+        </a>
 
-    <a href="https://github.com/Deploylynx-tech" target="_blank" class="card">
-      <h3>AI Automation System</h3>
-      <div class="metric">🤖 40% manual work reduced</div>
-      <p>AI-powered automation pipelines improving workflow efficiency.</p>
-      <div class="btn">View Details</div>
-    </a>
+        <a href="https://github.com/Deploylynx-tech" target="_blank" class="card">
+            <h3>AI Automation System</h3>
+            <div class="metric">🤖 Manual effort: -40%</div>
+            <p>Intelligent automation agents that monitor infrastructure health and perform self-healing tasks without human intervention.</p>
+            <div class="btn">View Details</div>
+        </a>
 
-  </div>
-</div>
+    </div>
+</main>
 
-<div class="footer">
-  © 2026 DeployLynx — Engineering scalable digital systems
-</div>
+<footer class="footer">
+    &copy; 2026 DeployLynx | Engineering Scalable Digital Ecosystems
+</footer>
 
 <script>
-document.addEventListener("mousemove",e=>{
-  document.querySelector(".cursor").style.left=e.clientX+"px";
-  document.querySelector(".cursor").style.top=e.clientY+"px";
-});
+    /* MOBILE MENU TOGGLE */
+    const menuToggle = document.getElementById('mobile-menu');
+    const navLinks = document.getElementById('nav-links');
+
+    menuToggle.addEventListener('click', () => {
+        navLinks.classList.toggle('active');
+    });
+
+    /* CURSOR LOGIC (Desktop Only) */
+    const cursor = document.getElementById("cursor");
+    if (window.matchMedia("(pointer: fine)").matches) {
+        document.addEventListener("mousemove", e => {
+            cursor.style.left = e.clientX + "px";
+            cursor.style.top = e.clientY + "px";
+        });
+    } else {
+        cursor.style.display = "none";
+    }
 </script>
 
 </body>
