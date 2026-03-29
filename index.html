@@ -1,159 +1,239 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<title>DeployLynx</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DeployLynx</title>
 
-<style>
+    <style>
+        :root {
+            --primary-blue: #38bdf8;
+            --dark-bg: #0f172a;
+            --nav-bg: #020617;
+        }
 
-body{
-margin:0;
-font-family:Arial;
-background:#0f172a;
-color:white;
-overflow-x:hidden;
-cursor:none;
-}
+        body {
+            margin: 0;
+            font-family: 'Segoe UI', Arial, sans-serif;
+            background: var(--dark-bg);
+            color: white;
+            overflow-x: hidden;
+            /* Cursor hidden for custom star cursor on desktops */
+            cursor: none;
+        }
 
-/* CANVAS BACKGROUND */
-canvas{
-position:fixed;
-top:0;
-left:0;
-z-index:-1;
-}
+        /* CANVAS BACKGROUND */
+        canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: -1;
+        }
 
-/* STAR CURSOR */
-.cursor{
-position:fixed;
-width:20px;
-height:20px;
-pointer-events:none;
-border-radius:50%;
-background:radial-gradient(circle,#ffd700,transparent);
-box-shadow:0 0 15px #ffd700,0 0 30px #ffd700;
-z-index:9999;
-}
+        /* STAR CURSOR */
+        .cursor {
+            position: fixed;
+            width: 20px;
+            height: 20px;
+            pointer-events: none;
+            border-radius: 50%;
+            background: radial-gradient(circle, #ffd700, transparent);
+            box-shadow: 0 0 15px #ffd700, 0 0 30px #ffd700;
+            z-index: 9999;
+        }
 
-/* NAVBAR */
-nav{
-display:flex;
-justify-content:space-between;
-padding:20px 40px;
-background:#020617;
-position:sticky;
-top:0;
-}
+        /* NAVBAR */
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 5%;
+            background: var(--nav-bg);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.5);
+        }
 
-nav a{
-color:white;
-text-decoration:none;
-margin-left:20px;
-}
+        #logo {
+            font-weight: bold;
+            font-size: 1.5rem;
+            color: var(--primary-blue);
+            min-width: 150px;
+        }
 
-nav a:hover{
-color:#38bdf8;
-}
+        .nav-links {
+            display: flex;
+        }
 
-/* HERO */
-.hero{
-height:80vh;
-display:flex;
-flex-direction:column;
-justify-content:center;
-align-items:center;
-text-align:center;
-}
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            margin-left: 25px;
+            font-size: 1rem;
+            transition: 0.3s;
+        }
 
-.hero h1{
-font-size:70px;
-color:#38bdf8;
-}
+        .nav-links a:hover {
+            color: var(--primary-blue);
+        }
 
-.hero p{
-font-size:22px;
-color:#cbd5f5;
-}
+        /* MOBILE MENU ICON */
+        .menu-toggle {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            gap: 5px;
+        }
 
-/* SERVICES */
-.services{
-display:flex;
-flex-wrap:wrap;
-justify-content:center;
-gap:20px;
-padding:60px;
-}
+        .menu-toggle span {
+            width: 25px;
+            height: 3px;
+            background: white;
+            border-radius: 2px;
+        }
 
-.card{
-background:rgba(255,255,255,0.05);
-backdrop-filter:blur(10px);
-border-radius:12px;
-padding:20px;
-width:220px;
-text-align:center;
-transition:.3s;
-}
+        /* HERO SECTION */
+        .hero {
+            min-height: 70vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 20px;
+        }
 
-.card:hover{
-transform:translateY(-8px);
-box-shadow:0 0 25px #38bdf8;
-}
+        .hero h1 {
+            font-size: clamp(40px, 8vw, 70px);
+            color: var(--primary-blue);
+            margin-bottom: 10px;
+        }
 
-/* ICON ANIMATION */
-.icon{
-font-size:30px;
-display:block;
-margin-bottom:10px;
-animation:float 3s ease-in-out infinite;
-}
+        .hero p {
+            font-size: clamp(16px, 4vw, 22px);
+            color: #cbd5f5;
+            max-width: 800px;
+        }
 
-@keyframes float{
-0%,100%{transform:translateY(0);}
-50%{transform:translateY(-10px);}
-}
+        /* SERVICES GRID */
+        .services {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            padding: 40px 10%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
 
-/* TESTIMONIAL CARDS */
-.testimonials{
-display:flex;
-flex-wrap:wrap;
-justify-content:center;
-gap:20px;
-padding:40px;
-}
+        .card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(56, 189, 248, 0.1);
+            border-radius: 12px;
+            padding: 30px 20px;
+            text-align: center;
+            transition: .3s;
+        }
 
-.test-card{
-background:rgba(255,255,255,0.05);
-backdrop-filter:blur(10px);
-padding:20px;
-border-radius:12px;
-width:260px;
-transition:.3s;
-}
+        .card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 0 25px var(--primary-blue);
+            border-color: var(--primary-blue);
+        }
 
-.test-card:hover{
-transform:scale(1.05);
-box-shadow:0 0 25px #38bdf8;
-}
+        .icon {
+            font-size: 40px;
+            display: block;
+            margin-bottom: 15px;
+            animation: float 3.5s ease-in-out infinite;
+        }
 
-/* STATS */
-.stats{
-text-align:center;
-padding:40px;
-}
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-12px); }
+        }
 
-.counter{
-font-size:30px;
-color:#38bdf8;
-}
+        /* TESTIMONIALS GRID */
+        .testimonials {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            padding: 40px 10%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
 
-/* FOOTER */
-footer{
-background:#020617;
-padding:20px;
-text-align:center;
-}
+        .test-card {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(8px);
+            padding: 25px;
+            border-radius: 12px;
+            border-left: 4px solid var(--primary-blue);
+            transition: .3s;
+            font-style: italic;
+        }
 
-</style>
+        .test-card:hover {
+            transform: scale(1.03);
+            background: rgba(255, 255, 255, 0.07);
+        }
+
+        /* STATS */
+        .stats {
+            text-align: center;
+            padding: 60px 20px;
+        }
+
+        .counter {
+            font-size: 40px;
+            font-weight: bold;
+            color: var(--primary-blue);
+        }
+
+        /* FOOTER */
+        footer {
+            background: var(--nav-bg);
+            padding: 30px;
+            text-align: center;
+            border-top: 1px solid rgba(255,255,255,0.05);
+            font-size: 0.9rem;
+            color: #94a3b8;
+        }
+
+        /* RESPONSIVE BREAKPOINTS */
+        @media screen and (max-width: 768px) {
+            body { cursor: default; } /* Re-enable default cursor for touch devices */
+            .cursor { display: none; }
+            
+            nav { padding: 15px 20px; }
+            
+            .menu-toggle { display: flex; }
+
+            .nav-links {
+                display: none; /* Toggle this via JS */
+                flex-direction: column;
+                position: absolute;
+                top: 60px;
+                left: 0;
+                width: 100%;
+                background: var(--nav-bg);
+                padding: 20px 0;
+                text-align: center;
+                border-bottom: 1px solid var(--primary-blue);
+            }
+
+            .nav-links.active { display: flex; }
+
+            .nav-links a {
+                margin: 15px 0;
+                font-size: 1.2rem;
+            }
+
+            .hero h1 { font-size: 48px; }
+            .services, .testimonials { padding: 20px 5%; }
+        }
+    </style>
 </head>
 
 <body>
@@ -162,187 +242,175 @@ text-align:center;
 <canvas id="tech"></canvas>
 
 <nav>
-<div id="logo"></div>
-
-<div>
-<a href="index.html">Home</a>
-<a href="about.html">About</a>
-<a href="services.html">Services</a>
-<a href="case-studies.html">Case Studies</a>
-<a href="contact.html">Contact</a>
-</div>
+    <div id="logo"></div>
+    <div class="menu-toggle" id="mobile-menu">
+        <span></span>
+        <span></span>
+        <span></span>
+    </div>
+    <div class="nav-links" id="nav-links">
+        <a href="index.html">Home</a>
+        <a href="about.html">About</a>
+        <a href="services.html">Services</a>
+        <a href="case-studies.html">Case Studies</a>
+        <a href="contact.html">Contact</a>
+    </div>
 </nav>
 
-<div class="hero">
-<h1>DeployLynx</h1>
-<p>AI Automation • DevOps • Cloud Solutions</p>
-<div id="quote" style="color:#ffb6c1;margin-top:10px;"></div>
-</div>
+<section class="hero">
+    <h1>DeployLynx</h1>
+    <p>AI Automation • DevOps • Cloud Solutions</p>
+    <div id="quote" style="color:#ffb6c1; margin-top:15px; font-weight: 500;"></div>
+</section>
 
-<!-- SERVICES -->
 <section class="services">
-
-<div class="card">
-<span class="icon">⚙️</span>
-DevOps CI/CD
-</div>
-
-<div class="card">
-<span class="icon">☁️</span>
-AWS Cloud
-</div>
-
-<div class="card">
-<span class="icon">🤖</span>
-AI Automation
-</div>
-
-<div class="card">
-<span class="icon">🐳</span>
-Docker & Kubernetes
-</div>
-
+    <div class="card">
+        <span class="icon">⚙️</span>
+        <strong>DevOps CI/CD</strong>
+    </div>
+    <div class="card">
+        <span class="icon">☁️</span>
+        <strong>AWS Cloud</strong>
+    </div>
+    <div class="card">
+        <span class="icon">🤖</span>
+        <strong>AI Automation</strong>
+    </div>
+    <div class="card">
+        <span class="icon">🐳</span>
+        <strong>Docker & Kubernetes</strong>
+    </div>
 </section>
 
-<!-- TESTIMONIALS -->
 <section class="testimonials">
-
-<div class="test-card">Scalable systems built for production.</div>
-<div class="test-card">Automation-first modern solutions.</div>
-<div class="test-card">Secure cloud-native infrastructure.</div>
-
+    <div class="test-card">"Scalable systems built for production-grade reliability."</div>
+    <div class="test-card">"Automation-first solutions that actually move the needle."</div>
+    <div class="test-card">"Secure, cloud-native infrastructure delivered with precision."</div>
 </section>
 
-<!-- GITHUB -->
 <section class="stats">
-
-<h2>GitHub Activity</h2>
-
-⭐ Stars: <span id="stars" class="counter">0</span><br><br>
-🍴 Forks: <span id="forks" class="counter">0</span>
-
+    <h2>GitHub Activity</h2>
+    <div>
+        <span class="counter" id="stars">0</span><br>
+        <small>Total Stars</small>
+    </div>
+    <br>
+    <div>
+        <span class="counter" id="forks">0</span><br>
+        <small>Total Forks</small>
+    </div>
 </section>
 
 <footer>
-DeployLynx © 2026 All Rights Reserved
+    DeployLynx &copy; 2026 | Architecting the Digital Future
 </footer>
 
 <script>
+/* MOBILE MENU TOGGLE */
+const menuToggle = document.getElementById('mobile-menu');
+const navLinks = document.getElementById('nav-links');
 
-/* CURSOR */
-const cursor=document.getElementById("cursor");
-document.addEventListener("mousemove",e=>{
-cursor.style.left=e.clientX+"px";
-cursor.style.top=e.clientY+"px";
+menuToggle.addEventListener('click', () => {
+    navLinks.classList.toggle('active');
 });
 
-/* TECH BACKGROUND */
-const canvas=document.getElementById("tech");
-const ctx=canvas.getContext("2d");
-
-canvas.width=window.innerWidth;
-canvas.height=window.innerHeight;
-
-let particles=[];
-
-for(let i=0;i<70;i++){
-particles.push({
-x:Math.random()*canvas.width,
-y:Math.random()*canvas.height,
-dx:(Math.random()-0.5)*1.5,
-dy:(Math.random()-0.5)*1.5
-});
+/* CURSOR (Only enabled on non-touch devices) */
+const cursor = document.getElementById("cursor");
+if (window.matchMedia("(pointer: fine)").matches) {
+    document.addEventListener("mousemove", e => {
+        cursor.style.left = e.clientX + "px";
+        cursor.style.top = e.clientY + "px";
+    });
+} else {
+    cursor.style.display = "none";
 }
 
-function draw(){
-ctx.clearRect(0,0,canvas.width,canvas.height);
+/* TECH BACKGROUND (Responsive) */
+const canvas = document.getElementById("tech");
+const ctx = canvas.getContext("2d");
 
-particles.forEach(p=>{
-p.x+=p.dx;
-p.y+=p.dy;
-
-if(p.x<0||p.x>canvas.width) p.dx*=-1;
-if(p.y<0||p.y>canvas.height) p.dy*=-1;
-
-ctx.fillStyle="#38bdf8";
-ctx.beginPath();
-ctx.arc(p.x,p.y,2,0,Math.PI*2);
-ctx.fill();
-});
-
-for(let i=0;i<particles.length;i++){
-for(let j=i+1;j<particles.length;j++){
-let dx=particles[i].x-particles[j].x;
-let dy=particles[i].y-particles[j].y;
-let dist=Math.sqrt(dx*dx+dy*dy);
-
-if(dist<120){
-ctx.strokeStyle="rgba(56,189,248,0.1)";
-ctx.beginPath();
-ctx.moveTo(particles[i].x,particles[i].y);
-ctx.lineTo(particles[j].x,particles[j].y);
-ctx.stroke();
+function resizeCanvas() {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
 }
-}
+window.addEventListener('resize', resizeCanvas);
+resizeCanvas();
+
+let particles = [];
+const particleCount = window.innerWidth < 768 ? 35 : 70; // Fewer particles on mobile for performance
+
+for (let i = 0; i < particleCount; i++) {
+    particles.push({
+        x: Math.random() * canvas.width,
+        y: Math.random() * canvas.height,
+        dx: (Math.random() - 0.5) * 1.2,
+        dy: (Math.random() - 0.5) * 1.2
+    });
 }
 
-requestAnimationFrame(draw);
+function draw() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    particles.forEach(p => {
+        p.x += p.dx; p.y += p.dy;
+        if (p.x < 0 || p.x > canvas.width) p.dx *= -1;
+        if (p.y < 0 || p.y > canvas.height) p.dy *= -1;
+        ctx.fillStyle = "#38bdf8";
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, 2, 0, Math.PI * 2);
+        ctx.fill();
+    });
+
+    for (let i = 0; i < particles.length; i++) {
+        for (let j = i + 1; j < particles.length; j++) {
+            let dx = particles[i].x - particles[j].x;
+            let dy = particles[i].y - particles[j].y;
+            let dist = Math.sqrt(dx * dx + dy * dy);
+            if (dist < 120) {
+                ctx.strokeStyle = "rgba(56,189,248,0.1)";
+                ctx.beginPath();
+                ctx.moveTo(particles[i].x, particles[i].y);
+                ctx.lineTo(particles[j].x, particles[j].y);
+                ctx.stroke();
+            }
+        }
+    }
+    requestAnimationFrame(draw);
 }
 draw();
 
-/* LOGO */
-let t="DeployLynx";
-let i=0;
+/* TYPING ANIMATIONS */
+const logo = document.getElementById("logo");
+const quote = document.getElementById("quote");
+let t = "DeployLynx", i = 0;
+let q = "Engineering scalable systems. Automating the future.", j = 0;
 
-function animateLogo(){
-if(i<t.length){
-logo.innerHTML+=t[i];
-i++;
-setTimeout(animateLogo,120);
-}else{
-setTimeout(()=>{
-logo.innerHTML="";
-i=0;
+function animateLogo() {
+    if (i < t.length) { logo.innerHTML += t[i++]; setTimeout(animateLogo, 120); }
+    else { setTimeout(() => { logo.innerHTML = ""; i = 0; animateLogo(); }, 3000); }
+}
+function typeQuote() {
+    if (j < q.length) { quote.innerHTML += q[j++]; setTimeout(typeQuote, 50); }
+}
+
 animateLogo();
-},1500);
-}
-}
-animateLogo();
-
-/* QUOTE */
-let q="Engineering scalable systems. Automating the future.";
-let j=0;
-
-function typeQuote(){
-if(j<q.length){
-quote.innerHTML+=q[j];
-j++;
-setTimeout(typeQuote,50);
-}
-}
 typeQuote();
 
-/* GITHUB STATS */
-const repos=[
-"deploylynx-monitoring",
-"deploylynx-infrastructure",
-"deploylynx-devsecops-pipeline",
-"ai-automation-tools"
-];
+/* GITHUB API (Updated error handling) */
+const repos = ["deploylynx-monitoring", "deploylynx-infrastructure", "deploylynx-devsecops-pipeline"];
+let totalStars = 0, totalForks = 0;
 
-let stars=0,forks=0;
-
-repos.forEach(r=>{
-fetch(`https://api.github.com/repos/Deploylynx/${r}`)
-.then(res=>res.json())
-.then(d=>{
-stars+=d.stargazers_count||0;
-forks+=d.forks_count||0;
-document.getElementById("stars").innerText=stars;
-document.getElementById("forks").innerText=forks;
+repos.forEach(r => {
+    fetch(`https://api.github.com/repos/Deploylynx/${r}`)
+    .then(res => res.ok ? res.json() : null)
+    .then(d => {
+        if (d) {
+            totalStars += d.stargazers_count || 0;
+            totalForks += d.forks_count || 0;
+            document.getElementById("stars").innerText = totalStars;
+            document.getElementById("forks").innerText = totalForks;
+        }
+    }).catch(err => console.log("GitHub API limit likely reached"));
 });
-});
-
 </script>
 
 </body>
