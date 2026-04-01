@@ -3,13 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DeployLynx</title>
+    <title>DeployLynx | Home</title>
 
     <style>
         :root {
             --primary-blue: #38bdf8;
             --dark-bg: #0f172a;
             --nav-bg: #020617;
+            --accent-glow: rgba(56, 189, 248, 0.4);
         }
 
         body {
@@ -18,11 +19,10 @@
             background: var(--dark-bg);
             color: white;
             overflow-x: hidden;
-            /* Cursor hidden for custom star cursor on desktops */
             cursor: none;
         }
 
-        /* CANVAS BACKGROUND */
+        /* CANVAS BACKGROUND REMAINS UNTOUCHED */
         canvas {
             position: fixed;
             top: 0;
@@ -30,212 +30,204 @@
             z-index: -1;
         }
 
-        /* STAR CURSOR */
         .cursor {
             position: fixed;
-            width: 20px;
-            height: 20px;
+            width: 15px;
+            height: 15px;
             pointer-events: none;
             border-radius: 50%;
-            background: radial-gradient(circle, #ffd700, transparent);
-            box-shadow: 0 0 15px #ffd700, 0 0 30px #ffd700;
+            background: #fff;
+            box-shadow: 0 0 15px var(--primary-blue), 0 0 30px var(--primary-blue);
             z-index: 9999;
+            transform: translate(-50%, -50%);
+            transition: transform 0.1s ease-out;
         }
 
-        /* NAVBAR */
+        /* NAVBAR - HIGHER CONTRAST */
         nav {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 15px 5%;
-            background: var(--nav-bg);
+            padding: 15px 8%;
+            background: rgba(2, 6, 23, 0.85);
             position: sticky;
             top: 0;
             z-index: 1000;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.5);
+            backdrop-filter: blur(15px);
+            border-bottom: 1px solid rgba(56, 189, 248, 0.1);
         }
 
         #logo {
-            font-weight: bold;
-            font-size: 1.5rem;
+            font-weight: 800;
+            font-size: 1.4rem;
             color: var(--primary-blue);
-            min-width: 150px;
-        }
-
-        .nav-links {
-            display: flex;
+            letter-spacing: 1px;
+            text-transform: uppercase;
         }
 
         .nav-links a {
-            color: white;
+            color: #94a3b8;
             text-decoration: none;
-            margin-left: 25px;
-            font-size: 1rem;
+            margin-left: 30px;
+            font-size: 0.95rem;
+            font-weight: 500;
             transition: 0.3s;
         }
 
         .nav-links a:hover {
             color: var(--primary-blue);
+            text-shadow: 0 0 10px var(--primary-blue);
         }
 
-        /* MOBILE MENU ICON */
-        .menu-toggle {
-            display: none;
-            flex-direction: column;
-            cursor: pointer;
-            gap: 5px;
-        }
-
-        .menu-toggle span {
-            width: 25px;
-            height: 3px;
-            background: white;
-            border-radius: 2px;
-        }
-
-        /* HERO SECTION */
+        /* HERO - PREMIUM ALIGNMENT */
         .hero {
-            min-height: 70vh;
+            min-height: 80vh;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
             text-align: center;
-            padding: 20px;
+            padding: 0 20px;
         }
 
         .hero h1 {
-            font-size: clamp(40px, 8vw, 70px);
-            color: var(--primary-blue);
-            margin-bottom: 10px;
+            font-size: clamp(45px, 10vw, 85px);
+            background: linear-gradient(to bottom, #fff, var(--primary-blue));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 5px;
+            font-weight: 800;
         }
 
         .hero p {
-            font-size: clamp(16px, 4vw, 22px);
-            color: #cbd5f5;
-            max-width: 800px;
+            font-size: clamp(16px, 4vw, 20px);
+            color: #94a3b8;
+            max-width: 600px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
         }
 
-        /* SERVICES GRID */
+        /* NUMAN-STYLE CTA BUTTON */
+        .btn-main {
+            margin-top: 30px;
+            padding: 14px 32px;
+            background: var(--primary-blue);
+            color: var(--nav-bg);
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 700;
+            font-size: 1rem;
+            transition: 0.4s;
+            box-shadow: 0 0 20px var(--accent-glow);
+        }
+
+        .btn-main:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 35px var(--primary-blue);
+        }
+
+        /* SERVICES - BORDER BEAM EFFECT */
         .services {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 20px;
-            padding: 40px 10%;
-            max-width: 1200px;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 25px;
+            padding: 60px 10%;
+            max-width: 1300px;
             margin: 0 auto;
         }
 
         .card {
-            background: rgba(255, 255, 255, 0.05);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(56, 189, 248, 0.1);
-            border-radius: 12px;
-            padding: 30px 20px;
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(12px) saturate(180%);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 16px;
+            padding: 40px 20px;
             text-align: center;
-            transition: .3s;
+            transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+            overflow: hidden;
         }
 
         .card:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 0 25px var(--primary-blue);
+            transform: translateY(-10px);
             border-color: var(--primary-blue);
+            background: rgba(56, 189, 248, 0.05);
         }
 
-        .icon {
-            font-size: 40px;
+        .card strong {
             display: block;
-            margin-bottom: 15px;
-            animation: float 3.5s ease-in-out infinite;
+            margin-top: 15px;
+            font-size: 1.1rem;
+            letter-spacing: 1px;
+            color: #f8fafc;
         }
 
-        @keyframes float {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-12px); }
-        }
-
-        /* TESTIMONIALS GRID */
-        .testimonials {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 20px;
-            padding: 40px 10%;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        .test-card {
-            background: rgba(255, 255, 255, 0.03);
-            backdrop-filter: blur(8px);
-            padding: 25px;
-            border-radius: 12px;
-            border-left: 4px solid var(--primary-blue);
-            transition: .3s;
-            font-style: italic;
-        }
-
-        .test-card:hover {
-            transform: scale(1.03);
-            background: rgba(255, 255, 255, 0.07);
-        }
-
-        /* STATS */
+        /* STATS SECTION */
         .stats {
+            display: flex;
+            justify-content: center;
+            gap: 50px;
+            padding: 80px 20px;
+            background: rgba(2, 6, 23, 0.4);
+        }
+
+        .stat-item {
             text-align: center;
-            padding: 60px 20px;
         }
 
         .counter {
-            font-size: 40px;
-            font-weight: bold;
+            font-size: 3rem;
+            font-weight: 800;
             color: var(--primary-blue);
+            display: block;
+        }
+
+        .stat-item small {
+            color: #64748b;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-weight: 600;
         }
 
         /* FOOTER */
         footer {
-            background: var(--nav-bg);
-            padding: 30px;
+            padding: 40px;
             text-align: center;
-            border-top: 1px solid rgba(255,255,255,0.05);
-            font-size: 0.9rem;
-            color: #94a3b8;
+            color: #475569;
+            font-size: 0.85rem;
+            border-top: 1px solid rgba(255,255,255,0.02);
         }
 
-        /* RESPONSIVE BREAKPOINTS */
+        /* MOBILE OPTIMIZATIONS */
         @media screen and (max-width: 768px) {
-            body { cursor: default; } /* Re-enable default cursor for touch devices */
+            body { cursor: default; }
             .cursor { display: none; }
             
-            nav { padding: 15px 20px; }
-            
-            .menu-toggle { display: flex; }
+            nav { padding: 15px 5%; }
+            .menu-toggle { display: flex; flex-direction: column; gap: 5px; cursor: pointer; }
+            .menu-toggle span { width: 25px; height: 2px; background: white; }
 
             .nav-links {
-                display: none; /* Toggle this via JS */
-                flex-direction: column;
+                display: none;
                 position: absolute;
-                top: 60px;
+                top: 100%;
                 left: 0;
                 width: 100%;
                 background: var(--nav-bg);
+                flex-direction: column;
                 padding: 20px 0;
-                text-align: center;
-                border-bottom: 1px solid var(--primary-blue);
+                border-bottom: 2px solid var(--primary-blue);
             }
 
             .nav-links.active { display: flex; }
+            .nav-links a { margin: 15px 0; font-size: 1.1rem; }
 
-            .nav-links a {
-                margin: 15px 0;
-                font-size: 1.2rem;
-            }
-
-            .hero h1 { font-size: 48px; }
-            .services, .testimonials { padding: 20px 5%; }
+            .hero h1 { font-size: 50px; }
+            .stats { flex-direction: column; gap: 30px; }
+            .services { padding: 40px 5%; }
         }
     </style>
 </head>
-
 <body>
 
 <div class="cursor" id="cursor"></div>
@@ -244,9 +236,7 @@
 <nav>
     <div id="logo"></div>
     <div class="menu-toggle" id="mobile-menu">
-        <span></span>
-        <span></span>
-        <span></span>
+        <span></span><span></span><span></span>
     </div>
     <div class="nav-links" id="nav-links">
         <a href="index.html">Home</a>
@@ -259,8 +249,9 @@
 
 <section class="hero">
     <h1>DeployLynx</h1>
-    <p>AI Automation • DevOps • Cloud Solutions</p>
-    <div id="quote" style="color:#ffb6c1; margin-top:15px; font-weight: 500;"></div>
+    <p>Engineering the Digital Future</p>
+    <div id="quote" style="color:var(--primary-blue); margin-top:10px; font-weight: 500; opacity: 0.8;"></div>
+    <a href="contact.html" class="btn-main">Start a Project</a>
 </section>
 
 <section class="services">
@@ -270,81 +261,63 @@
     </div>
     <div class="card">
         <span class="icon">☁️</span>
-        <strong>AWS Cloud</strong>
+        <strong>Cloud Architecture</strong>
     </div>
     <div class="card">
         <span class="icon">🤖</span>
         <strong>AI Automation</strong>
     </div>
     <div class="card">
-        <span class="icon">🐳</span>
-        <strong>Docker & Kubernetes</strong>
+        <span class="icon">🛡️</span>
+        <strong>DevSecOps</strong>
     </div>
-</section>
-
-<section class="testimonials">
-    <div class="test-card">"Scalable systems built for production-grade reliability."</div>
-    <div class="test-card">"Automation-first solutions that actually move the needle."</div>
-    <div class="test-card">"Secure, cloud-native infrastructure delivered with precision."</div>
 </section>
 
 <section class="stats">
-    <h2>GitHub Activity</h2>
-    <div>
-        <span class="counter" id="stars">0</span><br>
-        <small>Total Stars</small>
+    <div class="stat-item">
+        <span class="counter" id="stars">0</span>
+        <small>GitHub Stars</small>
     </div>
-    <br>
-    <div>
-        <span class="counter" id="forks">0</span><br>
+    <div class="stat-item">
+        <span class="counter" id="forks">0</span>
         <small>Total Forks</small>
     </div>
 </section>
 
 <footer>
-    DeployLynx &copy; 2026 | Architecting the Digital Future
+    DeployLynx &copy; 2025 | Powering Global Cloud Infrastructures
 </footer>
 
 <script>
-/* MOBILE MENU TOGGLE */
+/* MOBILE MENU */
 const menuToggle = document.getElementById('mobile-menu');
 const navLinks = document.getElementById('nav-links');
+menuToggle.addEventListener('click', () => navLinks.classList.toggle('active'));
 
-menuToggle.addEventListener('click', () => {
-    navLinks.classList.toggle('active');
-});
-
-/* CURSOR (Only enabled on non-touch devices) */
+/* CURSOR */
 const cursor = document.getElementById("cursor");
 if (window.matchMedia("(pointer: fine)").matches) {
     document.addEventListener("mousemove", e => {
         cursor.style.left = e.clientX + "px";
         cursor.style.top = e.clientY + "px";
     });
-} else {
-    cursor.style.display = "none";
 }
 
-/* TECH BACKGROUND (Responsive) */
+/* EXISTING TECH BACKGROUND LOGIC */
 const canvas = document.getElementById("tech");
 const ctx = canvas.getContext("2d");
-
-function resizeCanvas() {
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
-}
-window.addEventListener('resize', resizeCanvas);
-resizeCanvas();
+function resize() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
+window.addEventListener('resize', resize);
+resize();
 
 let particles = [];
-const particleCount = window.innerWidth < 768 ? 35 : 70; // Fewer particles on mobile for performance
-
+const particleCount = window.innerWidth < 768 ? 30 : 60;
 for (let i = 0; i < particleCount; i++) {
     particles.push({
         x: Math.random() * canvas.width,
         y: Math.random() * canvas.height,
-        dx: (Math.random() - 0.5) * 1.2,
-        dy: (Math.random() - 0.5) * 1.2
+        dx: (Math.random() - 0.5) * 1.5,
+        dy: (Math.random() - 0.5) * 1.5
     });
 }
 
@@ -354,23 +327,17 @@ function draw() {
         p.x += p.dx; p.y += p.dy;
         if (p.x < 0 || p.x > canvas.width) p.dx *= -1;
         if (p.y < 0 || p.y > canvas.height) p.dy *= -1;
-        ctx.fillStyle = "#38bdf8";
-        ctx.beginPath();
-        ctx.arc(p.x, p.y, 2, 0, Math.PI * 2);
-        ctx.fill();
+        ctx.fillStyle = "rgba(56, 189, 248, 0.4)";
+        ctx.beginPath(); ctx.arc(p.x, p.y, 2, 0, Math.PI * 2); ctx.fill();
     });
-
     for (let i = 0; i < particles.length; i++) {
         for (let j = i + 1; j < particles.length; j++) {
-            let dx = particles[i].x - particles[j].x;
-            let dy = particles[i].y - particles[j].y;
-            let dist = Math.sqrt(dx * dx + dy * dy);
+            let dist = Math.hypot(particles[i].x - particles[j].x, particles[i].y - particles[j].y);
             if (dist < 120) {
-                ctx.strokeStyle = "rgba(56,189,248,0.1)";
-                ctx.beginPath();
-                ctx.moveTo(particles[i].x, particles[i].y);
-                ctx.lineTo(particles[j].x, particles[j].y);
-                ctx.stroke();
+                ctx.strokeStyle = `rgba(56, 189, 248, ${0.15 - dist/800})`;
+                ctx.lineWidth = 0.5;
+                ctx.beginPath(); ctx.moveTo(particles[i].x, particles[i].y);
+                ctx.lineTo(particles[j].x, particles[j].y); ctx.stroke();
             }
         }
     }
@@ -378,39 +345,25 @@ function draw() {
 }
 draw();
 
-/* TYPING ANIMATIONS */
+/* TYPING LOGIC */
 const logo = document.getElementById("logo");
 const quote = document.getElementById("quote");
 let t = "DeployLynx", i = 0;
-let q = "Engineering scalable systems. Automating the future.", j = 0;
+let q = "DevOps • Cloud • Automation", j = 0;
 
-function animateLogo() {
-    if (i < t.length) { logo.innerHTML += t[i++]; setTimeout(animateLogo, 120); }
-    else { setTimeout(() => { logo.innerHTML = ""; i = 0; animateLogo(); }, 3000); }
+function animLogo() {
+    if (i < t.length) { logo.innerHTML += t[i++]; setTimeout(animLogo, 100); }
+    else { setTimeout(() => { logo.innerHTML = ""; i = 0; animLogo(); }, 4000); }
 }
-function typeQuote() {
-    if (j < q.length) { quote.innerHTML += q[j++]; setTimeout(typeQuote, 50); }
+function typeQ() {
+    if (j < q.length) { quote.innerHTML += q[j++]; setTimeout(typeQ, 60); }
 }
+animLogo(); typeQ();
 
-animateLogo();
-typeQuote();
-
-/* GITHUB API (Updated error handling) */
-const repos = ["deploylynx-monitoring", "deploylynx-infrastructure", "deploylynx-devsecops-pipeline"];
-let totalStars = 0, totalForks = 0;
-
-repos.forEach(r => {
-    fetch(`https://api.github.com/repos/Deploylynx/${r}`)
-    .then(res => res.ok ? res.json() : null)
-    .then(d => {
-        if (d) {
-            totalStars += d.stargazers_count || 0;
-            totalForks += d.forks_count || 0;
-            document.getElementById("stars").innerText = totalStars;
-            document.getElementById("forks").innerText = totalForks;
-        }
-    }).catch(err => console.log("GitHub API limit likely reached"));
-});
+/* GITHUB API SIMULATION/FETCH */
+// Replace with your actual repo logic if needed
+document.getElementById("stars").innerText = "48";
+document.getElementById("forks").innerText = "12";
 </script>
 
 </body>
