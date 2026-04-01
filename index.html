@@ -3,66 +3,115 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DeployLynx | Enterprise Cloud & AI</title>
+    <title>DeployLynx | Next-Gen Cloud Engineering</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
 
     <style>
         :root {
             --primary-blue: #38bdf8;
             --accent-pink: #ff6ec7;
             --dark-bg: #020617;
-            --nav-bg: rgba(2, 6, 23, 0.9);
+            --nav-text: #94a3b8;
         }
+
+        * { box-sizing: border-box; transition: all 0.3s ease; }
 
         body {
             margin: 0;
-            font-family: 'Inter', 'Segoe UI', sans-serif;
+            font-family: 'Inter', sans-serif;
             background: var(--dark-bg);
             color: white;
             overflow-x: hidden;
         }
 
-        /* BACKGROUND DOTS (Matching your screenshots) */
-        canvas { position: fixed; top: 0; left: 0; z-index: -1; }
+        canvas { position: fixed; top: 0; left: 0; z-index: -1; pointer-events: none; }
+
+        /* HEADER & NAV */
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 25px 8%;
+            background: rgba(2, 6, 23, 0.8);
+            backdrop-filter: blur(12px);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+        }
+
+        #logo { font-weight: 800; font-size: 1.4rem; cursor: pointer; }
+        #logo span { color: var(--primary-blue); }
+
+        .nav-links { display: flex; gap: 30px; }
+        .nav-links a { 
+            color: var(--nav-text); 
+            text-decoration: none; 
+            font-size: 0.95rem; 
+            font-weight: 500;
+        }
+        .nav-links a:hover, .nav-links a.active { color: var(--primary-blue); }
 
         /* HERO SECTION */
         .hero {
-            padding: 100px 8%;
+            padding: 160px 20px 60px;
             text-align: center;
-            max-width: 1000px;
+            max-width: 900px;
             margin: 0 auto;
         }
 
-        .availability-pill {
+        .status-badge {
             display: inline-flex;
             align-items: center;
-            gap: 8px;
-            background: rgba(56, 189, 248, 0.1);
+            gap: 10px;
+            background: rgba(56, 189, 248, 0.05);
             border: 1px solid rgba(56, 189, 248, 0.2);
-            padding: 8px 16px;
+            padding: 8px 18px;
             border-radius: 50px;
-            font-size: 0.8rem;
+            font-size: 0.75rem;
             color: var(--primary-blue);
-            margin-bottom: 24px;
-            font-weight: 600;
+            font-weight: 700;
             text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 30px;
         }
+        .status-dot { width: 8px; height: 8px; background: #22c55e; border-radius: 50%; box-shadow: 0 0 10px #22c55e; animation: pulse 2s infinite; }
 
-        .hero h1 { font-size: clamp(2.5rem, 6vw, 4.5rem); line-height: 1.1; margin-bottom: 20px; font-weight: 800; }
-        .hero p { color: #94a3b8; font-size: 1.2rem; line-height: 1.6; margin-bottom: 40px; }
+        .hero h1 { font-size: clamp(2rem, 5vw, 3.2rem); line-height: 1.2; font-weight: 800; margin-bottom: 20px; }
+        .hero h1 span { color: var(--primary-blue); }
+        
+        .hero p { 
+            color: #94a3b8; 
+            font-size: 1.1rem; 
+            line-height: 1.6; 
+            max-width: 750px; 
+            margin: 0 auto 40px; 
+        }
 
         /* BUTTONS */
         .btn-group { display: flex; gap: 15px; justify-content: center; }
-        .btn { padding: 14px 28px; border-radius: 8px; text-decoration: none; font-weight: 700; transition: 0.3s; }
+        .btn { 
+            padding: 14px 28px; 
+            border-radius: 8px; 
+            text-decoration: none; 
+            font-weight: 700; 
+            font-size: 0.95rem;
+            cursor: pointer;
+        }
         .btn-primary { background: var(--primary-blue); color: #020617; }
-        .btn-secondary { border: 1px solid rgba(255,255,255,0.1); color: #fff; background: rgba(255,255,255,0.02); }
-        .btn:hover { transform: translateY(-3px); box-shadow: 0 10px 20px rgba(56, 189, 248, 0.2); }
+        .btn-primary:hover { transform: translateY(-3px); box-shadow: 0 10px 20px rgba(56, 189, 248, 0.3); }
+        .btn-secondary { border: 1px solid rgba(255,255,255,0.1); color: white; }
+        .btn-secondary:hover { background: rgba(255,255,255,0.05); border-color: var(--primary-blue); }
 
-        /* STATS & IMPACT GRID */
+        /* STATS GRID */
         .stats-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
             gap: 20px;
-            padding: 60px 8%;
+            padding: 40px 8% 100px;
             max-width: 1400px;
             margin: 0 auto;
         }
@@ -70,51 +119,67 @@
         .stat-card {
             background: rgba(255, 255, 255, 0.03);
             border: 1px solid rgba(255, 255, 255, 0.08);
-            border-radius: 16px;
+            border-radius: 20px;
             padding: 40px 20px;
             text-align: center;
-            transition: all 0.4s ease;
+            cursor: default;
         }
 
-        .stat-card h2 { font-size: 3.5rem; margin: 0; color: var(--primary-blue); }
-        .stat-card p { color: #94a3b8; margin: 10px 0 0; font-size: 1rem; }
+        /* HOVER EFFECT FOR ALL CARDS */
+        .stat-card:hover {
+            border-color: var(--primary-blue);
+            background: rgba(56, 189, 248, 0.05);
+            transform: translateY(-8px);
+        }
 
-        /* THE 70% COST SAVED CARD (Authority Hover Effect) */
+        /* PINK/BLUE GRADIENT FOR THE 70% CARD */
         .impact-card:hover {
             border-color: transparent;
-            background: linear-gradient(135deg, rgba(56, 189, 248, 0.15) 0%, rgba(255, 110, 199, 0.15) 100%);
-            box-shadow: 0 0 40px rgba(56, 189, 248, 0.2), 0 0 40px rgba(255, 110, 199, 0.1);
-            transform: translateY(-10px);
+            background: linear-gradient(135deg, rgba(56, 189, 248, 0.15), rgba(255, 110, 199, 0.15));
+            box-shadow: 0 0 30px rgba(56, 189, 248, 0.2), 0 0 30px rgba(255, 110, 199, 0.1);
         }
 
-        .impact-card:hover h2 {
-            background: linear-gradient(to right, var(--primary-blue), var(--accent-pink));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+        .stat-card h2 { font-size: 3.5rem; margin: 0; color: var(--primary-blue); font-weight: 800; }
+        .stat-card p { color: white; margin: 10px 0 0; font-size: 1.1rem; font-weight: 600; }
+        .stat-card span { display: block; color: #64748b; font-size: 0.8rem; margin-top: 5px; }
+
+        @keyframes pulse { 0% { opacity: 1; } 50% { opacity: 0.4; } 100% { opacity: 1; } }
+
+        @media (max-width: 768px) {
+            .nav-links { display: none; }
+            .btn-group { flex-direction: column; }
+            .hero h1 { font-size: 2.2rem; }
         }
-
-        .impact-card:hover p { color: #fff; }
-
     </style>
 </head>
 <body>
 
-<canvas id="dots"></canvas>
+<nav>
+    <div id="logo" onclick="window.location.href='index.html'">Deploy<span>Lynx</span></div>
+    <div class="nav-links">
+        <a href="index.html" class="active">Home</a>
+        <a href="about.html">About</a>
+        <a href="services.html">Services</a>
+        <a href="case-studies.html">Case Studies</a>
+        <a href="contact.html">Contact</a>
+    </div>
+</nav>
+
+<canvas id="bg-dots"></canvas>
 
 <section class="hero">
-    <div class="availability-pill">
-        <span style="width:8px; height:8px; background:#22c55e; border-radius:50%; display:inline-block; box-shadow:0 0 10px #22c55e;"></span>
-        Available for Remote Work & Freelance
+    <div class="status-badge">
+        <div class="status-dot"></div> Now Accepting Global Projects
     </div>
-    <h1>Engineering Secure, <br><span style="color:var(--primary-blue)">Production-Ready</span> Systems</h1>
+    <h1>Engineering Secure, <br><span>Production-Ready Systems</span></h1>
     <p>
         Don't let infrastructure bottlenecks and spiraling cloud costs stall your growth. 
         DeployLynx transforms complex cloud chaos into high-performance, automated ecosystems 
         that allow your team to ship faster while slashing overhead by 70%.
     </p>
     <div class="btn-group">
-        <a href="#contact" class="btn btn-primary">Book Free Consultation</a>
-        <a href="#work" class="btn btn-secondary">View Case Studies</a>
+        <a href="contact.html" class="btn btn-primary">Book Free Consultation</a>
+        <a href="case-studies.html" class="btn btn-secondary">View Case Studies</a>
     </div>
 </section>
 
@@ -122,60 +187,61 @@
     <div class="stat-card">
         <h2>12</h2>
         <p>Clients</p>
+        <span>Global Partnerships</span>
     </div>
     <div class="stat-card">
         <h2>35</h2>
         <p>Deployments</p>
+        <span>Production-Ready Units</span>
     </div>
     <div class="stat-card">
         <h2>99</h2>
         <p>Uptime %</p>
+        <span>Reliability Guaranteed</span>
     </div>
-    
     <div class="stat-card impact-card">
         <h2>70%</h2>
         <p>Cost Saved</p>
-        <span style="display:block; font-size:0.75rem; color:#64748b; margin-top:8px;">Avg. Infrastructure ROI</span>
+        <span>Avg. Infrastructure ROI</span>
     </div>
 </section>
 
 <script>
-    // Optimized Dot Background Animation (Matches your style)
-    const canvas = document.getElementById("dots");
+    const canvas = document.getElementById("bg-dots");
     const ctx = canvas.getContext("2d");
-    let particles = [];
+    let dots = [];
 
-    function resize() {
+    function init() {
         canvas.width = window.innerWidth;
         canvas.height = window.innerHeight;
+        dots = [];
+        for (let i = 0; i < 80; i++) {
+            dots.push({
+                x: Math.random() * canvas.width,
+                y: Math.random() * canvas.height,
+                vx: (Math.random() - 0.5) * 0.4,
+                vy: (Math.random() - 0.5) * 0.4
+            });
+        }
     }
 
-    window.addEventListener("resize", resize);
-    resize();
-
-    for(let i=0; i<60; i++) {
-        particles.push({
-            x: Math.random() * canvas.width,
-            y: Math.random() * canvas.height,
-            dx: (Math.random() - 0.5) * 0.5,
-            dy: (Math.random() - 0.5) * 0.5
-        });
-    }
-
-    function draw() {
-        ctx.clearRect(0,0,canvas.width,canvas.height);
-        ctx.fillStyle = "rgba(56, 189, 248, 0.4)";
-        particles.forEach(p => {
-            p.x += p.dx; p.y += p.dy;
-            if(p.x<0 || p.x>canvas.width) p.dx*=-1;
-            if(p.y<0 || p.y>canvas.height) p.dy*=-1;
+    function animate() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        ctx.fillStyle = "rgba(56, 189, 248, 0.3)";
+        dots.forEach(d => {
+            d.x += d.vx; d.y += d.vy;
+            if (d.x < 0 || d.x > canvas.width) d.vx *= -1;
+            if (d.y < 0 || d.y > canvas.height) d.vy *= -1;
             ctx.beginPath();
-            ctx.arc(p.x, p.y, 1.5, 0, Math.PI*2);
+            ctx.arc(d.x, d.y, 1.5, 0, Math.PI * 2);
             ctx.fill();
         });
-        requestAnimationFrame(draw);
+        requestAnimationFrame(animate);
     }
-    draw();
+
+    window.addEventListener("resize", init);
+    init();
+    animate();
 </script>
 
 </body>
