@@ -96,7 +96,7 @@
             margin-bottom: 20px;
         }
         
-        .txt-white { color: #ffffff; }
+        .txt-white { color: #f8fafc; }
         .txt-blue { color: var(--primary-blue); }
 
         .description {
@@ -129,26 +129,25 @@
             background: var(--card-bg);
             padding: 40px 25px;
             border-radius: 16px;
-            width: 240px;
+            width: 240px; 
             border: 1px solid rgba(255, 255, 255, 0.05);
-            transition: all 0.4s ease;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             cursor: pointer;
             text-decoration: none;
             color: inherit;
-            position: relative;
         }
 
-        /* LEFT SIDE ONLY HOVER EFFECT */
+        /* 1. LEFT SIDE ONLY HOVER EFFECT FOR ALL CARDS */
         .card:hover {
-            transform: translateY(-8px);
+            transform: translateY(-12px);
             border-left: 5px solid var(--primary-blue);
-            background: rgba(56, 189, 248, 0.05);
+            background: linear-gradient(135deg, rgba(56, 189, 248, 0.1) 0%, rgba(255, 110, 199, 0.1) 100%);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.4), 0 0 20px rgba(56, 189, 248, 0.2);
         }
 
-        /* SPECIFIC LIGHT BLUE HOVER FOR COST CARD */
+        /* 2. SPECIFIC LIGHT BLUE HOVER FOR COST CARD */
         .cost-card:hover {
-            border-color: var(--light-blue-hover) !important;
-            border-left-width: 1px !important; /* Keep it uniform */
+            border-color: var(--light-blue-hover);
             background: linear-gradient(135deg, rgba(14, 165, 233, 0.2) 0%, rgba(56, 189, 248, 0.1) 100%);
             box-shadow: 0 20px 40px rgba(0,0,0,0.4), 0 0 20px rgba(14, 165, 233, 0.3);
         }
@@ -157,6 +156,11 @@
             margin-top: 0; 
             color: var(--primary-blue);
             transition: 0.3s;
+        }
+
+        .card:hover h2, .card:hover h3 {
+            color: white;
+            text-shadow: 0 0 10px var(--primary-blue);
         }
 
         .card p { color: #94a3b8; line-height: 1.5; font-weight: 500; }
@@ -212,19 +216,19 @@
 
 <section class="grid">
     <div class="card">
-        <h2 id="count-clients">0</h2>
+        <h2>12</h2>
         <p>Clients</p>
     </div>
     <div class="card">
-        <h2 id="count-deploy">0</h2>
+        <h2>35</h2>
         <p>Deployments</p>
     </div>
     <div class="card">
-        <h2 id="count-uptime">0</h2>
+        <h2>99</h2>
         <p>Uptime %</p>
     </div>
     <div class="card cost-card">
-        <h2 id="count-cost">0%</h2>
+        <h2>70%</h2>
         <p>Cost Saved</p>
         <p style="font-size: 0.75rem; margin-top: 5px; opacity: 0.8;">Avg. Infrastructure ROI</p>
     </div>
@@ -271,34 +275,10 @@
 </div>
 
 <script>
-    // Numbers Animation Logic
-    function animateValue(id, start, end, duration, suffix = "") {
-        let obj = document.getElementById(id);
-        let range = end - start;
-        let minTimer = 50;
-        let stepTime = Math.abs(Math.floor(duration / range));
-        stepTime = Math.max(stepTime, minTimer);
-        let startTime = new Date().getTime();
-        let endTime = startTime + duration;
-        let timer;
-
-        function run() {
-            let now = new Date().getTime();
-            let remaining = Math.max((endTime - now) / duration, 0);
-            let value = Math.round(end - (remaining * range));
-            obj.innerHTML = value + suffix;
-            if (value == end) {
-                clearInterval(timer);
-            }
-        }
-        timer = setInterval(run, stepTime);
-        run();
-    }
-
-    // Typing Animation Logic (Blue and White)
+    // Updated Typing Animation Logic: 2nd image (part) is now White
     const phrases = [
         { text: "Engineering the future with ", color: "txt-white" },
-        { text: "scalable systems, ", color: "txt-blue" },
+        { text: "scalable systems, ", color: "txt-white" }, // Changed to White
         { text: "intelligent automation, ", color: "txt-blue" },
         { text: "and ", color: "txt-white" },
         { text: "cloud-native excellence.", color: "txt-blue" }
@@ -311,6 +291,7 @@
     function typeEffect() {
         if (phraseIndex < phrases.length) {
             const currentPhrase = phrases[phraseIndex];
+            
             let currentSpan = document.getElementById(`span-${phraseIndex}`);
             if (!currentSpan) {
                 currentSpan = document.createElement("span");
@@ -343,14 +324,7 @@
         }
     }
 
-    window.onload = () => {
-        typeEffect();
-        // Animate numbers
-        animateValue("count-clients", 0, 12, 2000);
-        animateValue("count-deploy", 0, 35, 2000);
-        animateValue("count-uptime", 0, 99, 2000);
-        animateValue("count-cost", 0, 70, 2000, "%");
-    };
+    window.onload = typeEffect;
 </script>
 
 </body>
