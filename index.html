@@ -1,31 +1,127 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<title>About - DeployLynx</title>
-
-<link rel="stylesheet" href="style.css">
-<script defer src="script.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DeployLynx</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: #020617;
+            color: white;
+            text-align: center;
+        }
+        nav {
+            display: flex;
+            justify-content: space-between;
+            padding: 20px;
+            background: #020617;
+        }
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            margin: 0 15px;
+        }
+        .hero {
+            padding: 100px 20px;
+        }
+        .hero h1 {
+            font-size: 3rem;
+        }
+        .grid {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            padding: 50px;
+            flex-wrap: wrap;
+        }
+        .card {
+            background: #1e293b;
+            padding: 20px;
+            border-radius: 10px;
+            width: 250px;
+        }
+        .footer {
+            padding: 20px;
+            font-size: 0.8rem;
+            color: gray;
+        }
+    </style>
 </head>
-
 <body>
 
 <nav>
-<div><b>DeployLynx</b></div>
-<div>
-<a href="index.html">Home</a>
-<a href="about.html">About</a>
-<a href="services.html">Services</a>
-<a href="projects.html">Projects</a>
-<a href="contact.html">Contact</a>
-<a onclick="toggleTheme()">Theme</a>
-</div>
+    <div class="logo">DeployLynx</div>
+    <div class="nav-links">
+        <a href="#">Home</a>
+        <a href="#">About</a>
+        <a href="#">Services</a>
+        <a href="#">Case Studies</a>
+        <a href="#">Contact</a>
+    </div>
 </nav>
 
-<section>
-<h2>About Us</h2>
-<p>DeployLynx builds scalable, secure and production-ready systems using DevOps, Cloud and AI Automation.</p>
+<section class="hero">
+    <h1>DeployLynx</h1>
+    <p>Engineering the future with scalable systems, intelligent automation, and cloud-native excellence.</p>
+    <p>DeployLynx builds scalable, secure, and production-ready systems using DevOps, Cloud, and AI Automation. We design cloud-native architectures, automate complex workflows, and deliver enterprise-grade infrastructure that scales with your vision.</p>
 </section>
+
+<section class="grid">
+    <div class="card">
+        <h2>12</h2>
+        <p>Clients</p>
+    </div>
+    <div class="card">
+        <h2>35</h2>
+        <p>Deployments</p>
+    </div>
+    <div class="card">
+        <h2>99</h2>
+        <p>Uptime %</p>
+    </div>
+</section>
+
+<section class="expertise">
+    <h2>Our Expertise</h2>
+    <div class="grid">
+        <div class="card">
+            <h3>DevOps</h3>
+            <p>CI/CD • GitOps • Security</p>
+        </div>
+        <div class="card">
+            <h3>Cloud</h3>
+            <p>AWS • Azure • Terraform</p>
+        </div>
+        <div class="card">
+            <h3>AI/ML</h3>
+            <p>LLM Ops • Process Automation</p>
+        </div>
+    </div>
+</section>
+
+<section class="solutions">
+    <h2>Featured Solutions</h2>
+    <div class="grid">
+        <div class="card">
+            <h3>DevSecOps Pipeline</h3>
+            <p>Automated security scanning integrated with GitHub Actions & Docker containers.</p>
+        </div>
+        <div class="card">
+            <h3>K8s Orchestration</h3>
+            <p>High-availability Kubernetes clusters for production-scale microservices.</p>
+        </div>
+        <div class="card">
+            <h3>Cloud Infrastructure</h3>
+            <p>Modular Infrastructure as Code (IaC) using Terraform for multi-region AWS setup.</p>
+        </div>
+    </div>
+</section>
+
+<div class="footer">
+    DeployLynx © 2025 | Powering Global Cloud Infrastructures
+</div>
 
 </body>
 </html>
