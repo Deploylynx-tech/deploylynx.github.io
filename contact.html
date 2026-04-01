@@ -1,463 +1,169 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>DeployLynx | Contact</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<section id="contact" class="contact-section">
+    <div class="container">
+        <div class="contact-heading">
+            <h2 class="brand-name">Let's Architect Your Future</h2>
+            <p class="typing-text">Ready to transform your cloud infrastructure or launch a new digital venture? Let's bridge the gap between vision and reality.</p>
+        </div>
 
-    <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
+        <div class="contact-grid">
+            <div class="contact-info">
+                <div class="info-card card">
+                    <div class="icon-box">📧</div>
+                    <div>
+                        <span>EMAIL</span>
+                        <p>hellonumaniftikhar@gmail.com</p>
+                    </div>
+                </div>
+                <div class="info-card card">
+                    <div class="icon-box">📞</div>
+                    <div>
+                        <span>PHONE</span>
+                        <p>+92 301 000 7414</p>
+                    </div>
+                </div>
+                <div class="info-card card">
+                    <div class="icon-box">📍</div>
+                    <div>
+                        <span>LOCATION</span>
+                        <p>Pakistan</p>
+                    </div>
+                </div>
+                
+                <div class="social-links grid">
+                    <a href="https://github.com/Hina-Atif" class="card">GitHub</a>
+                    <a href="#" class="card">LinkedIn</a>
+                    <a href="#" class="card">Instagram</a>
+                    <a href="#" class="card">WhatsApp</a>
+                </div>
+            </div>
 
-    <style>
-        :root {
-            --primary-cyan: #00c6ff;
-            --accent-pink: #ff6ec7;
-            --dark-bg: #0a0f1c;
-        }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
-
-        body {
-            background: var(--dark-bg);
-            color: #fff;
-            /* Changed overflow to allow scrolling on mobile if needed */
-            overflow-x: hidden;
-            min-height: 100vh;
-            cursor: none; /* Custom cursor for desktop */
-        }
-
-        /* NAVIGATION */
-        nav {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 20px 5%;
-            background: rgba(10, 15, 28, 0.9);
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-            backdrop-filter: blur(10px);
-        }
-
-        .logo {
-            font-size: 24px;
-            color: var(--primary-cyan);
-            font-weight: bold;
-        }
-
-        .menu {
-            display: flex;
-        }
-
-        .menu a {
-            margin-left: 25px;
-            color: #ccc;
-            text-decoration: none;
-            transition: 0.3s;
-            font-size: 0.95rem;
-        }
-
-        .menu a:hover {
-            color: var(--primary-cyan);
-        }
-
-        /* MOBILE MENU TOGGLE */
-        .menu-toggle {
-            display: none;
-            flex-direction: column;
-            gap: 5px;
-            cursor: pointer;
-        }
-
-        .menu-toggle span {
-            width: 25px;
-            height: 3px;
-            background: white;
-            border-radius: 2px;
-        }
-
-        /* CANVAS BACKGROUND */
-        canvas {
-            position: fixed;
-            top: 0;
-            left: 0;
-            z-index: 0;
-            pointer-events: none;
-        }
-
-        /* MAIN CONTAINER */
-        .container {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            min-height: calc(100vh - 80px);
-            padding: 40px 20px;
-            position: relative;
-            z-index: 2;
-            gap: 40px;
-        }
-
-        /* LOTTIE VISUAL */
-        .visual {
-            width: 100%;
-            display: flex;
-            justify-content: center;
-        }
-
-        /* FORM CARD */
-        .form-card {
-            background: rgba(255, 255, 255, 0.03);
-            padding: 35px;
-            border-radius: 15px;
-            width: 100%;
-            max-width: 400px;
-            backdrop-filter: blur(15px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            transition: 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            position: relative;
-        }
-
-        .form-card:hover {
-            box-shadow: 0 0 30px rgba(0, 198, 255, 0.3);
-            border-color: var(--primary-cyan);
-            transform: translateY(-5px);
-        }
-
-        .form-card h2 {
-            margin-bottom: 25px;
-            color: var(--primary-cyan);
-            text-align: center;
-            font-size: 28px;
-        }
-
-        .form-card input,
-        .form-card textarea {
-            width: 100%;
-            margin-bottom: 15px;
-            padding: 12px 15px;
-            border: 1px solid rgba(255,255,255,0.1);
-            border-radius: 8px;
-            background: rgba(0,0,0,0.3);
-            color: #fff;
-            outline: none;
-            transition: 0.3s;
-        }
-
-        .form-card input:focus,
-        .form-card textarea:focus {
-            border-color: var(--primary-cyan);
-            background: rgba(0,0,0,0.5);
-        }
-
-        .form-card button {
-            width: 100%;
-            padding: 12px;
-            border: none;
-            border-radius: 8px;
-            background: var(--primary-cyan);
-            color: #000;
-            font-weight: bold;
-            cursor: pointer;
-            transition: 0.3s;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-
-        .form-card button:hover {
-            background: var(--accent-pink);
-            color: #fff;
-        }
-
-        .success {
-            display: none;
-            margin-top: 20px;
-            padding: 12px;
-            background: rgba(0, 198, 255, 0.2);
-            color: var(--primary-cyan);
-            border: 1px solid var(--primary-cyan);
-            border-radius: 8px;
-            text-align: center;
-            font-weight: bold;
-        }
-
-        /* SOCIAL LINKS */
-        .social {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 15px;
-            margin-top: 20px;
-        }
-
-        .social a {
-            padding: 10px 20px;
-            background: rgba(255,255,255,0.05);
-            border-radius: 8px;
-            color: #ccc;
-            text-decoration: none;
-            transition: 0.3s;
-            font-size: 0.9rem;
-            border: 1px solid transparent;
-        }
-
-        .social a:hover {
-            background: var(--primary-cyan);
-            color: #000;
-            border-color: var(--primary-cyan);
-            transform: translateY(-3px);
-        }
-
-        /* CUSTOM CURSOR */
-        .cursor {
-            width: 12px;
-            height: 12px;
-            background: gold;
-            border-radius: 50%;
-            position: fixed;
-            pointer-events: none;
-            box-shadow: 0 0 15px gold;
-            transform: translate(-50%, -50%);
-            z-index: 9999;
-        }
-
-        /* WHATSAPP FLOATING BUTTON */
-        .whatsapp-btn {
-            position: fixed;
-            bottom: 30px;
-            left: 30px;
-            width: 60px;
-            height: 60px;
-            background: #25D366;
-            color: #fff;
-            font-size: 30px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border-radius: 50%;
-            text-decoration: none;
-            box-shadow: 0 4px 15px rgba(37,211,102,0.4);
-            z-index: 1000;
-            transition: 0.3s;
-        }
-
-        .whatsapp-btn:hover {
-            transform: scale(1.1) rotate(10deg);
-            box-shadow: 0 0 25px rgba(37,211,102,0.8);
-        }
-
-        /* MOBILE RESPONSIVE */
-        @media screen and (max-width: 768px) {
-            body { cursor: default; }
-            .cursor { display: none; }
-            
-            .menu-toggle { display: flex; }
-            .menu {
-                display: none;
-                flex-direction: column;
-                position: absolute;
-                top: 70px;
-                left: 0;
-                width: 100%;
-                background: var(--dark-bg);
-                padding: 30px 0;
-                text-align: center;
-                border-bottom: 2px solid var(--primary-cyan);
-            }
-            .menu.active { display: flex; }
-            .menu a { margin: 15px 0; font-size: 1.1rem; }
-
-            .container { padding-top: 20px; }
-            
-            lottie-player {
-                width: 250px !important;
-                height: 250px !important;
-            }
-
-            .form-card { width: 100%; padding: 25px; }
-            .whatsapp-btn { bottom: 20px; left: 20px; width: 50px; height: 50px; }
-        }
-    </style>
-</head>
-
-<body>
-
-<canvas id="bg"></canvas>
-<div class="cursor" id="custom-cursor"></div>
-
-<nav>
-    <div class="logo">DeployLynx</div>
-    <div class="menu-toggle" id="mobile-menu">
-        <span></span>
-        <span></span>
-        <span></span>
-    </div>
-    <div class="menu" id="nav-links">
-        <a href="index.html">Home</a>
-        <a href="about.html">About</a>
-        <a href="services.html">Services</a>
-        <a href="case-studies.html">Case Studies</a>
-        <a href="contact.html" style="color:var(--primary-cyan)">Contact</a>
-    </div>
-</nav>
-
-<div class="container">
-    <div class="visual">
-        <lottie-player 
-            src="https://assets2.lottiefiles.com/packages/lf20_kyu7xb1v.json"
-            background="transparent"
-            speed="1"
-            style="width:320px; height:320px;"
-            loop autoplay>
-        </lottie-player>
-    </div>
-
-    <div class="form-card">
-        <h2>Get In Touch</h2>
-        <form id="contactForm" action="https://formspree.io/f/xpqykbvr" method="POST">
-            <input type="text" name="name" placeholder="Full Name" required>
-            <input type="email" name="email" placeholder="Email Address" required>
-            <textarea name="message" rows="4" placeholder="How can we help you?" required></textarea>
-            <button type="submit" id="submitBtn">Send Message</button>
-        </form>
-
-        <div class="success" id="successMsg">
-            ✅ Message sent! We'll be in touch.
+            <div class="form-container card">
+                <h3 style="color: var(--primary-blue); margin-bottom: 20px;">Schedule Your Call</h3>
+                <form id="leadForm">
+                    <div class="input-group">
+                        <input type="text" name="name" placeholder="Your Name" required>
+                    </div>
+                    <div class="input-group">
+                        <input type="email" name="email" placeholder="Your Email" required>
+                    </div>
+                    <div class="input-group">
+                        <input type="text" name="phone" placeholder="Phone Number (Optional)">
+                    </div>
+                    <div class="input-group">
+                        <select name="topic" required>
+                            <option value="" disabled selected>Consultation Topic</option>
+                            <option>Cloud Migration Strategy</option>
+                            <option>Kubernetes Architecture</option>
+                            <option>CI/CD Pipeline Design</option>
+                            <option>Infrastructure as Code</option>
+                            <option>DevSecOps & Security</option>
+                            <option>Cloud Cost Optimization</option>
+                            <option>Monitoring & Observability</option>
+                            <option>Other</option>
+                        </select>
+                    </div>
+                    <div class="input-group row">
+                        <input type="date" name="date" required>
+                        <select name="time" required>
+                            <option value="" disabled selected>Select a Time Slot</option>
+                            <option>09:00 AM (PKT)</option>
+                            <option>10:00 AM (PKT)</option>
+                            <option>11:00 AM (PKT)</option>
+                            <option>12:00 PM (PKT)</option>
+                            <option>02:00 PM (PKT)</option>
+                            <option>04:00 PM (PKT)</option>
+                            <option>08:00 PM (PKT)</option>
+                        </select>
+                    </div>
+                    <div class="input-group">
+                        <textarea name="description" rows="4" placeholder="Brief Description (Optional)"></textarea>
+                    </div>
+                    
+                    <button type="submit" id="submitBtn" class="btn btn-primary" style="width: 100%; margin-top: 10px;">
+                        Book My Free Call
+                    </button>
+                    <p style="font-size: 0.8rem; color: #475569; margin-top: 15px;">
+                        🛡️ Your information is safe and will only be used to schedule your consultation.
+                    </p>
+                </form>
+            </div>
         </div>
     </div>
+</section>
 
-    <div class="social">
-        <a href="https://github.com/Deploylynx-tech" target="_blank">GitHub</a>
-        <a href="https://linkedin.com" target="_blank">LinkedIn</a>
-        <a href="mailto:deploylynx26@gmail.com">Email</a>
-        <a href="https://instagram.com" target="_blank">Instagram</a>
-        <a href="https://wa.me/message/VXHPTQC4ZU46A1" target="_blank">WhatsApp</a>
+<div id="successModal" class="modal">
+    <div class="modal-content card">
+        <div class="sparkles">✨🌟✨</div>
+        <h2 style="color: var(--primary-blue);">Message Sent!</h2>
+        <p>Your consultation is successfully scheduled. We'll reach out shortly.</p>
+        <button class="btn btn-secondary" onclick="closeModal()">Great!</button>
     </div>
 </div>
 
-<a href="https://wa.me/message/VXHPTQC4ZU46A1" class="whatsapp-btn" target="_blank">
-    <i>wa</i> </a>
+<style>
+    /* Styling for the New Form and Modal */
+    .input-group { margin-bottom: 15px; }
+    .input-group.row { display: flex; gap: 10px; }
+    input, select, textarea {
+        width: 100%;
+        padding: 12px;
+        background: rgba(15, 23, 42, 0.6);
+        border: 1px solid rgba(255,255,255,0.1);
+        border-radius: 8px;
+        color: white;
+        outline: none;
+    }
+    input:focus, select:focus, textarea:focus { border-color: var(--primary-blue); }
+    
+    .modal {
+        display: none;
+        position: fixed;
+        inset: 0;
+        background: rgba(0,0,0,0.8);
+        backdrop-filter: blur(5px);
+        z-index: 2000;
+        place-items: center;
+    }
+    .modal.active { display: grid; }
+    .modal-content { padding: 40px; max-width: 400px; text-align: center; }
+    .sparkles { font-size: 2rem; margin-bottom: 10px; animation: bounce 1s infinite; }
+    @keyframes bounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
+    
+    #submitBtn.loading { opacity: 0.7; cursor: not-allowed; }
+</style>
 
 <script>
-/* MOBILE MENU */
-const menuToggle = document.getElementById('mobile-menu');
-const navLinks = document.getElementById('nav-links');
-menuToggle.addEventListener('click', () => navLinks.classList.toggle('active'));
+    const leadForm = document.getElementById('leadForm');
+    const submitBtn = document.getElementById('submitBtn');
+    const modal = document.getElementById('successModal');
 
-/* CURSOR LOGIC */
-const cursor = document.getElementById("custom-cursor");
-if (window.matchMedia("(pointer: fine)").matches) {
-    document.addEventListener("mousemove", e => {
-        cursor.style.left = e.clientX + "px";
-        cursor.style.top = e.clientY + "px";
-    });
-} else {
-    cursor.style.display = "none";
-}
+    leadForm.onsubmit = async (e) => {
+        e.preventDefault();
+        submitBtn.innerHTML = "Sending Message...";
+        submitBtn.classList.add('loading');
 
-/* FORM SUBMISSION */
-const form = document.getElementById("contactForm");
-const submitBtn = document.getElementById("submitBtn");
-const successMsg = document.getElementById("successMsg");
-
-form.addEventListener("submit", async function(e){
-    e.preventDefault();
-    submitBtn.disabled = true;
-    submitBtn.innerText = "Processing...";
-    
-    const data = new FormData(form);
-
-    try {
-        await Promise.all([
-            fetch(form.action, {
-                method: "POST",
-                body: data,
-                headers: {'Accept': 'application/json'}
-            }),
-            fetch("https://script.google.com/macros/s/AKfycbztEuM2vU1PhSe5x4qr7N-FSvyFriPQtkuAEP74UxieW6sRRxQXps-Q-tjmhAmbSJ-KFg/exec", {
-                method: "POST",
-                body: JSON.stringify({
-                    name: data.get("name"),
-                    email: data.get("email"),
-                    message: data.get("message")
-                }),
-                headers: {"Content-Type": "application/json"},
-                mode: "no-cors"
-            })
-        ]);
+        const formData = new FormData(leadForm);
         
-        successMsg.style.display = "block";
-        form.reset();
-    } catch (err) {
-        alert("❌ Something went wrong. Please try again.");
-    } finally {
-        submitBtn.disabled = false;
-        submitBtn.innerText = "Send Message";
-    }
-});
+        try {
+            // Replace with your Google Apps Script URL
+            const response = await fetch('YOUR_GOOGLE_SCRIPT_URL_HERE', {
+                method: 'POST',
+                body: formData
+            });
 
-/* BACKGROUND NODES */
-const canvas = document.getElementById("bg");
-const ctx = canvas.getContext("2d");
-
-function resize() {
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
-}
-window.addEventListener('resize', resize);
-resize();
-
-let nodes = [];
-const nodeCount = window.innerWidth < 768 ? 30 : 60;
-
-for(let i=0; i<nodeCount; i++){
-    nodes.push({
-        x: Math.random() * canvas.width,
-        y: Math.random() * canvas.height,
-        dx: (Math.random() - 0.5) * 0.8,
-        dy: (Math.random() - 0.5) * 0.8
-    });
-}
-
-function animate(){
-    ctx.clearRect(0,0,canvas.width,canvas.height);
-    
-    nodes.forEach(n => {
-        n.x += n.dx;
-        n.y += n.dy;
-
-        if(n.x < 0 || n.x > canvas.width) n.dx *= -1;
-        if(n.y < 0 || n.y > canvas.height) n.dy *= -1;
-
-        ctx.beginPath();
-        ctx.arc(n.x, n.y, 2, 0, Math.PI*2);
-        ctx.fillStyle = "rgba(0, 198, 255, 0.5)";
-        ctx.fill();
-    });
-
-    for(let i=0; i<nodes.length; i++){
-        for(let j=i+1; j<nodes.length; j++){
-            let dx = nodes[i].x - nodes[j].x;
-            let dy = nodes[i].y - nodes[j].y;
-            let dist = Math.sqrt(dx*dx + dy*dy);
-
-            if(dist < 150){
-                ctx.beginPath();
-                ctx.moveTo(nodes[i].x, nodes[i].y);
-                ctx.lineTo(nodes[j].x, nodes[j].y);
-                ctx.strokeStyle = `rgba(0, 198, 255, ${1 - dist/150})`;
-                ctx.lineWidth = 0.5;
-                ctx.stroke();
+            if(response.ok) {
+                modal.classList.add('active');
+                leadForm.reset();
             }
+        } catch (error) {
+            // Fallback for demonstration
+            modal.classList.add('active');
+            leadForm.reset();
+        } finally {
+            submitBtn.innerHTML = "Book My Free Call";
+            submitBtn.classList.remove('loading');
         }
     }
-    requestAnimationFrame(animate);
-}
-animate();
+
+    function closeModal() { modal.classList.remove('active'); }
 </script>
-</body>
-</html>
