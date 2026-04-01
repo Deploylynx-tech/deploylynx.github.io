@@ -373,7 +373,7 @@
 </section>
 
 <footer style="text-align:center; padding:40px; color:#64748b; font-size:0.9rem;">
-    DeployLynx &copy; 2026 | Powering Global Cloud Infrastructures
+    DeployLynx &copy; 2025 | Powering Global Cloud Infrastructures
 </footer>
 
 <script>
@@ -477,15 +477,13 @@ document.querySelectorAll(".fade").forEach(el => observer.observe(el));
 
 function count(id, end){
     let n = 0;
-    let step = end > 50 ? 1 : 1;
     let timer = setInterval(() => {
-        n += step;
+        n++;
+        document.getElementById(id).innerText = n;
         if(n >= end) {
-            n = end;
             clearInterval(timer);
         }
-        document.getElementById(id).innerText = n;
-    }, 40);
+    }, 50);
 }
 </script>
 
