@@ -61,7 +61,6 @@
             padding: 100px 20px 40px;
         }
 
-        /* BRAND NAME WITH FLOWING COLORS */
         .brand-name {
             font-size: clamp(40px, 10vw, 80px);
             font-weight: 900;
@@ -77,7 +76,6 @@
             to { background-position: 300% center; }
         }
 
-        /* TYPING ANIMATION - NOW ALL WHITE */
         .typing-container {
             margin-top: 20px;
             font-size: clamp(18px, 4vw, 24px);
@@ -87,13 +85,26 @@
             margin-left: auto;
             margin-right: auto;
             line-height: 1.6;
-            color: #ffffff; /* Forced white for typing */
+            color: #ffffff;
         }
 
         section {
             padding: 60px 10%;
             max-width: 1200px;
             margin: 0 auto;
+        }
+
+        /* UPDATED DESCRIPTION STYLING: WHITE AND LIGHT BLUE */
+        .about-text {
+            text-align: center; 
+            line-height: 1.8; 
+            color: #ffffff; 
+            font-size: 1.1rem;
+        }
+
+        .about-text b {
+            color: var(--primary-cyan);
+            text-shadow: 0 0 10px rgba(0, 198, 255, 0.3);
         }
 
         .glass {
@@ -108,11 +119,6 @@
             transform: translateY(-8px);
             box-shadow: 0 10px 30px rgba(0, 198, 255, 0.2);
             border-color: var(--primary-cyan);
-        }
-
-        .cost-card:hover {
-            border-color: var(--light-blue-hover);
-            box-shadow: 0 10px 30px rgba(56, 189, 248, 0.4);
         }
 
         .stats {
@@ -141,7 +147,6 @@
             transition: 0.3s;
         }
 
-        /* Hover effect maintained for team/project cards */
         .card:hover { 
             box-shadow: 0 0 25px var(--accent-pink); 
             transform: scale(1.03); 
@@ -193,9 +198,9 @@
 </div>
 
 <section class="about fade">
-    <p style="text-align: center; line-height: 1.8; color: #cbd5e1; font-size: 1.1rem;">
-        DeployLynx builds scalable, secure, and production-ready systems using DevOps, Cloud, and AI Automation. 
-        We design cloud-native architectures, automate complex workflows, and deliver enterprise-grade infrastructure 
+    <p class="about-text">
+        <b>DeployLynx</b> builds <b>scalable, secure, and production-ready</b> systems using <b>DevOps, Cloud, and AI Automation</b>. 
+        We design <b>cloud-native architectures</b>, automate complex workflows, and deliver <b>enterprise-grade infrastructure</b> 
         that scales with your vision.
     </p>
 </section>
@@ -261,7 +266,6 @@
 </footer>
 
 <script>
-/* TYPING EFFECT (Now forced white only) */
 const phrases = [
     { text: "Engineering the future with ", color: "txt-white" },
     { text: "scalable systems, ", color: "txt-white" },
@@ -279,7 +283,7 @@ function typeEffect() {
         if (!currentSpan) {
             currentSpan = document.createElement("span");
             currentSpan.id = `phrase-${pIdx}`;
-            currentSpan.className = "txt-white"; // Fixed to white
+            currentSpan.className = "txt-white";
             typingContainer.appendChild(currentSpan);
         }
 
@@ -307,7 +311,6 @@ function typeEffect() {
 }
 window.addEventListener('load', typeEffect);
 
-/* CURSOR LOGIC */
 const cursor = document.querySelector(".cursor");
 if (window.matchMedia("(pointer: fine)").matches) {
     document.addEventListener("mousemove", e => {
@@ -316,7 +319,6 @@ if (window.matchMedia("(pointer: fine)").matches) {
     });
 }
 
-/* DOTS BACKGROUND */
 const canvas = document.getElementById("dots");
 let c = canvas.getContext("2d");
 function resize() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
@@ -343,7 +345,6 @@ function draw(){
 }
 draw();
 
-/* SCROLL REVEAL & COUNTER */
 let triggered = false;
 const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
