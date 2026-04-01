@@ -3,150 +3,172 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DeployLynx | Enterprise Cloud & AI</title>
+    <title>DeployLynx | Enterprise Cloud & AI Automation</title>
 
     <style>
         :root {
             --primary-blue: #38bdf8;
             --accent-pink: #ff6ec7;
             --dark-bg: #020617;
-            --nav-bg: rgba(2, 6, 23, 0.8);
+            --card-bg: rgba(255, 255, 255, 0.03);
+            --nav-bg: rgba(2, 6, 23, 0.9);
         }
+
+        * { box-sizing: border-box; }
 
         body {
             margin: 0;
-            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            font-family: 'Inter', 'Segoe UI', Roboto, sans-serif;
             background: var(--dark-bg);
             color: white;
             overflow-x: hidden;
-            cursor: none;
+            cursor: none; /* Hidden for custom cursor */
         }
 
-        /* CANVAS BACKGROUND (Untouched as requested) */
-        canvas { position: fixed; top: 0; left: 0; z-index: -1; }
+        /* BACKGROUND CANVAS */
+        canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: -1;
+        }
 
+        /* CUSTOM CURSOR */
         .cursor {
             position: fixed;
-            width: 12px;
-            height: 12px;
+            width: 10px;
+            height: 10px;
             background: #fff;
             border-radius: 50%;
             pointer-events: none;
             box-shadow: 0 0 15px var(--primary-blue);
             z-index: 9999;
             transform: translate(-50%, -50%);
+            transition: width 0.2s, height 0.2s;
         }
 
         /* AVAILABILITY BADGE */
-        .availability {
+        .badge {
             display: inline-flex;
             align-items: center;
-            gap: 8px;
+            gap: 10px;
             background: rgba(56, 189, 248, 0.1);
             border: 1px solid rgba(56, 189, 248, 0.2);
-            padding: 6px 14px;
+            padding: 8px 16px;
             border-radius: 50px;
-            font-size: 0.8rem;
+            font-size: 0.75rem;
             color: var(--primary-blue);
-            margin-bottom: 20px;
+            font-weight: 700;
             letter-spacing: 1px;
             text-transform: uppercase;
-            font-weight: 600;
+            margin-bottom: 25px;
         }
         .dot { width: 8px; height: 8px; background: #22c55e; border-radius: 50%; box-shadow: 0 0 10px #22c55e; animation: pulse 2s infinite; }
-        @keyframes pulse { 0% { opacity: 1; } 50% { opacity: 0.4; } 100% { opacity: 1; } }
+        @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.4; } }
 
         /* NAVBAR */
         nav {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 18px 8%;
+            padding: 20px 8%;
             background: var(--nav-bg);
             position: sticky;
             top: 0;
             z-index: 1000;
-            backdrop-filter: blur(12px);
+            backdrop-filter: blur(15px);
             border-bottom: 1px solid rgba(255,255,255,0.05);
         }
-
-        #logo { font-weight: 800; font-size: 1.4rem; color: #fff; letter-spacing: -0.5px; }
+        #logo { font-size: 1.5rem; font-weight: 800; letter-spacing: -1px; }
         #logo span { color: var(--primary-blue); }
-
         .nav-links a { color: #94a3b8; text-decoration: none; margin-left: 30px; font-size: 0.9rem; transition: 0.3s; }
-        .nav-links a:hover { color: #fff; }
+        .nav-links a:hover { color: #fff; text-shadow: 0 0 10px var(--primary-blue); }
 
-        /* HERO SECTION */
+        /* HERO */
         .hero {
-            min-height: 90vh;
+            min-height: 85vh;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
             text-align: center;
-            padding: 0 20px;
+            padding: 40px 20px;
         }
+        .hero h1 { font-size: clamp(3rem, 8vw, 5.5rem); line-height: 1; font-weight: 800; margin: 0 0 20px 0; }
+        .hero h1 span { background: linear-gradient(to bottom, #fff, var(--primary-blue)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .hero p { color: #94a3b8; max-width: 750px; font-size: clamp(1rem, 3vw, 1.25rem); line-height: 1.6; margin-bottom: 40px; }
 
-        .hero h1 { font-size: clamp(40px, 8vw, 80px); line-height: 1.1; margin-bottom: 20px; font-weight: 800; }
-        .hero p { color: #94a3b8; max-width: 700px; font-size: clamp(16px, 4vw, 20px); line-height: 1.6; margin-bottom: 35px; }
-
-        /* PREMIUM BUTTONS */
+        /* BUTTONS */
         .btn-group { display: flex; gap: 15px; flex-wrap: wrap; justify-content: center; }
-        .btn { padding: 14px 28px; border-radius: 8px; text-decoration: none; font-weight: 600; transition: 0.4s; font-size: 0.95rem; }
-        .btn-primary { background: var(--primary-blue); color: #000; box-shadow: 0 4px 20px rgba(56, 189, 248, 0.3); }
-        .btn-secondary { border: 1px solid rgba(255,255,255,0.1); color: #fff; background: rgba(255,255,255,0.03); }
+        .btn { padding: 16px 32px; border-radius: 8px; text-decoration: none; font-weight: 700; transition: 0.4s; }
+        .btn-primary { background: var(--primary-blue); color: #020617; box-shadow: 0 10px 20px rgba(56, 189, 248, 0.2); }
+        .btn-secondary { border: 1px solid rgba(255,255,255,0.1); color: #fff; background: rgba(255,255,255,0.02); }
         .btn:hover { transform: translateY(-3px); filter: brightness(1.2); }
 
-        /* GRID LAYOUTS */
+        /* GRID SYSTEM */
         .grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 20px;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
             padding: 80px 10%;
-            max-width: 1300px;
+            max-width: 1400px;
             margin: 0 auto;
         }
 
         .card {
-            background: rgba(255, 255, 255, 0.03);
+            background: var(--card-bg);
             border: 1px solid rgba(255, 255, 255, 0.08);
-            border-radius: 16px;
-            padding: 40px 30px;
-            transition: 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            border-radius: 20px;
+            padding: 45px 35px;
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
             position: relative;
             overflow: hidden;
+            backdrop-filter: blur(10px);
         }
 
-        /* NEW 70% COST SAVED CARD WITH PINK/BLUE HOVER */
-        .card-impact:hover {
+        /* 70% IMPACT CARD (Light Blue & Pink Hover) */
+        .impact-card { text-align: center; }
+        .impact-value { 
+            font-size: 4rem; 
+            font-weight: 900; 
+            margin-bottom: 10px; 
+            color: #fff;
+            transition: 0.4s;
+        }
+        .impact-card p { color: var(--primary-blue); font-weight: 700; text-transform: uppercase; letter-spacing: 1px; margin: 0; }
+        
+        .impact-card:hover {
             border-color: transparent;
-            background: linear-gradient(135deg, rgba(56, 189, 248, 0.2), rgba(255, 110, 199, 0.2));
-            box-shadow: 0 0 30px rgba(56, 189, 248, 0.2), 0 0 30px rgba(255, 110, 199, 0.1);
+            background: linear-gradient(135deg, rgba(56, 189, 248, 0.15) 0%, rgba(255, 110, 199, 0.15) 100%);
+            box-shadow: 0 20px 40px rgba(56, 189, 248, 0.1), 0 20px 40px rgba(255, 110, 199, 0.1);
+            transform: translateY(-10px);
+        }
+        .impact-card:hover .impact-value {
+            background: linear-gradient(to right, var(--primary-blue), var(--accent-pink));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
 
-        .card-impact h2 { font-size: 3.5rem; color: #fff; margin: 0; font-weight: 800; }
-        .card-impact p { color: var(--primary-blue); font-weight: 600; text-transform: uppercase; letter-spacing: 1px; }
-
-        .card h3 { font-size: 1.4rem; margin-bottom: 12px; }
-        .card p { color: #94a3b8; font-size: 0.95rem; line-height: 1.5; }
+        .card h3 { font-size: 1.5rem; margin-bottom: 15px; }
+        .card .desc { color: #94a3b8; font-size: 0.95rem; line-height: 1.6; }
 
         /* FOOTER */
-        footer { text-align: center; padding: 60px; color: #475569; border-top: 1px solid rgba(255,255,255,0.05); }
+        footer { padding: 60px; text-align: center; color: #475569; font-size: 0.85rem; border-top: 1px solid rgba(255,255,255,0.05); }
 
-        /* MOBILE MENU */
+        /* MOBILE */
         @media (max-width: 768px) {
-            .nav-links { display: none; }
-            .hero h1 { font-size: 45px; }
-            .btn-group { flex-direction: column; width: 100%; padding: 0 40px; }
             .cursor { display: none; }
             body { cursor: auto; }
+            .nav-links { display: none; }
+            .hero h1 { font-size: 3rem; }
+            .grid { padding: 40px 5%; }
         }
     </style>
 </head>
 <body>
 
 <div class="cursor"></div>
-<canvas id="tech"></canvas>
+<canvas id="tech-bg"></canvas>
 
 <nav>
     <div id="logo">Deploy<span>Lynx</span></div>
@@ -160,80 +182,87 @@
 </nav>
 
 <section class="hero">
-    <div class="availability">
-        <span class="dot"></span> Available for Remote & Freelance
+    <div class="badge">
+        <span class="dot"></span> Available for Remote Work & Freelance
     </div>
-    <h1>Engineering Secure, <br><span style="color:var(--primary-blue)">Production-Ready</span> Systems</h1>
+    <h1>Engineering <span>Production-Ready</span> Systems</h1>
     <p>
-        We design cloud-native architectures, automate complex workflows, and deliver enterprise-grade infrastructure 
-        using DevOps, Cloud, and AI Automation that scales with your vision.
+        Don't let manual deployments and soaring cloud costs stall your growth. DeployLynx builds secure, automated pipelines that reduce human error and slash infrastructure overhead by 70%.
     </p>
     <div class="btn-group">
         <a href="contact.html" class="btn btn-primary">Book Free Consultation</a>
-        <a href="services.html" class="btn btn-secondary">Our Services</a>
-        <a href="case-studies.html" class="btn btn-secondary">View My Work</a>
+        <a href="case-studies.html" class="btn btn-secondary">View Case Studies</a>
     </div>
 </section>
 
 <section class="grid">
-    <div class="card card-impact">
-        <h2>70%</h2>
-        <p>Average Cost Saved</p>
-        <span style="color:#64748b; font-size: 0.8rem;">Through Cloud Optimization & AI Automation</span>
+    <div class="card impact-card">
+        <div class="impact-value">70%</div>
+        <p>Infrastructure Cost Saved</p>
+        <div class="desc" style="margin-top:15px;">Automated resource scheduling and architecture optimization for maximum ROI.</div>
     </div>
 
     <div class="card">
         <h3>DevOps & GitOps</h3>
-        <p>CI/CD pipelines that ship code faster and more securely using GitHub Actions & Docker.</p>
+        <div class="desc">We build self-healing CI/CD pipelines using GitHub Actions and Docker to ensure your code reaches production without friction.</div>
     </div>
-    
+
     <div class="card">
-        <h3>Cloud Orchestration</h3>
-        <p>Multi-region AWS/Azure infrastructure as code (IaC) using Terraform & Kubernetes.</p>
+        <h3>Cloud Architecture</h3>
+        <div class="desc">Modular Infrastructure as Code (IaC) using Terraform for highly available, multi-region AWS and Azure setups.</div>
     </div>
 </section>
 
 <footer>
-    DeployLynx &copy; 2025 | Powering Global Cloud Infrastructures
+    DeployLynx &copy; 2025 | Architecting Secure & Scalable Cloud Futures
 </footer>
 
 <script>
-    /* CURSOR LOGIC */
+    /* CURSOR ANIMATION */
     const cursor = document.querySelector('.cursor');
-    if (window.matchMedia("(pointer: fine)").matches) {
-        document.addEventListener('mousemove', e => {
-            cursor.style.top = e.clientY + 'px';
-            cursor.style.left = e.clientX + 'px';
-        });
-    }
+    document.addEventListener('mousemove', (e) => {
+        cursor.style.left = e.clientX + 'px';
+        cursor.style.top = e.clientY + 'px';
+    });
 
-    /* TECH BACKGROUND - UNTOUCHED ORIGINAL LOGIC */
-    const canvas = document.getElementById("tech");
+    /* TECH BACKGROUND (OPTIMIZED) */
+    const canvas = document.getElementById("tech-bg");
     const ctx = canvas.getContext("2d");
-    function resize() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
-    window.addEventListener('resize', resize);
-    resize();
-
     let particles = [];
-    for(let i=0; i<60; i++) {
-        particles.push({
-            x: Math.random()*canvas.width, y: Math.random()*canvas.height,
-            dx: (Math.random()-0.5)*1, dy: (Math.random()-0.5)*1
-        });
+    
+    function init() {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+        particles = [];
+        const count = window.innerWidth < 768 ? 30 : 70;
+        for (let i = 0; i < count; i++) {
+            particles.push({
+                x: Math.random() * canvas.width,
+                y: Math.random() * canvas.height,
+                dx: (Math.random() - 0.5) * 0.8,
+                dy: (Math.random() - 0.5) * 0.8,
+                radius: Math.random() * 2
+            });
+        }
     }
 
-    function draw() {
-        ctx.clearRect(0,0,canvas.width,canvas.height);
+    function animate() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
         particles.forEach(p => {
             p.x += p.dx; p.y += p.dy;
-            if(p.x<0 || p.x>canvas.width) p.dx*=-1;
-            if(p.y<0 || p.y>canvas.height) p.dy*=-1;
+            if (p.x < 0 || p.x > canvas.width) p.dx *= -1;
+            if (p.y < 0 || p.y > canvas.height) p.dy *= -1;
+            ctx.beginPath();
+            ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
             ctx.fillStyle = "rgba(56, 189, 248, 0.3)";
-            ctx.beginPath(); ctx.arc(p.x, p.y, 2, 0, Math.PI*2); ctx.fill();
+            ctx.fill();
         });
-        requestAnimationFrame(draw);
+        requestAnimationFrame(animate);
     }
-    draw();
+
+    window.addEventListener('resize', init);
+    init();
+    animate();
 </script>
 
 </body>
