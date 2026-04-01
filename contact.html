@@ -2,27 +2,32 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>DeployLynx | Contact</title>
+    <title>DeployLynx | Schedule Consultation</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
 
     <style>
         :root {
             --primary-cyan: #00c6ff;
             --accent-pink: #ff6ec7;
-            --dark-bg: #020617;
+            --dark-bg: #0a0f1c;
+            --input-bg: rgba(0,0,0,0.5);
+            --glass-bg: rgba(255, 255, 255, 0.03);
+            --form-bg: rgba(30, 41, 59, 0.7);
         }
 
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', 'Segoe UI', sans-serif; }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', 'Segoe UI', sans-serif;
+        }
 
         body {
             background: var(--dark-bg);
             color: #fff;
             overflow-x: hidden;
-            min-height: 100vh;
             cursor: none;
+            min-height: 100vh;
         }
 
         /* NAVIGATION */
@@ -31,7 +36,7 @@
             justify-content: space-between;
             align-items: center;
             padding: 20px 8%;
-            background: rgba(2, 6, 23, 0.9);
+            background: rgba(10, 15, 28, 0.9);
             position: sticky;
             top: 0;
             z-index: 1000;
@@ -39,29 +44,112 @@
             border-bottom: 1px solid rgba(255,255,255,0.05);
         }
 
-        .logo { font-size: 24px; color: var(--primary-cyan); font-weight: 800; }
-        .logo span { color: #fff; }
-        .menu a { margin-left: 25px; color: #94a3b8; text-decoration: none; transition: 0.3s; font-size: 0.95rem; }
+        .logo {
+            font-size: 24px;
+            color: var(--primary-cyan);
+            font-weight: 800;
+            text-decoration: none;
+        }
+        .logo span { color: white; }
+
+        .menu { display: flex; align-items: center; }
+        .menu a {
+            margin-left: 25px;
+            color: #94a3b8;
+            text-decoration: none;
+            transition: 0.3s;
+            font-size: 0.95rem;
+            font-weight: 500;
+        }
         .menu a:hover { color: var(--primary-cyan); text-shadow: 0 0 10px var(--primary-cyan); }
 
-        canvas#bg { position: fixed; top: 0; left: 0; z-index: 0; pointer-events: none; }
-
+        /* MAIN CONTAINER (Grid to hold left and right as premium look) */
         .container {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            padding: 60px 20px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            padding: 80px 8% 120px;
             position: relative;
             z-index: 2;
+            max-width: 1400px;
+            margin: 0 auto;
         }
 
-        .contact-header { text-align: center; max-width: 700px; margin-bottom: 40px; }
-        .contact-header h1 { font-size: 2.5rem; margin-bottom: 15px; color: var(--primary-cyan); }
-        .contact-header p { color: #94a3b8; font-size: 1.1rem; line-height: 1.6; }
+        /* DETAILS COLUMN (Left) */
+        .details-col {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: flex-start;
+            text-align: left;
+        }
 
-        /* FORM CARD */
-        .form-card {
-            background: rgba(255, 255, 255, 0.02);
+        .typing-title {
+            font-size: clamp(32px, 8vw, 50px);
+            font-weight: 800;
+            color: white;
+            line-height: 1.2;
+            margin-bottom: 20px;
+        }
+
+        /* DESCRIPTION TEXT WITH BLUE/WHITE HIGHLIGHTS */
+        .typing-quote {
+            font-size: 1.15rem;
+            color: #ffffff;
+            line-height: 1.8;
+            color: #cbd5e1;
+            margin-bottom: 50px;
+        }
+        
+        .typing-quote b {
+            color: var(--primary-cyan);
+            text-shadow: 0 0 10px rgba(0, 198, 255, 0.3);
+            font-weight: 600;
+        }
+
+        /* PREMIUM SOCIAL ICONS (Clickable, no overlap) */
+        .social-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
+            gap: 15px;
+            width: 100%;
+            margin-top: 30px;
+        }
+
+        .social-link {
+            padding: 12px 18px;
+            background: var(--glass-bg);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 50px;
+            color: #94a3b8;
+            text-decoration: none;
+            text-align: center;
+            transition: 0.3s;
+            font-size: 0.85rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 500;
+        }
+
+        .social-link:hover {
+            border-color: var(--primary-cyan);
+            color: #fff;
+            transform: translateY(-3px);
+            box-shadow: 0 5px 20px rgba(0, 198, 255, 0.2);
+            background: rgba(0, 198, 255, 0.05);
+        }
+
+        /* FORM COLUMN (Right) */
+        .form-col {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* BOOKING FORM CARD (Integrating fields from standard image without destroying style) */
+        .booking-card {
+            background: var(--form-bg);
             padding: 40px;
             border-radius: 20px;
             width: 100%;
@@ -69,60 +157,93 @@
             backdrop-filter: blur(20px);
             border: 1px solid rgba(255, 255, 255, 0.08);
             transition: 0.4s ease;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
         }
 
-        .form-card:hover {
+        .booking-card:hover {
             border-color: var(--primary-cyan);
-            box-shadow: 0 0 40px rgba(0, 198, 255, 0.15);
+            box-shadow: 0 0 50px rgba(0, 198, 255, 0.2);
         }
 
-        .form-card input, .form-card textarea {
+        .booking-card h3 {
+            margin-bottom: 25px;
+            color: #fff;
+            font-size: 26px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .booking-card h3 svg { color: var(--primary-cyan); }
+
+        .form-card input,
+        .form-card textarea,
+        .form-card select {
             width: 100%;
-            margin-bottom: 20px;
-            padding: 15px;
+            margin-bottom: 18px;
+            padding: 14px 18px;
             border: 1px solid rgba(255,255,255,0.1);
             border-radius: 10px;
-            background: rgba(0,0,0,0.4);
+            background: var(--input-bg);
             color: #fff;
             outline: none;
             transition: 0.3s;
+            font-size: 0.95rem;
         }
 
-        .form-card input:focus, .form-card textarea:focus {
+        .form-card select {
+            color: rgba(255,255,255,0.6);
+            cursor: pointer;
+            appearance: none; /* Hide default arrow */
+            background-image: url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2224%22%20height%3D%2224%22%20viewBox%3D%220%200%2024%2024%22%20fill%3D%22none%22%20stroke%3D%22currentColor%22%20stroke-width%3D%222%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%3E%3Cpolyline%20points%3D%226%209%2012%2015%2018%209%22%3E%3C%2Fpolyline%20with%20color%20rgba(255,255,255,0.6)%3E%3C%2Fsvg%3E');
+            background-repeat: no-repeat;
+            background-position: right 18px center;
+            background-size: 16px;
+        }
+        .form-card select:not([value=""]) { color: white; }
+
+        .form-card input:focus,
+        .form-card textarea:focus,
+        .form-card select:focus {
             border-color: var(--primary-cyan);
             box-shadow: 0 0 10px rgba(0, 198, 255, 0.2);
+            background: rgba(0,0,0,0.6);
         }
 
-        .form-card button {
+        .booking-card button {
             width: 100%;
-            padding: 16px;
+            padding: 15px;
             border: none;
             border-radius: 10px;
             background: var(--primary-cyan);
             color: #000;
-            font-weight: 800;
+            font-weight: 700;
             cursor: pointer;
             transition: 0.3s;
             text-transform: uppercase;
-            letter-spacing: 1px;
+            letter-spacing: 1.5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
         }
 
-        .form-card button:hover {
+        .booking-card button:hover {
             background: var(--accent-pink);
             color: #fff;
             transform: scale(1.02);
+            box-shadow: 0 0 30px rgba(255, 110, 199, 0.4);
         }
 
-        .form-card button:disabled { background: #334155; cursor: not-allowed; }
+        .booking-card button:disabled { background: #334155; cursor: not-allowed; }
 
-        /* POPUP ANIMATION */
+        /* POPUP MESSAGE (Sparkle Animation) */
         #successPopup {
             display: none;
             position: fixed;
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            background: rgba(2, 6, 23, 0.95);
+            background: var(--form-bg);
             padding: 40px;
             border-radius: 20px;
             border: 2px solid var(--primary-cyan);
@@ -130,65 +251,93 @@
             z-index: 2000;
             box-shadow: 0 0 50px rgba(0, 198, 255, 0.5);
             animation: popIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            backdrop-filter: blur(20px);
         }
 
-        @keyframes popIn { from { transform: translate(-50%, -50%) scale(0.5); opacity: 0; } to { transform: translate(-50%, -50%) scale(1); opacity: 1; } }
-
-        /* SOCIALS */
-        .social-footer {
-            display: flex;
-            gap: 20px;
-            margin-top: 50px;
-            flex-wrap: wrap;
-            justify-content: center;
+        @keyframes popIn { 
+            from { transform: translate(-50%, -50%) scale(0.5); opacity: 0; } 
+            to { transform: translate(-50%, -50%) scale(1); opacity: 1; } 
         }
 
-        .social-footer a {
-            color: #94a3b8;
-            text-decoration: none;
-            font-size: 0.9rem;
+        #closePopup {
+            margin-top: 25px;
             padding: 10px 20px;
-            background: rgba(255,255,255,0.05);
-            border-radius: 50px;
-            border: 1px solid transparent;
+            background: transparent;
+            border: 1px solid var(--primary-cyan);
+            color: #fff;
+            border-radius: 5px;
+            cursor: pointer;
             transition: 0.3s;
         }
+        #closePopup:hover { background: var(--primary-cyan); color: #000; }
 
-        .social-footer a:hover {
-            color: #fff;
-            border-color: var(--primary-cyan);
-            background: rgba(0, 198, 255, 0.1);
-            transform: translateY(-5px);
-        }
+        /* CANV AS BACKGROUND */
+        canvas#dotsBackground { position: fixed; top: 0; left: 0; z-index: 0; pointer-events: none; }
 
+        /* CUSTOM CURSOR (Desktop Only) */
         .cursor {
-            width: 10px;
-            height: 10px;
-            background: var(--primary-cyan);
-            border-radius: 50%;
-            position: fixed;
-            pointer-events: none;
-            box-shadow: 0 0 15px var(--primary-cyan);
-            z-index: 9999;
-            transform: translate(-50%, -50%);
+            width: 12px; height: 12px; background: gold; border-radius: 50%;
+            position: fixed; pointer-events: none; box-shadow: 0 0 15px gold;
+            transform: translate(-50%, -50%); z-index: 9999;
         }
 
-        @media (max-width: 768px) {
+        /* MOBILE MENU TOGGLE */
+        .menu-toggle {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+        }
+
+        .menu-toggle span {
+            width: 25px;
+            height: 3px;
+            background: white;
+            border-radius: 2px;
+        }
+
+        /* MOBILE RESPONSIVE */
+        @media screen and (max-width: 900px) {
+            .container { grid-template-columns: 1fr; gap: 40px; }
+            .details-col { text-align: center; align-items: center; }
+            .form-col { order: -1; } /* Form goes on top of stacked column */
+            .booking-card { padding: 30px; }
+            body { cursor: default; }
             .cursor { display: none; }
-            body { cursor: auto; }
-            .form-card { padding: 25px; }
+            nav { padding: 20px 5%; }
+            .menu-toggle { display: flex; }
+            .menu {
+                display: none;
+                flex-direction: column;
+                position: absolute;
+                top: 70px;
+                left: 0;
+                width: 100%;
+                background: var(--dark-bg);
+                padding: 30px 0;
+                text-align: center;
+                border-bottom: 2px solid var(--primary-cyan);
+            }
+            .menu.active { display: flex; }
+            .menu a { margin: 15px 0; font-size: 1.1rem; }
         }
     </style>
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
 </head>
 
 <body>
 
-<canvas id="bg"></canvas>
-<div class="cursor" id="cursor"></div>
+<canvas id="dotsBackground"></canvas>
+<div class="cursor" id="customCursor"></div>
 
 <nav>
-    <div class="logo">Deploy<span>Lynx</span></div>
-    <div class="menu">
+    <a href="index.html" class="logo">Deploy<span>Lynx</span></a>
+    <div class="menu-toggle" id="mobileMenu">
+        <span></span>
+        <span></span>
+        <span></span>
+    </div>
+    <div class="menu" id="navLinks">
         <a href="index.html">Home</a>
         <a href="about.html">About</a>
         <a href="services.html">Services</a>
@@ -198,122 +347,188 @@
 </nav>
 
 <div class="container">
-    <div class="contact-header">
-        <h1>Let's Connect</h1>
-        <p>Ready to architect the future? Whether you have a specific project in mind or need a deep dive into cloud reliability, let's turn your vision into a production-ready reality.</p>
+    <div class="details-col">
+        <h1 class="typing-title">Ready to architect<br>the future?</h1>
+        <p class="typing-quote">
+            Whether you have a specific project in mind or need a deep dive into cloud reliability, 
+            DeployLynx builds <b>scalable, secure, and production-ready</b> systems using the triad of 
+            DevOps, Cloud, and AI Automation. We design <b>cloud-native architectures</b>, automate complex workflows, 
+            and deliver <b>enterprise-grade infrastructure</b> that <b>scales with your vision</b> and secures your future.
+        </p>
+        
+        <div class="social-grid">
+            <a href="tel:+923713600892" class="social-link">📞 +92 371</a>
+            <a href="https://github.com/Deploylynx-tech" target="_blank" class="social-link">GitHub</a>
+            <a href="https://linkedin.com" target="_blank" class="social-link">LinkedIn</a>
+            <a href="mailto:deploylynx26@gmail.com" class="social-link">Email</a>
+            <a href="https://instagram.com" target="_blank" class="social-link">Instagram</a>
+            <a href="https://wa.me/message/VXHPTQC4ZU46A1" target="_blank" class="social-link">WhatsApp</a>
+        </div>
     </div>
 
-    <div class="form-card">
-        <form id="contactForm" action="https://formspree.io/f/xpqykbvr" method="POST">
-            <input type="text" name="name" placeholder="Name" required>
-            <input type="email" name="email" placeholder="Email" required>
-            <input type="text" name="subject" placeholder="Subject" required>
-            <textarea name="message" rows="5" placeholder="Project details or questions..." required></textarea>
-            <button type="submit" id="submitBtn">Send Message</button>
-        </form>
-    </div>
+    <div class="form-col">
+        <div class="booking-card form-card">
+            <h3>
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+                Schedule Your Call
+            </h3>
+            
+            <form id="scheduleForm" action="https://formspree.io/f/xpqykbvr" method="POST">
+                <input type="text" name="name" placeholder="Your Name" required>
+                <input type="email" name="email" placeholder="Your Email" required>
+                <input type="tel" name="phone" placeholder="Phone Number (Optional)">
+                
+                <select name="topic" required>
+                    <option value="" disabled selected>Select a Topic (required)</option>
+                    <option value="Cloud Migration Strategy">Cloud Migration Strategy</option>
+                    <option value="Kubernetes Architecture">Kubernetes Architecture</option>
+                    <option value="CI/CD Pipeline Design">CI/CD Pipeline Design</option>
+                    <option value="Infrastructure as Code">Infrastructure as Code</option>
+                    <option value="DevSecOps & Security">DevSecOps & Security</option>
+                    <option value="Cloud Cost Optimization">Cloud Cost Optimization</option>
+                    <option value="Monitoring & Observability">Monitoring & Observability</option>
+                    <option value="Other">Other</option>
+                </select>
 
-    <div class="social-footer">
-        <a href="https://github.com/Deploylynx-tech" target="_blank">GitHub</a>
-        <a href="https://linkedin.com" target="_blank">LinkedIn</a>
-        <a href="mailto:deploylynx26@gmail.com">Email</a>
-        <a href="https://instagram.com" target="_blank">Instagram</a>
-        <a href="https://wa.me/message/VXHPTQC4ZU46A1" target="_blank">WhatsApp</a>
+                <input type="date" name="date" required>
+                
+                <select name="time_slot" required>
+                    <option value="" disabled selected>Select a Time Slot (PKT)</option>
+                    <option value="09:00 AM">09:00 AM PKT</option>
+                    <option value="10:00 AM">10:00 AM PKT</option>
+                    <option value="11:00 AM">11:00 AM PKT</option>
+                    <option value="12:00 PM">12:00 PM PKT</option>
+                    <option value="02:00 PM">02:00 PM PKT</option>
+                    <option value="03:00 PM">03:00 PM PKT</option>
+                    <option value="04:00 PM">04:00 PM PKT</option>
+                    <option value="05:00 PM">05:00 PM PKT</option>
+                </select>
+
+                <textarea name="message" rows="4" placeholder="Brief Description (Optional)"></textarea>
+                
+                <button type="submit" id="submitButton">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+                    Book Consultation
+                </button>
+            </form>
+        </div>
     </div>
 </div>
 
 <div id="successPopup">
-    <lottie-player src="https://assets10.lottiefiles.com/packages/lf20_vu977v2f.json" background="transparent" speed="1" style="width: 150px; height: 150px; margin: 0 auto;" autoplay></lottie-player>
-    <h2 style="color: var(--primary-cyan); margin-top: 10px;">Message Sent!</h2>
-    <p style="color: #94a3b8; margin-top: 10px;">Your cloud journey starts now. We'll reply shortly.</p>
-    <button onclick="closePopup()" style="margin-top: 20px; padding: 10px 20px; background: transparent; border: 1px solid var(--primary-cyan); color: white; border-radius: 5px; cursor: pointer;">Close</button>
+    <div style="font-size: 60px; margin-bottom: 20px;">✅</div>
+    <h3 style="color: var(--primary-cyan); font-size: 28px;">Message Sent!</h3>
+    <p style="color: white; margin-top: 10px; font-size: 1.1rem;">
+        Your cloud consultation is requested.<br>We'll respond shortly to confirm.
+    </p>
+    <button id="closePopup">Close</button>
 </div>
 
 <script>
-/* CURSOR */
-const cursor = document.getElementById("cursor");
-document.addEventListener("mousemove", e => {
-    cursor.style.left = e.clientX + "px";
-    cursor.style.top = e.clientY + "px";
-});
+    // MOBILE MENU
+    const mobileMenu = document.getElementById('mobileMenu');
+    const navLinks = document.getElementById('navLinks');
+    mobileMenu.addEventListener('click', () => { navLinks.classList.toggle('active'); });
 
-/* FORM LOGIC */
-const form = document.getElementById("contactForm");
-const submitBtn = document.getElementById("submitBtn");
-const popup = document.getElementById("successPopup");
-
-form.addEventListener("submit", async function(e) {
-    e.preventDefault();
-    submitBtn.disabled = true;
-    submitBtn.innerText = "Processing...";
-
-    const formData = new FormData(form);
-    const data = Object.fromEntries(formData.entries());
-
-    try {
-        // Send to Formspree
-        const formspreeReq = fetch(form.action, {
-            method: "POST",
-            body: formData,
-            headers: {'Accept': 'application/json'}
+    // CUSTOM CURSOR (Desktop)
+    const cursor = document.getElementById("customCursor");
+    if (window.matchMedia("(pointer: fine)").matches) {
+        document.addEventListener("mousemove", e => {
+            cursor.style.left = e.clientX + "px"; cursor.style.top = e.clientY + "px";
         });
+    } else { cursor.style.display = "none"; }
 
-        // Send to Google Sheets (Added 'Subject' column)
-        const sheetReq = fetch("https://script.google.com/macros/s/AKfycbztEuM2vU1PhSe5x4qr7N-FSvyFriPQtkuAEP74UxieW6sRRxQXps-Q-tjmhAmbSJ-KFg/exec", {
-            method: "POST",
-            body: JSON.stringify(data),
-            headers: {"Content-Type": "application/json"},
-            mode: "no-cors"
-        });
+    // DOTS BACKGROUND
+    const canvas = document.getElementById("dotsBackground");
+    const ctx = canvas.getContext("2d");
+    function resize() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
+    window.addEventListener('resize', resize);
+    resize();
 
-        await Promise.all([formspreeReq, sheetReq]);
-
-        // Sparkle Sparkle!
-        confetti({
-            particleCount: 150,
-            spread: 70,
-            origin: { y: 0.6 },
-            colors: ['#00c6ff', '#ff6ec7', '#ffffff']
-        });
-
-        popup.style.display = "block";
-        form.reset();
-    } catch (err) {
-        alert("❌ Error sending message. Please check your connection.");
-    } finally {
-        submitBtn.disabled = false;
-        submitBtn.innerText = "Send Message";
+    let dotsArr = [];
+    for(let i=0; i<80; i++) {
+        dotsArr.push({ x: Math.random() * canvas.width, y: Math.random() * canvas.height, vy: (Math.random() - 0.5) * 0.4 });
     }
-});
 
-function closePopup() { popup.style.display = "none"; }
+    function animate() {
+        ctx.clearRect(0,0,canvas.width,canvas.height);
+        ctx.fillStyle = "rgba(0, 198, 255, 0.5)";
+        dotsArr.forEach(d => {
+            d.y += d.vy;
+            if(d.y < 0) d.y = canvas.height;
+            if(d.y > canvas.height) d.y = 0;
+            ctx.beginPath(); ctx.arc(d.x, d.y, 1.5, 0, Math.PI * 2); ctx.fill();
+        });
+        requestAnimationFrame(animate);
+    }
+    animate();
 
-/* BACKGROUND DOTS */
-const canvas = document.getElementById("bg");
-const ctx = canvas.getContext("2d");
-let dots = [];
-function resize() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
-window.addEventListener('resize', resize);
-resize();
+    // FORM SUBMISSION & SPARKLE ANIMATION
+    const form = document.getElementById("scheduleForm");
+    const submitBtn = document.getElementById("submitButton");
+    const popup = document.getElementById("successPopup");
+    const closeBtn = document.getElementById("closePopup");
 
-for(let i=0; i<60; i++) {
-    dots.push({ x: Math.random()*canvas.width, y: Math.random()*canvas.height, dx: (Math.random()-0.5)*0.6, dy: (Math.random()-0.5)*0.6 });
-}
+    form.addEventListener("submit", async function(e) {
+        e.preventDefault();
+        submitBtn.disabled = true;
+        submitBtn.innerText = "Processing...";
+        
+        const data = new FormData(form);
+        const payload = Object.fromEntries(data.entries());
 
-function animate() {
-    ctx.clearRect(0,0,canvas.width,canvas.height);
-    dots.forEach(d => {
-        d.x += d.dx; d.y += d.dy;
-        if(d.x<0 || d.x>canvas.width) d.dx*=-1;
-        if(d.y<0 || d.y>canvas.height) d.dy*=-1;
-        ctx.beginPath();
-        ctx.arc(d.x, d.y, 1.5, 0, Math.PI*2);
-        ctx.fillStyle = "rgba(0, 198, 255, 0.4)";
-        ctx.fill();
+        try {
+            await Promise.all([
+                // Send to Formspree
+                fetch(form.action, {
+                    method: "POST",
+                    body: data,
+                    headers: {'Accept': 'application/json'}
+                }),
+                // Send to Google Sheets (Replace this URL with your deployment URL)
+                fetch("https://script.google.com/macros/s/AKfycbztEuM2vU1PhSe5x4qr7N-FSvyFriPQtkuAEP74UxieW6sRRxQXps-Q-tjmhAmbSJ-KFg/exec", {
+                    method: "POST",
+                    body: JSON.stringify(payload),
+                    headers: {"Content-Type": "application/json"},
+                    mode: "no-cors"
+                })
+            ]);
+            
+            // Success: Sparkle Confetti!
+            confetti({
+                particleCount: 150, spread: 70, origin: { y: 0.6 },
+                colors: ['#00c6ff', '#ff6ec7', '#ffffff']
+            });
+
+            popup.style.display = "block";
+            form.reset();
+        } catch (err) {
+            alert("❌ Something went wrong. Please check your connection and try again.");
+        } finally {
+            submitBtn.disabled = false;
+            submitBtn.innerHTML = submitBtn.getAttribute('data-original-html');
+        }
     });
-    requestAnimationFrame(animate);
-}
-animate();
+
+    // Store original HTML of submit button for reset
+    submitBtn.setAttribute('data-original-html', submitBtn.innerHTML);
+
+    // Close Popup
+    closeBtn.addEventListener('click', () => { popup.style.display = "none"; });
+
+    // Set minimum date to today for date picker
+    const dateInput = document.querySelector('input[type="date"]');
+    const today = new Date().toISOString().split('T')[0];
+    dateInput.setAttribute('min', today);
+
+    // Placeholder behavior for select elements
+    const selects = document.querySelectorAll('.form-card select');
+    selects.forEach(select => {
+        select.addEventListener('change', () => {
+            if (select.value === "") { select.style.color = "rgba(255,255,255,0.6)"; } 
+            else { select.style.color = "white"; }
+        });
+    });
 </script>
 
 </body>
