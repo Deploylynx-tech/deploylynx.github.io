@@ -1,183 +1,490 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<title>DeployLynx</title>
+    <meta charset="UTF-8">
+    <title>DeployLynx | About</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<link rel="stylesheet" href="style.css">
-<script defer src="script.js"></script>
+    <style>
+        :root {
+            --primary-cyan: #00c6ff;
+            --accent-pink: #ff6ec7;
+            --dark-bg: #0a0f1c;
+        }
 
-<style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
 
-/* NAV LOGO ANIMATION */
-.logo{
-font-weight:bold;
-font-size:18px;
-color:white;
-}
+        body {
+            background: var(--dark-bg);
+            color: #fff;
+            overflow-x: hidden;
+            /* Hide cursor for custom gold dot on desktop */
+            cursor: none;
+        }
 
-/* QUOTE */
-.quote{
-margin-top:20px;
-font-size:18px;
-color:#ffb6c1;
-height:25px;
-}
+        /* NAVIGATION */
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 5%;
+            background: rgba(10, 15, 28, 0.9);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            backdrop-filter: blur(10px);
+        }
 
-/* BACKGROUND */
-canvas{
-position:fixed;
-top:0;
-left:0;
-z-index:-1;
-}
+        .logo {
+            font-size: 24px;
+            color: var(--primary-cyan);
+            font-weight: bold;
+            letter-spacing: 1px;
+        }
 
-.stats{
-text-align:center;
-padding:40px;
-}
+        .menu {
+            display: flex;
+            align-items: center;
+        }
 
-.counter{
-font-size:30px;
-color:#38bdf8;
-}
+        .menu a {
+            margin-left: 25px;
+            color: #ccc;
+            text-decoration: none;
+            transition: 0.3s;
+            font-size: 0.95rem;
+        }
 
-footer{
-text-align:center;
-padding:20px;
-background:#020617;
-}
+        .menu a:hover {
+            color: var(--primary-cyan);
+        }
 
-</style>
+        /* MOBILE MENU TOGGLE */
+        .menu-toggle {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+        }
 
+        .menu-toggle span {
+            width: 25px;
+            height: 3px;
+            background: white;
+            border-radius: 2px;
+        }
+
+        /* HERO */
+        .hero {
+            text-align: center;
+            padding: 100px 20px 40px;
+        }
+
+        .typing-title {
+            font-size: clamp(32px, 8vw, 50px);
+            font-weight: 800;
+            background: linear-gradient(90deg, var(--primary-cyan), var(--accent-pink), var(--primary-cyan));
+            background-size: 200%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: gradientMove 3s linear infinite;
+        }
+
+        @keyframes gradientMove {
+            0% { background-position: 0% }
+            100% { background-position: 200% }
+        }
+
+        .typing-quote {
+            margin-top: 20px;
+            font-size: clamp(16px, 4vw, 20px);
+            color: #ffffff;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+            line-height: 1.6;
+        }
+
+        /* SECTIONS GENERAL */
+        section {
+            padding: 60px 10%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* ABOUT TEXT */
+        .about {
+            text-align: center;
+            line-height: 1.8;
+            color: #cbd5e1;
+            font-size: 1.1rem;
+        }
+
+        /* GLASS EFFECT */
+        .glass {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .glass:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 10px 30px rgba(0, 198, 255, 0.2);
+            border-color: var(--primary-cyan);
+        }
+
+        /* STATS GRID */
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 30px;
+            margin: 40px auto;
+        }
+
+        .stat {
+            padding: 30px 20px;
+            text-align: center;
+        }
+
+        .stat h2 {
+            color: var(--primary-cyan);
+            font-size: 42px;
+            margin-bottom: 5px;
+        }
+
+        /* TEAM GRID */
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 25px;
+            margin-top: 40px;
+        }
+
+        .card {
+            padding: 30px;
+            text-align: center;
+            border-radius: 15px;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            transition: 0.3s;
+        }
+
+        .card:hover {
+            box-shadow: 0 0 25px var(--accent-pink);
+            transform: scale(1.03);
+        }
+
+        /* PROJECTS GRID */
+        .project-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .project-card {
+            padding: 35px 25px;
+            border-radius: 15px;
+            background: linear-gradient(135deg, #11182b, #0a0f1c);
+            position: relative;
+            transition: 0.4s;
+            overflow: hidden;
+            text-align: center;
+        }
+
+        .project-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 35px rgba(0, 198, 255, 0.3);
+        }
+
+        .project-card::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            border-radius: 15px;
+            padding: 2px;
+            background: linear-gradient(45deg, var(--primary-cyan), var(--accent-pink), var(--primary-cyan));
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            mask-composite: exclude;
+            opacity: 0;
+            transition: 0.4s;
+        }
+
+        .project-card:hover::before {
+            opacity: 1;
+        }
+
+        /* SCROLL ANIMATION */
+        .fade {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: 0.8s ease-out;
+        }
+
+        .fade.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* BACKGROUND */
+        canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: -1;
+        }
+
+        /* CUSTOM CURSOR */
+        .cursor {
+            width: 12px;
+            height: 12px;
+            background: gold;
+            border-radius: 50%;
+            position: fixed;
+            pointer-events: none;
+            box-shadow: 0 0 15px gold;
+            transform: translate(-50%, -50%);
+            z-index: 9999;
+        }
+
+        /* MOBILE RESPONSIVENESS */
+        @media screen and (max-width: 768px) {
+            body { cursor: default; }
+            .cursor { display: none; }
+
+            .menu-toggle { display: flex; }
+
+            .menu {
+                display: none;
+                flex-direction: column;
+                position: absolute;
+                top: 70px;
+                left: 0;
+                width: 100%;
+                background: var(--dark-bg);
+                padding: 30px 0;
+                text-align: center;
+                border-bottom: 2px solid var(--primary-cyan);
+            }
+
+            .menu.active { display: flex; }
+
+            .menu a {
+                margin: 15px 0;
+                font-size: 1.2rem;
+            }
+
+            section { padding: 40px 5%; }
+            .hero { padding-top: 60px; }
+        }
+    </style>
 </head>
 
 <body>
 
-<canvas id="bg"></canvas>
+<canvas id="dots"></canvas>
+<div class="cursor"></div>
 
 <nav>
-<div class="logo" id="logoText"></div>
-
-<div>
-<a href="index.html">Home</a>
-<a href="about.html">About</a>
-<a href="services.html">Services</a>
-<a href="projects.html">Projects</a>
-<a href="contact.html">Contact</a>
-<a onclick="toggleTheme()">Theme</a>
-</div>
+    <div class="logo">DeployLynx</div>
+    <div class="menu-toggle" id="mobile-menu">
+        <span></span>
+        <span></span>
+        <span></span>
+    </div>
+    <div class="menu" id="nav-links">
+        <a href="index.html">Home</a>
+        <a href="about.html">About</a>
+        <a href="services.html">Services</a>
+        <a href="case-studies.html">Case Studies</a>
+        <a href="contact.html">Contact</a>
+    </div>
 </nav>
 
-<section>
+<div class="hero">
+    <div class="typing-title" id="title"></div>
+    <div class="typing-quote" id="quote"></div>
+</div>
 
-<h1 style="font-size:70px;-webkit-text-stroke:1px #38bdf8;color:transparent;">
-DeployLynx
-</h1>
-
-<p>AI Automation • DevOps • Cloud Solutions</p>
-
-<div class="quote" id="quote"></div>
-
+<section class="about fade">
+    <p>
+        DeployLynx builds scalable, secure, and production-ready systems using DevOps, Cloud, and AI Automation. 
+        We design cloud-native architectures, automate complex workflows, and deliver enterprise-grade infrastructure 
+        that scales with your vision.
+    </p>
 </section>
 
-<!-- GitHub Stats -->
-<section class="stats">
-
-<h2>GitHub Activity</h2>
-
-⭐ Stars: <span id="stars" class="counter">0</span><br><br>
-🍴 Forks: <span id="forks" class="counter">0</span>
-
+<section class="stats fade">
+    <div class="glass stat">
+        <h2 id="clients">0</h2>
+        <p>Clients</p>
+    </div>
+    <div class="glass stat">
+        <h2 id="deployments">0</h2>
+        <p>Deployments</p>
+    </div>
+    <div class="glass stat">
+        <h2 id="uptime">0</h2>
+        <p>Uptime %</p>
+    </div>
 </section>
 
-<footer>
-DeployLynx © 2025 All Rights Reserved
+<section class="team fade">
+    <h2 style="color:var(--primary-cyan); text-align:center; margin-bottom:30px;">Our Expertise</h2>
+    <div class="team-grid">
+        <div class="card">
+            <h3>DevOps</h3>
+            <p>CI/CD • GitOps • Security</p>
+        </div>
+        <div class="card">
+            <h3>Cloud</h3>
+            <p>AWS • Azure • Terraform</p>
+        </div>
+        <div class="card">
+            <h3>AI/ML</h3>
+            <p>LLM Ops • Process Automation</p>
+        </div>
+    </div>
+</section>
+
+<section class="projects fade">
+    <h2 style="color:var(--primary-cyan); text-align:center; margin-bottom:30px;">Featured Solutions</h2>
+    <div class="project-grid">
+        <div class="project-card">
+            <h3>DevSecOps Pipeline</h3>
+            <p>Automated security scanning integrated with GitHub Actions & Docker containers.</p>
+        </div>
+        <div class="project-card">
+            <h3>K8s Orchestration</h3>
+            <p>High-availability Kubernetes clusters for production-scale microservices.</p>
+        </div>
+        <div class="project-card">
+            <h3>Cloud Infrastructure</h3>
+            <p>Modular Infrastructure as Code (IaC) using Terraform for multi-region AWS setup.</p>
+        </div>
+    </div>
+</section>
+
+<footer style="text-align:center; padding:40px; color:#64748b; font-size:0.9rem;">
+    DeployLynx &copy; 2025 | Powering Global Cloud Infrastructures
 </footer>
 
 <script>
+/* MOBILE MENU */
+const menuToggle = document.getElementById('mobile-menu');
+const navLinks = document.getElementById('nav-links');
 
-/* FLOATING DOTS */
-const canvas = document.getElementById("bg");
-const ctx = canvas.getContext("2d");
-
-canvas.width = window.innerWidth;
-canvas.height = window.innerHeight;
-
-let dots = [];
-
-for(let i=0;i<80;i++){
-dots.push({
-x:Math.random()*canvas.width,
-y:Math.random()*canvas.height,
-dx:(Math.random()-0.5),
-dy:(Math.random()-0.5)
-});
-}
-
-function animate(){
-ctx.clearRect(0,0,canvas.width,canvas.height);
-
-dots.forEach(d=>{
-d.x+=d.dx;
-d.y+=d.dy;
-
-if(d.x<0||d.x>canvas.width) d.dx*=-1;
-if(d.y<0||d.y>canvas.height) d.dy*=-1;
-
-ctx.fillStyle="#38bdf8";
-ctx.beginPath();
-ctx.arc(d.x,d.y,2,0,Math.PI*2);
-ctx.fill();
+menuToggle.addEventListener('click', () => {
+    navLinks.classList.toggle('active');
 });
 
-requestAnimationFrame(animate);
+/* TYPING EFFECT */
+let t="DeployLynx", q="Engineering the future with scalable systems, intelligent automation, and cloud-native excellence.";
+let i=0, j=0;
+const titleEl = document.getElementById('title');
+const quoteEl = document.getElementById('quote');
+
+function tt(){
+    if(i < t.length){
+        titleEl.innerHTML += t[i++];
+        setTimeout(tt, 100);
+    } else {
+        setTimeout(tq, 500);
+    }
+}
+function tq(){
+    if(j < q.length){
+        quoteEl.innerHTML += q[j++];
+        setTimeout(tq, 30);
+    }
+}
+tt();
+
+/* CURSOR (Desktop Only) */
+const cursor = document.querySelector(".cursor");
+if (window.matchMedia("(pointer: fine)").matches) {
+    document.addEventListener("mousemove", e => {
+        cursor.style.top = e.clientY + "px";
+        cursor.style.left = e.clientX + "px";
+    });
+} else {
+    cursor.style.display = "none";
 }
 
-animate();
+/* DOTS BACKGROUND */
+const canvas = document.getElementById("dots");
+let c = canvas.getContext("2d");
 
-/* GITHUB STATS */
-fetch("https://api.github.com/repos/Deploylynx/deploylynx-devsecops-pipeline")
-.then(res=>res.json())
-.then(data=>{
-document.getElementById("stars").innerText=data.stargazers_count;
-document.getElementById("forks").innerText=data.forks_count;
-});
-
-/* LOGO LOOP ANIMATION */
-let text="DeployLynx";
-let i=0;
-
-function animateLogo(){
-if(i<text.length){
-document.getElementById("logoText").innerHTML+=text.charAt(i);
-i++;
-setTimeout(animateLogo,120);
-}else{
-setTimeout(()=>{
-document.getElementById("logoText").innerHTML="";
-i=0;
-animateLogo();
-},1500);
+function resize() {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
 }
+window.addEventListener('resize', resize);
+resize();
+
+let dotsArr = [];
+const dotCount = window.innerWidth < 768 ? 50 : 100;
+
+for(let i=0; i<dotCount; i++) {
+    dotsArr.push({
+        x: Math.random() * canvas.width,
+        y: Math.random() * canvas.height,
+        opacity: Math.random()
+    });
 }
 
-animateLogo();
-
-/* QUOTE TYPING */
-let quoteText="Engineering scalable systems. Automating the future.";
-let j=0;
-
-function typeQuote(){
-if(j<quoteText.length){
-document.getElementById("quote").innerHTML+=quoteText.charAt(j);
-j++;
-setTimeout(typeQuote,50);
+function draw(){
+    c.clearRect(0,0,canvas.width,canvas.height);
+    c.fillStyle = "#00c6ff";
+    dotsArr.forEach(p => {
+        c.globalAlpha = p.opacity;
+        c.beginPath();
+        c.arc(p.x, p.y, 1.5, 0, Math.PI * 2);
+        c.fill();
+        p.y += 0.4;
+        if(p.y > canvas.height) p.y = 0;
+    });
+    requestAnimationFrame(draw);
 }
+draw();
+
+/* SCROLL REVEAL & COUNTER */
+let triggered = false;
+const observerOptions = { threshold: 0.2 };
+
+const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+        if(entry.isIntersecting) {
+            entry.target.classList.add("show");
+            if(entry.target.classList.contains('stats') && !triggered) {
+                triggered = true;
+                count("clients", 12);
+                count("deployments", 35);
+                count("uptime", 99);
+            }
+        }
+    });
+}, observerOptions);
+
+document.querySelectorAll(".fade").forEach(el => observer.observe(el));
+
+function count(id, end){
+    let n = 0;
+    let timer = setInterval(() => {
+        n++;
+        document.getElementById(id).innerText = n;
+        if(n >= end) {
+            clearInterval(timer);
+        }
+    }, 50);
 }
-
-typeQuote();
-
 </script>
 
 </body>
