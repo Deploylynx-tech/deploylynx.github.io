@@ -120,23 +120,23 @@
         <div class="booking-card">
             <h3>Schedule Your Call</h3>
             <form id="scheduleForm">
-                <input type="text" name="name" placeholder="Your Name" required>
-                <input type="email" name="email" placeholder="Your Email" required>
-                <select name="topic" required>
+                <input type="text" name="Name" placeholder="Your Name" required>
+                <input type="email" name="Email" placeholder="Your Email" required>
+                <select name="Topic" required>
                     <option value="" disabled selected>Select a Topic</option>
                     <option value="Cloud Migration">Cloud Migration</option>
                     <option value="Kubernetes">Kubernetes Architecture</option>
                     <option value="CI/CD">CI/CD Pipeline</option>
                     <option value="Other">Other</option>
                 </select>
-                <input type="date" name="date" required>
-                <select name="time_slot" required>
+                <input type="date" name="Date" required>
+                <select name="Time" required>
                     <option value="" disabled selected>Select Time (PKT)</option>
                     <option value="09:00 AM">09:00 AM</option>
                     <option value="12:00 PM">12:00 PM</option>
                     <option value="03:00 PM">03:00 PM</option>
                 </select>
-                <textarea name="message" rows="3" placeholder="Brief Description"></textarea>
+                <textarea name="Message" rows="3" placeholder="Brief Description"></textarea>
                 <button type="submit" id="submitBtn">Book Consultation</button>
             </form>
         </div>
@@ -158,14 +158,12 @@
     form.addEventListener("submit", function(e) {
         e.preventDefault();
         
-        // Instant visual feedback
         submitBtn.disabled = true;
         submitBtn.innerText = "SENDING...";
 
         const formData = new FormData(form);
 
-        // FIRE AND FORGET: Trigger the sparkles and popup immediately
-        // This stops the 2-minute "Processing" hang.
+        // Immediate Visual Success
         setTimeout(() => {
             confetti({ 
                 particleCount: 150, 
@@ -177,24 +175,28 @@
             submitBtn.innerText = "Book Consultation";
             submitBtn.disabled = false;
             form.reset();
-        }, 800);
+        }, 600);
 
-        // Background processes (Will finish silently)
+        // 1. Send to Formspree (Email)
         fetch("https://formspree.io/f/xpqykbvr", {
             method: "POST",
             body: formData,
-            headers: { 'Accept': 'application/json' },
-            mode: 'no-cors' // Bypasses slow browser checks
+            headers: { 'Accept': 'application/json' }
         });
 
-        fetch("https://script.google.com/macros/s/AKfycbwsviX2SGvmvuyGCTt8zVReGmnFBbZWYRJNsNzNbyVH_yLHdFwBAh8c4K4BVh1EmuTt/exec", {
+        // 2. Send to Google Sheets (Leads)
+        // We convert the data to a URL format to ensure Google Script receives it correctly.
+        const scriptURL = "https://script.google.com/macros/s/AKfycbwsviX2SGvmvuyGCTt8zVReGmnFBbZWYRJNsNzNbyVH_yLHdFwBAh8c4K4BVh1EmuTt/exec";
+        
+        fetch(scriptURL, {
             method: "POST",
             body: formData,
-            mode: 'no-cors' // Bypasses slow browser checks
-        });
+            mode: 'no-cors'
+        }).catch(err => console.log("Sheet process handled in background"));
     });
 
     document.getElementById("closePopup").onclick = () => popup.style.display = "none";
+    
     document.addEventListener("mousemove", e => { 
         document.getElementById("customCursor").style.left = e.clientX + "px"; 
         document.getElementById("customCursor").style.top = e.clientY + "px"; 
