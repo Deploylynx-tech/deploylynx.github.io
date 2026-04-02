@@ -5,6 +5,8 @@
     <title>DeployLynx | Schedule Consultation</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
     <style>
         :root {
             --primary-cyan: #00c6ff;
@@ -30,7 +32,6 @@
             min-height: 100vh;
         }
 
-        /* NAVIGATION */
         nav {
             display: flex;
             justify-content: space-between;
@@ -71,7 +72,6 @@
             margin: 0 auto;
         }
 
-        /* DETAILS COLUMN (Left) */
         .details-col {
             display: flex;
             flex-direction: column;
@@ -79,7 +79,6 @@
             align-items: flex-start;
         }
 
-        /* STYLISH SMALLER HEADING */
         .typing-title {
             font-size: 2rem;
             font-weight: 700;
@@ -92,10 +91,9 @@
             -webkit-text-fill-color: transparent;
         }
 
-        /* SIMPLE FONT, NO BOLD, SMALLER SIZE */
         .typing-quote {
             font-size: 0.95rem;
-            font-weight: 400; /* No bold */
+            font-weight: 400;
             color: #cbd5e1;
             line-height: 1.6;
             margin-bottom: 40px;
@@ -103,10 +101,9 @@
         }
         
         .typing-quote span.highlight {
-            color: var(--primary-cyan); /* Light blue for key terms without bolding */
+            color: var(--primary-cyan);
         }
 
-        /* SOCIAL ICONS */
         .social-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
@@ -133,7 +130,6 @@
             background: rgba(0, 198, 255, 0.05);
         }
 
-        /* FORM COLUMN (Right) */
         .booking-card {
             background: var(--form-bg);
             padding: 40px;
@@ -178,9 +174,42 @@
             letter-spacing: 1px;
         }
 
-        button:hover {
+        button:hover:not(:disabled) {
             background: var(--accent-pink);
             color: #fff;
+        }
+
+        button:disabled {
+            background: #475569;
+            cursor: not-allowed;
+            color: #cbd5e1;
+        }
+
+        /* POPUP MESSAGE */
+        #successPopup {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: var(--form-bg);
+            padding: 40px;
+            border-radius: 20px;
+            border: 2px solid var(--primary-cyan);
+            text-align: center;
+            z-index: 2000;
+            box-shadow: 0 0 50px rgba(0, 198, 255, 0.5);
+            backdrop-filter: blur(20px);
+        }
+
+        #closePopup {
+            margin-top: 25px;
+            padding: 10px 20px;
+            background: transparent;
+            border: 1px solid var(--primary-cyan);
+            color: #fff;
+            border-radius: 5px;
+            cursor: pointer;
         }
 
         canvas#dotsBackground { position: fixed; top: 0; left: 0; z-index: 0; pointer-events: none; }
@@ -226,11 +255,11 @@
         
         <div class="social-grid">
             <a href="tel:+923713600892" class="social-link">📞 +92 371</a>
-            <a href="https://github.com/Deploylynx-tech" class="social-link">GitHub</a>
-            <a href="https://linkedin.com" class="social-link">LinkedIn</a>
+            <a href="https://github.com/Deploylynx-tech" class="social-link" target="_blank">GitHub</a>
+            <a href="https://linkedin.com" class="social-link" target="_blank">LinkedIn</a>
             <a href="mailto:deploylynx26@gmail.com" class="social-link">Email</a>
-            <a href="https://instagram.com" class="social-link">Instagram</a>
-            <a href="https://wa.me/message/VXHPTQC4ZU46A1" class="social-link">WhatsApp</a>
+            <a href="https://instagram.com" class="social-link" target="_blank">Instagram</a>
+            <a href="https://wa.me/message/VXHPTQC4ZU46A1" class="social-link" target="_blank">WhatsApp</a>
         </div>
     </div>
 
@@ -264,20 +293,70 @@
 
                 <textarea name="message" rows="3" placeholder="Brief Description (Optional)"></textarea>
                 
-                <button type="submit">Book Consultation</button>
+                <button type="submit" id="submitBtn">Book Consultation</button>
             </form>
         </div>
     </div>
 </div>
 
+<div id="successPopup">
+    <div style="font-size: 50px; margin-bottom: 15px;">✨</div>
+    <h3 style="color: var(--primary-cyan); font-size: 24px;">Message Sent!</h3>
+    <p style="color: white; margin-top: 10px; font-size: 0.95rem;">
+        Shortly we will contact with you.<br>Thank you for choosing DeployLynx.
+    </p>
+    <button id="closePopup">Close</button>
+</div>
+
 <script>
-    // CURSOR
+    // FORM LOGIC: Processing & Sparkles
+    const form = document.getElementById("scheduleForm");
+    const submitBtn = document.getElementById("submitBtn");
+    const popup = document.getElementById("successPopup");
+
+    form.addEventListener("submit", async function(e) {
+        e.preventDefault();
+        submitBtn.disabled = true;
+        submitBtn.innerText = "Wait, Processing...";
+
+        const data = new FormData(form);
+        try {
+            const response = await fetch(form.action, {
+                method: "POST",
+                body: data,
+                headers: {'Accept': 'application/json'}
+            });
+
+            if (response.ok) {
+                // Sparkle Pop-up Effect
+                confetti({
+                    particleCount: 150,
+                    spread: 70,
+                    origin: { y: 0.6 },
+                    colors: ['#00c6ff', '#ff6ec7', '#ffffff']
+                });
+
+                popup.style.display = "block";
+                form.reset();
+            } else {
+                alert("Oops! There was a problem submitting your form.");
+            }
+        } catch (error) {
+            alert("Error connecting to the server.");
+        } finally {
+            submitBtn.disabled = false;
+            submitBtn.innerText = "Book Consultation";
+        }
+    });
+
+    document.getElementById("closePopup").onclick = () => popup.style.display = "none";
+
+    // CURSOR & BG
     const cursor = document.getElementById("customCursor");
     document.addEventListener("mousemove", e => {
         cursor.style.left = e.clientX + "px"; cursor.style.top = e.clientY + "px";
     });
 
-    // BACKGROUND
     const canvas = document.getElementById("dotsBackground");
     const ctx = canvas.getContext("2d");
     function resize() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
