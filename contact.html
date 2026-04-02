@@ -1,91 +1,50 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>DeployLynx | Schedule Consultation</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
-
-    <style>
-        :root {
-            --primary-cyan: #00c6ff;
-            --accent-pink: #ff6ec7;
-            --dark-bg: #0a0f1c;
-            --input-bg: rgba(0,0,0,0.5);
-            --glass-bg: rgba(255, 255, 255, 0.03);
-            --form-bg: rgba(30, 41, 59, 0.7);
-        }
-
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', 'Segoe UI', sans-serif; }
-        body { background: var(--dark-bg); color: #fff; overflow-x: hidden; cursor: none; min-height: 100vh; }
-
-        nav {
-            display: flex; justify-content: space-between; align-items: center; padding: 20px 8%;
-            background: rgba(10, 15, 28, 0.9); position: sticky; top: 0; z-index: 1000;
-            backdrop-filter: blur(10px); border-bottom: 1px solid rgba(255,255,255,0.05);
-        }
-
-        .logo { font-size: 24px; color: var(--primary-cyan); font-weight: 800; text-decoration: none; }
-        .logo span { color: white; }
-        .menu a { margin-left: 25px; color: #94a3b8; text-decoration: none; transition: 0.3s; font-size: 0.95rem; }
-
-        .container {
-            display: grid; grid-template-columns: 1fr 1fr; gap: 60px; padding: 60px 8% 100px;
-            position: relative; z-index: 2; max-width: 1400px; margin: 0 auto;
-        }
-
-        .details-col { display: flex; flex-direction: column; justify-content: center; align-items: flex-start; }
-        .typing-title {
-            font-size: 2rem; font-weight: 700; color: white; line-height: 1.2; margin-bottom: 15px;
-            background: linear-gradient(90deg, #fff, var(--primary-cyan)); -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-        }
-
-        .typing-quote { font-size: 0.95rem; color: #cbd5e1; line-height: 1.6; margin-bottom: 40px; max-width: 520px; }
-        .typing-quote span.highlight { color: var(--primary-cyan); }
-
-        .social-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(100px, 1fr)); gap: 12px; width: 100%; }
-        .social-link {
-            padding: 10px 15px; background: var(--glass-bg); border: 1px solid rgba(255, 255, 255, 0.08);
-            border-radius: 50px; color: #94a3b8; text-decoration: none; text-align: center; transition: 0.3s; font-size: 0.8rem;
-        }
-        .social-link:hover { border-color: var(--primary-cyan); color: #fff; transform: translateY(-2px); background: rgba(0, 198, 255, 0.05); }
-
-        .booking-card {
-            background: var(--form-bg); padding: 40px; border-radius: 20px; width: 100%; max-width: 480px;
-            backdrop-filter: blur(20px); border: 1px solid rgba(255, 255, 255, 0.08); box-shadow: 0 20px 60px rgba(0,0,0,0.3);
-        }
-
-        .booking-card h3 { margin-bottom: 25px; color: #fff; font-size: 22px; font-weight: 600; }
-        input, textarea, select {
-            width: 100%; margin-bottom: 15px; padding: 12px 16px; border: 1px solid rgba(255,255,255,0.1);
-            border-radius: 8px; background: var(--input-bg); color: #fff; outline: none; font-size: 0.9rem;
-        }
-
-        button {
-            width: 100%; padding: 14px; border: none; border-radius: 8px; background: var(--primary-cyan);
-            color: #000; font-weight: 700; cursor: pointer; transition: 0.3s; text-transform: uppercase; letter-spacing: 1px;
-        }
-        button:hover:not(:disabled) { background: var(--accent-pink); color: #fff; }
-        button:disabled { background: #475569; cursor: not-allowed; color: #cbd5e1; }
-
-        #successPopup {
-            display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%);
-            background: var(--form-bg); padding: 40px; border-radius: 20px; border: 2px solid var(--primary-cyan);
-            text-align: center; z-index: 2000; box-shadow: 0 0 50px rgba(0, 198, 255, 0.5); backdrop-filter: blur(20px);
-        }
-        #closePopup { margin-top: 25px; padding: 10px 20px; background: transparent; border: 1px solid var(--primary-cyan); color: #fff; border-radius: 5px; cursor: pointer; width: auto; }
-
-        canvas#dotsBackground { position: fixed; top: 0; left: 0; z-index: 0; pointer-events: none; }
-        .cursor { width: 10px; height: 10px; background: gold; border-radius: 50%; position: fixed; pointer-events: none; box-shadow: 0 0 15px gold; transform: translate(-50%, -50%); z-index: 9999; }
-
-        @media screen and (max-width: 900px) {
-            .container { grid-template-columns: 1fr; padding-top: 40px; }
-            .details-col { text-align: center; align-items: center; margin-bottom: 40px; }
-            .cursor { display: none; }
-        }
-    </style>
+<meta charset="UTF-8">
+<title>DeployLynx | Schedule Consultation</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+<style>
+:root {
+    --primary-cyan: #00c6ff;
+    --accent-pink: #ff6ec7;
+    --dark-bg: #0a0f1c;
+    --input-bg: rgba(0,0,0,0.5);
+    --glass-bg: rgba(255, 255, 255, 0.03);
+    --form-bg: rgba(30, 41, 59, 0.7);
+}
+* { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', 'Segoe UI', sans-serif; }
+body { background: var(--dark-bg); color: #fff; overflow-x: hidden; cursor: none; min-height: 100vh; }
+nav { display: flex; justify-content: space-between; align-items: center; padding: 20px 8%; background: rgba(10, 15, 28, 0.9); position: sticky; top: 0; z-index: 1000; backdrop-filter: blur(10px); border-bottom: 1px solid rgba(255,255,255,0.05); }
+.logo { font-size: 24px; color: var(--primary-cyan); font-weight: 800; text-decoration: none; }
+.logo span { color: white; }
+.menu a { margin-left: 25px; color: #94a3b8; text-decoration: none; transition: 0.3s; font-size: 0.95rem; }
+.container { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; padding: 60px 8% 100px; position: relative; z-index: 2; max-width: 1400px; margin: 0 auto; }
+.details-col { display: flex; flex-direction: column; justify-content: center; align-items: flex-start; }
+.typing-title { font-size: 2rem; font-weight: 700; color: white; line-height: 1.2; margin-bottom: 15px; background: linear-gradient(90deg, #fff, var(--primary-cyan)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+.typing-quote { font-size: 0.95rem; color: #cbd5e1; line-height: 1.6; margin-bottom: 40px; max-width: 520px; }
+.typing-quote span.highlight { color: var(--primary-cyan); }
+.social-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(100px, 1fr)); gap: 12px; width: 100%; }
+.social-link { padding: 10px 15px; background: var(--glass-bg); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 50px; color: #94a3b8; text-decoration: none; text-align: center; transition: 0.3s; font-size: 0.8rem; }
+.social-link:hover { border-color: var(--primary-cyan); color: #fff; transform: translateY(-2px); background: rgba(0, 198, 255, 0.05); }
+.booking-card { background: var(--form-bg); padding: 40px; border-radius: 20px; width: 100%; max-width: 480px; backdrop-filter: blur(20px); border: 1px solid rgba(255, 255, 255, 0.08); box-shadow: 0 20px 60px rgba(0,0,0,0.3); }
+.booking-card h3 { margin-bottom: 25px; color: #fff; font-size: 22px; font-weight: 600; }
+input, textarea, select { width: 100%; margin-bottom: 15px; padding: 12px 16px; border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; background: var(--input-bg); color: #fff; outline: none; font-size: 0.9rem; }
+button { width: 100%; padding: 14px; border: none; border-radius: 8px; background: var(--primary-cyan); color: #000; font-weight: 700; cursor: pointer; transition: 0.3s; text-transform: uppercase; letter-spacing: 1px; }
+button:hover:not(:disabled) { background: var(--accent-pink); color: #fff; }
+button:disabled { background: #475569; cursor: not-allowed; color: #cbd5e1; }
+#successPopup { display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background: var(--form-bg); padding: 40px; border-radius: 20px; border: 2px solid var(--primary-cyan); text-align: center; z-index: 2000; box-shadow: 0 0 50px rgba(0, 198, 255, 0.5); backdrop-filter: blur(20px); }
+#closePopup { margin-top: 25px; padding: 10px 20px; background: transparent; border: 1px solid var(--primary-cyan); color: #fff; border-radius: 5px; cursor: pointer; width: auto; }
+canvas#dotsBackground { position: fixed; top: 0; left: 0; z-index: 0; pointer-events: none; }
+.cursor { width: 10px; height: 10px; background: gold; border-radius: 50%; position: fixed; pointer-events: none; box-shadow: 0 0 15px gold; transform: translate(-50%, -50%); z-index: 9999; }
+@media screen and (max-width: 900px) {
+    .container { grid-template-columns: 1fr; padding-top: 40px; }
+    .details-col { text-align: center; align-items: center; margin-bottom: 40px; }
+    .cursor { display: none; }
+}
+</style>
 </head>
-
 <body>
 <canvas id="dotsBackground"></canvas>
 <div class="cursor" id="customCursor"></div>
@@ -151,79 +110,74 @@
 </div>
 
 <script>
-    const form = document.getElementById("scheduleForm");
-    const submitBtn = document.getElementById("submitBtn");
-    const popup = document.getElementById("successPopup");
+const form = document.getElementById("scheduleForm");
+const submitBtn = document.getElementById("submitBtn");
+const popup = document.getElementById("successPopup");
 
-    form.addEventListener("submit", function(e) {
-        e.preventDefault();
-        
-        submitBtn.disabled = true;
-        submitBtn.innerText = "SENDING...";
+form.addEventListener("submit", async function(e) {
+    e.preventDefault();
+    submitBtn.disabled = true;
+    submitBtn.innerText = "SENDING...";
 
-        const formData = new FormData(form);
+    const formData = new FormData(form);
+    const dataObj = {
+        Name: formData.get("Name"),
+        Email: formData.get("Email"),
+        Topic: formData.get("Topic"),
+        Date: formData.get("Date"),
+        Time: formData.get("Time"),
+        Message: formData.get("Message")
+    };
 
-        // 1. Send EVERYTHING to Formspree (for your email)
-        fetch("https://formspree.io/f/xpqykbvr", {
-            method: "POST",
-            body: formData,
-            headers: { 'Accept': 'application/json' }
-        });
+    // 1️⃣ Send to Formspree
+    fetch("https://formspree.io/f/xpqykbvr", {
+        method: "POST",
+        headers: { "Content-Type": "application/json", "Accept": "application/json" },
+        body: JSON.stringify(dataObj)
+    }).catch(console.error);
 
-        // 2. Prepare CLEAN data for Google Sheets (matching your columns)
-        const sheetData = new FormData();
-        sheetData.append("Name", formData.get("Name"));
-        sheetData.append("Email", formData.get("Email"));
-        // We combine the extra info into the "Message" column so you don't lose it
-        const fullMessage = `Topic: ${formData.get("Topic")}\nDate: ${formData.get("Date")}\nTime: ${formData.get("Time")}\n\nMessage: ${formData.get("Message")}`;
-        sheetData.append("Message", fullMessage);
-
+    // 2️⃣ Send to Google Sheets
+    try {
         const scriptURL = "https://script.google.com/macros/s/AKfycbwsviX2SGvmvuyGCTt8zVReGmnFBbZWYRJNsNzNbyVH_yLHdFwBAh8c4K4BVh1EmuTt/exec";
-        
-        fetch(scriptURL, {
+        await fetch(scriptURL, {
             method: "POST",
-            body: sheetData,
-            mode: 'no-cors'
-        }).then(() => {
-            confetti({ 
-                particleCount: 150, 
-                spread: 70, 
-                origin: { y: 0.6 }, 
-                colors: ['#00c6ff', '#ff6ec7', '#ffffff'] 
-            });
-            popup.style.display = "block";
-            submitBtn.innerText = "Book Consultation";
-            submitBtn.disabled = false;
-            form.reset();
-        }).catch(err => {
-            console.error("Sheet Error", err);
-            submitBtn.disabled = false;
-            submitBtn.innerText = "Book Consultation";
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(dataObj)
         });
-    });
 
-    document.getElementById("closePopup").onclick = () => popup.style.display = "none";
-    
-    document.addEventListener("mousemove", e => { 
-        const cursor = document.getElementById("customCursor");
-        if(cursor) {
-            cursor.style.left = e.clientX + "px"; 
-            cursor.style.top = e.clientY + "px"; 
-        }
-    });
-
-    const canvas = document.getElementById("dotsBackground");
-    const ctx = canvas.getContext("2d");
-    function resize() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
-    window.addEventListener('resize', resize); resize();
-    let dotsArr = [];
-    for(let i=0; i<60; i++) dotsArr.push({ x: Math.random() * canvas.width, y: Math.random() * canvas.height, vy: Math.random() * 0.3 });
-    function animate() {
-        ctx.clearRect(0,0,canvas.width,canvas.height); ctx.fillStyle = "rgba(0, 198, 255, 0.3)";
-        dotsArr.forEach(d => { d.y += d.vy; if(d.y > canvas.height) d.y = 0; ctx.beginPath(); ctx.arc(d.x, d.y, 1, 0, Math.PI * 2); ctx.fill(); });
-        requestAnimationFrame(animate);
+        // Confetti + popup
+        confetti({ particleCount: 150, spread: 70, origin: { y: 0.6 }, colors: ['#00c6ff', '#ff6ec7', '#ffffff'] });
+        popup.style.display = "block";
+        form.reset();
+    } catch (err) {
+        console.error("Google Sheet Error:", err);
+    } finally {
+        submitBtn.disabled = false;
+        submitBtn.innerText = "Book Consultation";
     }
-    animate();
+});
+
+document.getElementById("closePopup").onclick = () => popup.style.display = "none";
+
+document.addEventListener("mousemove", e => { 
+    const cursor = document.getElementById("customCursor");
+    if(cursor){ cursor.style.left = e.clientX + "px"; cursor.style.top = e.clientY + "px"; }
+});
+
+// Dots Background
+const canvas = document.getElementById("dotsBackground");
+const ctx = canvas.getContext("2d");
+function resize(){ canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
+window.addEventListener('resize', resize); resize();
+let dotsArr = [];
+for(let i=0; i<60; i++) dotsArr.push({ x: Math.random()*canvas.width, y: Math.random()*canvas.height, vy: Math.random()*0.3 });
+function animate(){
+    ctx.clearRect(0,0,canvas.width,canvas.height);
+    ctx.fillStyle = "rgba(0, 198, 255, 0.3)";
+    dotsArr.forEach(d => { d.y += d.vy; if(d.y>canvas.height)d.y=0; ctx.beginPath(); ctx.arc(d.x,d.y,1,0,Math.PI*2); ctx.fill(); });
+    requestAnimationFrame(animate);
+}
+animate();
 </script>
 </body>
 </html>
