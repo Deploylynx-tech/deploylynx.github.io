@@ -4,123 +4,231 @@
     <meta charset="UTF-8">
     <title>DeployLynx | About</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
 
     <style>
         :root {
             --primary-cyan: #00c6ff;
             --accent-pink: #ff6ec7;
             --dark-bg: #0a0f1c;
-            --glass-bg: rgba(255, 255, 255, 0.03);
-            --card-border: rgba(255, 255, 255, 0.08);
+            --light-blue-hover: #38bdf8;
         }
 
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', 'Segoe UI', sans-serif; }
-        body { background: var(--dark-bg); color: #fff; overflow-x: hidden; line-height: 1.6; }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
 
-        /* Navigation */
+        body {
+            background: var(--dark-bg);
+            color: #fff;
+            overflow-x: hidden;
+            cursor: none; /* Cursor hidden for custom gold cursor on desktop */
+        }
+
+        /* NAVIGATION - MOBILE FRIENDLY */
         nav {
-            display: flex; justify-content: space-between; align-items: center; padding: 15px 5%;
-            background: rgba(10, 15, 28, 0.95); position: fixed; width: 100%; top: 0; z-index: 1000;
-            backdrop-filter: blur(10px); border-bottom: 1px solid var(--card-border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 5%;
+            background: rgba(10, 15, 28, 0.9);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255,255,255,0.05);
         }
-        .logo { font-size: 22px; color: var(--primary-cyan); font-weight: 800; text-decoration: none; }
-        .logo span { color: white; }
-        
-        .menu { display: flex; gap: 20px; }
-        .menu a { color: #94a3b8; text-decoration: none; font-size: 0.9rem; transition: 0.3s; }
+
+        .logo {
+            font-size: 24px;
+            color: var(--primary-cyan);
+            font-weight: bold;
+            letter-spacing: 1px;
+            z-index: 1001;
+        }
+
+        .menu {
+            display: flex;
+        }
+
+        .menu a {
+            margin-left: 25px;
+            color: #ccc;
+            text-decoration: none;
+            transition: 0.3s;
+            font-size: 0.95rem;
+        }
+
         .menu a:hover, .menu a.active { color: var(--primary-cyan); }
 
-        /* Hamburger for Mobile */
-        .hamburger { display: none; cursor: pointer; flex-direction: column; gap: 5px; }
-        .hamburger span { width: 25px; height: 2px; background: white; border-radius: 2px; }
+        /* HAMBURGER MENU */
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            gap: 5px;
+            z-index: 1001;
+        }
 
-        /* Hero Section */
+        .hamburger span {
+            width: 25px;
+            height: 2px;
+            background: var(--primary-cyan);
+            transition: 0.3s;
+        }
+
+        /* HERO & TEXT */
         .hero {
-            padding: 140px 20px 60px; text-align: center;
-            background: radial-gradient(circle at center, rgba(0, 198, 255, 0.05) 0%, transparent 70%);
+            text-align: center;
+            padding: 80px 20px 40px;
         }
+
         .brand-name {
-            font-size: clamp(40px, 12vw, 70px); font-weight: 900; margin-bottom: 20px;
-            background: linear-gradient(to right, #fff, var(--primary-cyan), var(--accent-pink));
-            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+            font-size: clamp(40px, 10vw, 80px);
+            font-weight: 900;
+            margin-bottom: 10px;
+            background: linear-gradient(to right, #38bdf8, #ff6ec7, #a855f7, #38bdf8);
+            background-size: 300% auto;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: colorFlow 5s linear infinite;
         }
+
+        @keyframes colorFlow { to { background-position: 300% center; } }
+
         .typing-container {
-            font-size: clamp(18px, 4vw, 22px); font-weight: 500; color: #cbd5e1;
-            max-width: 800px; margin: 0 auto; min-height: 3em;
+            margin-top: 20px;
+            font-size: clamp(16px, 4vw, 22px);
+            font-weight: 500;
+            min-height: 3em;
+            max-width: 900px;
+            margin-left: auto;
+            margin-right: auto;
+            line-height: 1.6;
+            color: #cbd5e1;
         }
 
-        /* Content Sections */
-        section { padding: 60px 5%; max-width: 1200px; margin: 0 auto; }
-        .section-title { 
-            text-align: center; font-size: 28px; margin-bottom: 40px; 
-            color: var(--primary-cyan); text-transform: uppercase; letter-spacing: 2px;
+        section {
+            padding: 40px 8%;
+            max-width: 1200px;
+            margin: 0 auto;
         }
 
-        .about-box {
-            background: var(--glass-bg); border: 1px solid var(--card-border);
-            padding: 40px; border-radius: 24px; text-align: center;
+        .about-text {
+            text-align: center; 
+            line-height: 1.8; 
+            color: #ffffff; 
+            font-size: clamp(1rem, 2.5vw, 1.2rem);
+        }
+
+        .about-text b {
+            color: var(--primary-cyan);
+            text-shadow: 0 0 10px rgba(0, 198, 255, 0.3);
+        }
+
+        /* CARDS & GLASSMORPHISM */
+        .glass {
+            background: rgba(255, 255, 255, 0.05);
             backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
-        .about-text { font-size: 1.1rem; color: #e2e8f0; }
-        .about-text b { color: var(--primary-cyan); font-weight: 600; }
 
-        /* Grid Layouts */
-        .grid {
-            display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 20px; margin-top: 30px;
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            gap: 20px;
+            margin: 30px auto;
         }
+
+        .stat { padding: 25px 15px; text-align: center; }
+        .stat h2 { color: var(--primary-cyan); font-size: clamp(28px, 5vw, 42px); margin-bottom: 5px; }
+        .stat p { font-size: 0.9rem; opacity: 0.8; }
+
+        .team-grid, .project-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            margin-top: 30px;
+        }
+
         .card {
-            background: var(--glass-bg); border: 1px solid var(--card-border);
-            padding: 30px; border-radius: 20px; transition: 0.4s;
-            text-align: center; position: relative; overflow: hidden;
+            padding: 30px;
+            text-align: center;
+            border-radius: 15px;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            transition: 0.3s;
         }
+
         .card:hover { 
-            transform: translateY(-10px); border-color: var(--primary-cyan);
-            background: rgba(0, 198, 255, 0.02);
-        }
-        .card h3 { font-size: 20px; margin-bottom: 12px; color: #fff; }
-        .card p { color: #94a3b8; font-size: 0.95rem; }
-
-        /* Stats Section */
-        .stats-grid {
-            display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px;
-        }
-        .stat-card {
-            padding: 25px; background: var(--glass-bg); border-radius: 15px;
-            border: 1px solid var(--card-border); text-align: center;
-        }
-        .stat-card h2 { font-size: 36px; color: var(--primary-cyan); margin-bottom: 5px; }
-
-        /* Mobile Adjustments */
-        @media (max-width: 768px) {
-            .menu {
-                display: none; position: absolute; top: 60px; left: 0; width: 100%;
-                background: #0f172a; flex-direction: column; padding: 20px; text-align: center;
-                border-bottom: 1px solid var(--card-border);
-            }
-            .menu.active { display: flex; }
-            .hamburger { display: flex; }
-            .stats-grid { grid-template-columns: 1fr; }
-            section { padding: 40px 20px; }
-            .about-box { padding: 25px; }
+            box-shadow: 0 0 20px rgba(255, 110, 199, 0.2); 
+            transform: translateY(-5px); 
+            border-color: var(--accent-pink);
         }
 
-        canvas#dotsBackground { position: fixed; top: 0; left: 0; z-index: -1; pointer-events: none; }
-        .fade { opacity: 0; transform: translateY(20px); transition: 0.6s ease-out; }
+        /* UTILITIES */
+        .fade { opacity: 0; transform: translateY(30px); transition: 0.8s ease-out; }
         .fade.show { opacity: 1; transform: translateY(0); }
+
+        canvas { position: fixed; top: 0; left: 0; z-index: -1; pointer-events: none; }
+
+        .cursor {
+            width: 12px; height: 12px; background: gold; border-radius: 50%;
+            position: fixed; pointer-events: none; box-shadow: 0 0 15px gold;
+            transform: translate(-50%, -50%); z-index: 9999;
+        }
+
+        .cursor-blink {
+            display: inline-block; width: 3px; background-color: #ffffff;
+            margin-left: 5px; animation: blink 1s infinite;
+        }
+        @keyframes blink { 50% { opacity: 0; } }
+
+        /* MOBILE OVERRIDES */
+        @media screen and (max-width: 768px) {
+            body { cursor: default; }
+            .cursor { display: none; }
+            
+            .hamburger { display: flex; }
+            
+            .menu {
+                display: none;
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100vh;
+                background: #0a0f1c;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                gap: 30px;
+            }
+
+            .menu.active { display: flex; }
+            .menu a { margin: 0; font-size: 1.5rem; }
+
+            section { padding: 30px 20px; }
+            .stats { grid-template-columns: repeat(2, 1fr); }
+        }
     </style>
 </head>
 
 <body>
-<canvas id="dotsBackground"></canvas>
+
+<canvas id="dots"></canvas>
+<div class="cursor"></div>
 
 <nav>
-    <a href="index.html" class="logo">Deploy<span>Lynx</span></a>
-    <div class="hamburger" id="mobMenu">
+    <div class="logo">DeployLynx</div>
+    <div class="hamburger" id="hamburger">
         <span></span><span></span><span></span>
     </div>
-    <div class="menu" id="navLinks">
+    <div class="menu" id="nav-links">
         <a href="index.html">Home</a>
         <a href="about.html" class="active">About</a>
         <a href="services.html">Services</a>
@@ -134,129 +242,152 @@
     <div class="typing-container" id="typing-sub"></div>
 </div>
 
-<section class="fade">
-    <div class="about-box">
-        <p class="about-text">
-            <b>DeployLynx</b> engineering the future with <b>scalable systems</b>, intelligent <b>automation</b>, and 
-            cloud-native excellence. We deliver <b>enterprise-grade infrastructure</b> that grows with your vision.
-        </p>
+<section class="about fade">
+    <p class="about-text">
+        <b>DeployLynx</b> engineering the future with <b>scalable systems</b>, intelligent <b>automation</b>, and 
+        <b>cloud-native excellence</b>. We deliver <b>enterprise-grade infrastructure</b> that grows with your vision.
+    </p>
+</section>
+
+<section class="stats fade">
+    <div class="glass stat">
+        <h2 id="clients">0</h2>
+        <p>Active Clients</p>
+    </div>
+    <div class="glass stat">
+        <h2 id="deployments">0</h2>
+        <p>Deployments</p>
+    </div>
+    <div class="glass stat">
+        <h2 id="uptime">0%</h2>
+        <p>SLA Uptime</p>
+    </div>
+    <div class="glass stat">
+        <h2 id="cost-saved">0%</h2>
+        <p>Cost ROI</p>
     </div>
 </section>
 
-<section class="fade">
-    <div class="stats-grid">
-        <div class="stat-card">
-            <h2 id="clients">0</h2>
-            <p>Active Clients</p>
-        </div>
-        <div class="stat-card">
-            <h2 id="deployments">0</h2>
-            <p>Total Deployments</p>
-        </div>
-        <div class="stat-card">
-            <h2 id="uptime">0%</h2>
-            <p>SLA Uptime</p>
-        </div>
-        <div class="stat-card">
-            <h2 id="roi">0%</h2>
-            <p>Cost ROI</p>
-        </div>
-    </div>
-</section>
-
-<section class="fade">
-    <h2 class="section-title">Core Expertise</h2>
-    <div class="grid">
+<section class="team fade">
+    <h2 style="color:var(--primary-cyan); text-align:center; margin-bottom:30px;">Core Expertise</h2>
+    <div class="team-grid">
         <div class="card">
             <h3>DevOps</h3>
-            <p>CI/CD Pipelines, GitOps, and automated security scanning.</p>
+            <p>CI/CD Pipelines • GitOps • Security Scanning</p>
         </div>
         <div class="card">
-            <h3>Cloud Solutions</h3>
-            <p>Multi-cloud strategy using AWS, Azure, and Terraform IaC.</p>
+            <h3>Cloud</h3>
+            <p>AWS • Azure • Terraform Infrastructure as Code</p>
         </div>
         <div class="card">
             <h3>AI Automation</h3>
-            <p>LLM Ops and process intelligence for modern workflows.</p>
+            <p>LLM Ops • Process Intelligence • Smart Scaling</p>
         </div>
     </div>
 </section>
 
-<footer style="text-align:center; padding:60px 20px; color:#64748b; font-size:0.85rem; border-top: 1px solid var(--card-border);">
+<footer style="text-align:center; padding:60px 20px; color:#64748b; font-size:0.85rem; border-top: 1px solid rgba(255,255,255,0.05);">
     DeployLynx &copy; 2026 | Powering Global Cloud Infrastructures
 </footer>
 
 <script>
-    // Typing Animation
-    const text = "Engineering the future with scalable systems, intelligent automation, and cloud-native excellence.";
-    const container = document.getElementById("typing-sub");
-    let i = 0;
-    function type() {
-        if (i < text.length) {
-            container.innerHTML += text.charAt(i);
-            i++;
-            setTimeout(type, 30);
-        }
+// --- TYPING ANIMATION ---
+const fullText = "Engineering the future with scalable systems, intelligent automation, and cloud-native excellence.";
+const typingContainer = document.getElementById("typing-sub");
+let charIdx = 0;
+
+function typeEffect() {
+    if (charIdx < fullText.length) {
+        typingContainer.textContent += fullText.charAt(charIdx);
+        charIdx++;
+        setTimeout(typeEffect, 40);
+    } else {
+        const cursorBlink = document.createElement("span");
+        cursorBlink.className = "cursor-blink";
+        cursorBlink.textContent = "|";
+        typingContainer.appendChild(cursorBlink);
     }
-    window.onload = type;
+}
+window.addEventListener('load', typeEffect);
 
-    // Mobile Menu Toggle
-    const mobMenu = document.getElementById('mobMenu');
-    const navLinks = document.getElementById('navLinks');
-    mobMenu.onclick = () => navLinks.classList.toggle('active');
+// --- MOBILE MENU ---
+const hamburger = document.getElementById('hamburger');
+const navLinks = document.getElementById('nav-links');
+hamburger.addEventListener('click', () => {
+    navLinks.classList.toggle('active');
+});
 
-    // Stats Counter
-    function countTo(id, end, suffix = "") {
-        let obj = document.getElementById(id);
-        let start = 0;
-        let duration = 2000;
-        let range = end - start;
-        let increment = end > start ? 1 : -1;
-        let stepTime = Math.abs(Math.floor(duration / range));
-        let timer = setInterval(function() {
-            start += increment;
-            obj.innerHTML = start + suffix;
-            if (start == end) clearInterval(timer);
-        }, stepTime);
-    }
+// --- CUSTOM CURSOR ---
+const cursor = document.querySelector(".cursor");
+if (window.matchMedia("(pointer: fine)").matches) {
+    document.addEventListener("mousemove", e => {
+        cursor.style.top = e.clientY + "px";
+        cursor.style.left = e.clientX + "px";
+    });
+}
 
-    // Scroll Reveal
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.classList.add('show');
-                if(entry.target.querySelector('#clients')) {
-                    countTo("clients", 12);
-                    countTo("deployments", 45);
-                    countTo("uptime", 99, "%");
-                    countTo("roi", 70, "%");
-                }
+// --- FALLING DOTS BACKGROUND ---
+const canvas = document.getElementById("dots");
+let c = canvas.getContext("2d");
+function resize() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
+window.addEventListener('resize', resize);
+resize();
+
+let dotsArr = [];
+for(let i=0; i<80; i++) {
+    dotsArr.push({ 
+        x: Math.random()*canvas.width, 
+        y: Math.random()*canvas.height, 
+        opacity: Math.random(),
+        speed: Math.random() * 0.5 + 0.2
+    });
+}
+
+function draw(){
+    c.clearRect(0,0,canvas.width,canvas.height);
+    c.fillStyle = "#00c6ff";
+    dotsArr.forEach(p => {
+        c.globalAlpha = p.opacity;
+        c.beginPath();
+        c.arc(p.x, p.y, 1.5, 0, Math.PI * 2);
+        c.fill();
+        p.y += p.speed;
+        if(p.y > canvas.height) p.y = 0;
+    });
+    requestAnimationFrame(draw);
+}
+draw();
+
+// --- SCROLL REVEAL & COUNTERS ---
+let triggered = false;
+const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+        if(entry.isIntersecting) {
+            entry.target.classList.add("show");
+            if(entry.target.classList.contains('stats') && !triggered) {
+                triggered = true;
+                count("clients", 12);
+                count("deployments", 45);
+                count("uptime", 99, "%");
+                count("cost-saved", 70, "%");
             }
-        });
-    }, { threshold: 0.1 });
+        }
+    });
+}, { threshold: 0.1 });
 
-    document.querySelectorAll('.fade').forEach(el => observer.observe(el));
+document.querySelectorAll(".fade").forEach(el => observer.observe(el));
 
-    // Background Animation
-    const canvas = document.getElementById("dotsBackground");
-    const ctx = canvas.getContext("2d");
-    function resize() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
-    window.onresize = resize; resize();
-    let dots = Array(80).fill().map(() => ({
-        x: Math.random() * canvas.width,
-        y: Math.random() * canvas.height,
-        v: Math.random() * 0.5 + 0.2
-    }));
-    function draw() {
-        ctx.clearRect(0,0,canvas.width,canvas.height);
-        ctx.fillStyle = "rgba(0, 198, 255, 0.2)";
-        dots.forEach(d => {
-            d.y += d.v; if(d.y > canvas.height) d.y = 0;
-            ctx.beginPath(); ctx.arc(d.x, d.y, 1.5, 0, Math.PI*2); ctx.fill();
-        });
-        requestAnimationFrame(draw);
-    }
-    draw();
+function count(id, end, suffix = ""){
+    let n = 0;
+    let duration = 2000;
+    let step = Math.floor(duration / end);
+    let timer = setInterval(() => {
+        n++;
+        document.getElementById(id).innerText = n + suffix;
+        if(n >= end) clearInterval(timer);
+    }, step);
+}
 </script>
+
 </body>
 </html>
