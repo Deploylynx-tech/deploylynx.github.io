@@ -10,373 +10,146 @@
     <style>
         :root {
             --primary-cyan: #00c6ff;
-            --accent-pink: #ff6ec7;
             --dark-bg: #0a0f1c;
-            --input-bg: rgba(0,0,0,0.5);
-            --glass-bg: rgba(255, 255, 255, 0.03);
-            --form-bg: rgba(30, 41, 59, 0.7);
-        }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Inter', 'Segoe UI', sans-serif;
         }
 
         body {
+            margin: 0;
+            font-family: 'Segoe UI', sans-serif;
             background: var(--dark-bg);
-            color: #fff;
-            overflow-x: hidden;
-            cursor: none;
-            min-height: 100vh;
+            color: white;
         }
 
         nav {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 20px 8%;
-            background: rgba(10, 15, 28, 0.9);
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-            backdrop-filter: blur(10px);
-            border-bottom: 1px solid rgba(255,255,255,0.05);
-        }
-
-        .logo {
-            font-size: 24px;
-            color: var(--primary-cyan);
-            font-weight: 800;
-            text-decoration: none;
-        }
-        .logo span { color: white; }
-
-        .menu a {
-            margin-left: 25px;
-            color: #94a3b8;
-            text-decoration: none;
-            transition: 0.3s;
-            font-size: 0.95rem;
+            padding: 20px;
+            background: #000;
         }
 
         .container {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 60px;
-            padding: 60px 8% 100px;
-            position: relative;
-            z-index: 2;
-            max-width: 1400px;
-            margin: 0 auto;
-        }
-
-        .details-col {
             display: flex;
-            flex-direction: column;
             justify-content: center;
-            align-items: flex-start;
+            padding: 60px;
         }
 
-        .typing-title {
-            font-size: 2rem;
-            font-weight: 700;
-            color: white;
-            line-height: 1.2;
-            margin-bottom: 15px;
-            letter-spacing: -0.5px;
-            background: linear-gradient(90deg, #fff, var(--primary-cyan));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+        .card {
+            background: #111;
+            padding: 30px;
+            border-radius: 15px;
+            width: 400px;
         }
 
-        .typing-quote {
-            font-size: 0.95rem;
-            font-weight: 400;
-            color: #cbd5e1;
-            line-height: 1.6;
-            margin-bottom: 40px;
-            max-width: 520px;
-        }
-        
-        .typing-quote span.highlight {
-            color: var(--primary-cyan);
-        }
-
-        .social-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
-            gap: 12px;
+        input, select, textarea {
             width: 100%;
-        }
-
-        .social-link {
-            padding: 10px 15px;
-            background: var(--glass-bg);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            border-radius: 50px;
-            color: #94a3b8;
-            text-decoration: none;
-            text-align: center;
-            transition: 0.3s;
-            font-size: 0.8rem;
-        }
-
-        .social-link:hover {
-            border-color: var(--primary-cyan);
-            color: #fff;
-            transform: translateY(-2px);
-            background: rgba(0, 198, 255, 0.05);
-        }
-
-        .booking-card {
-            background: var(--form-bg);
-            padding: 40px;
-            border-radius: 20px;
-            width: 100%;
-            max-width: 480px;
-            backdrop-filter: blur(20px);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
-        }
-
-        .booking-card h3 {
-            margin-bottom: 25px;
-            color: #fff;
-            font-size: 22px;
-            font-weight: 600;
-        }
-
-        input, textarea, select {
-            width: 100%;
-            margin-bottom: 15px;
-            padding: 12px 16px;
-            border: 1px solid rgba(255,255,255,0.1);
-            border-radius: 8px;
-            background: var(--input-bg);
-            color: #fff;
-            outline: none;
-            font-size: 0.9rem;
+            margin-bottom: 12px;
+            padding: 10px;
+            border-radius: 6px;
+            border: none;
         }
 
         button {
             width: 100%;
-            padding: 14px;
-            border: none;
-            border-radius: 8px;
+            padding: 12px;
             background: var(--primary-cyan);
-            color: #000;
-            font-weight: 700;
+            border: none;
+            font-weight: bold;
             cursor: pointer;
-            transition: 0.3s;
-            text-transform: uppercase;
-            letter-spacing: 1px;
         }
 
-        button:hover:not(:disabled) {
-            background: var(--accent-pink);
-            color: #fff;
-        }
-
-        button:disabled {
-            background: #475569;
-            cursor: not-allowed;
-            color: #cbd5e1;
-        }
-
-        /* POPUP MESSAGE */
         #successPopup {
             display: none;
             position: fixed;
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            background: var(--form-bg);
-            padding: 40px;
-            border-radius: 20px;
-            border: 2px solid var(--primary-cyan);
-            text-align: center;
-            z-index: 2000;
-            box-shadow: 0 0 50px rgba(0, 198, 255, 0.5);
-            backdrop-filter: blur(20px);
-        }
-
-        #closePopup {
-            margin-top: 25px;
-            padding: 10px 20px;
-            background: transparent;
-            border: 1px solid var(--primary-cyan);
-            color: #fff;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-
-        canvas#dotsBackground { position: fixed; top: 0; left: 0; z-index: 0; pointer-events: none; }
-
-        .cursor {
-            width: 10px; height: 10px; background: gold; border-radius: 50%;
-            position: fixed; pointer-events: none; box-shadow: 0 0 15px gold;
-            transform: translate(-50%, -50%); z-index: 9999;
-        }
-
-        @media screen and (max-width: 900px) {
-            .container { grid-template-columns: 1fr; padding-top: 40px; }
-            .details-col { text-align: center; align-items: center; margin-bottom: 40px; }
-            .cursor { display: none; }
+            background: black;
+            padding: 20px;
+            border: 1px solid cyan;
         }
     </style>
 </head>
 
 <body>
 
-<canvas id="dotsBackground"></canvas>
-<div class="cursor" id="customCursor"></div>
-
-<nav>
-    <a href="index.html" class="logo">Deploy<span>Lynx</span></a>
-    <div class="menu">
-        <a href="index.html">Home</a>
-        <a href="about.html">About</a>
-        <a href="contact.html" style="color:var(--primary-cyan)">Contact</a>
-    </div>
-</nav>
+<nav>DeployLynx</nav>
 
 <div class="container">
-    <div class="details-col">
-        <h1 class="typing-title">Ready to architect<br>the future?</h1>
-        <p class="typing-quote">
-            Whether you have a specific project in mind or need a deep dive into cloud reliability, 
-            DeployLynx builds <span class="highlight">scalable, secure, and production-ready</span> systems using the triad of 
-            DevOps, Cloud, and AI Automation. We design <span class="highlight">cloud-native architectures</span>, 
-            automate complex workflows, and deliver <span class="highlight">enterprise-grade infrastructure</span> 
-            that <span class="highlight">scales with your vision</span> and secures your future.
-        </p>
-        
-        <div class="social-grid">
-            <a href="tel:+923713600892" class="social-link">📞 +92 371</a>
-            <a href="https://github.com/Deploylynx-tech" class="social-link" target="_blank">GitHub</a>
-            <a href="https://linkedin.com" class="social-link" target="_blank">LinkedIn</a>
-            <a href="mailto:deploylynx26@gmail.com" class="social-link">Email</a>
-            <a href="https://instagram.com" class="social-link" target="_blank">Instagram</a>
-            <a href="https://wa.me/message/VXHPTQC4ZU46A1" class="social-link" target="_blank">WhatsApp</a>
-        </div>
-    </div>
+    <div class="card">
+        <h3>Schedule Call</h3>
 
-    <div class="form-col">
-        <div class="booking-card">
-            <h3>Schedule Your Call</h3>
-            <form id="scheduleForm" action="https://formspree.io/f/xpqykbvr" method="POST">
-                <input type="text" name="name" placeholder="Your Name" required>
-                <input type="email" name="email" placeholder="Your Email" required>
-                
-                <select name="topic" required>
-                    <option value="" disabled selected>Select a Topic (required)</option>
-                    <option value="Cloud Migration Strategy">Cloud Migration Strategy</option>
-                    <option value="Kubernetes Architecture">Kubernetes Architecture</option>
-                    <option value="CI/CD Pipeline Design">CI/CD Pipeline Design</option>
-                    <option value="Infrastructure as Code">Infrastructure as Code</option>
-                    <option value="DevSecOps & Security">DevSecOps & Security</option>
-                    <option value="Cloud Cost Optimization">Cloud Cost Optimization</option>
-                    <option value="Monitoring & Observability">Monitoring & Observability</option>
-                    <option value="Other">Other</option>
-                </select>
+        <form id="scheduleForm">
+            <input type="text" name="name" placeholder="Name" required>
+            <input type="email" name="email" placeholder="Email" required>
+            <input type="text" name="phone" placeholder="Phone">
 
-                <input type="date" name="date" required>
-                
-                <select name="time_slot" required>
-                    <option value="" disabled selected>Select a Time Slot (PKT)</option>
-                    <option value="09:00 AM">09:00 AM PKT</option>
-                    <option value="12:00 PM">12:00 PM PKT</option>
-                    <option value="03:00 PM">03:00 PM PKT</option>
-                </select>
+            <select name="topic" required>
+                <option value="">Select Topic</option>
+                <option>Cloud</option>
+                <option>Kubernetes</option>
+                <option>CI/CD</option>
+            </select>
 
-                <textarea name="message" rows="3" placeholder="Brief Description (Optional)"></textarea>
-                
-                <button type="submit" id="submitBtn">Book Consultation</button>
-            </form>
-        </div>
+            <select name="time_slot" required>
+                <option value="">Select Time</option>
+                <option>09:00 AM</option>
+                <option>12:00 PM</option>
+                <option>03:00 PM</option>
+            </select>
+
+            <textarea name="message" placeholder="Description"></textarea>
+
+            <button type="submit" id="btn">Submit</button>
+        </form>
     </div>
 </div>
 
 <div id="successPopup">
-    <div style="font-size: 50px; margin-bottom: 15px;">✨</div>
-    <h3 style="color: var(--primary-cyan); font-size: 24px;">Message Sent!</h3>
-    <p style="color: white; margin-top: 10px; font-size: 0.95rem;">
-        Shortly we will contact with you.<br>Thank you for choosing DeployLynx.
-    </p>
-    <button id="closePopup">Close</button>
+    <h3>✅ Submitted!</h3>
+    <button onclick="document.getElementById('successPopup').style.display='none'">Close</button>
 </div>
 
 <script>
-    // FORM LOGIC: Processing & Sparkles
-    const form = document.getElementById("scheduleForm");
-    const submitBtn = document.getElementById("submitBtn");
-    const popup = document.getElementById("successPopup");
+const form = document.getElementById("scheduleForm");
+const btn = document.getElementById("btn");
+const popup = document.getElementById("successPopup");
 
-    form.addEventListener("submit", async function(e) {
-        e.preventDefault();
-        submitBtn.disabled = true;
-        submitBtn.innerText = "Wait, Processing...";
+form.addEventListener("submit", async function(e){
+    e.preventDefault();
 
-        const data = new FormData(form);
-        try {
-            const response = await fetch(form.action, {
-                method: "POST",
-                body: data,
-                headers: {'Accept': 'application/json'}
-            });
+    btn.disabled = true;
+    btn.innerText = "Sending...";
 
-            if (response.ok) {
-                // Sparkle Pop-up Effect
-                confetti({
-                    particleCount: 150,
-                    spread: 70,
-                    origin: { y: 0.6 },
-                    colors: ['#00c6ff', '#ff6ec7', '#ffffff']
-                });
+    const data = {
+        name: form.name.value,
+        email: form.email.value,
+        phone: form.phone.value,
+        topic: form.topic.value,
+        timeSlot: form.time_slot.value,
+        description: form.message.value,
+        secret: "deploylynx_secure_123"
+    };
 
-                popup.style.display = "block";
-                form.reset();
-            } else {
-                alert("Oops! There was a problem submitting your form.");
-            }
-        } catch (error) {
-            alert("Error connecting to the server.");
-        } finally {
-            submitBtn.disabled = false;
-            submitBtn.innerText = "Book Consultation";
-        }
-    });
-
-    document.getElementById("closePopup").onclick = () => popup.style.display = "none";
-
-    // CURSOR & BG
-    const cursor = document.getElementById("customCursor");
-    document.addEventListener("mousemove", e => {
-        cursor.style.left = e.clientX + "px"; cursor.style.top = e.clientY + "px";
-    });
-
-    const canvas = document.getElementById("dotsBackground");
-    const ctx = canvas.getContext("2d");
-    function resize() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
-    window.addEventListener('resize', resize); resize();
-
-    let dotsArr = [];
-    for(let i=0; i<60; i++) {
-        dotsArr.push({ x: Math.random() * canvas.width, y: Math.random() * canvas.height, vy: Math.random() * 0.3 });
-    }
-
-    function animate() {
-        ctx.clearRect(0,0,canvas.width,canvas.height);
-        ctx.fillStyle = "rgba(0, 198, 255, 0.3)";
-        dotsArr.forEach(d => {
-            d.y += d.vy; if(d.y > canvas.height) d.y = 0;
-            ctx.beginPath(); ctx.arc(d.x, d.y, 1, 0, Math.PI * 2); ctx.fill();
+    try {
+        const res = await fetch("https://script.google.com/macros/s/AKfycbwsviX2SGvmvuyGCTt8zVReGmnFBbZWYRJNsNzNbyVH_yLHdFwBAh8c4K4BVh1EmuTt/exec", {
+            method: "POST",
+            body: JSON.stringify(data),
         });
-        requestAnimationFrame(animate);
+
+        const result = await res.json();
+
+        if(result.status === "success"){
+            popup.style.display = "block";
+            form.reset();
+        } else {
+            alert("Error");
+        }
+
+    } catch (err) {
+        alert("Connection error");
     }
-    animate();
+
+    btn.disabled = false;
+    btn.innerText = "Submit";
+});
 </script>
 
 </body>
