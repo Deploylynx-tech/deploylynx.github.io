@@ -163,8 +163,28 @@
 
         const formData = new FormData(form);
 
-        // Immediate Visual Success UI
-        setTimeout(() => {
+        // 1. Send EVERYTHING to Formspree (for your email)
+        fetch("https://formspree.io/f/xpqykbvr", {
+            method: "POST",
+            body: formData,
+            headers: { 'Accept': 'application/json' }
+        });
+
+        // 2. Prepare CLEAN data for Google Sheets (matching your columns)
+        const sheetData = new FormData();
+        sheetData.append("Name", formData.get("Name"));
+        sheetData.append("Email", formData.get("Email"));
+        // We combine the extra info into the "Message" column so you don't lose it
+        const fullMessage = `Topic: ${formData.get("Topic")}\nDate: ${formData.get("Date")}\nTime: ${formData.get("Time")}\n\nMessage: ${formData.get("Message")}`;
+        sheetData.append("Message", fullMessage);
+
+        const scriptURL = "https://script.google.com/macros/s/AKfycbwsviX2SGvmvuyGCTt8zVReGmnFBbZWYRJNsNzNbyVH_yLHdFwBAh8c4K4BVh1EmuTt/exec";
+        
+        fetch(scriptURL, {
+            method: "POST",
+            body: sheetData,
+            mode: 'no-cors'
+        }).then(() => {
             confetti({ 
                 particleCount: 150, 
                 spread: 70, 
@@ -175,23 +195,11 @@
             submitBtn.innerText = "Book Consultation";
             submitBtn.disabled = false;
             form.reset();
-        }, 600);
-
-        // 1. Sending to Formspree (for your Email)
-        fetch("https://formspree.io/f/xpqykbvr", {
-            method: "POST",
-            body: formData,
-            headers: { 'Accept': 'application/json' }
+        }).catch(err => {
+            console.error("Sheet Error", err);
+            submitBtn.disabled = false;
+            submitBtn.innerText = "Book Consultation";
         });
-
-        // 2. Sending to Google Sheets (for your Leads)
-        const scriptURL = "https://script.google.com/macros/s/AKfycbwsviX2SGvmvuyGCTt8zVReGmnFBbZWYRJNsNzNbyVH_yLHdFwBAh8c4K4BVh1EmuTt/exec";
-        
-        fetch(scriptURL, {
-            method: "POST",
-            body: formData,
-            mode: 'no-cors' // This bypasses CORS issues common with Google Apps Script
-        }).catch(err => console.log("Background sheet process initiated"));
     });
 
     document.getElementById("closePopup").onclick = () => popup.style.display = "none";
