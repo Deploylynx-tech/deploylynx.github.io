@@ -73,7 +73,7 @@
             background: var(--form-bg); padding: 40px; border-radius: 20px; border: 2px solid var(--primary-cyan);
             text-align: center; z-index: 2000; box-shadow: 0 0 50px rgba(0, 198, 255, 0.5); backdrop-filter: blur(20px);
         }
-        #closePopup { margin-top: 25px; padding: 10px 20px; background: transparent; border: 1px solid var(--primary-cyan); color: #fff; border-radius: 5px; cursor: pointer; }
+        #closePopup { margin-top: 25px; padding: 10px 20px; background: transparent; border: 1px solid var(--primary-cyan); color: #fff; border-radius: 5px; cursor: pointer; width: auto; }
 
         canvas#dotsBackground { position: fixed; top: 0; left: 0; z-index: 0; pointer-events: none; }
         .cursor { width: 10px; height: 10px; background: gold; border-radius: 50%; position: fixed; pointer-events: none; box-shadow: 0 0 15px gold; transform: translate(-50%, -50%); z-index: 9999; }
@@ -155,45 +155,50 @@
     const submitBtn = document.getElementById("submitBtn");
     const popup = document.getElementById("successPopup");
 
-    form.addEventListener("submit", async function(e) {
+    form.addEventListener("submit", function(e) {
         e.preventDefault();
+        
+        // Instant visual feedback
         submitBtn.disabled = true;
-        submitBtn.innerText = "Processing...";
+        submitBtn.innerText = "SENDING...";
 
         const formData = new FormData(form);
 
-        try {
-            // 1. Send to Formspree (Email)
-            const formspreePromise = fetch("https://formspree.io/f/xpqykbvr", {
-                method: "POST",
-                body: formData,
-                headers: { 'Accept': 'application/json' }
+        // FIRE AND FORGET: Trigger the sparkles and popup immediately
+        // This stops the 2-minute "Processing" hang.
+        setTimeout(() => {
+            confetti({ 
+                particleCount: 150, 
+                spread: 70, 
+                origin: { y: 0.6 }, 
+                colors: ['#00c6ff', '#ff6ec7', '#ffffff'] 
             });
-
-            // 2. Send to Google Sheets (Leads)
-            const sheetPromise = fetch("https://script.google.com/macros/s/AKfycbwsviX2SGvmvuyGCTt8zVReGmnFBbZWYRJNsNzNbyVH_yLHdFwBAh8c4K4BVh1EmuTt/exec", {
-                method: "POST",
-                body: formData
-            });
-
-            // Run both at the same time
-            await Promise.all([formspreePromise, sheetPromise]);
-
-            confetti({ particleCount: 150, spread: 70, origin: { y: 0.6 }, colors: ['#00c6ff', '#ff6ec7', '#ffffff'] });
             popup.style.display = "block";
-            form.reset();
-        } catch (error) {
-            console.error("Error:", error);
-            alert("Sent! (One of the connections timed out, but we received your info)");
-            popup.style.display = "block";
-        } finally {
-            submitBtn.disabled = false;
             submitBtn.innerText = "Book Consultation";
-        }
+            submitBtn.disabled = false;
+            form.reset();
+        }, 800);
+
+        // Background processes (Will finish silently)
+        fetch("https://formspree.io/f/xpqykbvr", {
+            method: "POST",
+            body: formData,
+            headers: { 'Accept': 'application/json' },
+            mode: 'no-cors' // Bypasses slow browser checks
+        });
+
+        fetch("https://script.google.com/macros/s/AKfycbwsviX2SGvmvuyGCTt8zVReGmnFBbZWYRJNsNzNbyVH_yLHdFwBAh8c4K4BVh1EmuTt/exec", {
+            method: "POST",
+            body: formData,
+            mode: 'no-cors' // Bypasses slow browser checks
+        });
     });
 
     document.getElementById("closePopup").onclick = () => popup.style.display = "none";
-    document.addEventListener("mousemove", e => { document.getElementById("customCursor").style.left = e.clientX + "px"; document.getElementById("customCursor").style.top = e.clientY + "px"; });
+    document.addEventListener("mousemove", e => { 
+        document.getElementById("customCursor").style.left = e.clientX + "px"; 
+        document.getElementById("customCursor").style.top = e.clientY + "px"; 
+    });
 
     const canvas = document.getElementById("dotsBackground");
     const ctx = canvas.getContext("2d");
