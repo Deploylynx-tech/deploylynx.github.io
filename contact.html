@@ -163,7 +163,7 @@
 
         const formData = new FormData(form);
 
-        // Immediate Visual Success
+        // Immediate Visual Success UI
         setTimeout(() => {
             confetti({ 
                 particleCount: 150, 
@@ -177,29 +177,31 @@
             form.reset();
         }, 600);
 
-        // 1. Send to Formspree (Email)
+        // 1. Sending to Formspree (for your Email)
         fetch("https://formspree.io/f/xpqykbvr", {
             method: "POST",
             body: formData,
             headers: { 'Accept': 'application/json' }
         });
 
-        // 2. Send to Google Sheets (Leads)
-        // We convert the data to a URL format to ensure Google Script receives it correctly.
+        // 2. Sending to Google Sheets (for your Leads)
         const scriptURL = "https://script.google.com/macros/s/AKfycbwsviX2SGvmvuyGCTt8zVReGmnFBbZWYRJNsNzNbyVH_yLHdFwBAh8c4K4BVh1EmuTt/exec";
         
         fetch(scriptURL, {
             method: "POST",
             body: formData,
-            mode: 'no-cors'
-        }).catch(err => console.log("Sheet process handled in background"));
+            mode: 'no-cors' // This bypasses CORS issues common with Google Apps Script
+        }).catch(err => console.log("Background sheet process initiated"));
     });
 
     document.getElementById("closePopup").onclick = () => popup.style.display = "none";
     
     document.addEventListener("mousemove", e => { 
-        document.getElementById("customCursor").style.left = e.clientX + "px"; 
-        document.getElementById("customCursor").style.top = e.clientY + "px"; 
+        const cursor = document.getElementById("customCursor");
+        if(cursor) {
+            cursor.style.left = e.clientX + "px"; 
+            cursor.style.top = e.clientY + "px"; 
+        }
     });
 
     const canvas = document.getElementById("dotsBackground");
