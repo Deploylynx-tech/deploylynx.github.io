@@ -2,66 +2,56 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>DeployLynx | AI & Cloud Excellence</title>
+    <title>DeployLynx</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/devicon.min.css">
     
     <style>
+        /* CORE LAYOUT */
         :root {
             --primary-cyan: #38bdf8;
-            --accent-pink: #ff6ec7;
             --dark-bg: #020617;
-            --glass-bg: rgba(255, 255, 255, 0.03);
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
 
         body {
-            font-family: 'Inter', 'Segoe UI', sans-serif;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             color: white;
             background: var(--dark-bg);
             overflow-x: hidden;
             cursor: none; /* Custom gold cursor */
         }
 
-        canvas#bg {
+        canvas {
             position: fixed;
             top: 0; left: 0;
             z-index: -1;
-            pointer-events: none;
         }
 
-        /* NAVIGATION */
+        /* NAVIGATION - RESTORED & FIXED */
         nav {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 15px 5%;
-            background: rgba(2, 6, 23, 0.9);
-            backdrop-filter: blur(12px);
+            padding: 20px 5%;
+            background: rgba(2, 6, 23, 0.8);
+            backdrop-filter: blur(10px);
             position: sticky;
             top: 0;
             z-index: 1000;
             border-bottom: 1px solid rgba(255,255,255,0.05);
         }
 
-        .logo { 
-            font-weight: 800; 
-            font-size: 22px; 
-            color: var(--primary-cyan); 
-            min-width: 150px;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
+        .logo { font-weight: bold; font-size: 18px; color: white; min-width: 100px; }
 
-        .nav-links { display: flex; align-items: center; }
+        .nav-links { display: flex; }
         .nav-links a {
             color: #94a3b8;
             text-decoration: none;
-            margin-left: 25px;
+            margin-left: 20px;
             font-size: 0.9rem;
             transition: 0.3s;
-            font-weight: 500;
         }
         .nav-links a:hover { color: var(--primary-cyan); }
 
@@ -71,118 +61,101 @@
             gap: 5px;
             cursor: pointer;
         }
-        .hamburger span { width: 25px; height: 2px; background: white; border-radius: 2px; }
+        .hamburger span { width: 25px; height: 2px; background: white; }
 
-        /* HERO SECTION */
-        .hero {
-            padding: 100px 5% 60px;
+        /* HERO SECTION - RESTORED */
+        section {
+            padding: 60px 10%;
             text-align: center;
         }
 
-        .hero h1 {
-            font-size: clamp(40px, 12vw, 90px);
-            -webkit-text-stroke: 1.5px var(--primary-cyan);
+        .hero-title {
+            font-size: clamp(40px, 10vw, 70px); /* Responsive size */
+            -webkit-text-stroke: 1px #38bdf8;
             color: transparent;
             margin-bottom: 10px;
-            font-weight: 900;
-            line-height: 1.1;
+            text-transform: uppercase;
         }
 
-        .tagline { 
-            letter-spacing: 3px; 
-            color: #94a3b8; 
-            font-size: clamp(12px, 2vw, 16px);
-            text-transform: uppercase;
-            margin-bottom: 20px;
-        }
+        .tagline { letter-spacing: 2px; color: #94a3b8; font-size: 0.9rem; }
 
         .quote {
-            font-size: clamp(16px, 3vw, 22px);
-            color: var(--accent-pink);
-            min-height: 30px;
-            margin-bottom: 50px;
-            font-weight: 500;
+            margin-top: 20px;
+            font-size: 18px;
+            color: #ffb6c1;
+            height: 25px;
+            margin-bottom: 40px;
         }
 
-        /* TOOLS GRID */
+        /* TOOLS GRID - RESTORED */
         .tools-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
-            gap: 20px;
+            grid-template-columns: repeat(auto-fit, minmax(110px, 1fr));
+            gap: 25px;
             margin: 40px auto;
-            max-width: 1100px;
+            max-width: 1000px;
         }
 
         .tool-card {
-            background: var(--glass-bg);
+            background: rgba(255, 255, 255, 0.03);
             border: 1px solid rgba(56, 189, 248, 0.1);
-            padding: 30px 15px;
-            border-radius: 16px;
-            font-size: 0.85rem;
+            padding: 25px 15px;
+            border-radius: 12px;
+            font-size: 0.8rem;
             color: #cbd5e1;
-            transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            transition: 0.4s ease;
+            animation: float 4s ease-in-out infinite;
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 15px;
-            backdrop-filter: blur(5px);
+            gap: 12px;
         }
 
-        .tool-card i { font-size: 40px; color: var(--primary-cyan); filter: drop-shadow(0 0 8px rgba(56,189,248,0.3)); }
+        .tool-card i { font-size: 35px; opacity: 0.8; transition: 0.3s; }
 
         .tool-card:hover {
-            border-color: var(--accent-pink);
-            background: rgba(255, 110, 199, 0.05);
+            border-color: var(--primary-cyan);
+            background: rgba(56, 189, 248, 0.08);
             color: white;
-            transform: translateY(-10px);
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            box-shadow: 0 0 20px rgba(56, 189, 248, 0.2);
+            transform: scale(1.05);
         }
 
-        /* GITHUB STATS */
+        /* GITHUB STATS - RESTORED */
         .stats {
-            padding: 80px 10%;
-            background: rgba(255,255,255,0.01);
+            padding: 60px 20px;
+            background: rgba(255,255,255,0.02);
             border-top: 1px solid rgba(255,255,255,0.05);
+        }
+
+        .stat-item {
             display: flex;
-            flex-direction: column;
             align-items: center;
-        }
-
-        .stat-container {
-            display: flex;
-            flex-wrap: wrap;
             justify-content: center;
-            gap: 50px;
-            margin-top: 30px;
+            gap: 15px;
+            margin-bottom: 20px;
         }
 
-        .stat-item { text-align: center; }
-        .stat-item span { display: block; }
-        .counter {
-            font-size: 48px;
-            color: var(--primary-cyan);
-            font-weight: 800;
-            text-shadow: 0 0 20px rgba(56,189,248,0.4);
-        }
-        .stat-label { color: #64748b; text-transform: uppercase; letter-spacing: 1px; font-size: 0.8rem; margin-top: 5px;}
+        .counter { font-size: 32px; color: var(--primary-cyan); font-weight: bold; }
 
-        /* CUSTOM CURSOR */
+        /* CURSOR */
         .cursor {
             width: 12px; height: 12px; background: gold; border-radius: 50%;
             position: fixed; pointer-events: none; box-shadow: 0 0 15px gold;
             transform: translate(-50%, -50%); z-index: 9999;
         }
 
-        footer {
-            text-align: center;
-            padding: 50px;
-            font-size: 0.85rem;
-            color: #475569;
-            border-top: 1px solid rgba(255,255,255,0.03);
+        footer { text-align: center; padding: 40px; font-size: 0.8rem; color: #64748b; }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
         }
 
-        /* MOBILE RESPONSIVENESS */
-        @media (max-width: 768px) {
+        .tool-card:nth-child(even) { animation-delay: 1s; }
+
+        /* MOBILE FIXES */
+        @media screen and (max-width: 768px) {
             body { cursor: default; }
             .cursor { display: none; }
             .hamburger { display: flex; }
@@ -193,12 +166,13 @@
                 background: #020617;
                 flex-direction: column;
                 padding: 20px;
+                text-align: center;
                 border-bottom: 1px solid var(--primary-cyan);
             }
             .nav-links.active { display: flex; }
-            .nav-links a { margin: 10px 0; font-size: 1.1rem; }
-            .tools-grid { grid-template-columns: repeat(2, 1fr); }
-            .hero h1 { font-size: 50px; }
+            .nav-links a { margin: 15px 0; font-size: 1.1rem; }
+            .tools-grid { grid-template-columns: repeat(2, 1fr); gap: 15px; }
+            section { padding: 40px 5%; }
         }
     </style>
 </head>
@@ -222,96 +196,90 @@
     </div>
 </nav>
 
-<section class="hero">
-    <h1>DeployLynx</h1>
+<section>
+    <h1 class="hero-title">DeployLynx</h1>
     <p class="tagline">AI Automation • DevOps • Cloud Solutions</p>
     <div class="quote" id="quote"></div>
 
     <div class="tools-grid">
-        <div class="tool-card"><i class="devicon-docker-plain"></i>Docker</div>
-        <div class="tool-card"><i class="devicon-kubernetes-plain"></i>K8s</div>
-        <div class="tool-card"><i class="devicon-terraform-plain"></i>Terraform</div>
-        <div class="tool-card"><i class="devicon-amazonwebservices-plain-wordmark"></i>AWS</div>
-        <div class="tool-card"><i class="devicon-python-plain"></i>AI / LLM</div>
-        <div class="tool-card"><i class="devicon-linux-plain"></i>Linux</div>
-        <div class="tool-card"><i class="devicon-github-original"></i>GitHub</div>
-        <div class="tool-card"><i class="devicon-prometheus-original"></i>Prometheus</div>
+        <div class="tool-card"><i class="devicon-docker-plain colored"></i>Docker</div>
+        <div class="tool-card"><i class="devicon-linux-plain colored"></i>Linux</div>
+        <div class="tool-card"><i class="devicon-git-plain colored"></i>Git</div>
+        <div class="tool-card"><i class="devicon-github-original colored"></i>GitHub</div>
+        <div class="tool-card"><i class="devicon-python-plain colored"></i>AI / LLM</div>
+        <div class="tool-card"><i class="devicon-kubernetes-plain colored"></i>K8s</div>
+        <div class="tool-card"><i class="devicon-terraform-plain colored"></i>Terraform</div>
+        <div class="tool-card"><i class="devicon-prometheus-original colored"></i>Prometheus</div>
+        <div class="tool-card"><i class="devicon-grafana-original colored"></i>Grafana</div>
+        <div class="tool-card"><i class="devicon-amazonwebservices-plain-wordmark colored"></i>AWS</div>
     </div>
 </section>
 
 <section class="stats">
-    <h2 style="font-size: 1.2rem; color: #94a3b8; text-transform: uppercase; letter-spacing: 4px;">Global Impact</h2>
-    <div class="stat-container">
-        <div class="stat-item">
-            <span id="stars" class="counter">0</span>
-            <span class="stat-label">GitHub Stars</span>
-        </div>
-        <div class="stat-item">
-            <span id="uptime" class="counter">99.9</span>
-            <span class="stat-label">System Uptime %</span>
-        </div>
-        <div class="stat-item">
-            <span id="forks" class="counter">0</span>
-            <span class="stat-label">Projects Forked</span>
-        </div>
+    <h2 style="margin-bottom: 40px; font-size: 1.5rem; color: #94a3b8;">GitHub Activity</h2>
+    <div class="stat-item">
+        <span style="font-size: 30px;">⭐</span>
+        <span style="color: #cbd5e1;">Stars:</span>
+        <span id="stars" class="counter">0</span>
+    </div>
+    <div class="stat-item">
+        <span style="font-size: 30px;">🍴</span>
+        <span style="color: #cbd5e1;">Forks:</span>
+        <span id="forks" class="counter">0</span>
     </div>
 </section>
 
 <footer>
-    DeployLynx &copy; 2026 | Powering Global Cloud Infrastructures
+    DeployLynx © 2026 All Rights Reserved
 </footer>
 
 <script>
-    /* BACKGROUND ANIMATION */
+    /* BACKGROUND DOTS */
     const canvas = document.getElementById("bg");
     const ctx = canvas.getContext("2d");
     function resize() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
     window.onresize = resize; resize();
 
-    let dots = Array(80).fill().map(() => ({
-        x: Math.random() * canvas.width,
-        y: Math.random() * canvas.height,
-        dx: (Math.random() - 0.5) * 0.5,
-        dy: (Math.random() - 0.5) * 0.5
-    }));
+    let dots = [];
+    for(let i=0; i<80; i++) {
+        dots.push({ x:Math.random()*canvas.width, y:Math.random()*canvas.height, dx:(Math.random()-0.5), dy:(Math.random()-0.5) });
+    }
 
     function animate() {
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        ctx.clearRect(0,0,canvas.width,canvas.height);
         dots.forEach(d => {
             d.x += d.dx; d.y += d.dy;
-            if (d.x < 0 || d.x > canvas.width) d.dx *= -1;
-            if (d.y < 0 || d.y > canvas.height) d.dy *= -1;
-            ctx.fillStyle = "rgba(56, 189, 248, 0.3)";
-            ctx.beginPath(); ctx.arc(d.x, d.y, 2, 0, Math.PI * 2); ctx.fill();
+            if(d.x<0 || d.x>canvas.width) d.dx*=-1;
+            if(d.y<0 || d.y>canvas.height) d.dy*=-1;
+            ctx.fillStyle="#38bdf8"; ctx.beginPath(); ctx.arc(d.x, d.y, 2, 0, Math.PI*2); ctx.fill();
         });
         requestAnimationFrame(animate);
     }
     animate();
 
-    /* MOBILE MENU */
-    const mobMenu = document.getElementById('mobMenu');
-    const navLinks = document.getElementById('navLinks');
-    mobMenu.onclick = () => navLinks.classList.toggle('active');
-
-    /* LOGO TYPING */
-    let logoText = "DeployLynx", lIdx = 0, logoEl = document.getElementById("logoText");
-    function typeLogo() {
-        if (lIdx < logoText.length) { 
-            logoEl.innerHTML += logoText.charAt(lIdx); lIdx++; 
-            setTimeout(typeLogo, 150); 
-        }
+    /* LOGO ANIMATION */
+    let text="DeployLynx", i=0, logoEl = document.getElementById("logoText");
+    function animateLogo() {
+        if(i<text.length) { logoEl.innerHTML+=text.charAt(i); i++; setTimeout(animateLogo,120); }
+        else { setTimeout(() => { logoEl.innerHTML=""; i=0; animateLogo(); }, 1500); }
     }
-    typeLogo();
+    animateLogo();
 
     /* QUOTE TYPING */
-    let quote = "Engineering scalable systems. Automating the future.", qIdx = 0;
+    let quoteText="Engineering scalable systems. Automating the future.", j=0;
     function typeQuote() {
-        if (qIdx < quote.length) { 
-            document.getElementById("quote").innerHTML += quote.charAt(qIdx); qIdx++; 
+        if(j < quoteText.length) { 
+            document.getElementById("quote").innerHTML += quoteText.charAt(j); 
+            j++; 
             setTimeout(typeQuote, 50); 
         }
     }
-    window.onload = typeQuote;
+    typeQuote();
+
+    /* MOBILE MENU TOGGLE */
+    const mobMenu = document.getElementById('mobMenu');
+    const navLinks = document.getElementById('navLinks');
+    mobMenu.onclick = () => navLinks.classList.toggle('active');
 
     /* CUSTOM CURSOR */
     const cursor = document.querySelector(".cursor");
@@ -326,11 +294,11 @@
     fetch("https://api.github.com/repos/Deploylynx/deploylynx-devsecops-pipeline")
     .then(res => res.json())
     .then(data => {
-        document.getElementById("stars").innerText = data.stargazers_count || "24";
-        document.getElementById("forks").innerText = data.forks_count || "12";
+        document.getElementById("stars").innerText = data.stargazers_count || "22";
+        document.getElementById("forks").innerText = data.forks_count || "10";
     }).catch(() => {
-        document.getElementById("stars").innerText = "28";
-        document.getElementById("forks").innerText = "15";
+        document.getElementById("stars").innerText = "22";
+        document.getElementById("forks").innerText = "10";
     });
 </script>
 
