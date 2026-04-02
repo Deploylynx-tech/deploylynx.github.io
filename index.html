@@ -294,10 +294,10 @@
     fetch("https://api.github.com/repos/Deploylynx/deploylynx-devsecops-pipeline")
     .then(res => res.json())
     .then(data => {
-        document.getElementById("stars").innerText = data.stargazers_count || "22";
+        document.getElementById("stars").innerText = data.stargazers_count || "21";
         document.getElementById("forks").innerText = data.forks_count || "10";
     }).catch(() => {
-        document.getElementById("stars").innerText = "22";
+        document.getElementById("stars").innerText = "21";
         document.getElementById("forks").innerText = "10";
     });
 </script>
