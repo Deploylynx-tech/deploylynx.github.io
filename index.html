@@ -62,7 +62,7 @@
             </div>
         </div>
         <div class="relative">
-            <img src="image_f6f201.png" alt="DeployLynx Services" class="rounded-3xl border border-white/10 shadow-2xl shadow-blue-500/10">
+            <img src="image_f6f63f.png" alt="Cloud Infrastructure" class="rounded-3xl border border-white/10 shadow-2xl shadow-blue-500/10">
         </div>
     </section>
 
@@ -111,14 +111,12 @@
 
             const formData = new FormData(form);
 
-            // 1. Send to Formspree
             fetch("https://formspree.io/f/xpqykbvr", {
                 method: "POST",
                 body: formData,
                 headers: { 'Accept': 'application/json' }
             });
 
-            // 2. Send to Google Sheets
             const scriptURL = "https://script.google.com/macros/s/AKfycbz-n69boQvKuZ1b2eomihHO87Tee7ZkyIb2vTpXNoJRapY9KkUY5TqDPMWGvAIglsEm/exec";
             
             fetch(scriptURL, { method: 'POST', body: formData, mode: 'no-cors' })
