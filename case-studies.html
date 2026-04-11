@@ -1,296 +1,47 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>DeployLynx | Case Studies & Solutions</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+    /* DROPDOWN STYLING */
+    .dropdown {
+        position: relative;
+        display: inline-block;
+    }
 
-    <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
+    .dropdown-content {
+        display: none;
+        position: absolute;
+        background-color: var(--dark-bg);
+        min-width: 220px;
+        box-shadow: 0px 8px 16px rgba(0,0,0,0.5);
+        z-index: 1001;
+        border: 1px solid var(--primary-cyan);
+        border-radius: 8px;
+        top: 100%;
+        left: 0;
+    }
 
-    <style>
-        :root {
-            --primary-cyan: #00c6ff;
-            --accent-pink: #ff6ec7;
-            --dark-bg: #0a0f1c;
-            --glass-white: rgba(255, 255, 255, 0.03);
-        }
+    .dropdown-content a {
+        color: #ccc;
+        padding: 12px 16px;
+        text-decoration: none;
+        display: block;
+        margin-left: 0 !important; /* Reset margin for dropdown items */
+        transition: 0.2s;
+    }
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-        }
+    .dropdown-content a:hover {
+        background: rgba(0, 198, 255, 0.1);
+        color: var(--primary-cyan);
+    }
 
-        body {
-            background: var(--dark-bg);
-            color: #fff;
-            overflow-x: hidden;
-            cursor: none;
-            line-height: 1.6;
-        }
+    .dropdown:hover .dropdown-content {
+        display: block;
+    }
 
-        /* NAVIGATION */
-        nav {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 20px 5%;
-            background: rgba(10, 15, 28, 0.9);
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-            backdrop-filter: blur(10px);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-        }
-
-        .logo {
-            font-size: 24px;
-            color: var(--primary-cyan);
-            font-weight: bold;
-            letter-spacing: -1px;
-        }
-
-        .menu {
-            display: flex;
-            align-items: center;
-        }
-
-        .menu a {
-            margin-left: 25px;
-            color: #ccc;
-            text-decoration: none;
-            transition: 0.3s;
-            font-size: 0.95rem;
-        }
-
-        .menu a:hover {
-            color: var(--primary-cyan);
-        }
-
-        .menu-toggle {
-            display: none;
-            flex-direction: column;
-            gap: 5px;
-            cursor: pointer;
-        }
-
-        .menu-toggle span {
-            width: 25px;
-            height: 3px;
-            background: white;
-            border-radius: 2px;
-        }
-
-        /* HERO SECTION */
-        .hero {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 50px;
-            padding: 80px 10% 60px;
-            flex-wrap: wrap;
-        }
-
-        .hero-text {
-            flex: 1;
-            min-width: 300px;
-            max-width: 600px;
-        }
-
-        .hero-text h1 {
-            font-size: clamp(36px, 8vw, 52px);
-            margin-bottom: 20px;
-            font-weight: 800;
-            background: linear-gradient(90deg, var(--primary-cyan), var(--accent-pink));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        .hero-text p {
-            color: #cbd5e1;
-            font-size: 1.1rem;
-            max-width: 500px;
-        }
-
-        .lottie-container {
-            flex: 1;
-            display: flex;
-            justify-content: center;
-            min-width: 300px;
-        }
-
-        /* SECTION STYLING */
-        .section {
-            padding: 60px 10%;
-            max-width: 1400px;
-            margin: 0 auto;
-        }
-
-        .section h2 {
-            text-align: center;
-            margin-bottom: 50px;
-            color: var(--primary-cyan);
-            font-size: 2.2rem;
-            font-weight: 700;
-        }
-
-        /* GRID SYSTEMS */
-        .grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-            gap: 30px;
-            margin-bottom: 80px;
-        }
-
-        /* CARDS & SERVICE BOXES */
-        .card {
-            display: flex;
-            flex-direction: column;
-            text-decoration: none;
-            color: inherit;
-            background: var(--glass-white);
-            padding: 40px;
-            border-radius: 20px;
-            position: relative;
-            overflow: hidden;
-            transition: 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            border: 1px solid rgba(255, 255, 255, 0.05);
-            cursor: pointer;
-        }
-
-        .card::before {
-            content: "";
-            position: absolute;
-            inset: 0;
-            border-radius: 20px;
-            padding: 2px;
-            background: linear-gradient(45deg, var(--primary-cyan), var(--accent-pink), var(--primary-cyan));
-            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-            mask-composite: exclude;
-            opacity: 0;
-            transition: 0.4s;
-        }
-
-        .card:hover::before { opacity: 1; }
-
-        .card:hover {
-            transform: translateY(-12px);
-            box-shadow: 0 15px 40px rgba(0, 198, 255, 0.15);
-            background: rgba(255, 255, 255, 0.07);
-        }
-
-        .card h3 {
-            margin-bottom: 15px;
-            font-size: 1.5rem;
-            color: #fff;
-        }
-
-        .metric {
-            color: var(--primary-cyan);
-            font-size: 1.1rem;
-            font-weight: 600;
-            margin-bottom: 15px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .card p {
-            color: #94a3b8;
-            font-size: 1rem;
-            margin-bottom: 25px;
-            flex-grow: 1;
-        }
-
-        .btn {
-            align-self: flex-start;
-            padding: 12px 24px;
-            border-radius: 8px;
-            background: var(--primary-cyan);
-            color: #000;
-            font-size: 0.9rem;
-            font-weight: 700;
-            transition: 0.3s;
-        }
-
-        .card:hover .btn {
-            background: #fff;
-            transform: scale(1.05);
-        }
-
-        /* NEW SERVICES SECTION (Migration, DevSecOps, Auto scaling) */
-        .service-banner {
-            background: linear-gradient(rgba(0, 198, 255, 0.05), rgba(255, 110, 199, 0.05));
-            border-radius: 30px;
-            padding: 60px 40px;
-            margin-bottom: 100px;
-            border: 1px solid rgba(255, 255, 255, 0.05);
-        }
-
-        .service-list {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 40px;
-            text-align: center;
-        }
-
-        .service-item h4 {
-            color: var(--accent-pink);
-            font-size: 1.3rem;
-            margin-bottom: 10px;
-        }
-
-        /* CURSOR */
-        .cursor {
-            width: 12px;
-            height: 12px;
-            background: #00c6ff;
-            border-radius: 50%;
-            position: fixed;
-            pointer-events: none;
-            box-shadow: 0 0 15px #00c6ff;
-            transform: translate(-50%, -50%);
-            z-index: 9999;
-        }
-
-        /* FOOTER */
-        .footer {
-            text-align: center;
-            padding: 60px 20px;
-            color: #64748b;
-            font-size: 0.9rem;
-            border-top: 1px solid rgba(255,255,255,0.05);
-        }
-
-        /* RESPONSIVE */
-        @media screen and (max-width: 768px) {
-            body { cursor: default; }
-            .cursor { display: none; }
-            nav { padding: 15px 20px; }
-            .menu-toggle { display: flex; }
-            .menu {
-                display: none;
-                flex-direction: column;
-                position: absolute;
-                top: 70px;
-                left: 0;
-                width: 100%;
-                background: var(--dark-bg);
-                padding: 30px 0;
-                border-bottom: 2px solid var(--primary-cyan);
-            }
-            .menu.active { display: flex; }
-            .menu a { margin: 15px 0; font-size: 1.2rem; }
-            .hero { padding: 60px 5% 30px; text-align: center; }
-            lottie-player { width: 300px !important; height: 300px !important; }
-        }
-    </style>
-</head>
-
-<body>
-
-<div class="cursor" id="cursor"></div>
+    /* Arrow Icon */
+    .arrow {
+        font-size: 0.8rem;
+        margin-left: 5px;
+    }
+</style>
 
 <nav>
     <div class="logo">DeployLynx</div>
@@ -301,109 +52,19 @@
     </div>
     <div class="menu" id="nav-links">
         <a href="index.html">Home</a>
-        <a href="about.html">About</a>
-        <a href="services.html">Services</a>
+        
+        <div class="dropdown">
+            <a href="services.html">Services <span class="arrow">▼</span></a>
+            <div class="dropdown-content">
+                <a href="services.html#migration">Cloud Migration</a>
+                <a href="services.html#security">DevSecOps & Security</a>
+                <a href="services.html#scaling">Auto Scaling Systems</a>
+                <a href="services.html#automation">CI/CD Automation</a>
+            </div>
+        </div>
+
         <a href="case-studies.html" style="color:var(--primary-cyan)">Case Studies</a>
+        <a href="about.html">About</a>
         <a href="contact.html">Contact</a>
     </div>
 </nav>
-
-<header class="hero">
-    <div class="hero-text">
-        <h1>Engineering Impact</h1>
-        <p>
-            Dive into our technical deep-dives. We specialize in transforming fragile systems into resilient, high-performance cloud ecosystems.
-        </p>
-    </div>
-
-    <div class="lottie-container">
-        <lottie-player 
-            src="https://assets2.lottiefiles.com/packages/lf20_jcikwtux.json"
-            background="transparent"
-            speed="1"
-            style="width:380px; height:380px;"
-            loop autoplay>
-        </lottie-player>
-    </div>
-</header>
-
-<main class="section">
-    
-    <div class="service-banner">
-        <h2 style="margin-bottom: 40px;">Expert Solutions</h2>
-        <div class="service-list">
-            <div class="service-item">
-                <h4>☁️ Cloud Migration</h4>
-                <p>Legacy to AWS/Azure with zero downtime and full architectural refactoring.</p>
-            </div>
-            <div class="service-item">
-                <h4>🛡️ DevSecOps</h4>
-                <p>Shifting security left with automated scanning, IAM hardening, and policy as code.</p>
-            </div>
-            <div class="service-item">
-                <h4>📈 Auto Scaling</h4>
-                <p>Horizontal and Vertical scaling logic that handles traffic spikes while cutting costs.</p>
-            </div>
-        </div>
-    </div>
-
-    <h2>Featured Case Studies</h2>
-
-    <div class="grid">
-        <a href="https://github.com/Deploylynx/deploylynx-devsecops-pipeline" target="_blank" class="card">
-            <h3>DevSecOps Pipeline</h3>
-            <div class="metric">⬇ Deployment time: -60%</div>
-            <p>Full CI/CD automation utilizing GitHub Actions, Docker, and integrated automated security scanning tools (Trivy, SonarQube) for rapid delivery.</p>
-            <div class="btn">View Project</div>
-        </a>
-
-        <a href="#" class="card">
-            <h3>K8s Infrastructure</h3>
-            <div class="metric">⚡ 1M+ requests/day</div>
-            <p>Production-grade EKS cluster featuring internal load balancing, Prometheus/Grafana monitoring, and dynamic horizontal pod autoscaling.</p>
-            <div class="btn">View Details</div>
-        </a>
-
-        <a href="#" class="card">
-            <h3>AWS Cloud Architecture</h3>
-            <div class="metric">☁ 99.9% Uptime</div>
-            <p>Multi-region infrastructure designed with Terraform, featuring custom VPCs, S3 data lakes, and automated RDS failover systems.</p>
-            <div class="btn">View Details</div>
-        </a>
-
-        <a href="#" class="card">
-            <h3>Self-Healing Systems</h3>
-            <div class="metric">🤖 Manual effort: -40%</div>
-            <p>Intelligent Lambda-based automation agents that monitor infrastructure health and perform self-healing tasks without human intervention.</p>
-            <div class="btn">View Details</div>
-        </a>
-    </div>
-</main>
-
-<footer class="footer">
-    &copy; 2026 DeployLynx | Engineering Scalable Digital Ecosystems
-</footer>
-
-<script>
-    /* MOBILE MENU TOGGLE */
-    const menuToggle = document.getElementById('mobile-menu');
-    const navLinks = document.getElementById('nav-links');
-
-    menuToggle.addEventListener('click', () => {
-        navLinks.classList.toggle('active');
-    });
-
-    /* CURSOR LOGIC */
-    const cursor = document.getElementById("cursor");
-    if (window.matchMedia("(pointer: fine)").matches) {
-        document.addEventListener("mousemove", e => {
-            cursor.style.left = e.clientX + "px";
-            cursor.style.top = e.clientY + "px";
-        });
-    } else {
-        cursor.style.display = "none";
-    }
-</script>
-
-</body>
-</html>
