@@ -17,7 +17,6 @@
             100% { transform: translateX(-50%); }
         }
         .animate-marquee { display: flex; width: 200%; animation: scroll 20s linear infinite; }
-        
         .btn-glow:hover { box-shadow: 0 0 25px rgba(59, 130, 246, 0.6); transform: translateY(-2px); transition: all 0.3s; }
     </style>
 </head>
@@ -60,8 +59,8 @@
                 <button onclick="openPopup()" class="glass px-8 py-4 rounded-xl font-bold text-lg border border-white/10 hover:bg-white/5">Quick Lead Form</button>
             </div>
         </div>
-        <div class="relative w-full max-w-xl mx-auto">
-            <img src="image_f8d242.png" alt="DeployLynx Platform" class="w-full h-auto aspect-video object-cover rounded-3xl border border-white/10 shadow-2xl shadow-blue-500/10">
+        <div class="relative">
+            <img src="image_0.png" alt="DeployLynx Platform" class="rounded-3xl border border-white/10 shadow-2xl shadow-blue-500/10">
         </div>
     </section>
 
@@ -81,7 +80,10 @@
                 <button type="submit" id="submitBtn" class="w-full bg-blue-600 py-4 rounded-xl font-bold text-lg btn-glow">Send Inquiry</button>
             </form>
             
-            <p id="successMsg" class="hidden text-center text-blue-400 font-bold mt-4">✨ Message Sent Successfully! We will contact you soon.</p>
+            <div id="successContainer" class="hidden text-center py-8">
+                <h4 class="text-4xl font-bold text-white mb-2">Congrats!</h4>
+                <p class="text-blue-400 font-medium">✨ Message Sent Successfully! <br> We will contact you soon.</p>
+            </div>
         </div>
     </div>
 
@@ -89,7 +91,7 @@
         function openPopup() { document.getElementById('lead-popup').classList.remove('hidden'); }
         function closePopup() { 
             document.getElementById('lead-popup').classList.add('hidden');
-            if(!document.getElementById('successMsg').classList.contains('hidden')) {
+            if(!document.getElementById('successContainer').classList.contains('hidden')) {
                 location.reload(); 
             }
         }
@@ -108,6 +110,7 @@
             e.preventDefault();
             btn.disabled = true;
             btn.innerText = "SENDING...";
+
             const formData = new FormData(form);
 
             fetch("https://formspree.io/f/xpqykbvr", {
@@ -117,6 +120,7 @@
             });
 
             const scriptURL = "https://script.google.com/macros/s/AKfycbz-n69boQvKuZ1b2eomihHO87Tee7ZkyIb2vTpXNoJRapY9KkUY5TqDPMWGvAIglsEm/exec";
+            
             fetch(scriptURL, { method: 'POST', body: formData, mode: 'no-cors' })
             .then(() => {
                 confetti({
@@ -125,13 +129,16 @@
                     origin: { y: 0.6 },
                     colors: ['#60a5fa', '#a855f7', '#ffffff']
                 });
-                document.getElementById('formHeading').innerText = "Congrats!";
+
+                // Hide Form and Heading, Show "Congrats!"
+                document.getElementById('formHeading').classList.add('hidden');
                 form.classList.add('hidden');
-                document.getElementById('successMsg').classList.remove('hidden');
+                document.getElementById('successContainer').classList.remove('hidden');
             })
             .catch(err => {
                 btn.disabled = false;
                 btn.innerText = "Send Inquiry";
+                alert("Error sending message.");
             });
         });
     </script>
