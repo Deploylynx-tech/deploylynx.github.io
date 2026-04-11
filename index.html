@@ -3,82 +3,146 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DeployLynx | Cloud & DevOps Experts</title>
+    <title>DeployLynx | Enterprise Cloud & DevOps Solutions</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
     <style>
-        body { font-family: 'Inter', sans-serif; background-color: #030712; color: white; }
-        .glass { background: rgba(255, 255, 255, 0.03); backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.1); }
+        body { font-family: 'Inter', sans-serif; background-color: #030712; color: white; overflow-x: hidden; }
+        .glass { background: rgba(255, 255, 255, 0.03); backdrop-filter: blur(12px); border: 1px solid rgba(255, 255, 255, 0.1); }
         .gradient-text { background: linear-gradient(90deg, #60a5fa, #a855f7); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        
+        /* Moving Band Animation */
+        @keyframes scroll {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+        .animate-marquee { display: flex; width: 200%; animation: scroll 20s linear infinite; }
+        
+        .btn-glow:hover { box-shadow: 0 0 25px rgba(59, 130, 246, 0.6); transform: translateY(-2px); transition: all 0.3s; }
     </style>
 </head>
 <body class="antialiased">
 
+    <div class="bg-blue-600/10 border-b border-blue-500/20 py-2 overflow-hidden whitespace-nowrap">
+        <div class="animate-marquee flex items-center space-x-12 text-sm font-medium text-blue-400">
+            <span>🚀 NEW: AWS Infrastructure Audits now available</span>
+            <span>💎 20% Discount for First-Time SaaS Migrations</span>
+            <span>⚡ DeployLynx: The Future of Cloud Automation</span>
+            <span>🚀 NEW: AWS Infrastructure Audits now available</span>
+            <span>💎 20% Discount for First-Time SaaS Migrations</span>
+            <span>⚡ DeployLynx: The Future of Cloud Automation</span>
+        </div>
+    </div>
+
     <nav class="flex items-center justify-between px-8 py-6 max-w-7xl mx-auto">
         <div class="text-2xl font-bold tracking-tighter">Deploy<span class="text-blue-500">Lynx</span></div>
-        <div class="hidden md:flex space-x-8 text-gray-400">
+        <div class="hidden md:flex space-x-8 text-gray-400 font-medium">
             <a href="#" class="hover:text-white transition">Home</a>
-            <a href="#" class="hover:text-white transition">Services</a>
+            <div class="relative group cursor-pointer">
+                <span class="hover:text-white transition flex items-center">Services ▼</span>
+                <div class="absolute top-full left-0 mt-2 w-48 glass rounded-xl opacity-0 group-hover:opacity-100 transition p-2 z-50">
+                    <a href="#" class="block p-2 hover:bg-white/5 rounded-lg text-sm">Cloud Scaling</a>
+                    <a href="#" class="block p-2 hover:bg-white/5 rounded-lg text-sm">CI/CD Pipelines</a>
+                </div>
+            </div>
             <a href="#" class="hover:text-white transition">Case Studies</a>
             <a href="#" class="hover:text-white transition">About</a>
         </div>
-        <a href="mailto:your-email@gmail.com" class="bg-blue-600 hover:bg-blue-700 px-5 py-2 rounded-lg font-medium transition">Contact</a>
+        <a href="mailto:deploylynx26@gmail.com" class="bg-blue-600 px-6 py-2 rounded-lg font-bold btn-glow">Contact</a>
     </nav>
 
-    <section class="flex flex-col items-center text-center px-6 py-24 max-w-4xl mx-auto">
-        <span class="px-4 py-1 rounded-full border border-blue-500/30 text-blue-400 text-sm mb-6 bg-blue-500/5">Cloud & DevOps Solutions</span>
-        <h1 class="text-5xl md:text-7xl font-bold mb-6 tracking-tight">Build Scalable <span class="gradient-text">Cloud Systems</span></h1>
-        <p class="text-gray-400 text-lg mb-10 max-w-2xl">We help businesses deploy, automate, and scale using AWS, Docker, Kubernetes, and enterprise-grade CI/CD pipelines.</p>
-        
-        <div class="flex flex-col sm:flex-row gap-4">
-            <button onclick="openPopup()" class="bg-blue-600 hover:bg-blue-700 text-white px-8 py-4 rounded-xl font-semibold text-lg transition shadow-lg shadow-blue-500/20">Get Free Consultation</button>
-            <button onclick="openPopup()" class="glass hover:bg-white/10 text-white px-8 py-4 rounded-xl font-semibold text-lg transition">Quick Lead Form</button>
+    <section class="grid md:grid-cols-2 gap-12 items-center px-8 py-20 max-w-7xl mx-auto">
+        <div class="text-left">
+            <h1 class="text-6xl md:text-7xl font-bold mb-6 tracking-tight leading-tight">Build Scalable <span class="gradient-text">Cloud Systems</span></h1>
+            <p class="text-gray-400 text-lg mb-8 leading-relaxed">Enterprise-grade infrastructure for modern SaaS. We automate your DevOps so you can focus on building your product.</p>
+            <div class="flex flex-wrap gap-4">
+                <a href="https://wa.me/923713600892" target="_blank" class="bg-blue-600 px-8 py-4 rounded-xl font-bold text-lg btn-glow">Get Free Consultation</a>
+                <button onclick="openPopup()" class="glass px-8 py-4 rounded-xl font-bold text-lg border border-white/10 hover:bg-white/5">Quick Lead Form</button>
+            </div>
+        </div>
+        <div class="relative">
+            <img src="https://images.unsplash.com/photo-1550751827-4bd374c3f58b?q=80&w=2070&auto=format&fit=crop" alt="Hero Tech" class="rounded-3xl border border-white/10 shadow-2xl shadow-blue-500/10">
         </div>
     </section>
 
-    <section class="grid md:grid-cols-3 gap-6 px-8 max-w-7xl mx-auto mb-24">
-        <div class="glass p-8 rounded-2xl hover:border-blue-500/50 transition group">
-            <div class="text-3xl mb-4">🚀</div>
-            <h3 class="text-xl font-bold mb-2">Cloud Deployment</h3>
-            <p class="text-gray-400 text-sm">Automated infrastructure scaling on AWS, Azure, and GCP.</p>
-        </div>
-        <div class="glass p-8 rounded-2xl hover:border-purple-500/50 transition">
-            <div class="text-3xl mb-4">⚙️</div>
-            <h3 class="text-xl font-bold mb-2">CI/CD Automation</h3>
-            <p class="text-gray-400 text-sm">Fast, reliable code delivery pipelines for modern dev teams.</p>
-        </div>
-        <div class="glass p-8 rounded-2xl hover:border-cyan-500/50 transition">
-            <div class="text-3xl mb-4">📊</div>
-            <h3 class="text-xl font-bold mb-2">Monitoring Systems</h3>
-            <p class="text-gray-400 text-sm">Real-time alerts and observability for your entire stack.</p>
+    <section class="py-24 px-8 max-w-7xl mx-auto text-center">
+        <h2 class="text-4xl font-bold mb-4">Who We Are</h2>
+        <p class="text-gray-400 mb-16 max-w-2xl mx-auto">We are a technical agency built to help businesses grow confidently on the cloud.</p>
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
+            <div class="relative overflow-hidden rounded-[2.5rem] h-96 group border border-white/10">
+                <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&q=80&w=1000" class="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition duration-500">
+                <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent p-6 flex flex-col justify-end text-left">
+                    <h4 class="font-bold text-lg">Cloud Strategy</h4>
+                    <p class="text-sm text-gray-400">Enterprise Planning</p>
+                </div>
+            </div>
+            <div class="relative overflow-hidden rounded-[2.5rem] h-96 group border border-white/10">
+                <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&q=80&w=1000" class="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition duration-500">
+                <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent p-6 flex flex-col justify-end text-left">
+                    <h4 class="font-bold text-lg">Infrastructure</h4>
+                    <p class="text-sm text-gray-400">Systems Engineering</p>
+                </div>
+            </div>
+            <div class="relative overflow-hidden rounded-[2.5rem] h-96 group border border-white/10">
+                <img src="https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?auto=format&fit=crop&q=80&w=1000" class="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition duration-500">
+                <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent p-6 flex flex-col justify-end text-left">
+                    <h4 class="font-bold text-lg">Automation</h4>
+                    <p class="text-sm text-gray-400">DevOps Experts</p>
+                </div>
+            </div>
+            <div class="relative overflow-hidden rounded-[2.5rem] h-96 group border border-white/10">
+                <img src="https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&q=80&w=1000" class="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition duration-500">
+                <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent p-6 flex flex-col justify-end text-left">
+                    <h4 class="font-bold text-lg">Security</h4>
+                    <p class="text-sm text-gray-400">DevSecOps</p>
+                </div>
+            </div>
         </div>
     </section>
 
-    <footer class="border-t border-white/5 py-10 text-center text-gray-500 text-sm">
-        <p>© 2026 DeployLynx. All rights reserved.</p>
+    <section class="px-8 py-16 max-w-7xl mx-auto">
+        <div class="bg-blue-600 rounded-[3rem] p-12 md:p-20 grid md:grid-cols-2 gap-10 items-center overflow-hidden relative">
+            <div class="relative z-10">
+                <h2 class="text-4xl md:text-5xl font-bold mb-6">Looking to improve your online presence and leads?</h2>
+                <button onclick="openPopup()" class="bg-white text-blue-600 px-8 py-4 rounded-xl font-bold text-lg hover:bg-gray-100 transition flex items-center">
+                    SPEAK WITH OUR EXPERTS 
+                    <svg class="ml-2 h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+                </button>
+            </div>
+            <div class="relative group">
+                <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=2426&auto=format&fit=crop" class="rounded-2xl shadow-2xl transform group-hover:rotate-2 transition duration-500">
+            </div>
+        </div>
+    </section>
+
+    <footer class="py-16 px-8 max-w-7xl mx-auto border-t border-white/10 flex flex-col md:flex-row justify-between items-center text-gray-500">
+        <div class="mb-6 md:mb-0">
+            <div class="text-2xl font-bold text-white mb-2 tracking-tighter">Deploy<span class="text-blue-500">Lynx</span></div>
+            <p class="text-sm">Scalable Cloud & DevOps Agency</p>
+        </div>
+        <div class="flex space-x-8 font-medium">
+            <a href="https://www.linkedin.com/company/linkedin-deploylynx-devops/" class="hover:text-blue-400">LinkedIn</a>
+            <a href="https://wa.me/923713600892" class="hover:text-blue-400">WhatsApp</a>
+            <a href="mailto:deploylynx26@gmail.com" class="hover:text-blue-400">Email</a>
+        </div>
     </footer>
 
-    <div id="cookie-banner" class="fixed bottom-6 left-6 right-6 md:left-auto md:w-96 glass p-6 rounded-2xl z-50 hidden">
-        <p class="text-sm text-gray-300 mb-4">We use cookies for analytics to improve your experience. By clicking "Accept", you agree to our privacy policy.</p>
-        <button onclick="acceptCookies()" class="w-full bg-white text-black font-bold py-2 rounded-lg hover:bg-gray-200 transition">Accept</button>
-    </div>
-
-    <div id="lead-popup" class="fixed inset-0 bg-black/80 backdrop-blur-sm flex items-center justify-center z-[100] hidden px-4">
-        <div class="glass p-8 rounded-3xl w-full max-w-md relative">
-            <button onclick="closePopup()" class="absolute top-4 right-4 text-gray-400 hover:text-white text-2xl">&times;</button>
-            <h3 class="text-2xl font-bold mb-2 text-center">Get a Free Quote</h3>
-            <p class="text-gray-400 text-center mb-6 text-sm">Tell us about your project.</p>
-            
+    <div id="lead-popup" class="fixed inset-0 bg-black/90 backdrop-blur-md flex items-center justify-center z-[100] hidden px-4">
+        <div class="glass p-10 rounded-3xl w-full max-w-md relative border border-white/20">
+            <button onclick="closePopup()" class="absolute top-5 right-5 text-gray-400 hover:text-white text-3xl">&times;</button>
+            <h3 class="text-3xl font-bold mb-6 text-center gradient-text">Get Free Quote</h3>
             <div class="space-y-4">
-                <input id="userName" type="text" placeholder="Your Name" class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 focus:outline-none focus:border-blue-500">
-                <input id="userEmail" type="email" placeholder="Email Address" class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 focus:outline-none focus:border-blue-500">
-                <textarea id="userMessage" placeholder="Project details..." rows="3" class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 focus:outline-none focus:border-blue-500"></textarea>
-                <button onclick="sendLead()" id="submitBtn" class="w-full bg-blue-600 hover:bg-blue-700 py-3 rounded-xl font-bold transition">Send to Expert</button>
+                <input id="userName" placeholder="Your Name" class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-4 focus:border-blue-500 outline-none">
+                <input id="userEmail" placeholder="Email" class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-4 focus:border-blue-500 outline-none">
+                <textarea id="userMessage" placeholder="Project details" rows="3" class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-4 focus:border-blue-500 outline-none"></textarea>
+                <button class="w-full bg-blue-600 py-4 rounded-xl font-bold text-lg btn-glow">Send Inquiry</button>
             </div>
         </div>
     </div>
 
-    <script src="script.js"></script>
-    
-    </body>
+    <script>
+        function openPopup() { document.getElementById('lead-popup').classList.remove('hidden'); }
+        function closePopup() { document.getElementById('lead-popup').classList.add('hidden'); }
+    </script>
+</body>
 </html>
