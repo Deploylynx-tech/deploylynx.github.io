@@ -1,306 +1,79 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>DeployLynx</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/devicon.min.css">
-    
-    <style>
-        /* CORE LAYOUT */
-        :root {
-            --primary-cyan: #38bdf8;
-            --dark-bg: #020617;
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DeployLynx - Cloud & DevOps Solutions</title>
 
-        * { margin: 0; padding: 0; box-sizing: border-box; }
+<link rel="stylesheet" href="style.css">
 
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            color: white;
-            background: var(--dark-bg);
-            overflow-x: hidden;
-            cursor: none; /* Custom gold cursor */
-        }
-
-        canvas {
-            position: fixed;
-            top: 0; left: 0;
-            z-index: -1;
-        }
-
-        /* NAVIGATION - RESTORED & FIXED */
-        nav {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 20px 5%;
-            background: rgba(2, 6, 23, 0.8);
-            backdrop-filter: blur(10px);
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-            border-bottom: 1px solid rgba(255,255,255,0.05);
-        }
-
-        .logo { font-weight: bold; font-size: 18px; color: white; min-width: 100px; }
-
-        .nav-links { display: flex; }
-        .nav-links a {
-            color: #94a3b8;
-            text-decoration: none;
-            margin-left: 20px;
-            font-size: 0.9rem;
-            transition: 0.3s;
-        }
-        .nav-links a:hover { color: var(--primary-cyan); }
-
-        .hamburger {
-            display: none;
-            flex-direction: column;
-            gap: 5px;
-            cursor: pointer;
-        }
-        .hamburger span { width: 25px; height: 2px; background: white; }
-
-        /* HERO SECTION - RESTORED */
-        section {
-            padding: 60px 10%;
-            text-align: center;
-        }
-
-        .hero-title {
-            font-size: clamp(40px, 10vw, 70px); /* Responsive size */
-            -webkit-text-stroke: 1px #38bdf8;
-            color: transparent;
-            margin-bottom: 10px;
-            text-transform: uppercase;
-        }
-
-        .tagline { letter-spacing: 2px; color: #94a3b8; font-size: 0.9rem; }
-
-        .quote {
-            margin-top: 20px;
-            font-size: 18px;
-            color: #ffb6c1;
-            height: 25px;
-            margin-bottom: 40px;
-        }
-
-        /* TOOLS GRID - RESTORED */
-        .tools-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(110px, 1fr));
-            gap: 25px;
-            margin: 40px auto;
-            max-width: 1000px;
-        }
-
-        .tool-card {
-            background: rgba(255, 255, 255, 0.03);
-            border: 1px solid rgba(56, 189, 248, 0.1);
-            padding: 25px 15px;
-            border-radius: 12px;
-            font-size: 0.8rem;
-            color: #cbd5e1;
-            transition: 0.4s ease;
-            animation: float 4s ease-in-out infinite;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 12px;
-        }
-
-        .tool-card i { font-size: 35px; opacity: 0.8; transition: 0.3s; }
-
-        .tool-card:hover {
-            border-color: var(--primary-cyan);
-            background: rgba(56, 189, 248, 0.08);
-            color: white;
-            box-shadow: 0 0 20px rgba(56, 189, 248, 0.2);
-            transform: scale(1.05);
-        }
-
-        /* GITHUB STATS - RESTORED */
-        .stats {
-            padding: 60px 20px;
-            background: rgba(255,255,255,0.02);
-            border-top: 1px solid rgba(255,255,255,0.05);
-        }
-
-        .stat-item {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 15px;
-            margin-bottom: 20px;
-        }
-
-        .counter { font-size: 32px; color: var(--primary-cyan); font-weight: bold; }
-
-        /* CURSOR */
-        .cursor {
-            width: 12px; height: 12px; background: gold; border-radius: 50%;
-            position: fixed; pointer-events: none; box-shadow: 0 0 15px gold;
-            transform: translate(-50%, -50%); z-index: 9999;
-        }
-
-        footer { text-align: center; padding: 40px; font-size: 0.8rem; color: #64748b; }
-
-        @keyframes float {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-10px); }
-        }
-
-        .tool-card:nth-child(even) { animation-delay: 1s; }
-
-        /* MOBILE FIXES */
-        @media screen and (max-width: 768px) {
-            body { cursor: default; }
-            .cursor { display: none; }
-            .hamburger { display: flex; }
-            .nav-links {
-                display: none;
-                position: absolute;
-                top: 100%; left: 0; width: 100%;
-                background: #020617;
-                flex-direction: column;
-                padding: 20px;
-                text-align: center;
-                border-bottom: 1px solid var(--primary-cyan);
-            }
-            .nav-links.active { display: flex; }
-            .nav-links a { margin: 15px 0; font-size: 1.1rem; }
-            .tools-grid { grid-template-columns: repeat(2, 1fr); gap: 15px; }
-            section { padding: 40px 5%; }
-        }
-    </style>
 </head>
 
 <body>
 
-<canvas id="bg"></canvas>
-<div class="cursor"></div>
+<!-- NAVBAR -->
+<header class="navbar">
+  <div class="logo">DeployLynx</div>
 
-<nav>
-    <div class="logo" id="logoText"></div>
-    <div class="hamburger" id="mobMenu">
-        <span></span><span></span><span></span>
-    </div>
-    <div class="nav-links" id="navLinks">
-        <a href="index.html">Home</a>
-        <a href="about.html">About</a>
-        <a href="services.html">Services</a>
-        <a href="projects.html">Projects</a>
-        <a href="contact.html">Contact</a>
-    </div>
-</nav>
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="services.html">Services</a>
+    <a href="case-studies.html">Case Studies</a>
+    <a href="about.html">About</a>
+    <a href="contact.html" class="btn">Contact</a>
+  </nav>
+</header>
 
-<section>
-    <h1 class="hero-title">DeployLynx</h1>
-    <p class="tagline">AI Automation • DevOps • Cloud Solutions</p>
-    <div class="quote" id="quote"></div>
+<!-- HERO -->
+<section class="hero">
+  <h1>Build Scalable Cloud & DevOps Systems</h1>
+  <p>We help businesses deploy, automate and scale using AWS, Docker, Kubernetes & CI/CD pipelines.</p>
 
-    <div class="tools-grid">
-        <div class="tool-card"><i class="devicon-docker-plain colored"></i>Docker</div>
-        <div class="tool-card"><i class="devicon-linux-plain colored"></i>Linux</div>
-        <div class="tool-card"><i class="devicon-git-plain colored"></i>Git</div>
-        <div class="tool-card"><i class="devicon-github-original colored"></i>GitHub</div>
-        <div class="tool-card"><i class="devicon-python-plain colored"></i>AI / LLM</div>
-        <div class="tool-card"><i class="devicon-kubernetes-plain colored"></i>K8s</div>
-        <div class="tool-card"><i class="devicon-terraform-plain colored"></i>Terraform</div>
-        <div class="tool-card"><i class="devicon-prometheus-original colored"></i>Prometheus</div>
-        <div class="tool-card"><i class="devicon-grafana-original colored"></i>Grafana</div>
-        <div class="tool-card"><i class="devicon-amazonwebservices-plain-wordmark colored"></i>AWS</div>
-    </div>
+  <div class="hero-buttons">
+    <a href="contact.html" class="btn-primary">Get Free Consultation</a>
+    <button onclick="openPopup()" class="btn-secondary">Quick Lead Form</button>
+  </div>
 </section>
 
-<section class="stats">
-    <h2 style="margin-bottom: 40px; font-size: 1.5rem; color: #94a3b8;">GitHub Activity</h2>
-    <div class="stat-item">
-        <span style="font-size: 30px;">⭐</span>
-        <span style="color: #cbd5e1;">Stars:</span>
-        <span id="stars" class="counter">0</span>
-    </div>
-    <div class="stat-item">
-        <span style="font-size: 30px;">🍴</span>
-        <span style="color: #cbd5e1;">Forks:</span>
-        <span id="forks" class="counter">0</span>
-    </div>
+<!-- FEATURES -->
+<section class="features">
+  <div class="card">🚀 Cloud Deployment</div>
+  <div class="card">⚙️ CI/CD Automation</div>
+  <div class="card">📊 Monitoring Systems</div>
 </section>
 
+<!-- CTA -->
+<section class="cta">
+  <h2>Let’s Build Something Powerful Together</h2>
+  <a href="contact.html" class="btn-primary">Start Project</a>
+</section>
+
+<!-- FOOTER -->
 <footer>
-    DeployLynx © 2026 All Rights Reserved
+  <p>© 2026 DeployLynx. All rights reserved.</p>
 </footer>
 
-<script>
-    /* BACKGROUND DOTS */
-    const canvas = document.getElementById("bg");
-    const ctx = canvas.getContext("2d");
-    function resize() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
-    window.onresize = resize; resize();
+<!-- COOKIE BANNER -->
+<div id="cookie-banner">
+  <p>We use cookies for analytics & improving experience.</p>
+  <button onclick="acceptCookies()">Accept</button>
+</div>
 
-    let dots = [];
-    for(let i=0; i<80; i++) {
-        dots.push({ x:Math.random()*canvas.width, y:Math.random()*canvas.height, dx:(Math.random()-0.5), dy:(Math.random()-0.5) });
-    }
+<!-- LEAD POPUP -->
+<div id="lead-popup">
+  <div class="popup-box">
+    <h3>Get Free Quote</h3>
 
-    function animate() {
-        ctx.clearRect(0,0,canvas.width,canvas.height);
-        dots.forEach(d => {
-            d.x += d.dx; d.y += d.dy;
-            if(d.x<0 || d.x>canvas.width) d.dx*=-1;
-            if(d.y<0 || d.y>canvas.height) d.dy*=-1;
-            ctx.fillStyle="#38bdf8"; ctx.beginPath(); ctx.arc(d.x, d.y, 2, 0, Math.PI*2); ctx.fill();
-        });
-        requestAnimationFrame(animate);
-    }
-    animate();
+    <input id="name" placeholder="Your Name">
+    <input id="email" placeholder="Email">
+    <textarea id="message" placeholder="Project details"></textarea>
 
-    /* LOGO ANIMATION */
-    let text="DeployLynx", i=0, logoEl = document.getElementById("logoText");
-    function animateLogo() {
-        if(i<text.length) { logoEl.innerHTML+=text.charAt(i); i++; setTimeout(animateLogo,120); }
-        else { setTimeout(() => { logoEl.innerHTML=""; i=0; animateLogo(); }, 1500); }
-    }
-    animateLogo();
+    <button onclick="sendLead()">Submit</button>
+    <button onclick="closePopup()">Close</button>
+  </div>
+</div>
 
-    /* QUOTE TYPING */
-    let quoteText="Engineering scalable systems. Automating the future.", j=0;
-    function typeQuote() {
-        if(j < quoteText.length) { 
-            document.getElementById("quote").innerHTML += quoteText.charAt(j); 
-            j++; 
-            setTimeout(typeQuote, 50); 
-        }
-    }
-    typeQuote();
-
-    /* MOBILE MENU TOGGLE */
-    const mobMenu = document.getElementById('mobMenu');
-    const navLinks = document.getElementById('navLinks');
-    mobMenu.onclick = () => navLinks.classList.toggle('active');
-
-    /* CUSTOM CURSOR */
-    const cursor = document.querySelector(".cursor");
-    if (window.matchMedia("(pointer: fine)").matches) {
-        document.addEventListener("mousemove", e => {
-            cursor.style.top = e.clientY + "px";
-            cursor.style.left = e.clientX + "px";
-        });
-    }
-
-    /* GITHUB DATA */
-    fetch("https://api.github.com/repos/Deploylynx/deploylynx-devsecops-pipeline")
-    .then(res => res.json())
-    .then(data => {
-        document.getElementById("stars").innerText = data.stargazers_count || "2";
-        document.getElementById("forks").innerText = data.forks_count || "10";
-    }).catch(() => {
-        document.getElementById("stars").innerText = "21";
-        document.getElementById("forks").innerText = "10";
-    });
-</script>
+<script src="script.js"></script>
 
 </body>
 </html>
