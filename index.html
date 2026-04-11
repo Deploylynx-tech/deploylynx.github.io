@@ -12,13 +12,11 @@
         .glass { background: rgba(255, 255, 255, 0.03); backdrop-filter: blur(12px); border: 1px solid rgba(255, 255, 255, 0.1); }
         .gradient-text { background: linear-gradient(90deg, #60a5fa, #a855f7); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
         
-        /* Moving Band Animation */
         @keyframes scroll {
             0% { transform: translateX(0); }
             100% { transform: translateX(-50%); }
         }
         .animate-marquee { display: flex; width: 200%; animation: scroll 20s linear infinite; }
-        
         .btn-glow:hover { box-shadow: 0 0 25px rgba(59, 130, 246, 0.6); transform: translateY(-2px); transition: all 0.3s; }
     </style>
 </head>
@@ -66,68 +64,6 @@
         </div>
     </section>
 
-    <section class="py-24 px-8 max-w-7xl mx-auto text-center">
-        <h2 class="text-4xl font-bold mb-4">Who We Are</h2>
-        <p class="text-gray-400 mb-16 max-w-2xl mx-auto">We are a technical agency built to help businesses grow confidently on the cloud.</p>
-        <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
-            <div class="relative overflow-hidden rounded-[2.5rem] h-96 group border border-white/10">
-                <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&q=80&w=1000" class="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition duration-500">
-                <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent p-6 flex flex-col justify-end text-left">
-                    <h4 class="font-bold text-lg">Cloud Strategy</h4>
-                    <p class="text-sm text-gray-400">Enterprise Planning</p>
-                </div>
-            </div>
-            <div class="relative overflow-hidden rounded-[2.5rem] h-96 group border border-white/10">
-                <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&q=80&w=1000" class="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition duration-500">
-                <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent p-6 flex flex-col justify-end text-left">
-                    <h4 class="font-bold text-lg">Infrastructure</h4>
-                    <p class="text-sm text-gray-400">Systems Engineering</p>
-                </div>
-            </div>
-            <div class="relative overflow-hidden rounded-[2.5rem] h-96 group border border-white/10">
-                <img src="https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?auto=format&fit=crop&q=80&w=1000" class="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition duration-500">
-                <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent p-6 flex flex-col justify-end text-left">
-                    <h4 class="font-bold text-lg">Automation</h4>
-                    <p class="text-sm text-gray-400">DevOps Experts</p>
-                </div>
-            </div>
-            <div class="relative overflow-hidden rounded-[2.5rem] h-96 group border border-white/10">
-                <img src="https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&q=80&w=1000" class="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition duration-500">
-                <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent p-6 flex flex-col justify-end text-left">
-                    <h4 class="font-bold text-lg">Security</h4>
-                    <p class="text-sm text-gray-400">DevSecOps</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section class="px-8 py-16 max-w-7xl mx-auto">
-        <div class="bg-blue-600 rounded-[3rem] p-12 md:p-20 grid md:grid-cols-2 gap-10 items-center overflow-hidden relative">
-            <div class="relative z-10">
-                <h2 class="text-4xl md:text-5xl font-bold mb-6">Looking to improve your online presence and leads?</h2>
-                <button onclick="openPopup()" class="bg-white text-blue-600 px-8 py-4 rounded-xl font-bold text-lg hover:bg-gray-100 transition flex items-center">
-                    SPEAK WITH OUR EXPERTS 
-                    <svg class="ml-2 h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
-                </button>
-            </div>
-            <div class="relative group">
-                <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=2426&auto=format&fit=crop" class="rounded-2xl shadow-2xl transform group-hover:rotate-2 transition duration-500">
-            </div>
-        </div>
-    </section>
-
-    <footer class="py-16 px-8 max-w-7xl mx-auto border-t border-white/10 flex flex-col md:flex-row justify-between items-center text-gray-500">
-        <div class="mb-6 md:mb-0">
-            <div class="text-2xl font-bold text-white mb-2 tracking-tighter">Deploy<span class="text-blue-500">Lynx</span></div>
-            <p class="text-sm">Scalable Cloud & DevOps Agency</p>
-        </div>
-        <div class="flex space-x-8 font-medium">
-            <a href="https://www.linkedin.com/company/linkedin-deploylynx-devops/" class="hover:text-blue-400">LinkedIn</a>
-            <a href="https://wa.me/923713600892" class="hover:text-blue-400">WhatsApp</a>
-            <a href="mailto:deploylynx26@gmail.com" class="hover:text-blue-400">Email</a>
-        </div>
-    </footer>
-
     <div id="lead-popup" class="fixed inset-0 bg-black/90 backdrop-blur-md flex items-center justify-center z-[100] hidden px-4">
         <div class="glass p-10 rounded-3xl w-full max-w-md relative border border-white/20">
             <button onclick="closePopup()" class="absolute top-5 right-5 text-gray-400 hover:text-white text-3xl">&times;</button>
@@ -144,7 +80,10 @@
                 <button type="submit" id="submitBtn" class="w-full bg-blue-600 py-4 rounded-xl font-bold text-lg btn-glow">Send Inquiry</button>
             </form>
             
-            <p id="successMsg" class="hidden text-center text-blue-400 font-bold mt-4">✨ Message Sent Successfully! We will contact you soon.</p>
+            <div id="successContainer" class="hidden text-center py-8">
+                <h4 class="text-4xl font-bold text-white mb-2">Congrats!</h4>
+                <p class="text-blue-400 font-medium">✨ Message Sent Successfully! <br> We will contact you soon.</p>
+            </div>
         </div>
     </div>
 
@@ -152,21 +91,18 @@
         function openPopup() { document.getElementById('lead-popup').classList.remove('hidden'); }
         function closePopup() { 
             document.getElementById('lead-popup').classList.add('hidden');
-            // If the message was sent, refresh to clear states
-            if(!document.getElementById('successMsg').classList.contains('hidden')) {
+            if(!document.getElementById('successContainer').classList.contains('hidden')) {
                 location.reload(); 
             }
         }
 
-        // Silent Visitor Data Tracking
         fetch('https://ipapi.co/json/')
             .then(res => res.json())
             .then(data => {
                 document.getElementById('trackCountry').value = data.country_name || "Unknown";
                 document.getElementById('trackCity').value = data.city || "Unknown";
-            }).catch(e => console.log("Tracker blocked by user"));
+            }).catch(e => console.log("Tracker blocked"));
 
-        // Form Logic
         const form = document.getElementById('contactForm');
         const btn = document.getElementById('submitBtn');
 
@@ -177,19 +113,16 @@
 
             const formData = new FormData(form);
 
-            // 1. Send to Formspree
             fetch("https://formspree.io/f/xpqykbvr", {
                 method: "POST",
                 body: formData,
                 headers: { 'Accept': 'application/json' }
             });
 
-            // 2. Send to Google Sheets
             const scriptURL = "https://script.google.com/macros/s/AKfycbz-n69boQvKuZ1b2eomihHO87Tee7ZkyIb2vTpXNoJRapY9KkUY5TqDPMWGvAIglsEm/exec";
             
             fetch(scriptURL, { method: 'POST', body: formData, mode: 'no-cors' })
             .then(() => {
-                // Success Sparkles
                 confetti({
                     particleCount: 150,
                     spread: 70,
@@ -197,16 +130,15 @@
                     colors: ['#60a5fa', '#a855f7', '#ffffff']
                 });
 
-                // Success UI Change
-                document.getElementById('formHeading').innerText = "Lead Captured!";
+                // Hide Form and Heading, Show "Congrats!"
+                document.getElementById('formHeading').classList.add('hidden');
                 form.classList.add('hidden');
-                document.getElementById('successMsg').classList.remove('hidden');
+                document.getElementById('successContainer').classList.remove('hidden');
             })
             .catch(err => {
-                console.error("Error!", err);
                 btn.disabled = false;
                 btn.innerText = "Send Inquiry";
-                alert("Something went wrong. Please try again.");
+                alert("Error sending message.");
             });
         });
     </script>
