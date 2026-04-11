@@ -12,6 +12,7 @@
         .glass { background: rgba(255, 255, 255, 0.03); backdrop-filter: blur(12px); border: 1px solid rgba(255, 255, 255, 0.1); }
         .gradient-text { background: linear-gradient(90deg, #60a5fa, #a855f7); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
         
+        /* Moving Band Animation */
         @keyframes scroll {
             0% { transform: translateX(0); }
             100% { transform: translateX(-50%); }
@@ -61,7 +62,7 @@
             </div>
         </div>
         <div class="relative">
-            <img src="image_f6dee3.png" alt="Natural Fit DevSecOps" class="rounded-3xl border border-white/10 shadow-2xl shadow-blue-500/10">
+            <img src="image_f6f201.png" alt="DeployLynx Services" class="rounded-3xl border border-white/10 shadow-2xl shadow-blue-500/10">
         </div>
     </section>
 
@@ -87,8 +88,11 @@
 
     <script>
         function openPopup() { document.getElementById('lead-popup').classList.remove('hidden'); }
-        function closePopup() { document.getElementById('lead-popup').classList.add('hidden'); }
+        function closePopup() { 
+            document.getElementById('lead-popup').classList.add('hidden');
+        }
 
+        // Visitor Tracking
         fetch('https://ipapi.co/json/')
             .then(res => res.json())
             .then(data => {
@@ -96,6 +100,7 @@
                 document.getElementById('trackCity').value = data.city || "Unknown";
             }).catch(e => console.log("Tracker blocked"));
 
+        // Form Logic
         const form = document.getElementById('contactForm');
         const btn = document.getElementById('submitBtn');
 
@@ -106,12 +111,14 @@
 
             const formData = new FormData(form);
 
+            // 1. Send to Formspree
             fetch("https://formspree.io/f/xpqykbvr", {
                 method: "POST",
                 body: formData,
                 headers: { 'Accept': 'application/json' }
             });
 
+            // 2. Send to Google Sheets
             const scriptURL = "https://script.google.com/macros/s/AKfycbz-n69boQvKuZ1b2eomihHO87Tee7ZkyIb2vTpXNoJRapY9KkUY5TqDPMWGvAIglsEm/exec";
             
             fetch(scriptURL, { method: 'POST', body: formData, mode: 'no-cors' })
