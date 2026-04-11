@@ -12,7 +12,6 @@
         .glass { background: rgba(255, 255, 255, 0.03); backdrop-filter: blur(12px); border: 1px solid rgba(255, 255, 255, 0.1); }
         .gradient-text { background: linear-gradient(90deg, #60a5fa, #a855f7); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
         
-        /* Moving Band Animation */
         @keyframes scroll {
             0% { transform: translateX(0); }
             100% { transform: translateX(-50%); }
@@ -20,6 +19,7 @@
         .animate-marquee { display: flex; width: 200%; animation: scroll 20s linear infinite; }
         
         .btn-glow:hover { box-shadow: 0 0 25px rgba(59, 130, 246, 0.6); transform: translateY(-2px); transition: all 0.3s; }
+        .service-card:hover { border-color: rgba(96, 165, 250, 0.5); background: rgba(255, 255, 255, 0.05); }
     </style>
 </head>
 <body class="antialiased">
@@ -41,9 +41,11 @@
             <a href="#" class="hover:text-white transition">Home</a>
             <div class="relative group cursor-pointer">
                 <span class="hover:text-white transition flex items-center">Services ▼</span>
-                <div class="absolute top-full left-0 mt-2 w-48 glass rounded-xl opacity-0 group-hover:opacity-100 transition p-2 z-50">
-                    <a href="#" class="block p-2 hover:bg-white/5 rounded-lg text-sm">Cloud Scaling</a>
-                    <a href="#" class="block p-2 hover:bg-white/5 rounded-lg text-sm">CI/CD Pipelines</a>
+                <div class="absolute top-full left-0 mt-2 w-56 glass rounded-xl opacity-0 group-hover:opacity-100 transition p-2 z-50">
+                    <a href="#services" class="block p-2 hover:bg-white/5 rounded-lg text-sm">Cloud Migration</a>
+                    <a href="#services" class="block p-2 hover:bg-white/5 rounded-lg text-sm">DevSecOps & Security</a>
+                    <a href="#services" class="block p-2 hover:bg-white/5 rounded-lg text-sm">Auto Scaling Systems</a>
+                    <a href="#services" class="block p-2 hover:bg-white/5 rounded-lg text-sm">CI/CD Automation</a>
                 </div>
             </div>
             <a href="#" class="hover:text-white transition">Case Studies</a>
@@ -63,6 +65,36 @@
         </div>
         <div class="relative">
             <img src="https://images.unsplash.com/photo-1550751827-4bd374c3f58b?q=80&w=2070&auto=format&fit=crop" alt="Hero Tech" class="rounded-3xl border border-white/10 shadow-2xl shadow-blue-500/10">
+        </div>
+    </section>
+
+    <section id="services" class="py-24 px-8 max-w-7xl mx-auto">
+        <div class="text-center mb-16">
+            <h2 class="text-4xl font-bold mb-4">Our Core Expertise</h2>
+            <p class="text-gray-400 max-w-2xl mx-auto">Specialized solutions designed to handle the complexity of modern cloud architecture.</p>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div class="glass p-8 rounded-3xl border border-white/10 service-card transition duration-300">
+                <div class="bg-blue-500/20 w-12 h-12 rounded-lg flex items-center justify-center mb-6">
+                    <svg class="w-6 h-6 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"/></svg>
+                </div>
+                <h3 class="text-xl font-bold mb-3">Seamless Migration</h3>
+                <p class="text-gray-400 text-sm leading-relaxed">Zero-downtime migrations from on-premise or legacy systems to AWS and Azure with full data integrity.</p>
+            </div>
+            <div class="glass p-8 rounded-3xl border border-white/10 service-card transition duration-300">
+                <div class="bg-purple-500/20 w-12 h-12 rounded-lg flex items-center justify-center mb-6">
+                    <svg class="w-6 h-6 text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
+                </div>
+                <h3 class="text-xl font-bold mb-3">Advanced DevSecOps</h3>
+                <p class="text-gray-400 text-sm leading-relaxed">Embedding security into your CI/CD pipelines with automated vulnerability scanning and compliance as code.</p>
+            </div>
+            <div class="glass p-8 rounded-3xl border border-white/10 service-card transition duration-300">
+                <div class="bg-green-500/20 w-12 h-12 rounded-lg flex items-center justify-center mb-6">
+                    <svg class="w-6 h-6 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"/></svg>
+                </div>
+                <h3 class="text-xl font-bold mb-3">Auto Scaling Solutions</h3>
+                <p class="text-gray-400 text-sm leading-relaxed">Infrastructure that grows with your users. We optimize resource allocation to reduce costs and maintain performance.</p>
+            </div>
         </div>
     </section>
 
@@ -104,7 +136,7 @@
     <section class="px-8 py-16 max-w-7xl mx-auto">
         <div class="bg-blue-600 rounded-[3rem] p-12 md:p-20 grid md:grid-cols-2 gap-10 items-center overflow-hidden relative">
             <div class="relative z-10">
-                <h2 class="text-4xl md:text-5xl font-bold mb-6">Looking to improve your online presence and leads?</h2>
+                <h2 class="text-4xl md:text-5xl font-bold mb-6">Ready to scale your infrastructure?</h2>
                 <button onclick="openPopup()" class="bg-white text-blue-600 px-8 py-4 rounded-xl font-bold text-lg hover:bg-gray-100 transition flex items-center">
                     SPEAK WITH OUR EXPERTS 
                     <svg class="ml-2 h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
@@ -117,7 +149,7 @@
     </section>
 
     <footer class="py-16 px-8 max-w-7xl mx-auto border-t border-white/10 flex flex-col md:flex-row justify-between items-center text-gray-500">
-        <div class="mb-6 md:mb-0">
+        <div class="mb-6 md:mb-0 text-center md:text-left">
             <div class="text-2xl font-bold text-white mb-2 tracking-tighter">Deploy<span class="text-blue-500">Lynx</span></div>
             <p class="text-sm">Scalable Cloud & DevOps Agency</p>
         </div>
@@ -152,13 +184,11 @@
         function openPopup() { document.getElementById('lead-popup').classList.remove('hidden'); }
         function closePopup() { 
             document.getElementById('lead-popup').classList.add('hidden');
-            // If the form was successful, reload to reset state
             if(!document.getElementById('successMsg').classList.contains('hidden')) {
                 location.reload(); 
             }
         }
 
-        // Silent Visitor Data Tracking
         fetch('https://ipapi.co/json/')
             .then(res => res.json())
             .then(data => {
@@ -166,7 +196,6 @@
                 document.getElementById('trackCity').value = data.city || "Unknown";
             }).catch(e => console.log("Tracker blocked"));
 
-        // Form Logic
         const form = document.getElementById('contactForm');
         const btn = document.getElementById('submitBtn');
 
@@ -177,19 +206,16 @@
 
             const formData = new FormData(form);
 
-            // 1. Send to Formspree
             fetch("https://formspree.io/f/xpqykbvr", {
                 method: "POST",
                 body: formData,
                 headers: { 'Accept': 'application/json' }
             });
 
-            // 2. Send to Google Sheets
             const scriptURL = "https://script.google.com/macros/s/AKfycbz-n69boQvKuZ1b2eomihHO87Tee7ZkyIb2vTpXNoJRapY9KkUY5TqDPMWGvAIglsEm/exec";
             
             fetch(scriptURL, { method: 'POST', body: formData, mode: 'no-cors' })
             .then(() => {
-                // Success Sparkles
                 confetti({
                     particleCount: 150,
                     spread: 70,
@@ -197,7 +223,6 @@
                     colors: ['#60a5fa', '#a855f7', '#ffffff']
                 });
 
-                // Success UI Change
                 document.getElementById('formHeading').innerText = "Congrats!";
                 form.classList.add('hidden');
                 document.getElementById('successMsg').classList.remove('hidden');
