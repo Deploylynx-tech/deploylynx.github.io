@@ -2,223 +2,147 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>DeployLynx | Schedule Consultation</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    <title>DeployLynx | Enterprise Cloud & DevOps Solutions</title>
     <script src="https://cdn.tailwindcss.com"></script>
-
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
     <style>
-        :root {
-            --primary-cyan: #00c6ff;
-            --accent-pink: #ff6ec7;
-            --dark-bg: #030712;
-            --input-bg: rgba(255, 255, 255, 0.05);
-            --glass-bg: rgba(255, 255, 255, 0.03);
-            --form-bg: rgba(30, 41, 59, 0.5);
+        body { font-family: 'Inter', sans-serif; background-color: #030712; color: white; overflow-x: hidden; }
+        .glass { background: rgba(255, 255, 255, 0.03); backdrop-filter: blur(12px); border: 1px solid rgba(255, 255, 255, 0.1); }
+        .gradient-text { background: linear-gradient(90deg, #60a5fa, #a855f7); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        
+        /* Moving Band Animation */
+        @keyframes scroll {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
         }
-
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
-        body { background: var(--dark-bg); color: #fff; overflow-x: hidden; min-height: 100vh; cursor: none; }
-
-        .glass { background: var(--glass-bg); backdrop-filter: blur(12px); border: 1px solid rgba(255, 255, 255, 0.1); }
-        .gradient-text { background: linear-gradient(90deg, #fff, var(--primary-cyan)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-
-        /* Background & Cursor */
-        canvas#dotsBackground { position: fixed; top: 0; left: 0; z-index: 1; pointer-events: none; }
-        .cursor { width: 12px; height: 12px; background: #60a5fa; border-radius: 50%; position: fixed; pointer-events: none; box-shadow: 0 0 20px #60a5fa; transform: translate(-50%, -50%); z-index: 9999; transition: transform 0.1s ease-out; }
-
-        /* Navigation */
-        nav {
-            display: flex; justify-content: space-between; align-items: center; padding: 20px 8%;
-            background: rgba(3, 7, 18, 0.8); position: sticky; top: 0; z-index: 1000;
-            backdrop-filter: blur(10px); border-bottom: 1px solid rgba(255,255,255,0.05);
-        }
-        .logo { font-size: 24px; font-weight: 800; color: white; text-decoration: none; letter-spacing: -1px; }
-        .logo span { color: var(--primary-cyan); }
-        .menu a { margin-left: 25px; color: #94a3b8; text-decoration: none; transition: 0.3s; font-size: 0.95rem; }
-        .menu a:hover { color: white; }
-
-        /* Form Layout */
-        .container-grid {
-            display: grid; grid-template-columns: 1fr 1fr; gap: 60px; padding: 60px 8%;
-            position: relative; z-index: 10; max-width: 1300px; margin: 0 auto;
-        }
-
-        .booking-card {
-            background: var(--form-bg); padding: 40px; border-radius: 24px;
-            backdrop-filter: blur(20px); border: 1px solid rgba(255, 255, 255, 0.1);
-            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
-        }
-
-        input, textarea, select {
-            width: 100%; margin-bottom: 18px; padding: 14px 18px; border: 1px solid rgba(255,255,255,0.1);
-            border-radius: 12px; background: var(--input-bg); color: #fff; outline: none; font-size: 0.95rem;
-            transition: all 0.3s;
-        }
-        input:focus, textarea:focus, select:focus { border-color: var(--primary-cyan); background: rgba(255,255,255,0.08); }
-
-        .submit-btn {
-            width: 100%; padding: 16px; border: none; border-radius: 12px; background: var(--primary-cyan);
-            color: #000; font-weight: 700; cursor: pointer; transition: 0.3s; text-transform: uppercase; letter-spacing: 1px;
-        }
-        .submit-btn:hover { background: #fff; transform: translateY(-2px); box-shadow: 0 10px 20px rgba(0, 198, 255, 0.3); }
-
-        #successPopup {
-            display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%);
-            background: #0f172a; padding: 50px; border-radius: 30px; border: 1px solid var(--primary-cyan);
-            text-align: center; z-index: 2000; box-shadow: 0 0 60px rgba(0, 198, 255, 0.2); backdrop-filter: blur(20px);
-        }
-
-        @media screen and (max-width: 900px) {
-            .container-grid { grid-template-columns: 1fr; padding-top: 20px; }
-            .cursor { display: none; }
-        }
+        .animate-marquee { display: flex; width: 200%; animation: scroll 20s linear infinite; }
+        
+        .btn-glow:hover { box-shadow: 0 0 25px rgba(59, 130, 246, 0.6); transform: translateY(-2px); transition: all 0.3s; }
     </style>
 </head>
-<body>
+<body class="antialiased">
 
-<canvas id="dotsBackground"></canvas>
-<div class="cursor" id="customCursor"></div>
-
-<nav>
-    <a href="index.html" class="logo">Deploy<span>Lynx</span></a>
-    <div class="menu">
-        <a href="index.html">Home</a>
-        <a href="#">Services</a>
-        <a href="contact.html" style="color:var(--primary-cyan)">Contact</a>
-    </div>
-</nav>
-
-<div class="container-grid">
-    <div class="flex flex-col justify-center">
-        <span class="text-blue-400 font-semibold mb-4 tracking-widest text-sm uppercase">Direct Communication</span>
-        <h1 class="text-5xl md:text-6xl font-bold mb-6 leading-tight gradient-text">Ready to architect<br>the future?</h1>
-        <p class="text-gray-400 text-lg mb-10 max-w-md leading-relaxed">
-            DeployLynx builds <span class="text-white font-medium">scalable, secure, and production-ready</span> systems. Schedule your deep dive into cloud reliability today.
-        </p>
-        
-        <div class="grid grid-cols-2 gap-4 max-w-md">
-            <a href="https://wa.me/923713600892" class="glass p-4 rounded-2xl flex items-center gap-3 hover:bg-white/10 transition">
-                <span class="text-xl">💬</span> <span class="text-sm font-medium">WhatsApp</span>
-            </a>
-            <a href="https://www.linkedin.com/company/linkedin-deploylynx-devops/" class="glass p-4 rounded-2xl flex items-center gap-3 hover:bg-white/10 transition">
-                <span class="text-xl">💼</span> <span class="text-sm font-medium">LinkedIn</span>
-            </a>
-            <a href="mailto:deploylynx26@gmail.com" class="glass p-4 rounded-2xl flex items-center gap-3 hover:bg-white/10 transition">
-                <span class="text-xl">📧</span> <span class="text-sm font-medium">Email</span>
-            </a>
-            <a href="https://github.com/Deploylynx-tech" class="glass p-4 rounded-2xl flex items-center gap-3 hover:bg-white/10 transition">
-                <span class="text-xl">💻</span> <span class="text-sm font-medium">GitHub</span>
-            </a>
+    <div class="bg-blue-600/10 border-b border-blue-500/20 py-2 overflow-hidden whitespace-nowrap">
+        <div class="animate-marquee flex items-center space-x-12 text-sm font-medium text-blue-400">
+            <span>🚀 NEW: AWS Infrastructure Audits now available</span>
+            <span>💎 20% Discount for First-Time SaaS Migrations</span>
+            <span>⚡ DeployLynx: The Future of Cloud Automation</span>
+            <span>🚀 NEW: AWS Infrastructure Audits now available</span>
+            <span>💎 20% Discount for First-Time SaaS Migrations</span>
+            <span>⚡ DeployLynx: The Future of Cloud Automation</span>
         </div>
     </div>
 
-    <div class="flex items-center justify-center">
-        <div class="booking-card w-full">
-            <h3 class="text-2xl font-bold mb-6">Schedule Your Call</h3>
-            <form id="scheduleForm">
-                <input type="text" name="Name" placeholder="Your Name" required>
-                <input type="email" name="Email" placeholder="Your Email" required>
-                <select name="Topic" required>
-                    <option value="" disabled selected>Select a Topic</option>
-                    <option value="Cloud Migration">Cloud Migration</option>
-                    <option value="Kubernetes">Kubernetes Architecture</option>
-                    <option value="CI/CD">CI/CD Pipeline</option>
-                    <option value="Other">Other</option>
-                </select>
-                <div class="grid grid-cols-2 gap-4">
-                    <input type="date" name="Date" required>
-                    <select name="Time" required>
-                        <option value="" disabled selected>Time (PKT)</option>
-                        <option value="09:00 AM">09:00 AM</option>
-                        <option value="12:00 PM">12:00 PM</option>
-                        <option value="03:00 PM">03:00 PM</option>
-                    </select>
+    <nav class="flex items-center justify-between px-8 py-6 max-w-7xl mx-auto">
+        <div class="text-2xl font-bold tracking-tighter">Deploy<span class="text-blue-500">Lynx</span></div>
+        <div class="hidden md:flex space-x-8 text-gray-400 font-medium">
+            <a href="#" class="hover:text-white transition">Home</a>
+            <div class="relative group cursor-pointer">
+                <span class="hover:text-white transition flex items-center">Services ▼</span>
+                <div class="absolute top-full left-0 mt-2 w-48 glass rounded-xl opacity-0 group-hover:opacity-100 transition p-2 z-50">
+                    <a href="#" class="block p-2 hover:bg-white/5 rounded-lg text-sm">Cloud Scaling</a>
+                    <a href="#" class="block p-2 hover:bg-white/5 rounded-lg text-sm">CI/CD Pipelines</a>
                 </div>
-                <textarea name="Message" rows="3" placeholder="Brief project description..."></textarea>
-                <button type="submit" id="submitBtn" class="submit-btn">Book Consultation</button>
-            </form>
+            </div>
+            <a href="#" class="hover:text-white transition">Case Studies</a>
+            <a href="#" class="hover:text-white transition">About</a>
+        </div>
+        <a href="mailto:deploylynx26@gmail.com" class="bg-blue-600 px-6 py-2 rounded-lg font-bold btn-glow">Contact</a>
+    </nav>
+
+    <section class="grid md:grid-cols-2 gap-12 items-center px-8 py-20 max-w-7xl mx-auto">
+        <div class="text-left">
+            <h1 class="text-6xl md:text-7xl font-bold mb-6 tracking-tight leading-tight">Build Scalable <span class="gradient-text">Cloud Systems</span></h1>
+            <p class="text-gray-400 text-lg mb-8 leading-relaxed">Enterprise-grade infrastructure for modern SaaS. We automate your DevOps so you can focus on building your product.</p>
+            <div class="flex flex-wrap gap-4">
+                <a href="https://wa.me/923713600892" target="_blank" class="bg-blue-600 px-8 py-4 rounded-xl font-bold text-lg btn-glow">Get Free Consultation</a>
+                <button onclick="openPopup()" class="glass px-8 py-4 rounded-xl font-bold text-lg border border-white/10 hover:bg-white/5">Quick Lead Form</button>
+            </div>
+        </div>
+        <div class="relative">
+            <img src="https://images.unsplash.com/photo-1550751827-4bd374c3f58b?q=80&w=2070&auto=format&fit=crop" alt="Hero Tech" class="rounded-3xl border border-white/10 shadow-2xl shadow-blue-500/10">
+        </div>
+    </section>
+
+    <section class="py-24 px-8 max-w-7xl mx-auto text-center">
+        <h2 class="text-4xl font-bold mb-4">Who We Are</h2>
+        <p class="text-gray-400 mb-16 max-w-2xl mx-auto">We are a technical agency built to help businesses grow confidently on the cloud.</p>
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
+            <div class="relative overflow-hidden rounded-[2.5rem] h-96 group border border-white/10">
+                <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&q=80&w=1000" class="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition duration-500">
+                <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent p-6 flex flex-col justify-end text-left">
+                    <h4 class="font-bold text-lg">Cloud Strategy</h4>
+                    <p class="text-sm text-gray-400">Enterprise Planning</p>
+                </div>
+            </div>
+            <div class="relative overflow-hidden rounded-[2.5rem] h-96 group border border-white/10">
+                <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&q=80&w=1000" class="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition duration-500">
+                <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent p-6 flex flex-col justify-end text-left">
+                    <h4 class="font-bold text-lg">Infrastructure</h4>
+                    <p class="text-sm text-gray-400">Systems Engineering</p>
+                </div>
+            </div>
+            <div class="relative overflow-hidden rounded-[2.5rem] h-96 group border border-white/10">
+                <img src="https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?auto=format&fit=crop&q=80&w=1000" class="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition duration-500">
+                <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent p-6 flex flex-col justify-end text-left">
+                    <h4 class="font-bold text-lg">Automation</h4>
+                    <p class="text-sm text-gray-400">DevOps Experts</p>
+                </div>
+            </div>
+            <div class="relative overflow-hidden rounded-[2.5rem] h-96 group border border-white/10">
+                <img src="https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&q=80&w=1000" class="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition duration-500">
+                <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent p-6 flex flex-col justify-end text-left">
+                    <h4 class="font-bold text-lg">Security</h4>
+                    <p class="text-sm text-gray-400">DevSecOps</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="px-8 py-16 max-w-7xl mx-auto">
+        <div class="bg-blue-600 rounded-[3rem] p-12 md:p-20 grid md:grid-cols-2 gap-10 items-center overflow-hidden relative">
+            <div class="relative z-10">
+                <h2 class="text-4xl md:text-5xl font-bold mb-6">Looking to improve your online presence and leads?</h2>
+                <button onclick="openPopup()" class="bg-white text-blue-600 px-8 py-4 rounded-xl font-bold text-lg hover:bg-gray-100 transition flex items-center">
+                    SPEAK WITH OUR EXPERTS 
+                    <svg class="ml-2 h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+                </button>
+            </div>
+            <div class="relative group">
+                <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=2426&auto=format&fit=crop" class="rounded-2xl shadow-2xl transform group-hover:rotate-2 transition duration-500">
+            </div>
+        </div>
+    </section>
+
+    <footer class="py-16 px-8 max-w-7xl mx-auto border-t border-white/10 flex flex-col md:flex-row justify-between items-center text-gray-500">
+        <div class="mb-6 md:mb-0">
+            <div class="text-2xl font-bold text-white mb-2 tracking-tighter">Deploy<span class="text-blue-500">Lynx</span></div>
+            <p class="text-sm">Scalable Cloud & DevOps Agency</p>
+        </div>
+        <div class="flex space-x-8 font-medium">
+            <a href="https://www.linkedin.com/company/linkedin-deploylynx-devops/" class="hover:text-blue-400">LinkedIn</a>
+            <a href="https://wa.me/923713600892" class="hover:text-blue-400">WhatsApp</a>
+            <a href="mailto:deploylynx26@gmail.com" class="hover:text-blue-400">Email</a>
+        </div>
+    </footer>
+
+    <div id="lead-popup" class="fixed inset-0 bg-black/90 backdrop-blur-md flex items-center justify-center z-[100] hidden px-4">
+        <div class="glass p-10 rounded-3xl w-full max-w-md relative border border-white/20">
+            <button onclick="closePopup()" class="absolute top-5 right-5 text-gray-400 hover:text-white text-3xl">&times;</button>
+            <h3 class="text-3xl font-bold mb-6 text-center gradient-text">Get Free Quote</h3>
+            <div class="space-y-4">
+                <input id="userName" placeholder="Your Name" class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-4 focus:border-blue-500 outline-none">
+                <input id="userEmail" placeholder="Email" class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-4 focus:border-blue-500 outline-none">
+                <textarea id="userMessage" placeholder="Project details" rows="3" class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-4 focus:border-blue-500 outline-none"></textarea>
+                <button class="w-full bg-blue-600 py-4 rounded-xl font-bold text-lg btn-glow">Send Inquiry</button>
+            </div>
         </div>
     </div>
-</div>
 
-<div id="successPopup">
-    <div class="text-5xl mb-4">🚀</div>
-    <h3 class="text-2xl font-bold text-blue-400">Request Received!</h3>
-    <p class="text-gray-300 mt-2">Our team will contact you shortly.</p>
-    <button id="closePopup" class="mt-8 px-8 py-2 border border-blue-400 rounded-lg hover:bg-blue-400 hover:text-black transition">Close</button>
-</div>
-
-<script>
-    const form = document.getElementById("scheduleForm");
-    const submitBtn = document.getElementById("submitBtn");
-    const popup = document.getElementById("successPopup");
-
-    form.addEventListener("submit", function(e) {
-        e.preventDefault();
-        submitBtn.disabled = true;
-        submitBtn.innerText = "SENDING...";
-
-        const formData = new FormData(form);
-
-        // Formspree Integration
-        fetch("https://formspree.io/f/xpqykbvr", {
-            method: "POST",
-            body: formData,
-            headers: { 'Accept': 'application/json' }
-        });
-
-        // Google Sheets Integration
-        const scriptURL = "https://script.google.com/macros/s/AKfycbz-n69boQvKuZ1b2eomihHO87Tee7ZkyIb2vTpXNoJRapY9KkUY5TqDPMWGvAIglsEm/exec";
-        
-        fetch(scriptURL, {
-            method: "POST",
-            body: formData,
-            mode: 'no-cors'
-        }).then(() => {
-            confetti({ 
-                particleCount: 150, 
-                spread: 70, 
-                origin: { y: 0.6 }, 
-                colors: ['#00c6ff', '#ffffff'] 
-            });
-            popup.style.display = "block";
-            submitBtn.innerText = "Book Consultation";
-            submitBtn.disabled = false;
-            form.reset();
-        });
-    });
-
-    document.getElementById("closePopup").onclick = () => popup.style.display = "none";
-
-    // Smooth Custom Cursor
-    document.addEventListener("mousemove", e => { 
-        const cursor = document.getElementById("customCursor");
-        if(cursor) {
-            cursor.style.left = e.clientX + "px"; 
-            cursor.style.top = e.clientY + "px"; 
-        }
-    });
-
-    // Background Animation
-    const canvas = document.getElementById("dotsBackground");
-    const ctx = canvas.getContext("2d");
-    function resize() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
-    window.addEventListener('resize', resize); resize();
-    let dotsArr = [];
-    for(let i=0; i<80; i++) dotsArr.push({ x: Math.random() * canvas.width, y: Math.random() * canvas.height, vy: Math.random() * 0.5 + 0.1 });
-    function animate() {
-        ctx.clearRect(0,0,canvas.width,canvas.height); 
-        ctx.fillStyle = "rgba(0, 198, 255, 0.2)";
-        dotsArr.forEach(d => { 
-            d.y += d.vy; 
-            if(d.y > canvas.height) d.y = 0; 
-            ctx.beginPath(); ctx.arc(d.x, d.y, 1, 0, Math.PI * 2); ctx.fill(); 
-        });
-        requestAnimationFrame(animate);
-    }
-    animate();
-</script>
-
+    <script>
+        function openPopup() { document.getElementById('lead-popup').classList.remove('hidden'); }
+        function closePopup() { document.getElementById('lead-popup').classList.add('hidden'); }
+    </script>
 </body>
 </html>
