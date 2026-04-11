@@ -4,145 +4,171 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>DeployLynx | Enterprise Cloud & DevOps Solutions</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
     <style>
-        body { font-family: 'Inter', sans-serif; background-color: #030712; color: white; overflow-x: hidden; }
-        .glass { background: rgba(255, 255, 255, 0.03); backdrop-filter: blur(12px); border: 1px solid rgba(255, 255, 255, 0.1); }
-        .gradient-text { background: linear-gradient(90deg, #60a5fa, #a855f7); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-        
-        /* Moving Band Animation */
-        @keyframes scroll {
-            0% { transform: translateX(0); }
-            100% { transform: translateX(-50%); }
+        :root {
+            --primary-cyan: #00c6ff;
+            --accent-purple: #ff6ec7;
+            --dark-bg: #030712;
+            --input-bg: rgba(0,0,0,0.5);
+            --glass-bg: rgba(255, 255, 255, 0.03);
+            --form-bg: rgba(30, 41, 59, 0.7);
         }
-        .animate-marquee { display: flex; width: 200%; animation: scroll 20s linear infinite; }
-        
-        .btn-glow:hover { box-shadow: 0 0 25px rgba(59, 130, 246, 0.6); transform: translateY(-2px); transition: all 0.3s; }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
+        body { background: var(--dark-bg); color: #fff; overflow-x: hidden; scroll-behavior: smooth; }
+
+        /* --- LAYOUT FROM 2ND IMAGE --- */
+        nav {
+            display: flex; justify-content: space-between; align-items: center; padding: 20px 8%;
+            background: rgba(10, 15, 28, 0.9); position: sticky; top: 0; z-index: 1000;
+            backdrop-filter: blur(10px); border-bottom: 1px solid rgba(255,255,255,0.05);
+        }
+        .logo { font-size: 24px; color: white; font-weight: bold; text-decoration: none; }
+        .logo span { color: #ccc; }
+        .nav-link { margin-left: 25px; color: #94a3b8; text-decoration: none; font-size: 0.95rem; }
+        .nav-link:hover { color: white; }
+
+        /* Service Dropdown (2 options only) */
+        .relative { position: relative; }
+        .relative span { cursor: pointer; }
+        .dropdown {
+            position: absolute; top: 100%; left: 0; margin-top: 10px; width: 180px;
+            background: rgba(30, 41, 59, 0.95); backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 10px;
+            opacity: 0; visibility: hidden; transition: 0.3s;
+        }
+        .relative:hover .dropdown { opacity: 1; visibility: visible; }
+        .dropdown a { display: block; padding: 10px 15px; color: #94a3b8; text-decoration: none; font-size: 0.9rem; }
+        .dropdown a:hover { background: rgba(255,255,255,0.05); color: white; }
+
+        /* Request Quote Button (Blue from image) */
+        .btn-quote { background: #3b82f6; padding: 10px 20px; border-radius: 8px; color: white; text-decoration: none; font-weight: bold; font-size: 0.9rem; }
+        .btn-quote:hover { background: #2563eb; }
+
+        /* Grid Layout */
+        .container {
+            display: grid; grid-template-columns: 1fr 1fr; gap: 60px; padding: 60px 8%;
+            position: relative; z-index: 2; max-width: 1300px; margin: 0 auto;
+        }
+
+        .text-col h1 { font-size: 64px; font-weight: bold; line-height: 1.1; margin-bottom: 20px; }
+        .text-col h1 span {
+            background: linear-gradient(90deg, var(--primary-cyan), var(--accent-purple));
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+        }
+        .text-col p { font-size: 18px; color: #aaa; margin-bottom: 10px; }
+
+        /* Card Layout (Horizontal/Side-by-side from image) */
+        .flex-col { display: flex; flex-direction: column; gap: 20px; width: 100%; max-width: 320px; }
+        .feature-card {
+            background: var(--glass-bg); padding: 15px 20px; border-radius: 12px;
+            border: 1px solid rgba(255,255,255,0.1); backdrop-filter: blur(10px);
+            text-align: center; color: white; font-size: 16px;
+        }
+        .feature-card:hover { border-color: var(--primary-cyan); background: rgba(0, 198, 255, 0.05); }
+
+        /* Background & Cursor */
+        canvas#dotsBackground { position: fixed; top: 0; left: 0; z-index: -1; pointer-events: none; }
+        .cursor { width: 10px; height: 10px; background: gold; border-radius: 50%; position: fixed; pointer-events: none; transform: translate(-50%, -50%); z-index: 9999; }
+
+        /* Popup Form */
+        #successPopup {
+            display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%);
+            background: var(--form-bg); padding: 40px; border-radius: 20px; border: 2px solid var(--primary-cyan);
+            text-align: center; z-index: 2000; backdrop-filter: blur(20px);
+        }
+        #closePopup { margin-top: 25px; background: transparent; border: 1px solid var(--primary-cyan); color: white; padding: 8px 20px; border-radius: 5px; cursor: pointer; }
+
+        @media screen and (max-width: 900px) { .container { grid-template-columns: 1fr; } .flex-col { align-items: center; max-width: 100%; } .cursor { display: none; } }
     </style>
 </head>
-<body class="antialiased">
+<body>
 
-    <div class="bg-blue-600/10 border-b border-blue-500/20 py-2 overflow-hidden whitespace-nowrap">
-        <div class="animate-marquee flex items-center space-x-12 text-sm font-medium text-blue-400">
-            <span>🚀 NEW: AWS Infrastructure Audits now available</span>
-            <span>💎 20% Discount for First-Time SaaS Migrations</span>
-            <span>⚡ DeployLynx: The Future of Cloud Automation</span>
-            <span>🚀 NEW: AWS Infrastructure Audits now available</span>
-            <span>💎 20% Discount for First-Time SaaS Migrations</span>
-            <span>⚡ DeployLynx: The Future of Cloud Automation</span>
+<canvas id="dotsBackground"></canvas>
+<div class="cursor" id="customCursor"></div>
+
+<nav>
+    <a href="#" class="logo">Deploy<span>Lynx</span></a>
+    <div class="nav-links">
+        <a href="#" class="nav-link">Home</a>
+        <div class="relative nav-link">
+            <span>Services ▼</span>
+            <div class="dropdown">
+                <a href="#">Cloud Scaling</a>
+                <a href="#">CI/CD Pipelines</a>
+            </div>
         </div>
+        <a href="#" class="nav-link">Case Studies</a>
+        <a href="#" class="nav-link">About</a>
+    </div>
+    <a href="#" class="btn-quote">Request a Quote <span style="font-size: 10px">▶</span></a>
+</nav>
+
+<div class="container">
+    <div class="text-col">
+        <p style="color: var(--primary-cyan); text-transform: uppercase; letter-spacing: 2px; font-size: 14px">Direct Communication</p>
+        <h1>Ready to <br><span>architect <br>the future?</span></h1>
+        <p>DeployLynx builds scalable, secure, and production-ready systems. Schedule your deep dive into cloud reliability today.</p>
     </div>
 
-    <nav class="flex items-center justify-between px-8 py-6 max-w-7xl mx-auto">
-        <div class="text-2xl font-bold tracking-tighter">Deploy<span class="text-blue-500">Lynx</span></div>
-        <div class="hidden md:flex space-x-8 text-gray-400 font-medium">
-            <a href="#" class="hover:text-white transition">Home</a>
-            <div class="relative group cursor-pointer">
-                <span class="hover:text-white transition flex items-center">Services ▼</span>
-                <div class="absolute top-full left-0 mt-2 w-48 glass rounded-xl opacity-0 group-hover:opacity-100 transition p-2 z-50">
-                    <a href="#" class="block p-2 hover:bg-white/5 rounded-lg text-sm">Cloud Scaling</a>
-                    <a href="#" class="block p-2 hover:bg-white/5 rounded-lg text-sm">CI/CD Pipelines</a>
-                </div>
-            </div>
-            <a href="#" class="hover:text-white transition">Case Studies</a>
-            <a href="#" class="hover:text-white transition">About</a>
-        </div>
-        <a href="mailto:deploylynx26@gmail.com" class="bg-blue-600 px-6 py-2 rounded-lg font-bold btn-glow">Contact</a>
-    </nav>
-
-    <section class="grid md:grid-cols-2 gap-12 items-center px-8 py-20 max-w-7xl mx-auto">
-        <div class="text-left">
-            <h1 class="text-6xl md:text-7xl font-bold mb-6 tracking-tight leading-tight">Build Scalable <span class="gradient-text">Cloud Systems</span></h1>
-            <p class="text-gray-400 text-lg mb-8 leading-relaxed">Enterprise-grade infrastructure for modern SaaS. We automate your DevOps so you can focus on building your product.</p>
-            <div class="flex flex-wrap gap-4">
-                <a href="https://wa.me/923713600892" target="_blank" class="bg-blue-600 px-8 py-4 rounded-xl font-bold text-lg btn-glow">Get Free Consultation</a>
-                <button onclick="openPopup()" class="glass px-8 py-4 rounded-xl font-bold text-lg border border-white/10 hover:bg-white/5">Quick Lead Form</button>
-            </div>
-        </div>
-        <div class="relative">
-            <img src="https://images.unsplash.com/photo-1550751827-4bd374c3f58b?q=80&w=2070&auto=format&fit=crop" alt="Hero Tech" class="rounded-3xl border border-white/10 shadow-2xl shadow-blue-500/10">
-        </div>
-    </section>
-
-    <section class="py-24 px-8 max-w-7xl mx-auto text-center">
-        <h2 class="text-4xl font-bold mb-4">Who We Are</h2>
-        <p class="text-gray-400 mb-16 max-w-2xl mx-auto">We are a technical agency built to help businesses grow confidently on the cloud.</p>
-        <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
-            <div class="relative overflow-hidden rounded-[2.5rem] h-96 group border border-white/10">
-                <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&q=80&w=1000" class="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition duration-500">
-                <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent p-6 flex flex-col justify-end text-left">
-                    <h4 class="font-bold text-lg">Cloud Strategy</h4>
-                    <p class="text-sm text-gray-400">Enterprise Planning</p>
-                </div>
-            </div>
-            <div class="relative overflow-hidden rounded-[2.5rem] h-96 group border border-white/10">
-                <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&q=80&w=1000" class="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition duration-500">
-                <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent p-6 flex flex-col justify-end text-left">
-                    <h4 class="font-bold text-lg">Infrastructure</h4>
-                    <p class="text-sm text-gray-400">Systems Engineering</p>
-                </div>
-            </div>
-            <div class="relative overflow-hidden rounded-[2.5rem] h-96 group border border-white/10">
-                <img src="https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?auto=format&fit=crop&q=80&w=1000" class="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition duration-500">
-                <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent p-6 flex flex-col justify-end text-left">
-                    <h4 class="font-bold text-lg">Automation</h4>
-                    <p class="text-sm text-gray-400">DevOps Experts</p>
-                </div>
-            </div>
-            <div class="relative overflow-hidden rounded-[2.5rem] h-96 group border border-white/10">
-                <img src="https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&q=80&w=1000" class="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition duration-500">
-                <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent p-6 flex flex-col justify-end text-left">
-                    <h4 class="font-bold text-lg">Security</h4>
-                    <p class="text-sm text-gray-400">DevSecOps</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section class="px-8 py-16 max-w-7xl mx-auto">
-        <div class="bg-blue-600 rounded-[3rem] p-12 md:p-20 grid md:grid-cols-2 gap-10 items-center overflow-hidden relative">
-            <div class="relative z-10">
-                <h2 class="text-4xl md:text-5xl font-bold mb-6">Looking to improve your online presence and leads?</h2>
-                <button onclick="openPopup()" class="bg-white text-blue-600 px-8 py-4 rounded-xl font-bold text-lg hover:bg-gray-100 transition flex items-center">
-                    SPEAK WITH OUR EXPERTS 
-                    <svg class="ml-2 h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
-                </button>
-            </div>
-            <div class="relative group">
-                <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=2426&auto=format&fit=crop" class="rounded-2xl shadow-2xl transform group-hover:rotate-2 transition duration-500">
-            </div>
-        </div>
-    </section>
-
-    <footer class="py-16 px-8 max-w-7xl mx-auto border-t border-white/10 flex flex-col md:flex-row justify-between items-center text-gray-500">
-        <div class="mb-6 md:mb-0">
-            <div class="text-2xl font-bold text-white mb-2 tracking-tighter">Deploy<span class="text-blue-500">Lynx</span></div>
-            <p class="text-sm">Scalable Cloud & DevOps Agency</p>
-        </div>
-        <div class="flex space-x-8 font-medium">
-            <a href="https://www.linkedin.com/company/linkedin-deploylynx-devops/" class="hover:text-blue-400">LinkedIn</a>
-            <a href="https://wa.me/923713600892" class="hover:text-blue-400">WhatsApp</a>
-            <a href="mailto:deploylynx26@gmail.com" class="hover:text-blue-400">Email</a>
-        </div>
-    </footer>
-
-    <div id="lead-popup" class="fixed inset-0 bg-black/90 backdrop-blur-md flex items-center justify-center z-[100] hidden px-4">
-        <div class="glass p-10 rounded-3xl w-full max-w-md relative border border-white/20">
-            <button onclick="closePopup()" class="absolute top-5 right-5 text-gray-400 hover:text-white text-3xl">&times;</button>
-            <h3 class="text-3xl font-bold mb-6 text-center gradient-text">Get Free Quote</h3>
-            <div class="space-y-4">
-                <input id="userName" placeholder="Your Name" class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-4 focus:border-blue-500 outline-none">
-                <input id="userEmail" placeholder="Email" class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-4 focus:border-blue-500 outline-none">
-                <textarea id="userMessage" placeholder="Project details" rows="3" class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-4 focus:border-blue-500 outline-none"></textarea>
-                <button class="w-full bg-blue-600 py-4 rounded-xl font-bold text-lg btn-glow">Send Inquiry</button>
-            </div>
-        </div>
+    <div class="flex-col">
+        <div class="feature-card">🚀 Cloud Deployment</div>
+        <div class="feature-card">⚙️ CI/CD Automation</div>
+        <div class="feature-card">📊 Monitoring Systems</div>
     </div>
+</div>
 
-    <script>
-        function openPopup() { document.getElementById('lead-popup').classList.remove('hidden'); }
-        function closePopup() { document.getElementById('lead-popup').classList.add('hidden'); }
-    </script>
+<div id="successPopup">
+    <div style="font-size: 50px; margin-bottom: 15px;">✨</div>
+    <h3 style="color: var(--primary-cyan); font-size: 24px;">Message Sent!</h3>
+    <p style="color: white; margin-top: 10px;">Shortly we will contact with you.</p>
+    <button id="closePopup">Close</button>
+</div>
+
+<form id="scheduleForm" style="display: none;"></form>
+
+<script>
+    // FORM LOGIC
+    const scheduleForm = document.getElementById("scheduleForm");
+    const successPopup = document.getElementById("successPopup");
+
+    // Replace the URL with your Google Script URL
+    const scriptURL = "https://script.google.com/macros/s/AKfycbz-n69boQvKuZ1b2eomihHO87Tee7ZkyIb2vTpXNoJRapY9KkUY5TqDPMWGvAIglsEm/exec";
+
+    // Since you don't have a visible form, this script simulates 
+    // a form submission and triggers the confetti and popup.
+    function submitLeadSilently() {
+        // Trigger sparkles
+        confetti({ 
+            particleCount: 150, spread: 70, 
+            origin: { y: 0.6 }, 
+            colors: ['#00c6ff', '#ff6ec7', '#ffffff'] 
+        });
+        successPopup.style.display = "block";
+    }
+
+    document.getElementById("closePopup").onclick = () => successPopup.style.display = "none";
+
+    // Animated dots background
+    const canvas = document.getElementById("dotsBackground");
+    const ctx = canvas.getContext("2d");
+    function resize() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
+    window.addEventListener('resize', resize); resize();
+    let dotsArr = [];
+    for(let i=0; i<60; i++) dotsArr.push({ x: Math.random() * canvas.width, y: Math.random() * canvas.height, vy: Math.random() * 0.3 });
+    function animate() {
+        ctx.clearRect(0,0,canvas.width,canvas.height); ctx.fillStyle = "rgba(0, 198, 255, 0.3)";
+        dotsArr.forEach(d => { d.y += d.vy; if(d.y > canvas.height) d.y = 0; ctx.beginPath(); ctx.arc(d.x, d.y, 1, 0, Math.PI * 2); ctx.fill(); });
+        requestAnimationFrame(animate);
+    }
+    animate();
+
+    // Mousemove custom cursor logic
+    document.addEventListener("mousemove", e => { 
+        const cursor = document.getElementById("customCursor");
+        if(cursor) { cursor.style.left = e.clientX + "px"; cursor.style.top = e.clientY + "px"; }
+    });
+</script>
 </body>
 </html>
