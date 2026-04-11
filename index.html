@@ -3,68 +3,48 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DeployLynx - Cloud & DevOps Solutions</title>
+    <title>DeployLynx | Contact</title>
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
     <style>
         :root {
-            --bg-dark: #050a14;
             --primary-cyan: #00c6ff;
             --accent-purple: #ff6ec7;
-            --glass-bg: rgba(255, 255, 255, 0.05);
-            --text-white: #ffffff;
+            --dark-bg: #030712;
+            --glass-bg: rgba(255, 255, 255, 0.03);
         }
 
-        body {
-            margin: 0;
-            padding: 0;
-            font-family: 'Inter', sans-serif;
-            background-color: var(--bg-dark);
-            color: var(--text-white);
-            overflow-x: hidden;
-        }
-
-        /* Background Dots */
-        #dotsBackground {
-            position: fixed;
-            top: 0;
-            left: 0;
-            z-index: -1;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
+        body { background: var(--dark-bg); color: #fff; overflow-x: hidden; }
 
         /* Navigation */
         nav {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 20px 5%;
-            background: rgba(5, 10, 20, 0.8);
-            backdrop-filter: blur(10px);
+            display: flex; justify-content: space-between; align-items: center; padding: 20px 8%;
+            background: rgba(10, 15, 28, 0.9); backdrop-filter: blur(10px);
         }
+        .logo { font-size: 24px; font-weight: bold; color: white; text-decoration: none; }
+        .logo span { color: #ccc; }
+        .nav-links a { margin-left: 25px; color: #94a3b8; text-decoration: none; font-size: 0.95rem; }
+        .contact-btn { background: #3b82f6; padding: 10px 20px; border-radius: 8px; color: white; text-decoration: none; font-weight: bold; }
 
-        .logo { font-size: 24px; font-weight: bold; color: white; }
-        .logo span { color: var(--primary-cyan); }
-        .nav-links a { color: #ccc; margin: 0 15px; text-decoration: none; font-size: 14px; }
-        .contact-btn { background: #3b82f6; padding: 10px 20px; border-radius: 8px; color: white; text-decoration: none; }
-
-        /* Hero Section */
+        /* --- HERO SECTION (MATCHING IMAGE 4 LAYOUT) --- */
         .hero {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 80px 8%;
-            min-height: 80vh;
+            display: grid; 
+            grid-template-columns: 1.2fr 1fr; 
+            gap: 40px; 
+            padding: 80px 8%; 
+            align-items: center; 
+            max-width: 1400px; 
+            margin: 0 auto;
         }
 
-        .hero-text { flex: 1; max-width: 600px; }
-        .hero-text h1 { font-size: 64px; line-height: 1.1; margin-bottom: 20px; }
+        .hero-text h1 { font-size: 64px; line-height: 1.1; margin: 20px 0; }
         .hero-text h1 span {
             background: linear-gradient(90deg, var(--primary-cyan), var(--accent-purple));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
         }
 
-        /* Booking Form Styles */
-        .form-col { flex: 1; display: flex; justify-content: flex-end; }
+        /* --- BOOKING FORM STYLES (AS PROVIDED) --- */
+        .form-col { display: flex; justify-content: flex-end; }
         .booking-card {
             background: var(--glass-bg);
             padding: 30px;
@@ -72,10 +52,10 @@
             border: 1px solid rgba(255, 255, 255, 0.1);
             backdrop-filter: blur(15px);
             width: 100%;
-            max-width: 400px;
+            max-width: 420px;
         }
 
-        .booking-card h3 { margin-bottom: 20px; font-size: 22px; }
+        .booking-card h3 { margin-bottom: 20px; font-size: 22px; color: white; }
         .booking-card input, .booking-card select, .booking-card textarea {
             width: 100%;
             padding: 12px;
@@ -84,7 +64,7 @@
             border: 1px solid rgba(255, 255, 255, 0.2);
             border-radius: 8px;
             color: white;
-            box-sizing: border-box;
+            outline: none;
         }
 
         .booking-card button {
@@ -98,15 +78,13 @@
             cursor: pointer;
             transition: 0.3s;
         }
-
         .booking-card button:hover { transform: translateY(-2px); opacity: 0.9; }
 
-        /* Success Popup */
+        /* --- SUCCESS POPUP WITH CLAP IMAGE --- */
         #successPopup {
             display: none;
             position: fixed;
-            top: 50%;
-            left: 50%;
+            top: 50%; left: 50%;
             transform: translate(-50%, -50%);
             background: #111;
             padding: 40px;
@@ -114,17 +92,30 @@
             text-align: center;
             z-index: 1000;
             border: 1px solid var(--primary-cyan);
-            box-shadow: 0 0 30px rgba(0, 198, 255, 0.2);
+            box-shadow: 0 0 30px rgba(0, 198, 255, 0.3);
+            width: 90%;
+            max-width: 400px;
         }
 
-        #successPopup button {
-            margin-top: 20px;
+        .clap-img { width: 80px; margin-bottom: 20px; }
+        #successPopup h3 { color: var(--primary-cyan); font-size: 24px; margin-bottom: 10px; }
+        #successPopup p { color: white; }
+        #closePopup {
+            margin-top: 25px;
             background: transparent;
             border: 1px solid white;
             color: white;
             padding: 8px 25px;
             border-radius: 5px;
             cursor: pointer;
+        }
+
+        canvas#dotsBackground { position: fixed; top: 0; left: 0; z-index: -1; pointer-events: none; }
+
+        @media (max-width: 900px) {
+            .hero { grid-template-columns: 1fr; text-align: center; }
+            .form-col { justify-content: center; }
+            .hero-text h1 { font-size: 48px; }
         }
     </style>
 </head>
@@ -133,7 +124,7 @@
 <canvas id="dotsBackground"></canvas>
 
 <nav>
-    <div class="logo">Deploy<span>Lynx</span></div>
+    <a href="#" class="logo">Deploy<span>Lynx</span></a>
     <div class="nav-links">
         <a href="#">Home</a>
         <a href="#">Services</a>
@@ -145,9 +136,9 @@
 
 <section class="hero">
     <div class="hero-text">
-        <p style="color: var(--primary-cyan); text-transform: uppercase; letter-spacing: 2px;">Direct Communication</p>
+        <p style="color: var(--primary-cyan); text-transform: uppercase; letter-spacing: 2px; font-weight: bold; font-size: 14px;">Direct Communication</p>
         <h1>Ready to <br><span>architect <br>the future?</span></h1>
-        <p style="color: #aaa; font-size: 18px;">DeployLynx builds scalable, secure, and production-ready systems. Schedule your deep dive into cloud reliability today.</p>
+        <p>DeployLynx builds scalable, secure, and production-ready systems. Schedule your deep dive into cloud reliability today.</p>
     </div>
 
     <div class="form-col">
@@ -178,72 +169,72 @@
 </section>
 
 <div id="successPopup">
-    <div style="font-size: 50px; margin-bottom: 15px;">✨</div>
-    <h3 style="color: var(--primary-cyan); font-size: 24px;">Message Sent!</h3>
-    <p style="color: white; margin-top: 10px;">Shortly we will contact with you.</p>
+    <img src="https://cdn-icons-png.flaticon.com/512/1642/1642331.png" alt="Success" class="clap-img">
+    <h3>Message Sent!</h3>
+    <p>Shortly we will contact with you.</p>
     <button id="closePopup">Close</button>
 </div>
 
 <script>
-    // YOUR JAVASCRIPT LOGIC
-    const form = document.getElementById("scheduleForm");
-    const submitBtn = document.getElementById("submitBtn");
-    const popup = document.getElementById("successPopup");
+    const form = document.getElementById('scheduleForm');
+    const btn = document.getElementById('submitBtn');
+    const popup = document.getElementById('successPopup');
 
-    form.addEventListener("submit", function(e) {
+    form.addEventListener('submit', function(e) {
         e.preventDefault();
-        submitBtn.disabled = true;
-        submitBtn.innerText = "SENDING...";
+        btn.disabled = true;
+        btn.innerText = "Processing...";
 
         const formData = new FormData(form);
-
-        // 1. Send to Formspree
-        fetch("https://formspree.io/f/xpqykbvr", {
-            method: "POST",
-            body: formData,
-            headers: { 'Accept': 'application/json' }
-        });
-
-        // 2. Send to Google Sheets
         const scriptURL = "https://script.google.com/macros/s/AKfycbz-n69boQvKuZ1b2eomihHO87Tee7ZkyIb2vTpXNoJRapY9KkUY5TqDPMWGvAIglsEm/exec";
-        
-        fetch(scriptURL, {
-            method: "POST",
-            body: formData,
-            mode: 'no-cors'
-        }).then(() => {
-            confetti({ 
-                particleCount: 150, 
-                spread: 70, 
-                origin: { y: 0.6 }, 
-                colors: ['#00c6ff', '#ff6ec7', '#ffffff'] 
+
+        // 1. Send to Google Sheets
+        fetch(scriptURL, { method: 'POST', body: formData, mode: 'no-cors' })
+        .then(() => {
+            // 2. Send to Formspree
+            return fetch("https://formspree.io/f/xpqykbvr", {
+                method: "POST",
+                body: formData,
+                headers: { 'Accept': 'application/json' }
             });
+        })
+        .then(() => {
+            // Success Effects
+            confetti({ particleCount: 150, spread: 70, origin: { y: 0.6 } });
             popup.style.display = "block";
-            submitBtn.innerText = "Book Consultation";
-            submitBtn.disabled = false;
             form.reset();
-        }).catch(err => {
-            console.error("Sheet Error", err);
-            submitBtn.disabled = false;
-            submitBtn.innerText = "Book Consultation";
+            btn.disabled = false;
+            btn.innerText = "Book Consultation";
+        })
+        .catch(error => {
+            console.error('Error!', error);
+            alert("Submission failed, please try again.");
+            btn.disabled = false;
+            btn.innerText = "Book Consultation";
         });
     });
 
-    document.getElementById("closePopup").onclick = () => popup.style.display = "none";
+    document.getElementById('closePopup').onclick = () => {
+        popup.style.display = "none";
+    };
 
     // Animated Background
     const canvas = document.getElementById("dotsBackground");
     const ctx = canvas.getContext("2d");
     function resize() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
-    window.addEventListener('resize', resize); resize();
-    let dotsArr = [];
-    for(let i=0; i<60; i++) dotsArr.push({ x: Math.random() * canvas.width, y: Math.random() * canvas.height, vy: Math.random() * 0.3 });
-    function animate() {
-        ctx.clearRect(0,0,canvas.width,canvas.height); ctx.fillStyle = "rgba(0, 198, 255, 0.3)";
-        dotsArr.forEach(d => { d.y += d.vy; if(d.y > canvas.height) d.y = 0; ctx.beginPath(); ctx.arc(d.x, d.y, 1, 0, Math.PI * 2); ctx.fill(); });
-        requestAnimationFrame(animate);
+    window.onresize = resize; resize();
+    let dots = Array(60).fill().map(() => ({ x: Math.random()*canvas.width, y: Math.random()*canvas.height, vy: 0.5 }));
+    function anim() {
+        ctx.clearRect(0,0,canvas.width,canvas.height);
+        ctx.fillStyle = "rgba(0,198,255,0.2)";
+        dots.forEach(d => {
+            d.y += d.vy; if(d.y > canvas.height) d.y = 0;
+            ctx.beginPath(); ctx.arc(d.x, d.y, 1, 0, 7); ctx.fill();
+        });
+        requestAnimationFrame(anim);
     }
-    animate();
+    anim();
 </script>
+
 </body>
 </html>
