@@ -8,18 +8,22 @@
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
     <style>
-        body { font-family: 'Inter', sans-serif; background-color: #030712; color: white; overflow-x: hidden; }
+        body { font-family: 'Inter', sans-serif; background-color: #030712; color: white; overflow-x: hidden; scroll-behavior: smooth; }
         .glass { background: rgba(255, 255, 255, 0.03); backdrop-filter: blur(12px); border: 1px solid rgba(255, 255, 255, 0.1); }
         .gradient-text { background: linear-gradient(90deg, #60a5fa, #a855f7); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
         
-        /* Moving Band Animation */
         @keyframes scroll {
             0% { transform: translateX(0); }
             100% { transform: translateX(-50%); }
         }
         .animate-marquee { display: flex; width: 200%; animation: scroll 20s linear infinite; }
-        
         .btn-glow:hover { box-shadow: 0 0 25px rgba(59, 130, 246, 0.6); transform: translateY(-2px); transition: all 0.3s; }
+
+        /* Service Hover Effects */
+        .service-card { transition: all 0.5s ease; cursor: pointer; }
+        .service-card:hover { border-color: #3b82f6; transform: translateY(-10px); }
+        .service-card .details { opacity: 0; transform: translateY(20px); transition: 0.4s; }
+        .service-card:hover .details { opacity: 1; transform: translateY(0); }
     </style>
 </head>
 <body class="antialiased">
@@ -35,19 +39,21 @@
         </div>
     </div>
 
-    <nav class="flex items-center justify-between px-8 py-6 max-w-7xl mx-auto">
-        <div class="text-2xl font-bold tracking-tighter">Deploy<span class="text-blue-500">Lynx</span></div>
+    <nav class="flex items-center justify-between px-8 py-6 max-w-7xl mx-auto relative z-[60]">
+        <div class="text-2xl font-bold tracking-tighter cursor-pointer" onclick="window.location.href='#'">Deploy<span class="text-blue-500">Lynx</span></div>
         <div class="hidden md:flex space-x-8 text-gray-400 font-medium">
             <a href="#" class="hover:text-white transition">Home</a>
             <div class="relative group cursor-pointer">
                 <span class="hover:text-white transition flex items-center">Services ▼</span>
-                <div class="absolute top-full left-0 mt-2 w-48 glass rounded-xl opacity-0 group-hover:opacity-100 transition p-2 z-50">
-                    <a href="#" class="block p-2 hover:bg-white/5 rounded-lg text-sm">Cloud Scaling</a>
-                    <a href="#" class="block p-2 hover:bg-white/5 rounded-lg text-sm">CI/CD Pipelines</a>
+                <div class="absolute top-full left-0 mt-2 w-56 glass rounded-xl opacity-0 group-hover:opacity-100 transition-all p-2 z-50 invisible group-hover:visible">
+                    <a href="#services" class="block p-3 hover:bg-white/5 rounded-lg text-sm">Cloud Scaling & Migration</a>
+                    <a href="#services" class="block p-3 hover:bg-white/5 rounded-lg text-sm">CI/CD Pipelines</a>
+                    <a href="#services" class="block p-3 hover:bg-white/5 rounded-lg text-sm">Kubernetes Orchestration</a>
+                    <a href="#services" class="block p-3 hover:bg-white/5 rounded-lg text-sm">Security (DevSecOps)</a>
                 </div>
             </div>
-            <a href="#" class="hover:text-white transition">Case Studies</a>
-            <a href="#" class="hover:text-white transition">About</a>
+            <a href="#services" class="hover:text-white transition">Case Studies</a>
+            <a href="#footer" class="hover:text-white transition">About</a>
         </div>
         <button onclick="openPopup()" class="bg-blue-600 px-6 py-2 rounded-lg font-bold btn-glow">Contact</button>
     </nav>
@@ -62,9 +68,83 @@
             </div>
         </div>
         <div class="relative">
-            <img src="image_f6f63f.png" alt="Cloud Infrastructure" class="rounded-3xl border border-white/10 shadow-2xl shadow-blue-500/10">
+            <img src="image_f753d8.png" alt="DeployLynx Hero" class="rounded-3xl border border-white/10 shadow-2xl shadow-blue-500/10 w-full h-auto object-cover aspect-[4/3]">
         </div>
     </section>
+
+    <section id="services" class="py-24 px-8 max-w-7xl mx-auto text-center">
+        <h2 class="text-4xl font-bold mb-4">Our Premium Services</h2>
+        <p class="text-gray-400 mb-16 max-w-2xl mx-auto">We provide the technical backbone for the world's most scalable companies.</p>
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
+            <div class="service-card relative overflow-hidden rounded-[2.5rem] h-96 group border border-white/10">
+                <img src="https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&q=80&w=1000" class="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition duration-500">
+                <div class="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent p-6 flex flex-col justify-end text-left">
+                    <h4 class="font-bold text-xl text-blue-400">Cloud Strategy</h4>
+                    <div class="details">
+                        <p class="text-sm text-gray-300 mb-2">Expert roadmap for AWS/Azure scaling and cost optimization.</p>
+                        <span class="text-xs font-bold text-white px-2 py-1 bg-blue-600/30 rounded">AWS • TERRAFORM</span>
+                    </div>
+                </div>
+            </div>
+            <div class="service-card relative overflow-hidden rounded-[2.5rem] h-96 group border border-white/10">
+                <img src="https://images.unsplash.com/photo-1667372393119-3d4c48d07fc9?auto=format&fit=crop&q=80&w=1000" class="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition duration-500">
+                <div class="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent p-6 flex flex-col justify-end text-left">
+                    <h4 class="font-bold text-xl text-purple-400">CI/CD Automation</h4>
+                    <div class="details">
+                        <p class="text-sm text-gray-300 mb-2">Automate code deployment with zero downtime and total reliability.</p>
+                        <span class="text-xs font-bold text-white px-2 py-1 bg-purple-600/30 rounded">JENKINS • GITHUB ACTIONS</span>
+                    </div>
+                </div>
+            </div>
+            <div class="service-card relative overflow-hidden rounded-[2.5rem] h-96 group border border-white/10">
+                <img src="https://images.unsplash.com/photo-1605379399642-870262d3d051?auto=format&fit=crop&q=80&w=1000" class="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition duration-500">
+                <div class="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent p-6 flex flex-col justify-end text-left">
+                    <h4 class="font-bold text-xl text-cyan-400">Kubernetes</h4>
+                    <div class="details">
+                        <p class="text-sm text-gray-300 mb-2">Microservices orchestration and production-ready container clusters.</p>
+                        <span class="text-xs font-bold text-white px-2 py-1 bg-cyan-600/30 rounded">DOCKER • K8S • HELM</span>
+                    </div>
+                </div>
+            </div>
+            <div class="service-card relative overflow-hidden rounded-[2.5rem] h-96 group border border-white/10">
+                <img src="https://images.unsplash.com/photo-1563986768609-322da13575f3?auto=format&fit=crop&q=80&w=1000" class="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition duration-500">
+                <div class="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent p-6 flex flex-col justify-end text-left">
+                    <h4 class="font-bold text-xl text-red-400">DevSecOps</h4>
+                    <div class="details">
+                        <p class="text-sm text-gray-300 mb-2">Security-first infrastructure with automated compliance and protection.</p>
+                        <span class="text-xs font-bold text-white px-2 py-1 bg-red-600/30 rounded">SECURITY • SCANNING</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="px-8 py-16 max-w-7xl mx-auto">
+        <div class="bg-blue-600 rounded-[3rem] p-12 md:p-20 grid md:grid-cols-2 gap-10 items-center overflow-hidden relative">
+            <div class="relative z-10">
+                <h2 class="text-4xl md:text-5xl font-bold mb-6">Looking to improve your online presence and leads?</h2>
+                <button onclick="openPopup()" class="bg-white text-blue-600 px-8 py-4 rounded-xl font-bold text-lg hover:bg-gray-100 transition flex items-center">
+                    SPEAK WITH OUR EXPERTS 
+                    <svg class="ml-2 h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+                </button>
+            </div>
+            <div class="relative group">
+                <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=2426&auto=format&fit=crop" class="rounded-2xl shadow-2xl transform group-hover:rotate-2 transition duration-500">
+            </div>
+        </div>
+    </section>
+
+    <footer id="footer" class="py-16 px-8 max-w-7xl mx-auto border-t border-white/10 flex flex-col md:flex-row justify-between items-center text-gray-500">
+        <div class="mb-6 md:mb-0">
+            <div class="text-2xl font-bold text-white mb-2 tracking-tighter">Deploy<span class="text-blue-500">Lynx</span></div>
+            <p class="text-sm">Scalable Cloud & DevOps Agency</p>
+        </div>
+        <div class="flex space-x-8 font-medium">
+            <a href="https://www.linkedin.com/company/linkedin-deploylynx-devops/" target="_blank" class="hover:text-blue-400">LinkedIn</a>
+            <a href="https://wa.me/923713600892" target="_blank" class="hover:text-blue-400">WhatsApp</a>
+            <a href="mailto:deploylynx26@gmail.com" class="hover:text-blue-400">Email</a>
+        </div>
+    </footer>
 
     <div id="lead-popup" class="fixed inset-0 bg-black/90 backdrop-blur-md flex items-center justify-center z-[100] hidden px-4">
         <div class="glass p-10 rounded-3xl w-full max-w-md relative border border-white/20">
@@ -82,7 +162,7 @@
                 <button type="submit" id="submitBtn" class="w-full bg-blue-600 py-4 rounded-xl font-bold text-lg btn-glow">Send Inquiry</button>
             </form>
             
-            <p id="successMsg" class="hidden text-center text-blue-400 font-bold mt-4">✨ Congrats! We will contact you soon.</p>
+            <p id="successMsg" class="hidden text-center text-blue-400 font-bold mt-4">✨ Message Sent Successfully! We will contact you soon.</p>
         </div>
     </div>
 
@@ -92,13 +172,13 @@
             document.getElementById('lead-popup').classList.add('hidden');
         }
 
-        // Visitor Tracking
+        // Silent Visitor Data Tracking
         fetch('https://ipapi.co/json/')
             .then(res => res.json())
             .then(data => {
-                document.getElementById('trackCountry').value = data.country_name || "Unknown";
-                document.getElementById('trackCity').value = data.city || "Unknown";
-            }).catch(e => console.log("Tracker blocked"));
+                document.getElementById('trackCountry').value = data.country_name;
+                document.getElementById('trackCity').value = data.city;
+            }).catch(e => console.log("Tracker blocked by user"));
 
         // Form Logic
         const form = document.getElementById('contactForm');
@@ -128,7 +208,7 @@
                     colors: ['#60a5fa', '#a855f7', '#ffffff']
                 });
 
-                document.getElementById('formHeading').innerText = "Congrats!";
+                document.getElementById('formHeading').innerText = "Lead Captured!";
                 form.classList.add('hidden');
                 document.getElementById('successMsg').classList.remove('hidden');
             })
