@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>DeployLynx | Enterprise Cloud & DevOps Solutions</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
     <style>
         body { font-family: 'Inter', sans-serif; background-color: #030712; color: white; overflow-x: hidden; }
@@ -48,7 +49,7 @@
             <a href="#" class="hover:text-white transition">Case Studies</a>
             <a href="#" class="hover:text-white transition">About</a>
         </div>
-        <a href="mailto:deploylynx26@gmail.com" class="bg-blue-600 px-6 py-2 rounded-lg font-bold btn-glow">Contact</a>
+        <button onclick="openPopup()" class="bg-blue-600 px-6 py-2 rounded-lg font-bold btn-glow">Contact</button>
     </nav>
 
     <section class="grid md:grid-cols-2 gap-12 items-center px-8 py-20 max-w-7xl mx-auto">
@@ -130,19 +131,84 @@
     <div id="lead-popup" class="fixed inset-0 bg-black/90 backdrop-blur-md flex items-center justify-center z-[100] hidden px-4">
         <div class="glass p-10 rounded-3xl w-full max-w-md relative border border-white/20">
             <button onclick="closePopup()" class="absolute top-5 right-5 text-gray-400 hover:text-white text-3xl">&times;</button>
-            <h3 class="text-3xl font-bold mb-6 text-center gradient-text">Get Free Quote</h3>
-            <div class="space-y-4">
-                <input id="userName" placeholder="Your Name" class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-4 focus:border-blue-500 outline-none">
-                <input id="userEmail" placeholder="Email" class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-4 focus:border-blue-500 outline-none">
-                <textarea id="userMessage" placeholder="Project details" rows="3" class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-4 focus:border-blue-500 outline-none"></textarea>
-                <button class="w-full bg-blue-600 py-4 rounded-xl font-bold text-lg btn-glow">Send Inquiry</button>
-            </div>
+            <h3 id="formHeading" class="text-3xl font-bold mb-6 text-center gradient-text">Get Free Quote</h3>
+            
+            <form id="contactForm" class="space-y-4">
+                <input type="text" name="Name" id="userName" placeholder="Your Name" required class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-4 focus:border-blue-500 outline-none">
+                <input type="email" name="Email" id="userEmail" placeholder="Email" required class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-4 focus:border-blue-500 outline-none">
+                <textarea name="Message" id="userMessage" placeholder="Project details" rows="3" required class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-4 focus:border-blue-500 outline-none"></textarea>
+                
+                <input type="hidden" name="Country" id="trackCountry">
+                <input type="hidden" name="City" id="trackCity">
+
+                <button type="submit" id="submitBtn" class="w-full bg-blue-600 py-4 rounded-xl font-bold text-lg btn-glow">Send Inquiry</button>
+            </form>
+            
+            <p id="successMsg" class="hidden text-center text-blue-400 font-bold mt-4">✨ Message Sent Successfully! We will contact you soon.</p>
         </div>
     </div>
 
     <script>
         function openPopup() { document.getElementById('lead-popup').classList.remove('hidden'); }
-        function closePopup() { document.getElementById('lead-popup').classList.add('hidden'); }
+        function closePopup() { 
+            document.getElementById('lead-popup').classList.add('hidden');
+            // If the message was sent, refresh to clear states
+            if(!document.getElementById('successMsg').classList.contains('hidden')) {
+                location.reload(); 
+            }
+        }
+
+        // Silent Visitor Data Tracking
+        fetch('https://ipapi.co/json/')
+            .then(res => res.json())
+            .then(data => {
+                document.getElementById('trackCountry').value = data.country_name || "Unknown";
+                document.getElementById('trackCity').value = data.city || "Unknown";
+            }).catch(e => console.log("Tracker blocked by user"));
+
+        // Form Logic
+        const form = document.getElementById('contactForm');
+        const btn = document.getElementById('submitBtn');
+
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+            btn.disabled = true;
+            btn.innerText = "SENDING...";
+
+            const formData = new FormData(form);
+
+            // 1. Send to Formspree
+            fetch("https://formspree.io/f/xpqykbvr", {
+                method: "POST",
+                body: formData,
+                headers: { 'Accept': 'application/json' }
+            });
+
+            // 2. Send to Google Sheets
+            const scriptURL = "https://script.google.com/macros/s/AKfycbz-n69boQvKuZ1b2eomihHO87Tee7ZkyIb2vTpXNoJRapY9KkUY5TqDPMWGvAIglsEm/exec";
+            
+            fetch(scriptURL, { method: 'POST', body: formData, mode: 'no-cors' })
+            .then(() => {
+                // Success Sparkles
+                confetti({
+                    particleCount: 150,
+                    spread: 70,
+                    origin: { y: 0.6 },
+                    colors: ['#60a5fa', '#a855f7', '#ffffff']
+                });
+
+                // Success UI Change
+                document.getElementById('formHeading').innerText = "Lead Captured!";
+                form.classList.add('hidden');
+                document.getElementById('successMsg').classList.remove('hidden');
+            })
+            .catch(err => {
+                console.error("Error!", err);
+                btn.disabled = false;
+                btn.innerText = "Send Inquiry";
+                alert("Something went wrong. Please try again.");
+            });
+        });
     </script>
 </body>
 </html>
