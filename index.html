@@ -2,215 +2,157 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <title>DeployLynx | Enterprise Cloud & DevOps</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DeployLynx | Enterprise Cloud & DevOps Solutions</title>
-    <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
     <style>
-        body { font-family: 'Inter', sans-serif; background-color: #030712; color: white; overflow-x: hidden; }
-        .glass { background: rgba(255, 255, 255, 0.03); backdrop-filter: blur(12px); border: 1px solid rgba(255, 255, 255, 0.1); }
-        .gradient-text { background: linear-gradient(90deg, #60a5fa, #a855f7); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-        
-        @keyframes scroll {
-            0% { transform: translateX(0); }
-            100% { transform: translateX(-50%); }
-        }
-        .animate-marquee { display: flex; width: 200%; animation: scroll 20s linear infinite; }
-        
-        .btn-glow:hover { box-shadow: 0 0 25px rgba(59, 130, 246, 0.6); transform: translateY(-2px); transition: all 0.3s; }
-        .service-card:hover { border-color: rgba(96, 165, 250, 0.5); background: rgba(255, 255, 255, 0.05); }
-
-        /* PROFESSIONAL NAVBAR STYLING */
-        nav { 
-            position: sticky; 
-            top: 0; 
-            z-index: 9999; 
-            background: rgba(10, 15, 28, 0.95); 
-            backdrop-filter: blur(10px); 
-            display: flex; 
-            justify-content: space-between; 
-            align-items: center; 
-            padding: 20px 5%; 
-            border-bottom: 1px solid rgba(255, 255, 255, 0.05); 
+        :root {
+            --primary-cyan: #00c6ff;
+            --dark-bg: #0a0f1c;
+            --glass-bg: rgba(15, 23, 42, 0.8);
+            --border: rgba(0, 198, 255, 0.2);
         }
 
-        .logo { font-size: 24px; color: #00c6ff; font-weight: bold; text-decoration: none; }
-        .menu { display: flex; align-items: center; gap: 25px; }
-        .menu a { color: #ccc; text-decoration: none; font-size: 0.95rem; transition: 0.3s; }
-        .menu a:hover, .menu a.active { color: #00c6ff; }
-        .menu a.contact-btn { background: #00c6ff; color: #000; padding: 10px 20px; border-radius: 8px; font-weight: bold; margin-left: 10px; }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
+        body { background: var(--dark-bg); color: #fff; overflow-x: hidden; cursor: none; }
 
+        /* ANNOUNCEMENT BAR */
+        .top-bar {
+            background: linear-gradient(90deg, #00c6ff, #0072ff);
+            padding: 10px; text-align: center; font-size: 0.85rem; font-weight: 700;
+            letter-spacing: 1px; color: #000;
+        }
+
+        /* NAV */
+        nav {
+            display: flex; justify-content: space-between; align-items: center; padding: 20px 8%;
+            background: rgba(10, 15, 28, 0.9); position: sticky; top: 0; z-index: 1000;
+            backdrop-filter: blur(10px); border-bottom: 1px solid var(--border);
+        }
+        .logo { font-size: 26px; color: var(--primary-cyan); font-weight: 800; text-decoration: none; }
+        .logo span { color: white; }
+        .menu a { margin-left: 25px; color: #94a3b8; text-decoration: none; font-size: 0.9rem; transition: 0.3s; }
+        .menu a:hover { color: var(--primary-cyan); }
+
+        /* HERO SECTION */
+        .hero {
+            display: grid; grid-template-columns: 1.2fr 0.8fr; gap: 40px; padding: 100px 8%;
+            align-items: center; max-width: 1400px; margin: auto;
+        }
+        .hero-text h1 { font-size: 3.5rem; line-height: 1.1; margin-bottom: 25px; }
+        .hero-text p { color: #cbd5e1; font-size: 1.1rem; margin-bottom: 35px; line-height: 1.6; }
+        .hero-image img { width: 100%; border-radius: 20px; box-shadow: 0 0 40px rgba(0, 198, 255, 0.2); }
+
+        /* EXPERTISE SECTION */
+        .section { padding: 80px 8%; text-align: center; }
+        .section h2 { font-size: 2.5rem; margin-bottom: 50px; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; }
+        
+        .card {
+            background: var(--glass-bg); padding: 0; border-radius: 20px; 
+            border: 1px solid var(--border); overflow: hidden; transition: 0.4s;
+            text-align: left;
+        }
+        .card:hover { transform: translateY(-10px); border-color: var(--primary-cyan); }
+        .card-img { width: 100%; height: 200px; object-fit: cover; border-bottom: 1px solid var(--border); }
+        .card-content { padding: 30px; }
+        .card h3 { color: var(--primary-cyan); margin-bottom: 15px; }
+        .card p { color: #94a3b8; font-size: 0.95rem; line-height: 1.5; }
+
+        /* CTA AREA */
+        .cta-box {
+            background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&q=80&w=2072');
+            background-size: cover; padding: 100px 8%; text-align: center; border-radius: 30px; margin: 40px 8%;
+        }
+        .btn {
+            padding: 16px 40px; background: var(--primary-cyan); color: #000;
+            text-decoration: none; font-weight: 800; border-radius: 12px; display: inline-block;
+            transition: 0.3s; text-transform: uppercase;
+        }
+        .btn:hover { background: #fff; transform: scale(1.05); }
+
+        /* UTILS */
+        .cursor { width: 10px; height: 10px; background: gold; border-radius: 50%; position: fixed; pointer-events: none; z-index: 9999; box-shadow: 0 0 15px gold; transform: translate(-50%, -50%); }
+        
+        @media(max-width: 900px) {
+            .hero { grid-template-columns: 1fr; text-align: center; }
+            .hero-text h1 { font-size: 2.5rem; }
+        }
     </style>
 </head>
-<body class="antialiased">
+<body>
 
-    <div class="bg-blue-600/10 border-b border-blue-500/20 py-2 overflow-hidden whitespace-nowrap">
-        <div class="animate-marquee flex items-center space-x-12 text-sm font-medium text-blue-400">
-            <span>🚀 NEW: AWS Infrastructure Audits now available</span>
-            <span>💎 20% Discount for First-Time SaaS Migrations</span>
-            <span>⚡ DeployLynx: The Future of Cloud Automation</span>
-            <span>🚀 NEW: AWS Infrastructure Audits now available</span>
-            <span>💎 20% Discount for First-Time SaaS Migrations</span>
-            <span>⚡ DeployLynx: The Future of Cloud Automation</span>
+<div class="cursor" id="customCursor"></div>
+
+<div class="top-bar">
+    🚀 NEW: AWS Infrastructure Audits available | 💎 20% Discount for SaaS Migrations
+</div>
+
+<nav>
+    <a href="index.html" class="logo">Deploy<span>Lynx</span></a>
+    <div class="menu">
+        <a href="index.html">Home</a>
+        <a href="about.html">About</a>
+        <a href="services.html">Services</a>
+        <a href="contact.html">Contact</a>
+    </div>
+</nav>
+
+<section class="hero">
+    <div class="hero-text">
+        <h1>Build Scalable<br><span style="color:var(--primary-cyan)">Cloud Systems</span></h1>
+        <p>I help startups deploy and scale apps on AWS with automated DevOps pipelines. Enterprise-grade infrastructure for modern SaaS—built for reliability and growth.</p>
+        <a href="contact.html" class="btn">Get Free Consultation</a>
+    </div>
+    <div class="hero-image">
+        <img src="https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&fit=crop&q=80&w=2070" alt="Cloud Infrastructure">
+    </div>
+</section>
+
+<section class="section">
+    <h2>Our Core Expertise</h2>
+    <div class="grid">
+        <div class="card">
+            <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&q=80&w=2015" class="card-img" alt="Migration">
+            <div class="card-content">
+                <h3>Seamless Migration</h3>
+                <p>Zero-downtime migrations from on-premise or legacy systems to AWS with full data integrity and security.</p>
+            </div>
+        </div>
+        <div class="card">
+            <img src="https://images.unsplash.com/photo-1558494949-ef010cbdcc51?auto=format&fit=crop&q=80&w=2026" class="card-img" alt="DevSecOps">
+            <div class="card-content">
+                <h3>Advanced DevSecOps</h3>
+                <p>Embedding security into your CI/CD pipelines with automated vulnerability scanning and compliance as code.</p>
+            </div>
+        </div>
+        <div class="card">
+            <img src="https://images.unsplash.com/photo-1518433278983-2623efc30939?auto=format&fit=crop&q=80&w=1925" class="card-img" alt="Scaling">
+            <div class="card-content">
+                <h3>Auto Scaling Solutions</h3>
+                <p>Infrastructure that grows with your users. We optimize resource allocation to reduce costs and maintain performance.</p>
+            </div>
         </div>
     </div>
+</section>
 
-    <nav>
-        <a href="index.html" class="logo">DeployLynx</a>
-        <div class="menu">
-            <a href="index.html">Home</a>
-            <a href="about.html">About</a>
-            <a href="services.html">Services</a>
-            <a href="case-studies.html" class="active">Case Studies</a>
-            <a href="contact.html" class="contact-btn">Contact</a>
-        </div>
-    </nav>
+<div class="cta-box">
+    <h2 style="font-size: 2.5rem; margin-bottom: 20px;">Ready to scale your infrastructure?</h2>
+    <p style="margin-bottom: 40px; color: #cbd5e1;">Join startups that trust DeployLynx for cloud excellence.</p>
+    <a href="contact.html" class="btn">Speak With Our Experts</a>
+</div>
 
-    <section class="grid md:grid-cols-2 gap-12 items-center px-8 py-20 max-w-7xl mx-auto">
-        <div class="text-left">
-            <h1 class="text-6xl md:text-7xl font-bold mb-6 tracking-tight leading-tight">Build Scalable <span class="gradient-text">Cloud Systems</span></h1>
-            <p class="text-gray-400 text-lg mb-8 leading-relaxed">Enterprise-grade infrastructure for modern SaaS. We automate your DevOps so you can focus on building your product.</p>
-            <div class="flex flex-wrap gap-4">
-                <a href="https://wa.me/923713600892" target="_blank" class="bg-blue-600 px-8 py-4 rounded-xl font-bold text-lg btn-glow">Get Free Consultation</a>
-                <button onclick="openPopup()" class="glass px-8 py-4 rounded-xl font-bold text-lg border border-white/10 hover:bg-white/5">Quick Lead Form</button>
-            </div>
-        </div>
-        <div class="relative">
-            <img src="https://images.unsplash.com/photo-1550751827-4bd374c3f58b?q=80&w=2070&auto=format&fit=crop" alt="Hero Tech" class="rounded-3xl border border-white/10 shadow-2xl shadow-blue-500/10">
-        </div>
-    </section>
+<footer style="padding: 50px 8%; text-align: center; border-top: 1px solid var(--border);">
+    <p style="color: #94a3b8;">&copy; 2026 DeployLynx | Scalable Cloud & DevOps Agency</p>
+</footer>
 
-    <section id="services" class="py-24 px-8 max-w-7xl mx-auto">
-        <div class="text-center mb-16">
-            <h2 class="text-4xl font-bold mb-4">Our Core Expertise</h2>
-            <p class="text-gray-400 max-w-2xl mx-auto">Specialized solutions designed to handle the complexity of modern cloud architecture.</p>
-        </div>
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div class="glass p-8 rounded-3xl border border-white/10 service-card transition duration-300">
-                <div class="bg-blue-500/20 w-12 h-12 rounded-lg flex items-center justify-center mb-6">
-                    <svg class="w-6 h-6 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"/></svg>
-                </div>
-                <h3 class="text-xl font-bold mb-3">Seamless Migration</h3>
-                <p class="text-gray-400 text-sm leading-relaxed">Zero-downtime migrations from on-premise or legacy systems to AWS and Azure with full data integrity.</p>
-            </div>
-            <div class="glass p-8 rounded-3xl border border-white/10 service-card transition duration-300">
-                <div class="bg-purple-500/20 w-12 h-12 rounded-lg flex items-center justify-center mb-6">
-                    <svg class="w-6 h-6 text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
-                </div>
-                <h3 class="text-xl font-bold mb-3">Advanced DevSecOps</h3>
-                <p class="text-gray-400 text-sm leading-relaxed">Embedding security into your CI/CD pipelines with automated vulnerability scanning and compliance as code.</p>
-            </div>
-            <div class="glass p-8 rounded-3xl border border-white/10 service-card transition duration-300">
-                <div class="bg-green-500/20 w-12 h-12 rounded-lg flex items-center justify-center mb-6">
-                    <svg class="w-6 h-6 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"/></svg>
-                </div>
-                <h3 class="text-xl font-bold mb-3">Auto Scaling Solutions</h3>
-                <p class="text-gray-400 text-sm leading-relaxed">Infrastructure that grows with your users. We optimize resource allocation to reduce costs and maintain performance.</p>
-            </div>
-        </div>
-    </section>
+<script>
+    document.addEventListener("mousemove", e => { 
+        const cursor = document.getElementById("customCursor");
+        cursor.style.left = e.clientX + "px"; 
+        cursor.style.top = e.clientY + "px"; 
+    });
+</script>
 
-    <section class="px-8 py-16 max-w-7xl mx-auto">
-        <div class="bg-blue-600 rounded-[3rem] p-12 md:p-20 grid md:grid-cols-2 gap-10 items-center overflow-hidden relative">
-            <div class="relative z-10">
-                <h2 class="text-4xl md:text-5xl font-bold mb-6">Ready to scale your infrastructure?</h2>
-                <button onclick="openPopup()" class="bg-white text-blue-600 px-8 py-4 rounded-xl font-bold text-lg hover:bg-gray-100 transition flex items-center">
-                    SPEAK WITH OUR EXPERTS 
-                    <svg class="ml-2 h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
-                </button>
-            </div>
-            <div class="relative group">
-                <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=2426&auto=format&fit=crop" class="rounded-2xl shadow-2xl transform group-hover:rotate-2 transition duration-500">
-            </div>
-        </div>
-    </section>
-
-    <footer class="py-16 px-8 max-w-7xl mx-auto border-t border-white/10 flex flex-col md:flex-row justify-between items-center text-gray-500">
-        <div class="mb-6 md:mb-0 text-center md:text-left">
-            <div class="text-2xl font-bold text-white mb-2 tracking-tighter">Deploy<span class="text-blue-500">Lynx</span></div>
-            <p class="text-sm">Scalable Cloud & DevOps Agency</p>
-        </div>
-        <div class="flex space-x-8 font-medium">
-            <a href="https://www.linkedin.com/company/linkedin-deploylynx-devops/" class="hover:text-blue-400">LinkedIn</a>
-            <a href="https://wa.me/923713600892" class="hover:text-blue-400">WhatsApp</a>
-            <a href="mailto:deploylynx26@gmail.com" class="hover:text-blue-400">Email</a>
-        </div>
-    </footer>
-
-    <div id="lead-popup" class="fixed inset-0 bg-black/90 backdrop-blur-md flex items-center justify-center z-[100] hidden px-4">
-        <div class="glass p-10 rounded-3xl w-full max-w-md relative border border-white/20">
-            <button onclick="closePopup()" class="absolute top-5 right-5 text-gray-400 hover:text-white text-3xl">&times;</button>
-            <h3 id="formHeading" class="text-3xl font-bold mb-6 text-center gradient-text">Get Free Quote</h3>
-            
-            <form id="contactForm" class="space-y-4">
-                <input type="text" name="Name" id="userName" placeholder="Your Name" required class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-4 focus:border-blue-500 outline-none">
-                <input type="email" name="Email" id="userEmail" placeholder="Email" required class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-4 focus:border-blue-500 outline-none">
-                <textarea name="Message" id="userMessage" placeholder="Project details" rows="3" required class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-4 focus:border-blue-500 outline-none"></textarea>
-                
-                <input type="hidden" name="Country" id="trackCountry">
-                <input type="hidden" name="City" id="trackCity">
-
-                <button type="submit" id="submitBtn" class="w-full bg-blue-600 py-4 rounded-xl font-bold text-lg btn-glow">Send Inquiry</button>
-            </form>
-            
-            <p id="successMsg" class="hidden text-center text-blue-400 font-bold mt-4">✨ Message Sent Successfully! We will contact you soon.</p>
-        </div>
-    </div>
-
-    <script>
-        function openPopup() { document.getElementById('lead-popup').classList.remove('hidden'); }
-        function closePopup() { 
-            document.getElementById('lead-popup').classList.add('hidden');
-            if(!document.getElementById('successMsg').classList.contains('hidden')) {
-                location.reload(); 
-            }
-        }
-
-        fetch('https://ipapi.co/json/')
-            .then(res => res.json())
-            .then(data => {
-                document.getElementById('trackCountry').value = data.country_name || "Unknown";
-                document.getElementById('trackCity').value = data.city || "Unknown";
-            }).catch(e => console.log("Tracker blocked"));
-
-        const form = document.getElementById('contactForm');
-        const btn = document.getElementById('submitBtn');
-
-        form.addEventListener('submit', function(e) {
-            e.preventDefault();
-            btn.disabled = true;
-            btn.innerText = "SENDING...";
-
-            const formData = new FormData(form);
-
-            fetch("https://formspree.io/f/xpqykbvr", {
-                method: "POST",
-                body: formData,
-                headers: { 'Accept': 'application/json' }
-            });
-
-            const scriptURL = "https://script.google.com/macros/s/AKfycbz-n69boQvKuZ1b2eomihHO87Tee7ZkyIb2vTpXNoJRapY9KkUY5TqDPMWGvAIglsEm/exec";
-            
-            fetch(scriptURL, { method: 'POST', body: formData, mode: 'no-cors' })
-            .then(() => {
-                confetti({
-                    particleCount: 150,
-                    spread: 70,
-                    origin: { y: 0.6 },
-                    colors: ['#60a5fa', '#a855f7', '#ffffff']
-                });
-
-                document.getElementById('formHeading').innerText = "Congrats!";
-                form.classList.add('hidden');
-                document.getElementById('successMsg').classList.remove('hidden');
-            })
-            .catch(err => {
-                console.error("Error!", err);
-                btn.disabled = false;
-                btn.innerText = "Send Inquiry";
-            });
-        });
-    </script>
 </body>
 </html>
