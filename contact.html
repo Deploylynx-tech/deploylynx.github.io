@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>DeployLynx | Schedule Consultation</title>
+    <title>DeployLynx | Cloud Strategy Call</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
 
@@ -12,136 +12,113 @@
             --accent-pink: #ff6ec7;
             --dark-bg: #0a0f1c;
             --input-bg: rgba(0,0,0,0.5);
-            --glass-bg: rgba(255, 255, 255, 0.03);
             --form-bg: rgba(15, 23, 42, 0.8);
+            --glass-border: rgba(0, 198, 255, 0.2);
         }
 
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', 'Segoe UI', sans-serif; }
-        body { background: var(--dark-bg); color: #fff; overflow-x: hidden; cursor: none; min-height: 100vh; }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
+        body { background: var(--dark-bg); color: #fff; overflow-x: hidden; cursor: none; }
 
-        /* FIXED PREMIUM NAVBAR */
+        /* NAV */
         nav {
             display: flex; justify-content: space-between; align-items: center; padding: 20px 8%;
-            background: rgba(10, 15, 28, 0.9); position: sticky; top: 0; z-index: 1000;
-            backdrop-filter: blur(10px); border-bottom: 1px solid rgba(0, 198, 255, 0.2);
+            background: rgba(10, 15, 28, 0.95); position: sticky; top: 0; z-index: 1000;
+            backdrop-filter: blur(10px); border-bottom: 1px solid var(--glass-border);
         }
-
-        .logo { font-size: 26px; color: var(--primary-cyan); font-weight: 800; text-decoration: none; letter-spacing: -1px; }
+        .logo { font-size: 26px; color: var(--primary-cyan); font-weight: 800; text-decoration: none; }
         .logo span { color: white; }
-        .menu a { margin-left: 25px; color: #94a3b8; text-decoration: none; transition: 0.3s; font-size: 0.95rem; font-weight: 500; }
-        .menu a:hover { color: var(--primary-cyan); text-shadow: 0 0 10px rgba(0, 198, 255, 0.5); }
+        .menu a { margin-left: 25px; color: #94a3b8; text-decoration: none; font-size: 0.95rem; transition: 0.3s; }
+        .menu a:hover { color: var(--primary-cyan); }
 
-        /* LAYOUT STRUCTURE */
+        /* HERO LAYOUT */
         .container {
-            display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 40px; padding: 60px 8% 100px;
-            position: relative; z-index: 2; max-width: 1400px; margin: 0 auto; align-items: center;
+            display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 40px; padding: 80px 8% 40px;
+            max-width: 1400px; margin: auto; align-items: center;
         }
 
-        .details-col { display: flex; flex-direction: column; }
-        
         .typing-title {
-            font-size: 3rem; font-weight: 800; color: white; line-height: 1.1; margin-bottom: 20px;
-            background: linear-gradient(90deg, #fff, var(--primary-cyan)); -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+            font-size: 3.5rem; font-weight: 800; line-height: 1.1;
+            background: linear-gradient(90deg, #fff, var(--primary-cyan));
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
         }
+        .typing-quote { color: #cbd5e1; margin: 25px 0; line-height: 1.7; font-size: 1.1rem; }
+        .highlight { color: var(--primary-cyan); font-weight: 600; }
 
-        .typing-quote { font-size: 1.05rem; color: #cbd5e1; line-height: 1.6; margin-bottom: 35px; max-width: 550px; }
-        .typing-quote span.highlight { color: var(--primary-cyan); font-weight: 600; }
-
-        /* FORM DESIGN */
+        /* PREMIUM FORM */
         .booking-card {
-            background: var(--form-bg); padding: 35px; border-radius: 20px; width: 100%; max-width: 520px;
-            backdrop-filter: blur(20px); border: 1px solid rgba(0, 198, 255, 0.2); 
-            box-shadow: 0 20px 60px rgba(0,0,0,0.4); margin-bottom: 40px;
+            background: var(--form-bg); padding: 35px; border-radius: 24px;
+            border: 1px solid var(--glass-border); box-shadow: 0 25px 50px rgba(0,0,0,0.5);
+            backdrop-filter: blur(20px);
         }
-
-        .booking-card h3 { margin-bottom: 25px; color: #fff; font-size: 20px; font-weight: 600; }
-        
+        .booking-card h3 { margin-bottom: 25px; font-size: 1.4rem; color: #fff; }
         .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
 
         input, textarea, select {
-            width: 100%; margin-bottom: 15px; padding: 14px 16px; border: 1px solid rgba(255,255,255,0.1);
-            border-radius: 10px; background: var(--input-bg); color: #fff; outline: none; font-size: 0.9rem; transition: 0.3s;
+            width: 100%; padding: 15px; border-radius: 12px; border: 1px solid rgba(255,255,255,0.1);
+            background: var(--input-bg); color: #fff; margin-bottom: 15px; outline: none; transition: 0.3s;
         }
-        
         input:focus, select:focus, textarea:focus { border-color: var(--primary-cyan); background: rgba(0, 198, 255, 0.05); }
 
         button {
-            width: 100%; padding: 16px; border: none; border-radius: 10px; background: var(--primary-cyan);
-            color: #000; font-weight: 700; cursor: pointer; transition: 0.3s; text-transform: uppercase; letter-spacing: 1px;
+            width: 100%; padding: 18px; border: none; border-radius: 12px; background: var(--primary-cyan);
+            color: #000; font-weight: 800; cursor: pointer; transition: 0.3s; text-transform: uppercase; letter-spacing: 1px;
         }
-        button:hover:not(:disabled) { background: #fff; box-shadow: 0 0 20px rgba(0, 198, 255, 0.4); transform: translateY(-2px); }
+        button:hover:not(:disabled) { transform: translateY(-3px); box-shadow: 0 10px 25px rgba(0, 198, 255, 0.4); background: #fff; }
 
-        /* SOCIAL LINKS */
-        .social-grid { display: flex; flex-wrap: wrap; gap: 10px; width: 100%; max-width: 520px; }
-        .social-link {
-            padding: 10px 18px; background: var(--glass-bg); border: 1px solid rgba(255, 255, 255, 0.08);
-            border-radius: 50px; color: #94a3b8; text-decoration: none; text-align: center; transition: 0.3s; font-size: 0.8rem;
-        }
-        .social-link:hover { border-color: var(--primary-cyan); color: #fff; transform: translateY(-2px); background: rgba(0, 198, 255, 0.1); }
-
-        /* RIGHT SIDE ANIMATION AREA */
-        .animation-col {
-            display: flex; justify-content: center; align-items: center; min-height: 400px;
-            position: relative;
-        }
-
-        /* Tech Constellation Animation */
+        /* ADVANCED ANIMATION */
+        .animation-col { display: flex; justify-content: center; align-items: center; position: relative; }
         .tech-sphere {
-            width: 350px; height: 350px;
-            background: radial-gradient(circle, rgba(0, 198, 255, 0.15) 0%, transparent 70%);
-            border-radius: 50%; position: relative;
-            animation: pulse 4s ease-in-out infinite;
+            width: 380px; height: 380px; border-radius: 50%;
+            background: radial-gradient(circle, rgba(0, 198, 255, 0.2), transparent);
+            position: relative; animation: pulse 4s infinite ease-in-out;
+            display: flex; align-items: center; justify-content: center;
         }
-
-        .tech-sphere::after {
+        .tech-sphere::before {
             content: ''; position: absolute; width: 100%; height: 100%;
             border: 2px dashed rgba(0, 198, 255, 0.3); border-radius: 50%;
             animation: rotate 20s linear infinite;
         }
-
         .floating-icon {
-            position: absolute; width: 50px; height: 50px;
-            background: var(--form-bg); border: 1px solid var(--primary-cyan);
-            border-radius: 12px; display: flex; align-items: center; justify-content: center;
-            font-size: 20px; box-shadow: 0 0 15px rgba(0, 198, 255, 0.3);
-            animation: float 6s ease-in-out infinite;
+            position: absolute; width: 50px; height: 50px; background: var(--form-bg);
+            border: 1px solid var(--primary-cyan); border-radius: 12px;
+            display: flex; align-items: center; justify-content: center; font-size: 20px;
+            box-shadow: 0 0 15px rgba(0, 198, 255, 0.3); animation: float 6s infinite ease-in-out;
         }
 
-        @keyframes float {
-            0%, 100% { transform: translateY(0) rotate(0deg); }
-            50% { transform: translateY(-20px) rotate(5deg); }
+        /* PRICING SECTION */
+        .section { padding: 80px 8%; text-align: center; }
+        .section h2 { font-size: 2.5rem; margin-bottom: 40px; }
+        .card-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; }
+        .card { 
+            background: var(--form-bg); padding: 40px; border-radius: 20px; 
+            border: 1px solid rgba(255,255,255,0.08); transition: 0.3s;
         }
+        .card:hover { border-color: var(--primary-cyan); transform: translateY(-10px); }
+        .price { font-size: 2.5rem; font-weight: 800; margin: 20px 0; color: var(--primary-cyan); }
+        .price span { font-size: 1rem; color: #94a3b8; }
 
-        @keyframes rotate { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
-        
-        @keyframes pulse {
-            0%, 100% { transform: scale(1); opacity: 0.8; }
-            50% { transform: scale(1.1); opacity: 1; }
-        }
-
-        /* SUCCESS POPUP */
+        /* POPUP */
         #successPopup {
             display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%);
-            background: var(--form-bg); padding: 40px; border-radius: 20px; border: 2px solid var(--primary-cyan);
-            text-align: center; z-index: 2000; box-shadow: 0 0 50px rgba(0, 198, 255, 0.5); backdrop-filter: blur(20px);
+            background: #0f172a; padding: 50px; border-radius: 30px; border: 2px solid var(--primary-cyan);
+            text-align: center; z-index: 2000; box-shadow: 0 0 100px rgba(0, 198, 255, 0.4); backdrop-filter: blur(30px);
         }
-        #closePopup { margin-top: 25px; padding: 10px 20px; background: var(--primary-cyan); border: none; color: #000; border-radius: 5px; cursor: pointer; width: auto; font-weight: bold; }
 
-        canvas#dotsBackground { position: fixed; top: 0; left: 0; z-index: 0; pointer-events: none; }
-        .cursor { width: 10px; height: 10px; background: gold; border-radius: 50%; position: fixed; pointer-events: none; box-shadow: 0 0 15px gold; transform: translate(-50%, -50%); z-index: 9999; }
+        /* UTILS */
+        @keyframes pulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.05); } }
+        @keyframes rotate { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+        @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-20px); } }
+        .cursor { width: 10px; height: 10px; background: gold; border-radius: 50%; position: fixed; pointer-events: none; z-index: 9999; box-shadow: 0 0 15px gold; transform: translate(-50%, -50%); }
 
-        @media screen and (max-width: 1000px) {
-            .container { grid-template-columns: 1fr; padding-top: 40px; text-align: center; }
-            .details-col { align-items: center; }
+        @media(max-width:1000px){
+            .container { grid-template-columns: 1fr; text-align: center; }
             .animation-col { display: none; }
-            .social-grid { justify-content: center; }
-            .form-row { grid-template-columns: 1fr; }
+            .typing-title { font-size: 2.5rem; }
         }
     </style>
 </head>
 
 <body>
-<canvas id="dotsBackground"></canvas>
 <div class="cursor" id="customCursor"></div>
 
 <nav>
@@ -154,27 +131,31 @@
 </nav>
 
 <div class="container">
-    <div class="details-col">
-        <h1 class="typing-title">Ready to architect<br>the future?</h1>
+    <div>
+        <h1 class="typing-title">Ready to Architect<br>Your Cloud?</h1>
         <p class="typing-quote">
-            Whether you have a specific project in mind or need a deep dive into cloud reliability, 
-            DeployLynx builds <span class="highlight">scalable, secure, and production-ready</span> systems.
+            Deploy <span class="highlight">scalable, secure AWS infrastructure</span> with DevOps automation. 
+            We help startups and SaaS teams reduce deployment time and cut cloud costs by up to 30%.
         </p>
 
         <div class="booking-card">
-            <h3>Schedule Your Call</h3>
+            <h3>Book Free Cloud Strategy Call</h3>
             <form id="scheduleForm">
                 <div class="form-row">
-                    <input type="text" name="Name" placeholder="Your Name" required>
-                    <input type="email" name="Email" placeholder="Your Email" required>
+                    <input type="text" name="Name" placeholder="Full Name" required>
+                    <input type="email" name="Email" placeholder="Work Email" required>
                 </div>
-                <select name="Topic" required>
-                    <option value="" disabled selected>Select a Topic</option>
-                    <option value="Cloud Migration">Cloud Migration</option>
+                
+                <input type="text" name="Company" placeholder="Company / Startup Name" required>
+
+                <select name="Service" required>
+                    <option value="" disabled selected>What do you need help with?</option>
+                    <option value="AWS Migration">AWS Migration</option>
+                    <option value="CI/CD Setup">CI/CD & DevOps Automation</option>
                     <option value="Kubernetes">Kubernetes Architecture</option>
-                    <option value="CI/CD">CI/CD Pipeline</option>
-                    <option value="Other">Other</option>
+                    <option value="Cost Optimization">Cost Optimization</option>
                 </select>
+
                 <div class="form-row">
                     <input type="date" name="Date" required>
                     <select name="Time" required>
@@ -182,42 +163,57 @@
                         <option value="09:00 AM">09:00 AM</option>
                         <option value="12:00 PM">12:00 PM</option>
                         <option value="03:00 PM">03:00 PM</option>
+                        <option value="06:00 PM">06:00 PM</option>
                     </select>
                 </div>
-                <textarea name="Message" rows="3" placeholder="Brief Description of your needs"></textarea>
-                <button type="submit" id="submitBtn">Book Consultation</button>
-            </form>
-        </div>
 
-        <div class="social-grid">
-            <a href="tel:+923713600892" class="social-link">📞 +92 371</a>
-            <a href="https://github.com/Deploylynx-tech" class="social-link" target="_blank">GitHub</a>
-            <a href="https://linkedin.com" class="social-link" target="_blank">LinkedIn</a>
-            <a href="mailto:deploylynx26@gmail.com" class="social-link">Email</a>
-            <a href="https://instagram.com" class="social-link" target="_blank">Instagram</a>
-            <a href="https://wa.me/message/VXHPTQC4ZU46A1" class="social-link" target="_blank">WhatsApp</a>
+                <textarea name="Message" rows="3" placeholder="Briefly describe your current cloud setup or challenges"></textarea>
+
+                <button type="submit" id="submitBtn">Book Free Consultation</button>
+            </form>
         </div>
     </div>
 
     <div class="animation-col">
         <div class="tech-sphere">
-            <div class="floating-icon" style="top: 10%; left: 10%; animation-delay: 0s;">☁️</div>
-            <div class="floating-icon" style="top: 60%; right: 5%; animation-delay: 1s;">🛡️</div>
-            <div class="floating-icon" style="bottom: 10%; left: 20%; animation-delay: 2s;">⚙️</div>
-            <div class="floating-icon" style="top: 30%; right: 20%; animation-delay: 1.5s;">🚀</div>
-            <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); text-align: center;">
-                <div style="font-size: 60px;">📩</div>
-                <div style="color: var(--primary-cyan); font-weight: bold; margin-top: 10px;">LET'S CONNECT</div>
-            </div>
+            <div style="font-size: 80px;">☁️</div>
+            <div class="floating-icon" style="top: 0; left: 10%; animation-delay: 0s;">🛡️</div>
+            <div class="floating-icon" style="top: 20%; right: 0; animation-delay: 1s;">⚙️</div>
+            <div class="floating-icon" style="bottom: 10%; left: 0; animation-delay: 2s;">🚀</div>
+            <div class="floating-icon" style="bottom: 20%; right: 10%; animation-delay: 1.5s;">📊</div>
+        </div>
+    </div>
+</div>
+
+<div class="section">
+    <h2>Simple Pricing</h2>
+    <div class="card-grid">
+        <div class="card">
+            <h3>Cloud Audit</h3>
+            <div class="price">$499<span>/one-time</span></div>
+            <p style="color:#94a3b8; margin-bottom:20px;">Deep dive into your security, costs, and performance.</p>
+            <button onclick="window.location.href='#scheduleForm'" style="background:transparent; border:1px solid var(--primary-cyan); color:#fff;">Get Started</button>
+        </div>
+        <div class="card" style="border-color: var(--primary-cyan);">
+            <h3>DevOps Dedicated</h3>
+            <div class="price">$1,999<span>/mo</span></div>
+            <p style="color:#94a3b8; margin-bottom:20px;">Ongoing CI/CD, scaling support, and 24/7 monitoring.</p>
+            <button onclick="window.location.href='#scheduleForm'">Scale Now</button>
+        </div>
+        <div class="card">
+            <h3>Custom Project</h3>
+            <div class="price">Quote</div>
+            <p style="color:#94a3b8; margin-bottom:20px;">End-to-end migrations or Kubernetes infrastructure builds.</p>
+            <button onclick="window.location.href='#scheduleForm'" style="background:transparent; border:1px solid var(--primary-cyan); color:#fff;">Request Quote</button>
         </div>
     </div>
 </div>
 
 <div id="successPopup">
-    <div style="font-size: 50px; margin-bottom: 15px;">✨</div>
-    <h3 style="color: var(--primary-cyan); font-size: 24px;">Message Sent!</h3>
-    <p style="color: white; margin-top: 10px;">Shortly we will contact with you.</p>
-    <button id="closePopup">Close</button>
+    <div style="font-size: 60px; margin-bottom: 20px;">✨🚀</div>
+    <h3 style="color: var(--primary-cyan); font-size: 28px;">Booking Requested!</h3>
+    <p style="color: #cbd5e1; margin-top: 10px;">We've received your details. An engineer will reach out shortly.</p>
+    <button id="closePopup" style="margin-top:30px; width:auto; padding:12px 40px;">Back to Site</button>
 </div>
 
 <script>
@@ -232,12 +228,14 @@
 
         const formData = new FormData(form);
 
+        // 1. Send to Formspree
         fetch("https://formspree.io/f/xpqykbvr", {
             method: "POST",
             body: formData,
             headers: { 'Accept': 'application/json' }
         });
 
+        // 2. Send to Google Sheets
         const scriptURL = "https://script.google.com/macros/s/AKfycbz-n69boQvKuZ1b2eomihHO87Tee7ZkyIb2vTpXNoJRapY9KkUY5TqDPMWGvAIglsEm/exec";
         
         fetch(scriptURL, {
@@ -246,44 +244,25 @@
             mode: 'no-cors'
         }).then(() => {
             confetti({ 
-                particleCount: 150, 
-                spread: 70, 
-                origin: { y: 0.6 }, 
-                colors: ['#00c6ff', '#ff6ec7', '#ffffff'] 
+                particleCount: 200, 
+                spread: 90, 
+                origin: { y: 0.6 },
+                colors: ['#00c6ff', '#ffffff', '#ff6ec7']
             });
             popup.style.display = "block";
-            submitBtn.innerText = "Book Consultation";
+            submitBtn.innerText = "Book Free Consultation";
             submitBtn.disabled = false;
             form.reset();
-        }).catch(err => {
-            console.error("Sheet Error", err);
-            submitBtn.disabled = false;
-            submitBtn.innerText = "Book Consultation";
         });
     });
 
     document.getElementById("closePopup").onclick = () => popup.style.display = "none";
-    
+
     document.addEventListener("mousemove", e => { 
         const cursor = document.getElementById("customCursor");
-        if(cursor) {
-            cursor.style.left = e.clientX + "px"; 
-            cursor.style.top = e.clientY + "px"; 
-        }
+        cursor.style.left = e.clientX + "px"; 
+        cursor.style.top = e.clientY + "px"; 
     });
-
-    const canvas = document.getElementById("dotsBackground");
-    const ctx = canvas.getContext("2d");
-    function resize() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
-    window.addEventListener('resize', resize); resize();
-    let dotsArr = [];
-    for(let i=0; i<60; i++) dotsArr.push({ x: Math.random() * canvas.width, y: Math.random() * canvas.height, vy: Math.random() * 0.3 });
-    function animate() {
-        ctx.clearRect(0,0,canvas.width,canvas.height); ctx.fillStyle = "rgba(0, 198, 255, 0.3)";
-        dotsArr.forEach(d => { d.y += d.vy; if(d.y > canvas.height) d.y = 0; ctx.beginPath(); ctx.arc(d.x, d.y, 1, 0, Math.PI * 2); ctx.fill(); });
-        requestAnimationFrame(animate);
-    }
-    animate();
 </script>
 </body>
 </html>
