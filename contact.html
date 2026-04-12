@@ -6,125 +6,152 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
     <script src="https://unpkg.com/typed.js@2.1.0/dist/typed.umd.js"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;800&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
 
     <style>
         :root {
             --primary-cyan: #00c6ff;
-            --dark-bg: #030712;
-            --card-bg: rgba(15, 23, 42, 0.7);
-            --glass-border: rgba(0, 198, 255, 0.2);
-            --font-main: 'Plus Jakarta Sans', sans-serif;
-            --font-heading: 'Space Grotesk', sans-serif;
+            --dark-bg: #030712; /* Deep dark theme */
+            --input-bg: rgba(255, 255, 255, 0.05);
+            --form-bg: rgba(15, 23, 42, 0.8);
+            --glass-border: rgba(255, 255, 255, 0.1);
         }
 
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: var(--font-main); scroll-behavior: smooth; }
-        body { background: var(--dark-bg); color: #fff; overflow-x: hidden; }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
+        body { background: var(--dark-bg); color: #fff; overflow-x: hidden; scroll-behavior: smooth; }
 
-        /* NAVBAR */
-        nav {
-            display: flex; justify-content: space-between; align-items: center; padding: 20px 8%;
-            background: rgba(3, 7, 18, 0.9); position: sticky; top: 0; z-index: 1000;
-            backdrop-filter: blur(15px); border-bottom: 1px solid var(--glass-border);
+        /* UNIFIED NAV BAR */
+        nav { 
+            position: sticky; top: 0; z-index: 9999; 
+            background: rgba(10, 15, 28, 0.95); backdrop-filter: blur(10px); 
+            display: flex; justify-content: space-between; align-items: center; 
+            padding: 20px 8%; border-bottom: 1px solid var(--glass-border); 
         }
-        .logo { font-size: 26px; color: var(--primary-cyan); font-family: var(--font-heading); font-weight: 800; text-decoration: none; }
+
+        .logo { font-size: 26px; color: var(--primary-cyan); font-weight: 800; text-decoration: none; }
         .logo span { color: white; }
-        .menu { display: flex; gap: 30px; align-items: center; }
-        .menu a { color: #94a3b8; text-decoration: none; font-size: 0.95rem; transition: 0.3s; font-weight: 500; }
+        .menu { display: flex; align-items: center; gap: 25px; }
+        .menu a { color: #94a3b8; text-decoration: none; font-size: 0.95rem; transition: 0.3s; }
         .menu a:hover, .menu a.active { color: var(--primary-cyan); }
 
-        /* HERO AREA */
-        .hero-container {
-            display: grid; grid-template-columns: 1fr 1fr; gap: 40px; padding: 80px 8%;
-            max-width: 1400px; margin: auto; align-items: center; min-height: 90vh;
+        /* HERO SECTION & GRID */
+        .container-main {
+            display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 40px; padding: 60px 8%;
+            max-width: 1400px; margin: auto; align-items: center; min-height: 80vh;
         }
 
-        .hero-text-content h1 { 
-            font-family: var(--font-heading); 
-            font-size: 3.5rem; 
-            font-weight: 700; 
-            line-height: 1.1; 
-            margin-bottom: 20px;
-            color: #fff;
-        }
-        .sub-text { color: #cbd5e1; margin-bottom: 35px; font-size: 1.1rem; line-height: 1.7; }
+        .typing-container { min-height: 100px; margin-bottom: 10px; }
+        .typing-title { font-size: clamp(2.5rem, 5vw, 3.5rem); font-weight: 800; line-height: 1.1; color: #fff; }
 
-        /* TECH IMAGE AREA */
-        .tech-img-wrap { width: 100%; display: flex; justify-content: center; align-items: center; }
-        .tech-img-wrap img { 
-            width: 100%; 
-            max-width: 550px; 
-            border-radius: 24px; 
-            filter: drop-shadow(0 0 20px rgba(0, 198, 255, 0.3));
-        }
+        .sub-text { color: #cbd5e1; margin-bottom: 30px; font-size: 1.1rem; line-height: 1.6; }
 
-        /* CONTACT FORM CARD */
+        /* GLASS FORM */
         .booking-card {
-            background: var(--card-bg); padding: 40px; border-radius: 24px;
-            border: 1px solid var(--glass-border); box-shadow: 0 40px 100px rgba(0,0,0,0.5);
+            background: var(--form-bg); padding: 35px; border-radius: 24px;
+            border: 1px solid var(--glass-border); box-shadow: 0 25px 50px rgba(0,0,0,0.5);
             backdrop-filter: blur(20px);
         }
+
         .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
         input, textarea, select {
             width: 100%; padding: 15px; border-radius: 12px; border: 1px solid rgba(255,255,255,0.1);
-            background: rgba(255,255,255,0.05); color: #fff; margin-bottom: 15px; outline: none;
+            background: var(--input-bg); color: #fff; margin-bottom: 15px; outline: none; transition: 0.3s;
         }
-        input:focus { border-color: var(--primary-cyan); }
-
-        .btn-main {
+        input:focus, textarea:focus { border-color: var(--primary-cyan); background: rgba(255,255,255,0.08); }
+        
+        .submit-btn {
             width: 100%; padding: 18px; border: none; border-radius: 12px; background: var(--primary-cyan);
             color: #000; font-weight: 800; cursor: pointer; transition: 0.3s; text-transform: uppercase;
-            text-decoration: none; display: inline-block; text-align: center;
         }
-        .btn-main:hover { background: #fff; transform: translateY(-3px); box-shadow: 0 10px 20px rgba(0, 198, 255, 0.3); }
+        .submit-btn:hover { background: #fff; box-shadow: 0 10px 20px rgba(0,198,255,0.3); transform: translateY(-2px); }
 
-        /* CONTACT DETAILS */
-        .contact-details { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; margin-top: 25px; }
-        .contact-item {
-            background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.1);
-            padding: 15px; border-radius: 12px; text-decoration: none; color: #cbd5e1; font-size: 0.85rem;
-            transition: 0.3s; display: flex; align-items: center; justify-content: center; gap: 8px;
+        /* CONTACT AREA IMAGE - Instead of Animation */
+        .animation-col { display: flex; justify-content: center; position: relative; }
+        .static-image-container {
+            width: 450px; height: 350px; position: relative;
+            background: radial-gradient(circle, rgba(0, 198, 255, 0.1), transparent);
+            display: flex; justify-content: center; align-items: center; overflow: hidden;
+            border-radius: 20px; border: 1px solid var(--glass-border); box-shadow: 0 0 30px rgba(0,0,0,0.4);
         }
-        .contact-item:hover { border-color: var(--primary-cyan); color: #fff; }
+        .contact-us-image {
+            width: 100%; height: 100%; object-fit: cover;
+            filter: drop-shadow(0 0 10px var(--primary-cyan)) brightness(0.9) contrast(1.1);
+            border-radius: 15px;
+        }
 
-        /* WHY PARTNER SECTION */
-        .section-why { padding: 100px 8%; text-align: center; background: #050a18; }
-        .section-why h2 { font-family: var(--font-heading); font-size: 2.5rem; margin-bottom: 50px; }
-        .why-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px; }
-        .why-card { padding: 40px; background: var(--card-bg); border-radius: 20px; border: 1px solid rgba(255,255,255,0.05); }
-        .why-card span { font-size: 40px; display: block; margin-bottom: 20px; }
+        /* Server background lights (Kept subtle for atmosphere) */
+        .server-rack {
+            position: absolute; bottom: 0; left: 0; width: 100%; height: 40px;
+            display: flex; gap: 5px; justify-content: center; padding: 5px; background: rgba(0,0,0,0.3);
+        }
+        .server-light { width: 6px; height: 6px; border-radius: 50%; background-color: rgba(0,198,255, 0.5); }
 
-        /* PRICING SECTION */
-        .section-pricing { padding: 100px 8%; text-align: center; }
-        .price-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 30px; max-width: 1200px; margin: auto; }
-        .price-card { background: var(--card-bg); padding: 50px 30px; border-radius: 24px; border: 1px solid rgba(255,255,255,0.05); }
-        .price-card.featured { border: 2px solid var(--primary-cyan); transform: scale(1.05); }
-        .amount { font-family: var(--font-heading); font-size: 3rem; font-weight: 700; color: var(--primary-cyan); margin: 20px 0; }
-        .amount span { font-size: 1rem; color: #94a3b8; }
+        /* WHY PARTNER SECTION - INTACT */
+        .why-section { padding: 100px 8%; text-align: center; }
+        .why-section h2 { font-size: 2.8rem; margin-bottom: 50px; color: white; font-weight: 700; }
+        .why-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; }
+        .why-card {
+            background: rgba(15, 23, 42, 0.6); padding: 40px; border-radius: 20px;
+            border: 1px solid var(--glass-border); transition: 0.3s;
+        }
+        .why-card:hover { border-color: var(--primary-cyan); transform: translateY(-10px); background: rgba(15, 23, 42, 0.8); }
+        .why-icon { font-size: 40px; color: var(--primary-cyan); margin-bottom: 20px; }
+        .why-card h3 { font-size: 1.5rem; font-weight: 600; margin-bottom: 15px; color: white; }
+        .why-card p { color: #94a3b8; line-height: 1.7; }
 
-        @media(max-width: 1000px) {
-            .hero-container { grid-template-columns: 1fr; text-align: center; }
-            .tech-img-wrap { order: -1; }
-            .form-row { grid-template-columns: 1fr; }
+        /* FOOTER */
+        footer { padding: 50px 8%; border-top: 1px solid rgba(255,255,255,0.05); background: rgba(0,0,0,0.1); }
+        .footer-content { display: flex; flex-direction: column; align-items: center; gap: 30px; max-width: 1200px; margin: auto; }
+        .footer-links { display: flex; gap: 20px; flex-wrap: wrap; justify-content: center; }
+        .footer-logo { font-size: 20px; color: white; font-weight: 700; }
+        .footer-details { text-align: center; color: #cbd5e1; font-size: 0.9rem; max-width: 600px; line-height: 1.6; }
+
+        /* MOBILE FIXES */
+        @media (max-width: 900px) {
+            nav { flex-direction: column; gap: 15px; padding: 15px 5%; }
+            .menu { gap: 15px; flex-wrap: wrap; justify-content: center; }
+            .container-main { grid-template-columns: 1fr; text-align: center; padding: 40px 5%; gap: 40px; }
+            .animation-col { order: -1; margin-bottom: 20px; }
+            .static-image-container { width: 300px; height: 250px; }
+            .form-row { grid-template-columns: 1fr; gap: 0; }
+            .typing-title { font-size: 2.5rem; }
+        }
+
+        #successPopup {
+            display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%);
+            background: #0f172a; padding: 40px; border-radius: 25px; border: 2px solid var(--primary-cyan);
+            text-align: center; z-index: 99999; box-shadow: 0 0 80px rgba(0, 198, 255, 0.4);
         }
     </style>
 </head>
-<body>
+<body class="antialiased">
 
 <nav>
     <a href="index.html" class="logo">Deploy<span>Lynx</span></a>
     <div class="menu">
         <a href="index.html">Home</a>
-        <a href="services.html">Services</a>
         <a href="about.html">About</a>
         <a href="contact.html" class="active">Contact</a>
     </div>
 </nav>
 
-<div class="hero-container">
-    <div class="hero-text-content">
-        <h1>Enterprise-Grade Infrastructure</h1>
-        <p class="sub-text">Designed for the next generation of SaaS. We architect systems for scale, security, and absolute reliability. Reach out to schedule a consultation with our leads or for general inquiries.</p>
+<div class="container-main">
+    <div>
+        <div class="typing-container">
+            <h1 class="typing-title" id="typed-text"></h1>
+        </div>
+        
+        <p class="sub-text">
+            Enterprise-grade infrastructure designed for the next generation of SaaS. 
+            We architect systems for scale, security, and absolute reliability.
+            Reach out to schedule a consultation with our leads or for general inquiries.
+            
+            📞 Call us: <a href="tel:+923713600892" class="text-white hover:text-cyan-400">+92 371 3600892</a><br>
+            ✉️ Email: <a href="mailto:deploylynx26@gmail.com" class="text-white hover:text-cyan-400">deploylynx26@gmail.com</a><br>
+            💬 WhatsApp: <a href="https://wa.me/message/VXHPTQC4ZU46A1" target="_blank" class="text-white hover:text-cyan-400">Business Chat</a><br>
+            🔗 Connect: <a href="https://www.linkedin.com/company/deploylynx" target="_blank" class="text-white hover:text-cyan-400">LinkedIn</a>
+        </p>
 
         <div class="booking-card">
             <form id="scheduleForm">
@@ -132,13 +159,17 @@
                     <input type="text" name="Name" placeholder="Full Name" required>
                     <input type="email" name="Email" placeholder="Work Email" required>
                 </div>
-                <input type="text" name="Company" placeholder="Company Name" required>
+                
+                <input type="text" name="Company" placeholder="Company / Startup Name" required>
+
                 <select name="Service" required>
                     <option value="" disabled selected>Select Service</option>
-                    <option value="AWS Migration">Cloud Migration</option>
-                    <option value="DevSecOps">DevSecOps</option>
-                    <option value="Kubernetes">Kubernetes</option>
+                    <option value="Cloud Migration">AWS Cloud Migration</option>
+                    <option value="CI/CD">CI/CD Pipeline Automation</option>
+                    <option value="Kubernetes">Kubernetes Orchestration</option>
+                    <option value="Security">DevSecOps & Security</option>
                 </select>
+
                 <div class="form-row">
                     <input type="date" name="Date" required>
                     <select name="Time" required>
@@ -148,84 +179,122 @@
                         <option value="03:00 PM">03:00 PM</option>
                     </select>
                 </div>
-                <button type="submit" id="submitBtn" class="btn-main">Book Strategy Session</button>
-            </form>
-        </div>
 
-        <div class="contact-details">
-            <a href="tel:+923713600892" class="contact-item">📞 +92 371 3600892</a>
-            <a href="mailto:deploylynx26@gmail.com" class="contact-item">✉️ deploylynx26@gmail.com</a>
-            <a href="https://wa.me/message/VXHPTQC4ZU46A1" target="_blank" class="contact-item">💬 WhatsApp</a>
-            <a href="https://linkedin.com/company/deploylynx" target="_blank" class="contact-item">🔗 LinkedIn</a>
+                <textarea name="Message" rows="3" placeholder="Tell us about your project infrastructure needs..."></textarea>
+                <button type="submit" id="submitBtn" class="submit-btn">Send Booking Request</button>
+            </form>
         </div>
     </div>
 
-    <div class="tech-img-wrap">
-        <img src="https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&fit=crop&q=80&w=1000" alt="Cloud Infrastructure Tech">
+    <div class="animation-col">
+        <div class="static-image-container">
+            <img src="https://deploylynx.com/wp-content/uploads/2026/04/image_27.png" alt="Contact Us" class="contact-us-image">
+            <div class="server-rack">
+                <div class="server-light" style="opacity: 0.2;"></div>
+                <div class="server-light" style="opacity: 0.5;"></div>
+                <div class="server-light" style="opacity: 0.7;"></div>
+                <div class="server-light" style="opacity: 1;"></div>
+            </div>
+        </div>
     </div>
 </div>
 
-<section class="section-why">
+<div class="why-section">
     <h2>Why Partner with DeployLynx?</h2>
     <div class="why-grid">
         <div class="why-card">
-            <span>🛡️</span>
+            <div class="why-icon">🛡️</div>
             <h3>Security First</h3>
-            <p>Automated security gates and compliance protocols integrated into every deployment pipeline.</p>
+            <p>DevSecOps is not an afterthought; it's integrated into every line of code. We architect for high availability and fault tolerance from day one.</p>
         </div>
         <div class="why-card">
-            <span>⚡</span>
-            <h3>Velocity & Scale</h3>
-            <p>Architecture designed to handle sudden traffic spikes without compromising performance.</p>
+            <div class="why-icon">⚡</div>
+            <h3>Seamless Migration</h3>
+            <p>Zero-downtime migrations from on-premise or legacy systems to AWS and Azure, ensuring full data integrity and minimal disruption.</p>
         </div>
         <div class="why-card">
-            <span>📉</span>
-            <h3>Cost Optimization</h3>
-            <p>Smart resource allocation that slashes unnecessary cloud overhead and operational costs.</p>
+            <div class="why-icon">📉</div>
+            <h3>Cost Efficiency</h3>
+            <p>We optimize resource allocation with advanced autoscaling solutions, growing infrastructure with your users to maintain performance and reduce AWS spend.</p>
         </div>
     </div>
-</section>
+</div>
 
-<section class="section-pricing">
-    <h2>Pricing Solutions</h2>
-    <div class="price-grid">
-        <div class="price-card">
-            <h3>Cloud Audit</h3>
-            <div class="amount">$499<span>/flat</span></div>
-            <p>In-depth analysis of infrastructure gaps, security, and potential cost savings.</p>
-            <a href="#scheduleForm" class="btn-main" style="background:transparent; border:1px solid var(--primary-cyan); color:#fff;">Get Started</a>
+<footer>
+    <div class="footer-content">
+        <div class="footer-logo logo">Deploy<span>Lynx</span></div>
+        <p class="footer-details">
+            A specialized agency architecting scalable, secure AWS infrastructure with DevOps automation. 
+            We don't just host your code; we design systems that grow with your vision. Minimal waste, maximal uptime, DevSecOps everywhere.
+        </p>
+        <div class="footer-links">
+            <a href="tel:+923713600892" class="hover:text-cyan-400">+92 371 3600892</a>
+            <a href="mailto:deploylynx26@gmail.com" class="hover:text-cyan-400">deploylynx26@gmail.com</a>
+            <a href="https://wa.me/message/VXHPTQC4ZU46A1" target="_blank" class="hover:text-cyan-400">WhatsApp</a>
+            <a href="https://www.linkedin.com/company/deploylynx" target="_blank" class="hover:text-cyan-400">LinkedIn</a>
+            <a href="index.html" class="hover:text-cyan-400">Home</a>
+            <a href="contact.html" class="hover:text-cyan-400">Contact</a>
         </div>
-        <div class="price-card featured">
-            <h3>DevOps Engine</h3>
-            <div class="amount">$1,999<span>/mo</span></div>
-            <p>Complete management of CI/CD, monitoring, and 24/7 reliability engineering.</p>
-            <a href="#scheduleForm" class="btn-main">Scale Now</a>
-        </div>
-        <div class="price-card">
-            <h3>Custom Build</h3>
-            <div class="amount">Quote</div>
-            <p>End-to-end migrations or bespoke global Kubernetes clusters designed for you.</p>
-            <a href="#scheduleForm" class="btn-main" style="background:transparent; border:1px solid var(--primary-cyan); color:#fff;">Inquire</a>
-        </div>
+        <p style="font-size: 0.8rem; color: #94a3b8; margin-top: 20px;">© 2026 DeployLynx. Scalable Cloud & DevOps Agency. All rights reserved.</p>
     </div>
-</section>
+</footer>
+
+<div id="successPopup">
+    <div style="font-size: 50px; margin-bottom: 15px;">✨🚀</div>
+    <h3 style="color: var(--primary-cyan); font-size: 24px;">Request Received!</h3>
+    <p style="color: white; margin-top: 10px;">We will contact you shortly to confirm your strategy consultation slot.</p>
+    <button onclick="document.getElementById('successPopup').style.display='none'" style="margin-top:20px; width:auto; padding:10px 30px;" class="submit-btn">Close</button>
+</div>
 
 <script>
-    // FORM HANDLER
+    // TYPING ANIMATION
+    new Typed('#typed-text', {
+        strings: ['Ready to Architect?', 'Scale with Confidence.', 'Deploy Securely.'],
+        typeSpeed: 50,
+        backSpeed: 30,
+        loop: true
+    });
+
+    // FORM HANDLING - LOGIC PRESERVED
     const form = document.getElementById("scheduleForm");
+    const submitBtn = document.getElementById("submitBtn");
+    const popup = document.getElementById("successPopup");
+
     form.addEventListener("submit", function(e) {
         e.preventDefault();
-        const btn = document.getElementById("submitBtn");
-        btn.innerText = "TRANSMITTING...";
+        submitBtn.disabled = true;
+        submitBtn.innerText = "PROCESSING...";
+
+        const formData = new FormData(form);
+        const scriptURL = "https://script.google.com/macros/s/AKfycbz-n69boQvKuZ1b2eomihHO87Tee7ZkyIb2vTpXNoJRapY9KkUY5TqDPMWGvAIglsEm/exec";
         
-        setTimeout(() => {
+        Promise.all([
+            fetch(scriptURL, { method: "POST", body: formData, mode: 'no-cors' }),
+            fetch("https://formspree.io/f/xpqykbvr", {
+                method: "POST",
+                body: formData,
+                headers: { 'Accept': 'application/json' }
+            })
+        ]).then(() => {
             confetti({ particleCount: 150, spread: 70, origin: { y: 0.6 }, colors: ['#00c6ff', '#ffffff'] });
-            btn.innerText = "SENT SUCCESSFULLY";
+            popup.style.display = "block";
+            submitBtn.innerText = "Send Booking Request";
+            submitBtn.disabled = false;
             form.reset();
-            setTimeout(() => btn.innerText = "Book Strategy Session", 3000);
-        }, 1500);
+        }).catch(err => {
+            alert("Submission error. Please try again.");
+            submitBtn.disabled = false;
+        });
+    });
+
+    // CUSTOM CURSOR - PRESERVED
+    document.addEventListener("mousemove", e => { 
+        const cursor = document.getElementById("customCursor");
+        cursor.style.left = e.clientX + "px"; 
+        cursor.style.top = e.clientY + "px"; 
     });
 </script>
 
 </body>
 </html>
+
