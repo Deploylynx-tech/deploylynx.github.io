@@ -2,277 +2,243 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <title>DeployLynx | Services</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DeployLynx | Enterprise Cloud Services</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
         :root {
-            --primary-blue: #2563eb;
-            --primary-cyan: #00d2ff;
-            --accent-purple: #9333ea;
-            --dark-bg: #030712;
-            --card-bg: rgba(17, 24, 39, 0.7);
-            --nav-height: 80px;
+            --primary-cyan: #00c6ff;
+            --accent-pink: #ff6ec7;
+            --dark-bg: #0a0f1c;
+            --card-bg: rgba(255, 255, 255, 0.05);
         }
 
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Inter', -apple-system, sans-serif;
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
         }
 
         body {
-            background-color: var(--dark-bg);
-            color: #ffffff;
+            background: var(--dark-bg);
+            color: #fff;
             line-height: 1.6;
             overflow-x: hidden;
         }
 
-        /* --- UNIFIED NAVBAR FIX --- */
+        /* NAVIGATION */
         nav {
-            height: var(--nav-height);
-            width: 100%;
-            background: rgba(3, 7, 18, 0.95);
-            backdrop-filter: blur(10px);
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 0 5%;
-            position: fixed;
+            padding: 20px 5%;
+            background: rgba(10, 15, 28, 0.9);
+            position: sticky;
             top: 0;
-            left: 0;
-            z-index: 2000;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            z-index: 1000;
+            backdrop-filter: blur(10px);
         }
 
-        .logo {
-            font-size: 1.5rem;
-            font-weight: 800;
-            text-decoration: none;
-            color: #fff;
-        }
+        .logo { font-size: 24px; color: var(--primary-cyan); font-weight: bold; text-decoration: none; }
+        .menu a { margin-left: 25px; color: #ccc; text-decoration: none; transition: 0.3s; font-size: 0.95rem; }
+        .menu a:hover, .menu a.active { color: var(--primary-cyan); }
 
-        .logo span { color: var(--primary-cyan); }
-
-        .nav-links {
-            display: flex;
-            align-items: center;
-            gap: 30px;
-        }
-
-        .nav-links a {
-            text-decoration: none;
-            color: #94a3b8;
-            font-size: 0.95rem;
-            font-weight: 500;
-            transition: 0.3s;
-        }
-
-        .nav-links a:hover, .nav-links a.active {
-            color: var(--primary-cyan);
-        }
-
-        .nav-contact-btn {
-            background: var(--primary-blue);
-            color: white;
-            padding: 10px 24px;
-            border-radius: 8px;
-            font-weight: 600;
-            transition: 0.3s;
-        }
-
-        .nav-contact-btn:hover {
-            background: #1d4ed8;
-            transform: translateY(-2px);
-        }
-
-        /* --- HERO SECTION --- */
+        /* HERO SECTION */
         .hero {
-            padding-top: calc(var(--nav-height) + 60px);
+            padding: 80px 10% 40px;
             text-align: center;
-            padding-bottom: 40px;
         }
 
         .hero h1 {
-            font-size: clamp(2.5rem, 6vw, 4rem);
-            margin-bottom: 20px;
-            background: linear-gradient(to right, #fff, var(--primary-cyan));
+            font-size: clamp(32px, 5vw, 48px);
+            background: linear-gradient(90deg, #fff, var(--primary-cyan));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
+            margin-bottom: 20px;
         }
 
-        .hero p {
-            color: #94a3b8;
-            font-size: 1.2rem;
-            max-width: 800px;
-            margin: 0 auto;
-        }
-
-        /* --- SPINNING CIRCLE SECTION --- */
-        .visual-split {
+        /* SPINNING CIRCLE SECTION - FIXED POSITIONING */
+        .services-top {
             display: flex;
             align-items: center;
-            justify-content: space-between;
+            justify-content: center;
             flex-wrap: wrap;
-            padding: 80px 5%;
-            min-height: 80vh;
+            gap: 40px;
+            padding: 40px 5%;
+            min-height: 70vh;
         }
 
-        .spin-container {
+        .visual-container {
             flex: 1;
-            min-width: 320px;
+            min-width: 300px;
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 500px;
+            position: relative; /* Prevents it from jumping during scroll */
         }
 
-        .circle-wrapper {
-            width: 300px;
-            height: 300px;
-            border: 1px dashed rgba(0, 210, 255, 0.3);
+        .spin-circle {
+            width: 350px;
+            height: 350px;
+            border: 2px dashed rgba(0, 198, 255, 0.3);
             border-radius: 50%;
             position: relative;
-            animation: rotate 25s linear infinite;
+            animation: spin 20s linear infinite;
         }
 
         .node {
             position: absolute;
-            width: 70px;
-            height: 70px;
-            background: linear-gradient(135deg, var(--primary-cyan), var(--primary-blue));
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, var(--primary-cyan), var(--accent-pink));
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
+            font-size: 0.7rem;
             font-weight: bold;
-            font-size: 0.75rem;
             color: #000;
-            box-shadow: 0 0 20px rgba(0, 210, 255, 0.4);
-            animation: counter-rotate 25s linear infinite;
+            box-shadow: 0 0 20px rgba(0, 198, 255, 0.4);
+            animation: counter-spin 20s linear infinite;
         }
 
-        @keyframes rotate { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
-        @keyframes counter-rotate { from { transform: rotate(0deg); } to { transform: rotate(-360deg); } }
+        @keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+        @keyframes counter-spin { from { transform: rotate(0deg); } to { transform: rotate(-360deg); } }
 
-        .node:nth-child(1) { top: -35px; left: calc(50% - 35px); }
-        .node:nth-child(2) { bottom: -35px; left: calc(50% - 35px); }
-        .node:nth-child(3) { left: -35px; top: calc(50% - 35px); }
-        .node:nth-child(4) { right: -35px; top: calc(50% - 35px); }
+        /* Node Positions */
+        .node:nth-child(1) { top: -40px; left: calc(50% - 40px); }
+        .node:nth-child(2) { bottom: -40px; left: calc(50% - 40px); }
+        .node:nth-child(3) { left: -40px; top: calc(50% - 40px); }
+        .node:nth-child(4) { right: -40px; top: calc(50% - 40px); }
 
-        .intro-services {
+        .service-cards-short {
             flex: 1;
-            min-width: 320px;
+            min-width: 300px;
             display: flex;
             flex-direction: column;
             gap: 20px;
         }
 
-        .service-mini-card {
+        .mini-card {
             background: var(--card-bg);
-            padding: 25px;
+            padding: 20px;
             border-radius: 12px;
             border-left: 4px solid var(--primary-cyan);
-            transition: 0.3s;
         }
 
-        /* --- PROBLEM-SOLUTION MAPPING --- */
-        .problem-section { padding: 80px 5%; }
-        .table-wrap { overflow-x: auto; border-radius: 12px; border: 1px solid rgba(255,255,255,0.1); }
-        table { width: 100%; border-collapse: collapse; background: var(--card-bg); }
-        th, td { padding: 20px; text-align: left; border-bottom: 1px solid rgba(255,255,255,0.05); }
-        th { color: var(--primary-cyan); font-weight: 600; text-transform: uppercase; font-size: 0.8rem; }
-        .solution-tag { color: #4ade80; font-weight: bold; }
+        /* SECTION HEADINGS */
+        .section-title {
+            text-align: center;
+            padding: 60px 0 30px;
+            font-size: 2rem;
+            color: var(--primary-cyan);
+        }
 
-        /* --- DETAILED SERVICES GRID --- */
+        /* PROBLEM-SOLUTION TABLE */
+        .table-container {
+            padding: 40px 10%;
+            overflow-x: auto;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: var(--card-bg);
+            border-radius: 15px;
+            overflow: hidden;
+        }
+        th, td {
+            padding: 20px;
+            text-align: left;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+        th { background: rgba(0, 198, 255, 0.1); color: var(--primary-cyan); }
+
+        /* LONG SERVICES GRID */
         .services-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             gap: 30px;
-            padding: 80px 5%;
+            padding: 40px 10%;
         }
 
-        .service-full-card {
+        .full-card {
             background: var(--card-bg);
             padding: 40px;
             border-radius: 20px;
-            border: 1px solid rgba(255,255,255,0.05);
             transition: 0.3s;
+            border: 1px solid rgba(255,255,255,0.05);
         }
+        .full-card:hover { transform: translateY(-10px); background: rgba(255,255,255,0.08); }
+        .full-card h3 { color: var(--primary-cyan); margin-bottom: 15px; }
+        .full-card ul { list-style: none; margin-top: 15px; }
+        .full-card ul li { margin-bottom: 8px; font-size: 0.9rem; color: #cbd5e1; }
+        .full-card ul li::before { content: "✔"; color: var(--accent-pink); margin-right: 10px; }
 
-        .service-full-card:hover { transform: translateY(-10px); background: rgba(31, 41, 55, 0.8); }
-        .service-full-card i { font-size: 2rem; color: var(--primary-cyan); margin-bottom: 20px; }
-        .service-full-card ul { list-style: none; margin-top: 20px; }
-        .service-full-card li { margin-bottom: 10px; color: #cbd5e1; font-size: 0.9rem; }
-        .service-full-card li::before { content: "→"; color: var(--primary-cyan); margin-right: 10px; }
-
-        /* --- WHO THIS IS FOR --- */
-        .audience-section {
-            background: linear-gradient(rgba(3, 7, 18, 0.8), rgba(3, 7, 18, 0.8)), url('https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&fit=crop&q=80&w=1500');
-            background-attachment: fixed;
+        /* WHO THIS IS FOR */
+        .who-for {
+            background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&q=80&w=1000');
             background-size: cover;
-            padding: 100px 5%;
+            padding: 80px 10%;
             text-align: center;
+            margin: 60px 0;
         }
 
-        .audience-grid {
+        .who-grid {
             display: flex;
             justify-content: center;
-            gap: 25px;
+            gap: 30px;
             flex-wrap: wrap;
-            margin-top: 50px;
+            margin-top: 30px;
         }
 
-        .audience-box {
-            background: rgba(3, 7, 18, 0.9);
-            padding: 40px;
-            border-radius: 16px;
-            width: 320px;
-            border-top: 4px solid var(--primary-blue);
+        .who-box {
+            background: rgba(10, 15, 28, 0.9);
+            padding: 30px;
+            border-radius: 15px;
+            width: 280px;
+            border: 1px solid var(--primary-cyan);
         }
-
-        /* --- MOBILE NAV OVERRIDE --- */
-        @media (max-width: 768px) {
-            nav { padding: 0 20px; }
-            .nav-links { display: none; } /* Standard behavior: You can add a hamburger icon later if needed */
-            .visual-split { flex-direction: column; text-align: center; }
-            .spin-container { height: 350px; }
-            .circle-wrapper { width: 220px; height: 220px; }
-            .node { width: 60px; height: 60px; font-size: 0.6rem; }
-            .node:nth-child(1) { top: -30px; } .node:nth-child(2) { bottom: -30px; }
-            .node:nth-child(3) { left: -30px; } .node:nth-child(4) { right: -30px; }
-        }
-
-        .section-header { text-align: center; margin-bottom: 50px; }
-        .section-header h2 { font-size: 2.5rem; color: #fff; }
 
         /* CTA */
-        .final-cta { text-align: center; padding: 120px 5%; background: #000; }
-        .cta-btn { 
-            padding: 20px 50px; 
-            background: var(--primary-cyan); 
-            color: #000; 
-            text-decoration: none; 
-            font-weight: 800; 
-            border-radius: 50px; 
-            font-size: 1.1rem; 
+        .cta-section {
+            text-align: center;
+            padding: 100px 10%;
+            background: linear-gradient(to bottom, var(--dark-bg), #111827);
+        }
+
+        .btn-main {
+            padding: 18px 40px;
+            background: var(--primary-cyan);
+            color: #000;
+            text-decoration: none;
+            font-weight: bold;
+            border-radius: 50px;
+            font-size: 1.2rem;
             transition: 0.3s;
             display: inline-block;
         }
-        .cta-btn:hover { box-shadow: 0 0 40px rgba(0, 210, 255, 0.6); transform: scale(1.05); }
+        .btn-main:hover { transform: scale(1.05); box-shadow: 0 0 30px rgba(0,198,255,0.5); }
+
+        @media (max-width: 768px) {
+            .spin-circle { width: 250px; height: 250px; }
+            .node { width: 60px; height: 60px; font-size: 0.6rem; }
+            .node:nth-child(1) { top: -30px; }
+            .node:nth-child(2) { bottom: -30px; }
+            .node:nth-child(3) { left: -30px; }
+            .node:nth-child(4) { right: -30px; }
+        }
     </style>
 </head>
 <body>
 
 <nav>
-    <a href="index.html" class="logo">Deploy<span>Lynx</span></a>
-    <div class="nav-links">
+    <a href="index.html" class="logo">DeployLynx</a>
+    <div class="menu">
         <a href="index.html">Home</a>
+        <a href="about.html">About</a>
         <a href="services.html" class="active">Services</a>
         <a href="case-studies.html">Case Studies</a>
-        <a href="about.html">About</a>
-        <a href="contact.html" class="nav-contact-btn">Contact</a>
+        <a href="contact.html">Contact</a>
     </div>
 </nav>
 
@@ -281,67 +247,71 @@
     <p>Automate deployments, scale infrastructure, and reduce operational risk with DeployLynx.</p>
 </header>
 
-<section class="visual-split">
-    <div class="spin-container">
-        <div class="circle-wrapper">
+<section class="services-top">
+    <div class="visual-container">
+        <div class="spin-circle">
             <div class="node">AWS</div>
-            <div class="node">CI / CD</div>
-            <div class="node">DOCKER</div>
-            <div class="node">AI AGENTS</div>
+            <div class="node">CI/CD</div>
+            <div class="node">Docker</div>
+            <div class="node">AI</div>
         </div>
     </div>
 
-    <div class="intro-services">
-        <div class="service-mini-card">
-            <h3>⚙️ DevOps CI/CD Pipelines</h3>
-            <p>Automated release cycles using GitHub Actions, GitLab CI, and Jenkins for zero-downtime releases.</p>
+    <div class="service-cards-short">
+        <div class="mini-card">
+            <h3>⚙ DevOps CI/CD Pipelines</h3>
+            <p>Automated, production-ready pipelines for rapid release cycles using GitHub Actions & Jenkins.</p>
         </div>
-        <div class="service-mini-card">
-            <h3>☁️ AWS Cloud Architecture</h3>
-            <p>Highly available, cost-optimized AWS environments engineered via Terraform and Infrastructure as Code.</p>
+        <div class="mini-card">
+            <h3>☁ AWS Cloud Architecture</h3>
+            <p>Secure and cost-efficient environments built with Terraform and IaC best practices.</p>
         </div>
-        <div class="service-mini-card">
+        <div class="mini-card">
             <h3>🤖 AI Automation Systems</h3>
-            <p>Integrating LLMs into business workflows to eliminate manual tasks and boost operational speed.</p>
+            <p>Deploying LLMs and AI agents to eliminate manual operations and boost productivity.</p>
         </div>
-        <div class="service-mini-card">
+        <div class="mini-card">
             <h3>🐳 Kubernetes & Containerization</h3>
-            <p>Scaling modern SaaS applications with production-grade Docker and Kubernetes orchestration.</p>
+            <p>Production-grade orchestration ensuring system resilience and global scalability.</p>
         </div>
     </div>
 </section>
 
-<section class="problem-section">
-    <div class="section-header">
-        <h2>Problem → Solution Mapping</h2>
-    </div>
-    <div class="table-wrap">
-        <table>
-            <thead>
-                <tr>
-                    <th>Business Challenge</th>
-                    <th>DeployLynx Solution</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr><td>Slow release cycles and manual errors</td><td class="solution-tag">Automated CI/CD Pipelines</td></tr>
-                <tr><td>Unpredictable downtime during traffic spikes</td><td class="solution-tag">K8s + Autoscaling Architectures</td></tr>
-                <tr><td>Skyrocketing cloud monthly bills</td><td class="solution-tag">AWS Cost Optimization Audits</td></tr>
-                <tr><td>Security risks in container images</td><td class="solution-tag">DevSecOps & Image Scanning</td></tr>
-            </tbody>
-        </table>
-    </div>
-</section>
-
-<div class="section-header">
-    <h2>Our Full Capabilities</h2>
+<h2 class="section-title">Problem → Solution Mapping</h2>
+<div class="table-container">
+    <table>
+        <thead>
+            <tr>
+                <th>The Challenge</th>
+                <th>DeployLynx Solution</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Slow, manual deployments</td>
+                <td>End-to-end CI/CD Pipelines</td>
+            </tr>
+            <tr>
+                <td>Frequent downtime under load</td>
+                <td>Kubernetes + Auto-scaling Infrastructure</td>
+            </tr>
+            <tr>
+                <td>Skyrocketing AWS/Cloud costs</td>
+                <td>Architecture Optimization & Cost Controls</td>
+            </tr>
+            <tr>
+                <td>Security vulnerabilities & leaks</td>
+                <td>DevSecOps & Automated Compliance</td>
+            </tr>
+        </tbody>
+    </table>
 </div>
 
-<section class="services-grid">
-    <div class="service-full-card">
-        <i class="fas fa-random"></i>
+<h2 class="section-title">Comprehensive Service Portfolio</h2>
+<div class="services-grid">
+    <div class="full-card">
         <h3>Cloud Migration & Architecture</h3>
-        <p>Zero-downtime migrations designed for performance and global resilience.</p>
+        <p>Migrate workloads with zero downtime. Optimized for cost, performance, and resilience.</p>
         <ul>
             <li>Cloud readiness assessment</li>
             <li>Multi-cloud strategy & design</li>
@@ -349,66 +319,63 @@
         </ul>
     </div>
 
-    <div class="service-full-card">
-        <i class="fas fa-code"></i>
+    <div class="full-card">
         <h3>Infrastructure as Code (IaC)</h3>
-        <p>Version-controlled infrastructure with Terraform and Ansible to eliminate manual drift.</p>
+        <p>Reproducible, version-controlled infrastructure with Terraform and Ansible. No more manual drift.</p>
         <ul>
             <li>Terraform modules & state mgmt</li>
             <li>Ansible playbooks & roles</li>
-            <li>Multi-env provisioning</li>
+            <li>Drift detection & remediation</li>
         </ul>
     </div>
 
-    <div class="service-full-card">
-        <i class="fas fa-shield-alt"></i>
+    <div class="full-card">
         <h3>DevSecOps & Compliance</h3>
-        <p>Security integrated at every stage with automated auditing and secret management.</p>
+        <p>Security integrated into every step of the pipeline to protect your data and reputation.</p>
         <ul>
-            <li>Vulnerability scanning (Trivy)</li>
-            <li>Secrets management (Vault)</li>
-            <li>Policy-as-code (OPA)</li>
+            <li>Vulnerability scanning (Trivy/Prisma)</li>
+            <li>Secrets management (HashiCorp Vault)</li>
+            <li>Policy-as-code (OPA) & Audits</li>
         </ul>
     </div>
 
-    <div class="service-full-card">
-        <i class="fas fa-chart-line"></i>
+    <div class="full-card">
         <h3>Monitoring & Observability</h3>
-        <p>Never be blindsided by outages again with full-stack observability stacks.</p>
+        <p>Full-stack observability. Never be blindsided by outages again.</p>
         <ul>
             <li>Prometheus + Grafana dashboards</li>
             <li>Log aggregation & alerting</li>
-            <li>Incident response automation</li>
+            <li>SLO/SLI tracking & Response</li>
         </ul>
     </div>
-</section>
+</div>
 
-<section class="audience-section">
+<section class="who-for">
     <h2>Who This Is For</h2>
-    <div class="audience-grid">
-        <div class="audience-box">
+    <div class="who-grid">
+        <div class="who-box">
             <h4>Startups</h4>
-            <p>Scaling from MVP to production-ready infrastructure without the overhead.</p>
+            <p>Scaling from MVP to production-ready architecture.</p>
         </div>
-        <div class="audience-box">
+        <div class="who-box">
             <h4>SaaS Companies</h4>
-            <p>Optimizing high-traffic platforms for cost and global reliability.</p>
+            <p>Handling high traffic with 99.9% uptime requirements.</p>
         </div>
-        <div class="audience-box">
+        <div class="who-box">
             <h4>Enterprises</h4>
-            <p>Modernizing legacy infrastructure to cloud-native, secured ecosystems.</p>
+            <p>Modernizing legacy infrastructure for the cloud-native era.</p>
         </div>
     </div>
 </section>
 
-<section class="final-cta">
-    <h2>Ready to Architect the Future?</h2>
-    <p style="color: #94a3b8; margin-bottom: 40px;">Let's discuss your cloud roadmap and automation goals.</p>
-    <a href="contact.html" class="cta-btn">Book a Free Infrastructure Consultation</a>
+<section class="cta-section">
+    <h2>Ready to Scale Your Infrastructure?</h2>
+    <p style="margin-bottom: 30px; color: #94a3b8;">Let's build a reliable, automated foundation for your business.</p>
+    <a href="contact.html" class="btn-main">Book a Free Infrastructure Consultation</a>
 </section>
 
-<footer style="padding: 50px; text-align: center; color: #4b5563; border-top: 1px solid rgba(255,255,255,0.05);">
-    &copy; 2026 DeployLynx. All rights reserved. Built for scale.
+<footer style="text-align: center; padding: 40px; color: #64748b; border-top: 1px solid rgba(255,255,255,0.05);">
+    © 2026 DeployLynx | Engineering Scalable Digital Ecosystems
 </footer>
 
 </body>
