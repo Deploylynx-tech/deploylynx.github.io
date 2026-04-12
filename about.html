@@ -54,19 +54,19 @@
   <!-- Stats Section -->
   <section class="grid grid-cols-2 md:grid-cols-4 gap-6 px-6 py-10 text-center">
     <div class="bg-gray-900 p-6 rounded-2xl">
-      <h3 class="text-2xl font-bold text-blue-400">12+</h3>
+      <h3 class="text-2xl font-bold text-blue-400 counter">12+</h3>
       <p class="text-gray-400">Active Clients</p>
     </div>
     <div class="bg-gray-900 p-6 rounded-2xl">
-      <h3 class="text-2xl font-bold text-blue-400">45+</h3>
+      <h3 class="text-2xl font-bold text-blue-400 counter">45+</h3>
       <p class="text-gray-400">Deployments</p>
     </div>
     <div class="bg-gray-900 p-6 rounded-2xl">
-      <h3 class="text-2xl font-bold text-blue-400">99%</h3>
+      <h3 class="text-2xl font-bold text-blue-400 counter">99%</h3>
       <p class="text-gray-400">SLA Uptime</p>
     </div>
     <div class="bg-gray-900 p-6 rounded-2xl">
-      <h3 class="text-2xl font-bold text-blue-400">70%</h3>
+      <h3 class="text-2xl font-bold text-blue-400 counter">70%</h3>
       <p class="text-gray-400">Cost Optimization</p>
     </div>
   </section>
@@ -120,23 +120,35 @@
   </footer>
 
   <script>
-    // Counter Animation
-    const counters = document.querySelectorAll('h3');
-    counters.forEach(counter => {
-      const updateCount = () => {
-        const target = +counter.innerText.replace(/[^0-9]/g, '');
-        const count = +counter.getAttribute('data-count') || 0;
-        const increment = target / 50;
+    // Smooth Counter Animation (Fixed)
+    const counters = document.querySelectorAll('.counter');
 
+    const animateCounter = (counter) => {
+      const text = counter.innerText;
+      const target = parseInt(text.replace(/[^0-9]/g, ''));
+      const isPercent = text.includes('%');
+      const isPlus = text.includes('+');
+
+      let count = 0;
+      const duration = 1500; // total animation time
+      const stepTime = 20;
+      const increment = target / (duration / stepTime);
+
+      const update = () => {
+        count += increment;
         if (count < target) {
-          counter.setAttribute('data-count', Math.ceil(count + increment));
-          counter.innerText = Math.ceil(count + increment) + (counter.innerText.includes('%') ? '%' : '+');
-          setTimeout(updateCount, 30);
+          counter.innerText = Math.floor(count) + (isPercent ? '%' : isPlus ? '+' : '');
+          setTimeout(update, stepTime);
         } else {
-          counter.innerText = target + (counter.innerText.includes('%') ? '%' : '+');
+          counter.innerText = target + (isPercent ? '%' : isPlus ? '+' : '');
         }
       };
-      updateCount();
+
+      update();
+    };
+
+    document.addEventListener('DOMContentLoaded', () => {
+      counters.forEach(counter => animateCounter(counter));
     });
   </script>
 
