@@ -4,112 +4,153 @@
 <meta charset="UTF-8">
 <title>DeployLynx | Cloud Strategy Call</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
 
 <style>
 :root {
-    --primary-cyan: #00c6ff;
-    --accent-pink: #ff6ec7;
-    --dark-bg: #0a0f1c;
-    --input-bg: rgba(0,0,0,0.5);
-    --form-bg: rgba(15, 23, 42, 0.8);
+    --primary-cyan:#00c6ff;
+    --dark-bg:#0a0f1c;
+    --form-bg:rgba(15,23,42,0.85);
+    --input-bg:rgba(0,0,0,0.5);
 }
-* {margin:0;padding:0;box-sizing:border-box;font-family:'Inter','Segoe UI',sans-serif;}
-body {background:var(--dark-bg);color:#fff;overflow-x:hidden;cursor:none;}
+
+*{margin:0;padding:0;box-sizing:border-box;font-family:Inter,Segoe UI,sans-serif;}
+body{background:var(--dark-bg);color:#fff;overflow-x:hidden;cursor:none;}
 
 /* NAV */
-nav {
-    display:flex;justify-content:space-between;align-items:center;
-    padding:20px 8%;background:rgba(10,15,28,0.9);
-    position:sticky;top:0;z-index:1000;
-    backdrop-filter:blur(10px);
+nav{
+display:flex;justify-content:space-between;align-items:center;
+padding:20px 8%;position:sticky;top:0;
+background:rgba(10,15,28,0.9);backdrop-filter:blur(10px);
 }
-.logo {font-size:26px;color:var(--primary-cyan);font-weight:800;text-decoration:none;}
-.logo span{color:white;}
+.logo{font-size:26px;color:var(--primary-cyan);font-weight:800;}
+.logo span{color:#fff;}
 .menu a{margin-left:25px;color:#94a3b8;text-decoration:none;}
 .menu a:hover{color:var(--primary-cyan);}
 
 /* LAYOUT */
-.container {
-    display:grid;
-    grid-template-columns:1.1fr 0.9fr;
-    gap:40px;
-    padding:80px 8%;
-    max-width:1400px;
-    margin:auto;
+.container{
+display:grid;
+grid-template-columns:1.1fr 0.9fr;
+gap:40px;
+padding:70px 8%;
+max-width:1400px;
+margin:auto;
 }
 
 /* TEXT */
-.typing-title {
-    font-size:3rem;font-weight:800;
-    background:linear-gradient(90deg,#fff,var(--primary-cyan));
-    -webkit-background-clip:text;
-    -webkit-text-fill-color:transparent;
+.typing-title{
+font-size:3rem;
+font-weight:800;
+background:linear-gradient(90deg,#fff,var(--primary-cyan));
+-webkit-background-clip:text;
+-webkit-text-fill-color:transparent;
 }
-.typing-quote {color:#cbd5e1;margin:20px 0;line-height:1.6;}
+
+.typing-quote{color:#cbd5e1;margin:20px 0;line-height:1.6;}
 
 /* FORM */
-.booking-card {
-    background:var(--form-bg);
-    padding:35px;border-radius:20px;
-    border:1px solid rgba(0,198,255,0.2);
-    box-shadow:0 20px 60px rgba(0,0,0,0.4);
+.booking-card{
+background:var(--form-bg);
+padding:35px;
+border-radius:20px;
+border:1px solid rgba(0,198,255,0.2);
 }
+
 .form-row{display:grid;grid-template-columns:1fr 1fr;gap:15px;}
 
-input,textarea,select{
-    width:100%;
-    padding:14px;
-    border-radius:10px;
-    border:1px solid rgba(255,255,255,0.1);
-    background:var(--input-bg);
-    color:#fff;
-    margin-bottom:15px;
+input,select,textarea{
+width:100%;
+padding:14px;
+border-radius:10px;
+border:1px solid rgba(255,255,255,0.1);
+background:var(--input-bg);
+color:#fff;
+margin-bottom:15px;
+outline:none;
 }
+
 button{
-    width:100%;
-    padding:16px;
-    border:none;
-    border-radius:10px;
-    background:var(--primary-cyan);
-    font-weight:bold;
-    cursor:pointer;
+width:100%;
+padding:16px;
+border:none;
+border-radius:10px;
+background:var(--primary-cyan);
+font-weight:700;
+cursor:pointer;
 }
 
-/* EXTRA SECTION */
-.section {
-    padding:60px 8%;
-    text-align:center;
-}
-.section h2 {
-    font-size:2rem;
-    margin-bottom:20px;
-}
-.card-grid {
-    display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
-    gap:20px;
-}
-.card {
-    background:var(--form-bg);
-    padding:25px;
-    border-radius:15px;
-    border:1px solid rgba(255,255,255,0.08);
+/* RIGHT ANIMATION (RESTORED EXACT FEEL) */
+.animation-col{
+display:flex;
+justify-content:center;
+align-items:center;
 }
 
-/* ANIMATION KEEP SAME */
-.animation-col {display:flex;justify-content:center;align-items:center;}
-.tech-sphere {
-    width:350px;height:350px;border-radius:50%;
-    background:radial-gradient(circle,rgba(0,198,255,0.15),transparent);
-    animation:pulse 4s infinite;
-}
-@keyframes pulse {
-    0%,100%{transform:scale(1);}
-    50%{transform:scale(1.1);}
+.tech-sphere{
+width:350px;
+height:350px;
+border-radius:50%;
+background:radial-gradient(circle,rgba(0,198,255,0.15),transparent);
+animation:pulse 4s infinite;
+position:relative;
 }
 
-/* RESPONSIVE */
+@keyframes pulse{
+0%,100%{transform:scale(1);}
+50%{transform:scale(1.1);}
+}
+
+/* FLOATING ICONS */
+.icon{
+position:absolute;
+width:45px;height:45px;
+display:flex;align-items:center;justify-content:center;
+background:rgba(0,0,0,0.4);
+border:1px solid var(--primary-cyan);
+border-radius:12px;
+}
+
+/* PREMIUM POPUP (RESTORED) */
+#successPopup{
+display:none;
+position:fixed;
+top:50%;left:50%;
+transform:translate(-50%,-50%);
+background:var(--form-bg);
+padding:40px;
+border-radius:20px;
+text-align:center;
+border:2px solid var(--primary-cyan);
+z-index:9999;
+box-shadow:0 0 40px rgba(0,198,255,0.4);
+}
+
+#successPopup h3{color:var(--primary-cyan);margin-top:10px;}
+
+#closePopup{
+margin-top:20px;
+padding:10px 20px;
+border:none;
+background:var(--primary-cyan);
+color:#000;
+border-radius:8px;
+cursor:pointer;
+}
+
+/* CURSOR */
+.cursor{
+position:fixed;
+width:10px;height:10px;
+background:gold;
+border-radius:50%;
+pointer-events:none;
+z-index:9999;
+transform:translate(-50%,-50%);
+}
+
+/* MOBILE */
 @media(max-width:900px){
 .container{grid-template-columns:1fr;}
 .animation-col{display:none;}
@@ -120,104 +161,141 @@ button{
 <body>
 
 <nav>
-<a href="#" class="logo">Deploy<span>Lynx</span></a>
+<a class="logo">Deploy<span>Lynx</span></a>
 <div class="menu">
 <a href="#">Home</a>
 <a href="#">About</a>
-<a href="#" style="color:var(--primary-cyan)">Contact</a>
+<a style="color:var(--primary-cyan)">Contact</a>
 </div>
 </nav>
 
 <div class="container">
 
+<!-- LEFT -->
 <div>
+
 <h1 class="typing-title">Ready to Architect Your Cloud?</h1>
 
 <p class="typing-quote">
-We help startups and growing SaaS teams deploy, scale, and secure applications on AWS.
-<br><br>
-🚀 Reduce deployment time  
-💰 Cut cloud costs  
-⚡ Achieve high availability
+Deploy scalable, secure AWS infrastructure with DevOps automation.
 </p>
 
 <div class="booking-card">
+
 <h3>Book Free Cloud Strategy Call</h3>
 
 <form id="scheduleForm">
 
 <div class="form-row">
-<input type="text" placeholder="Full Name" required>
-<input type="email" placeholder="Work Email" required>
+<input type="text" name="Name" placeholder="Full Name" required>
+<input type="email" name="Email" placeholder="Work Email" required>
 </div>
 
-<input type="text" placeholder="Company / Startup Name">
+<!-- ✅ COMPANY ADDED -->
+<input type="text" name="Company" placeholder="Company / Startup Name">
 
-<select required>
-<option disabled selected>What do you need help with?</option>
+<select name="Topic" required>
+<option disabled selected>Select Topic</option>
 <option>AWS Migration</option>
 <option>CI/CD Setup</option>
 <option>Kubernetes</option>
-<option>Cost Optimization</option>
+<option>DevSecOps</option>
 </select>
 
 <div class="form-row">
-<input type="date" required>
-<select required>
-<option disabled selected>Select Time (PKT)</option>
+<input type="date" name="Date" required>
+
+<select name="Time" required>
+<option disabled selected>Select Time</option>
 <option>09:00 AM</option>
 <option>12:00 PM</option>
 <option>03:00 PM</option>
 </select>
 </div>
 
-<textarea placeholder="Briefly describe your project"></textarea>
+<textarea name="Message" placeholder="Brief description"></textarea>
 
-<button type="submit">Book Free Consultation</button>
+<button type="submit" id="submitBtn">Book Free Consultation</button>
+
 </form>
 </div>
-
 </div>
 
-<!-- KEEP YOUR ANIMATION -->
+<!-- RIGHT (RESTORED ANIMATION EXACT) -->
 <div class="animation-col">
-<div class="tech-sphere"></div>
+<div class="tech-sphere">
+
+<div class="icon" style="top:20%;left:15%">☁️</div>
+<div class="icon" style="top:60%;right:10%">⚙️</div>
+<div class="icon" style="bottom:20%;left:25%">🛡️</div>
+
+</div>
 </div>
 
 </div>
 
-<!-- NEW PREMIUM SECTION -->
-<div class="section">
-<h2>Challenges We Solve</h2>
-<div class="card-grid">
-<div class="card">Slow deployments → Automated CI/CD</div>
-<div class="card">Downtime → Auto-scaling Kubernetes</div>
-<div class="card">High costs → Optimized AWS architecture</div>
-<div class="card">Security risks → DevSecOps pipelines</div>
-</div>
+<!-- SUCCESS POPUP (RESTORED PREMIUM VERSION) -->
+<div id="successPopup">
+<div style="font-size:40px;">✨</div>
+<h3>Message Sent Successfully!</h3>
+<p>We’ll contact you shortly.</p>
+<button id="closePopup">Close</button>
 </div>
 
-<div class="section">
-<h2>Why DeployLynx?</h2>
-<div class="card-grid">
-<div class="card">⚡ Fast deployment pipelines</div>
-<div class="card">🔒 Secure cloud infrastructure</div>
-<div class="card">💰 Cost-efficient scaling</div>
-</div>
-</div>
+<!-- CURSOR -->
+<div class="cursor" id="cursor"></div>
 
 <script>
-document.getElementById("scheduleForm").addEventListener("submit", function(e){
+const form=document.getElementById("scheduleForm");
+const popup=document.getElementById("successPopup");
+const btn=document.getElementById("submitBtn");
+
+form.addEventListener("submit", async(e)=>{
 e.preventDefault();
 
+btn.disabled=true;
+btn.innerText="SENDING...";
+
+const formData=new FormData(form);
+
+/* Formspree */
+fetch("https://formspree.io/f/xpqykbvr",{
+method:"POST",
+body:formData,
+headers:{Accept:"application/json"}
+});
+
+/* Google Sheet */
+fetch("https://script.google.com/macros/s/AKfycbz-n69boQvKuZ1b2eomihHO87Tee7ZkyIb2vTpXNoJRapY9KkUY5TqDPMWGvAIglsEm/exec",{
+method:"POST",
+body:formData,
+mode:"no-cors"
+});
+
+setTimeout(()=>{
 confetti({
-particleCount:150,
-spread:70,
+particleCount:180,
+spread:80,
 origin:{y:0.6}
 });
 
-alert("Your request has been submitted!");
-this.reset();
+popup.style.display="block";
+btn.disabled=false;
+btn.innerText="Book Free Consultation";
+form.reset();
+
+},800);
+});
+
+document.getElementById("closePopup").onclick=()=>{
+popup.style.display="none";
+};
+
+/* CURSOR */
+document.addEventListener("mousemove",(e)=>{
+const c=document.getElementById("cursor");
+c.style.left=e.clientX+"px";
+c.style.top=e.clientY+"px";
 });
 </script>
 
