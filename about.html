@@ -119,5 +119,26 @@
     © 2026 DeployLynx. All rights reserved.
   </footer>
 
+  <script>
+    // Counter Animation
+    const counters = document.querySelectorAll('h3');
+    counters.forEach(counter => {
+      const updateCount = () => {
+        const target = +counter.innerText.replace(/[^0-9]/g, '');
+        const count = +counter.getAttribute('data-count') || 0;
+        const increment = target / 50;
+
+        if (count < target) {
+          counter.setAttribute('data-count', Math.ceil(count + increment));
+          counter.innerText = Math.ceil(count + increment) + (counter.innerText.includes('%') ? '%' : '+');
+          setTimeout(updateCount, 30);
+        } else {
+          counter.innerText = target + (counter.innerText.includes('%') ? '%' : '+');
+        }
+      };
+      updateCount();
+    });
+  </script>
+
 </body>
 </html>
