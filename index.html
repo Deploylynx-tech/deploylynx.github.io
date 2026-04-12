@@ -21,53 +21,26 @@
         .btn-glow:hover { box-shadow: 0 0 25px rgba(59, 130, 246, 0.6); transform: translateY(-2px); transition: all 0.3s; }
         .service-card:hover { border-color: rgba(96, 165, 250, 0.5); background: rgba(255, 255, 255, 0.05); }
 
-        /* DROPDOWN STYLING */
-        .dropdown {
-            position: relative;
-            display: inline-block;
+        /* PROFESSIONAL NAVBAR STYLING */
+        nav { 
+            position: sticky; 
+            top: 0; 
+            z-index: 9999; 
+            background: rgba(10, 15, 28, 0.95); 
+            backdrop-filter: blur(10px); 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center; 
+            padding: 20px 5%; 
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05); 
         }
 
-        .dropdown-content {
-            display: none;
-            position: absolute;
-            background-color: #0a0f1c; 
-            min-width: 220px;
-            box-shadow: 0px 8px 16px rgba(0,0,0,0.5);
-            z-index: 10001 !important;
-            border: 1px solid #00c6ff;
-            border-radius: 8px;
-            top: 100%;
-            left: 0;
-        }
+        .logo { font-size: 24px; color: #00c6ff; font-weight: bold; text-decoration: none; }
+        .menu { display: flex; align-items: center; gap: 25px; }
+        .menu a { color: #ccc; text-decoration: none; font-size: 0.95rem; transition: 0.3s; }
+        .menu a:hover, .menu a.active { color: #00c6ff; }
+        .menu a.contact-btn { background: #00c6ff; color: #000; padding: 10px 20px; border-radius: 8px; font-weight: bold; margin-left: 10px; }
 
-        .dropdown-content a {
-            color: #ccc !important;
-            padding: 12px 16px;
-            text-decoration: none;
-            display: block;
-            margin-left: 0 !important;
-            transition: 0.2s;
-        }
-
-        .dropdown-content a:hover {
-            background: rgba(0, 198, 255, 0.1);
-            color: #00c6ff !important;
-        }
-
-        .dropdown:hover .dropdown-content {
-            display: block;
-        }
-
-        .arrow {
-            font-size: 0.8rem;
-            margin-left: 5px;
-        }
-
-        /* THE CLICKABILITY FIX */
-        #nav-links a {
-            pointer-events: auto !important; 
-            cursor: pointer !important;
-        }
     </style>
 </head>
 <body class="antialiased">
@@ -83,32 +56,14 @@
         </div>
     </div>
 
-    <nav style="position: sticky; top: 0; z-index: 9999; background: rgba(10, 15, 28, 0.95); backdrop-filter: blur(10px); display: flex; justify-content: space-between; align-items: center; padding: 20px 5%; border-bottom: 1px solid rgba(255, 255, 255, 0.05);">
-        <div class="logo" style="font-size: 24px; color: #00c6ff; font-weight: bold;">DeployLynx</div>
-        
-        <div class="menu-toggle" id="mobile-menu" style="display: none; flex-direction: column; gap: 5px; cursor: pointer;">
-            <span style="width: 25px; height: 3px; background: white;"></span>
-            <span style="width: 25px; height: 3px; background: white;"></span>
-            <span style="width: 25px; height: 3px; background: white;"></span>
-        </div>
-
-        <div class="menu" id="nav-links" style="display: flex; align-items: center; gap: 25px;">
-            <a href="index.html" style="color: #ccc; text-decoration: none; font-size: 0.95rem;">Home</a>
-            
-            <div class="dropdown">
-                <a href="#" style="color: #ccc; text-decoration: none; font-size: 0.95rem;">Services <span class="arrow">▼</span></a>
-                <div class="dropdown-content">
-                    <a href="services.html#migration">Cloud Migration</a>
-                    <a href="services.html#security">DevSecOps & Security</a>
-                    <a href="services.html#scaling">Auto Scaling Systems</a>
-                    <a href="services.html#automation">CI/CD Automation</a>
-                </div>
-            </div>
-
-            <a href="case-studies.html" style="color: #00c6ff; text-decoration: none; font-size: 0.95rem; font-weight: bold;">Case Studies</a>
-            
-            <a href="about.html" style="color: #ccc; text-decoration: none; font-size: 0.95rem;">About</a>
-            <a href="contact.html" style="background: #00c6ff; color: #000; padding: 10px 20px; border-radius: 8px; text-decoration: none; font-weight: bold; margin-left: 10px;">Contact</a>
+    <nav>
+        <a href="index.html" class="logo">DeployLynx</a>
+        <div class="menu">
+            <a href="index.html">Home</a>
+            <a href="about.html">About</a>
+            <a href="services.html">Services</a>
+            <a href="case-studies.html" class="active">Case Studies</a>
+            <a href="contact.html" class="contact-btn">Contact</a>
         </div>
     </nav>
 
@@ -152,41 +107,6 @@
                 </div>
                 <h3 class="text-xl font-bold mb-3">Auto Scaling Solutions</h3>
                 <p class="text-gray-400 text-sm leading-relaxed">Infrastructure that grows with your users. We optimize resource allocation to reduce costs and maintain performance.</p>
-            </div>
-        </div>
-    </section>
-
-    <section class="py-24 px-8 max-w-7xl mx-auto text-center">
-        <h2 class="text-4xl font-bold mb-4">Who We Are</h2>
-        <p class="text-gray-400 mb-16 max-w-2xl mx-auto">We are a technical agency built to help businesses grow confidently on the cloud.</p>
-        <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
-            <div class="relative overflow-hidden rounded-[2.5rem] h-96 group border border-white/10">
-                <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&q=80&w=1000" class="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition duration-500">
-                <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent p-6 flex flex-col justify-end text-left">
-                    <h4 class="font-bold text-lg">Cloud Strategy</h4>
-                    <p class="text-sm text-gray-400">Enterprise Planning</p>
-                </div>
-            </div>
-            <div class="relative overflow-hidden rounded-[2.5rem] h-96 group border border-white/10">
-                <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&q=80&w=1000" class="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition duration-500">
-                <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent p-6 flex flex-col justify-end text-left">
-                    <h4 class="font-bold text-lg">Infrastructure</h4>
-                    <p class="text-sm text-gray-400">Systems Engineering</p>
-                </div>
-            </div>
-            <div class="relative overflow-hidden rounded-[2.5rem] h-96 group border border-white/10">
-                <img src="https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?auto=format&fit=crop&q=80&w=1000" class="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition duration-500">
-                <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent p-6 flex flex-col justify-end text-left">
-                    <h4 class="font-bold text-lg">Automation</h4>
-                    <p class="text-sm text-gray-400">DevOps Experts</p>
-                </div>
-            </div>
-            <div class="relative overflow-hidden rounded-[2.5rem] h-96 group border border-white/10">
-                <img src="https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&q=80&w=1000" class="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition duration-500">
-                <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent p-6 flex flex-col justify-end text-left">
-                    <h4 class="font-bold text-lg">Security</h4>
-                    <p class="text-sm text-gray-400">DevSecOps</p>
-                </div>
             </div>
         </div>
     </section>
