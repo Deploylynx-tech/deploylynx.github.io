@@ -20,6 +20,54 @@
         
         .btn-glow:hover { box-shadow: 0 0 25px rgba(59, 130, 246, 0.6); transform: translateY(-2px); transition: all 0.3s; }
         .service-card:hover { border-color: rgba(96, 165, 250, 0.5); background: rgba(255, 255, 255, 0.05); }
+
+        /* DROPDOWN STYLING */
+        .dropdown {
+            position: relative;
+            display: inline-block;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #0a0f1c; 
+            min-width: 220px;
+            box-shadow: 0px 8px 16px rgba(0,0,0,0.5);
+            z-index: 10001 !important;
+            border: 1px solid #00c6ff;
+            border-radius: 8px;
+            top: 100%;
+            left: 0;
+        }
+
+        .dropdown-content a {
+            color: #ccc !important;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+            margin-left: 0 !important;
+            transition: 0.2s;
+        }
+
+        .dropdown-content a:hover {
+            background: rgba(0, 198, 255, 0.1);
+            color: #00c6ff !important;
+        }
+
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+
+        .arrow {
+            font-size: 0.8rem;
+            margin-left: 5px;
+        }
+
+        /* THE CLICKABILITY FIX */
+        #nav-links a {
+            pointer-events: auto !important; 
+            cursor: pointer !important;
+        }
     </style>
 </head>
 <body class="antialiased">
@@ -35,23 +83,33 @@
         </div>
     </div>
 
-    <nav class="flex items-center justify-between px-8 py-6 max-w-7xl mx-auto">
-        <div class="text-2xl font-bold tracking-tighter">Deploy<span class="text-blue-500">Lynx</span></div>
-        <div class="hidden md:flex space-x-8 text-gray-400 font-medium">
-            <a href="#" class="hover:text-white transition">Home</a>
-            <div class="relative group cursor-pointer">
-                <span class="hover:text-white transition flex items-center">Services ▼</span>
-                <div class="absolute top-full left-0 mt-2 w-56 glass rounded-xl opacity-0 group-hover:opacity-100 transition p-2 z-50">
-                    <a href="#services" class="block p-2 hover:bg-white/5 rounded-lg text-sm">Cloud Migration</a>
-                    <a href="#services" class="block p-2 hover:bg-white/5 rounded-lg text-sm">DevSecOps & Security</a>
-                    <a href="#services" class="block p-2 hover:bg-white/5 rounded-lg text-sm">Auto Scaling Systems</a>
-                    <a href="#services" class="block p-2 hover:bg-white/5 rounded-lg text-sm">CI/CD Automation</a>
+    <nav style="position: sticky; top: 0; z-index: 9999; background: rgba(10, 15, 28, 0.95); backdrop-filter: blur(10px); display: flex; justify-content: space-between; align-items: center; padding: 20px 5%; border-bottom: 1px solid rgba(255, 255, 255, 0.05);">
+        <div class="logo" style="font-size: 24px; color: #00c6ff; font-weight: bold;">DeployLynx</div>
+        
+        <div class="menu-toggle" id="mobile-menu" style="display: none; flex-direction: column; gap: 5px; cursor: pointer;">
+            <span style="width: 25px; height: 3px; background: white;"></span>
+            <span style="width: 25px; height: 3px; background: white;"></span>
+            <span style="width: 25px; height: 3px; background: white;"></span>
+        </div>
+
+        <div class="menu" id="nav-links" style="display: flex; align-items: center; gap: 25px;">
+            <a href="index.html" style="color: #ccc; text-decoration: none; font-size: 0.95rem;">Home</a>
+            
+            <div class="dropdown">
+                <a href="#" style="color: #ccc; text-decoration: none; font-size: 0.95rem;">Services <span class="arrow">▼</span></a>
+                <div class="dropdown-content">
+                    <a href="services.html#migration">Cloud Migration</a>
+                    <a href="services.html#security">DevSecOps & Security</a>
+                    <a href="services.html#scaling">Auto Scaling Systems</a>
+                    <a href="services.html#automation">CI/CD Automation</a>
                 </div>
             </div>
-            <a href="#" class="hover:text-white transition">Case Studies</a>
-            <a href="#" class="hover:text-white transition">About</a>
+
+            <a href="case-studies.html" style="color: #00c6ff; text-decoration: none; font-size: 0.95rem; font-weight: bold;">Case Studies</a>
+            
+            <a href="about.html" style="color: #ccc; text-decoration: none; font-size: 0.95rem;">About</a>
+            <a href="contact.html" style="background: #00c6ff; color: #000; padding: 10px 20px; border-radius: 8px; text-decoration: none; font-weight: bold; margin-left: 10px;">Contact</a>
         </div>
-        <button onclick="openPopup()" class="bg-blue-600 px-6 py-2 rounded-lg font-bold btn-glow">Contact</button>
     </nav>
 
     <section class="grid md:grid-cols-2 gap-12 items-center px-8 py-20 max-w-7xl mx-auto">
