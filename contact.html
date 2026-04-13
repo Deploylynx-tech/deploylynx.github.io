@@ -305,16 +305,24 @@
         headers: { 'Accept': 'application/json' }
     })
 ])
-        ]).then(() => {
-            confetti({ particleCount: 150, spread: 70, origin: { y: 0.6 }, colors: ['#00c6ff', '#ffffff'] });
-            popup.style.display = "block";
-            submitBtn.innerText = "Send Booking Request";
-            submitBtn.disabled = false;
-            form.reset();
-        }).catch(err => {
-            alert("Submission error. Please try again.");
-            submitBtn.disabled = false;
-        });
+.then(() => {
+    confetti({
+        particleCount: 150,
+        spread: 70,
+        origin: { y: 0.6 },
+        colors: ['#00c6ff', '#ffffff']
+    });
+
+    popup.style.display = "block";
+    submitBtn.innerText = "Send Booking Request";
+    submitBtn.disabled = false;
+    form.reset();
+})
+.catch(err => {
+    console.error(err);
+    alert("Submission error. Please try again.");
+    submitBtn.disabled = false;
+});
     });
 </script>
 
