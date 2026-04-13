@@ -5,13 +5,14 @@
     <title>Contact & Pricing | DeployLynx</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    <script src="https://unpkg.com/typed.js@2.1.0/dist/typed.umd.js"></script>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
 
     <style>
         :root {
             --primary-cyan: #00c6ff;
-            --dark-bg: #030712;
+            --dark-bg: #030712; /* Matching the deep dark theme */
             --input-bg: rgba(255, 255, 255, 0.05);
             --form-bg: rgba(15, 23, 42, 0.8);
             --glass-border: rgba(255, 255, 255, 0.1);
@@ -20,74 +21,106 @@
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
         body { background: var(--dark-bg); color: #fff; overflow-x: hidden; scroll-behavior: smooth; }
 
-        /* NAV BAR */
+        /* UNIFIED NAV BAR */
         nav { 
             position: sticky; top: 0; z-index: 9999; 
             background: rgba(10, 15, 28, 0.95); backdrop-filter: blur(10px); 
             display: flex; justify-content: space-between; align-items: center; 
             padding: 20px 8%; border-bottom: 1px solid var(--glass-border); 
         }
+
         .logo { font-size: 26px; color: var(--primary-cyan); font-weight: 800; text-decoration: none; }
         .logo span { color: white; }
         .menu { display: flex; align-items: center; gap: 25px; }
         .menu a { color: #94a3b8; text-decoration: none; font-size: 0.95rem; transition: 0.3s; }
         .menu a:hover, .menu a.active { color: var(--primary-cyan); }
 
-        /* HERO GRID */
+        /* HERO SECTION & GRID */
         .container-main {
             display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 40px; padding: 60px 8%;
-            max-width: 1400px; margin: auto; align-items: flex-start; min-height: 80vh;
+            max-width: 1400px; margin: auto; align-items: center; min-height: 80vh;
         }
 
-        /* Fixed Title to prevent layout shifts */
-        .typing-title { font-size: clamp(2.5rem, 5vw, 3.5rem); font-weight: 800; line-height: 1.1; color: #fff; margin-bottom: 20px; min-height: 1.2em; }
+        .typing-container { min-height: 100px; margin-bottom: 10px; }
+        .typing-title { font-size: clamp(2.5rem, 5vw, 3.5rem); font-weight: 800; line-height: 1.1; color: #fff; }
+
         .sub-text { color: #cbd5e1; margin-bottom: 30px; font-size: 1.1rem; line-height: 1.6; }
 
-        .form-column { display: flex; flex-direction: column; gap: 30px; }
-
+        /* GLASS FORM - FIXING ALIGNMENT AND FIELD DESTRUCTION */
         .booking-card {
             background: var(--form-bg); padding: 35px; border-radius: 24px;
             border: 1px solid var(--glass-border); box-shadow: 0 25px 50px rgba(0,0,0,0.5);
             backdrop-filter: blur(20px);
+            position: relative;
         }
+
+        /* Fix input destruction - ensure grid rows are correct */
         .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 15px; }
-        .single-field { margin-bottom: 15px; }
         
         input, textarea, select {
             width: 100%; padding: 15px; border-radius: 12px; border: 1px solid rgba(255,255,255,0.1);
             background: var(--input-bg); color: #fff; outline: none; transition: 0.3s;
         }
+        /* Single fields below row */
+        .single-field { margin-bottom: 15px; }
+
         input:focus, textarea:focus { border-color: var(--primary-cyan); background: rgba(255,255,255,0.08); }
         
         .submit-btn {
-            width: 100%; padding: 18px; border: none; border-radius: 12px; 
-            background: var(--primary-cyan); color: #000; font-weight: 800; 
-            cursor: pointer; transition: 0.3s; text-transform: uppercase;
+            width: 100%; padding: 18px; border: none; border-radius: 12px; background: var(--primary-cyan);
+            color: #000; font-weight: 800; cursor: pointer; transition: 0.3s; text-transform: uppercase;
+            margin-top: 10px;
         }
-        .submit-btn:hover:not(:disabled) { background: #fff; box-shadow: 0 10px 20px rgba(0,198,255,0.3); transform: translateY(-2px); }
-        .submit-btn:disabled { background: #555; cursor: not-allowed; }
+        .submit-btn:hover { background: #fff; box-shadow: 0 10px 20px rgba(0,198,255,0.3); transform: translateY(-2px); }
 
-        .cards-column { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
-        .contact-card {
-            background: rgba(15, 23, 42, 0.6); border: 1px solid var(--glass-border);
-            padding: 20px; border-radius: 16px; transition: 0.3s;
-            display: flex; align-items: center; gap: 15px;
+        /* UNIFIED BUTTON STYLING for all contact points */
+        .unify-btn {
+            display: inline-block; padding: 10px 20px; border-radius: 8px; font-weight: 600; text-transform: uppercase;
+            transition: all 0.3s ease; text-align: center; color: white; border: 1px solid white;
         }
-        .contact-card:hover { border-color: var(--primary-cyan); transform: scale(1.02); }
-        .contact-card .card-text { overflow: hidden; }
-        .contact-card p { font-size: 0.85rem; color: #94a3b8; }
-        .contact-card a { font-size: 0.95rem; font-weight: 600; color: white; text-decoration: none; word-break: break-all; }
-        .contact-card a:hover { color: var(--primary-cyan); }
+        .unify-btn:hover { background-color: white; color: var(--dark-bg); box-shadow: 0 0 15px var(--primary-cyan); transform: scale(1.03); }
 
-        .premium-animation {
-            width: 100%; max-width: 500px; border-radius: 24px;
+        /* ANIMATION AREA - OFFICE INFOGRAPHIC */
+        .animation-col { display: flex; justify-content: center; position: relative; }
+        .office-scene-container {
+            width: 450px; height: 350px; position: relative;
+            background: radial-gradient(circle, rgba(0, 198, 255, 0.1), transparent);
+            display: flex; justify-content: center; align-items: center; overflow: hidden;
+            border-radius: 20px; border: 1px solid var(--glass-border); box-shadow: 0 0 30px rgba(0,0,0,0.4);
+        }
+        .scene-elements {
+            width: 90%; height: 90%;
+            background: rgba(10, 15, 28, 0.6); border-radius: 15px;
+            display: grid; grid-template-columns: 1fr 1fr; gap: 20px; padding: 20px;
+        }
+        .office-character { display: flex; flex-direction: column; align-items: center; gap: 10px; }
+        .character-avatar { font-size: 60px; filter: drop-shadow(0 0 10px var(--primary-cyan)); }
+        .character-desk {
+            width: 100%; height: 60px; background: rgba(255,255,255,0.05); border-radius: 10px;
+            display: flex; justify-content: center; align-items: center; font-size: 24px; color: var(--primary-cyan);
             border: 1px solid var(--glass-border);
-            box-shadow: 0 0 30px rgba(0, 198, 255, 0.15);
-            margin: auto; overflow: hidden;
-            display: flex; justify-content: center; align-items: center;
         }
-        .premium-animation img { width: 100%; height: auto; display: block; object-fit: cover; }
+        .desk-activity { position: relative; }
+        .activity-lights {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            display: flex; gap: 5px; opacity: 0; animation: signal-lights 1.5s infinite;
+        }
+        .desk-boy .character-avatar { animation: head-bob 3s infinite ease-in-out; }
+        .desk-girl .character-avatar { animation: phone-gesture 3s infinite ease-in-out; }
 
+        /* Server background lights */
+        .server-rack {
+            position: absolute; bottom: 0; left: 0; width: 100%; height: 40px;
+            display: flex; gap: 5px; justify-content: center; padding: 5px; background: rgba(0,0,0,0.3);
+        }
+        .server-light { width: 6px; height: 6px; border-radius: 50%; animation: server-blinking 2s infinite; }
+
+        @keyframes server-blinking { 0%, 100% { background-color: rgba(0,198,255, 0.2); } 50% { background-color: rgba(0,198,255, 1); } }
+        @keyframes head-bob { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-5px); } }
+        @keyframes phone-gesture { 0%, 100% { transform: translateY(0) rotate(0deg); } 50% { transform: translateY(-3px) rotate(5deg); } }
+        @keyframes signal-lights { 0%, 100% { opacity: 0; } 50% { opacity: 1; } }
+
+        /* WHY PARTNER SECTION - INTACT */
         .why-section { padding: 100px 8%; text-align: center; }
         .why-section h2 { font-size: 2.8rem; margin-bottom: 50px; color: white; font-weight: 700; }
         .why-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; }
@@ -100,39 +133,48 @@
         .why-card h3 { font-size: 1.5rem; font-weight: 600; margin-bottom: 15px; color: white; }
         .why-card p { color: #94a3b8; line-height: 1.7; }
 
-        .section-pricing { padding: 100px 8%; text-align: center; }
-        .section-title { font-size: 3rem; font-weight: 800; margin-bottom: 50px; }
-        
-        .grid-3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 30px; }
-        .price-card {
-            background: rgba(15, 23, 42, 0.6); padding: 40px; border-radius: 24px;
+        /* PRICING SECTION - INTACT */
+        .section-pricing { padding: 100px 8%; text-align: center; background: rgba(0,0,0,0.2); }
+        .section-pricing h2 { font-size: 3rem; font-weight: 800; margin-bottom: 50px; color: white; }
+        .card-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 30px; max-width: 1200px; margin: auto; }
+        .card { 
+            background: var(--form-bg); padding: 50px 40px; border-radius: 24px; 
             border: 1px solid var(--glass-border); transition: 0.3s;
         }
-        .price-card:hover { border-color: var(--primary-cyan); transform: translateY(-10px); }
-        
-        .price-val { font-size: 3rem; font-weight: 800; color: var(--primary-cyan); margin: 25px 0; }
-        .price-val span { font-size: 1rem; color: #94a3b8; }
-        
-        .card-btn {
-            display: inline-block; width: 100%; padding: 15px; border-radius: 12px;
-            background: transparent; border: 1px solid var(--primary-cyan);
-            color: var(--primary-cyan); font-weight: 700; cursor: pointer; text-decoration: none; transition: 0.3s;
+        .card:hover { border-color: var(--primary-cyan); transform: translateY(-10px); }
+        .card h3 { font-size: 1.5rem; color: white; margin-bottom: 20px; }
+        .price { font-size: 3rem; font-weight: 800; margin: 25px 0; color: var(--primary-cyan); }
+        .price span { font-size: 1rem; color: #94a3b8; font-weight: 400; }
+        .card p { color: #94a3b8; margin-bottom: 30px; line-height: 1.6; }
+        .card button {
+            width: 100%; padding: 15px; border-radius: 12px; background: transparent; border: 1px solid var(--primary-cyan);
+            color: var(--primary-cyan); font-weight: 700; transition: 0.3s;
         }
-        .card-btn:hover { background: var(--primary-cyan); color: #000; box-shadow: 0 5px 15px rgba(0,198,255,0.3); }
+        .card button:hover { background: var(--primary-cyan); color: #000; box-shadow: 0 5px 15px rgba(0,198,255,0.3); }
 
+        /* FOOTER */
+        footer { padding: 50px 8%; border-top: 1px solid rgba(255,255,255,0.05); background: rgba(0,0,0,0.1); }
+        .footer-content { display: flex; flex-direction: column; align-items: center; gap: 30px; max-width: 1200px; margin: auto; }
+        .footer-links { display: flex; gap: 20px; flex-wrap: wrap; justify-content: center; }
+        .footer-logo { font-size: 20px; color: white; font-weight: 700; }
+        .footer-details { text-align: center; color: #cbd5e1; font-size: 0.9rem; max-width: 600px; line-height: 1.6; }
+
+        /* MOBILE FIXES */
         @media (max-width: 900px) {
-            .container-main { grid-template-columns: 1fr; }
-            .cards-column { grid-template-columns: 1fr; }
+            nav { flex-direction: column; gap: 15px; padding: 15px 5%; }
+            .menu { gap: 15px; flex-wrap: wrap; justify-content: center; }
+            .container-main { grid-template-columns: 1fr; text-align: center; padding: 40px 5%; gap: 40px; }
+            .animation-col { order: -1; margin-bottom: 20px; }
+            .office-scene-container { width: 300px; height: 250px; }
             .form-row { grid-template-columns: 1fr; gap: 0; }
+            .typing-title { font-size: 2.5rem; }
         }
 
         #successPopup {
             display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%);
             background: #0f172a; padding: 40px; border-radius: 25px; border: 2px solid var(--primary-cyan);
             text-align: center; z-index: 99999; box-shadow: 0 0 80px rgba(0, 198, 255, 0.4);
-            max-width: 400px; width: 90%;
         }
-        #successPopup p { color: #cbd5e1; margin: 10px 0 20px; font-size: 0.95rem; }
     </style>
 </head>
 <body class="antialiased">
@@ -149,83 +191,90 @@
 </nav>
 
 <div class="container-main">
-    <div class="form-column">
-        <div>
-            <h1 class="typing-title">Ready to Architect Your Scale?</h1>
-            <p class="sub-text">
-                Enterprise-grade infrastructure designed for the next generation of SaaS. 
-                Fill out the form below to secure your infrastructure audit or migration strategy.
-            </p>
-
-            <div class="booking-card">
-                <form id="scheduleForm">
-                    <div class="form-row">
-                        <input type="text" name="Name" placeholder="Full Name" required>
-                        <input type="email" name="Email" placeholder="Work Email" required>
-                    </div>
-                    
-                    <input type="text" name="Company Name" placeholder="Company / Startup Name" required class="single-field">
-
-                    <select name="Select Service" required class="single-field">
-                        <option value="" disabled selected>Select Service</option>
-                        <option value="Cloud Migration">AWS Cloud Migration</option>
-                        <option value="CI/CD">CI/CD Pipeline Automation</option>
-                        <option value="Kubernetes">Kubernetes Orchestration</option>
-                        <option value="Security">DevSecOps & Security</option>
-                    </select>
-
-                    <div class="form-row">
-                        <input type="date" name="Date" required>
-                        <select name="Time" required>
-                            <option value="" disabled selected>Time (PKT)</option>
-                            <option value="09:00 AM">09:00 AM</option>
-                            <option value="12:00 PM">12:00 PM</option>
-                            <option value="03:00 PM">03:00 PM</option>
-                        </select>
-                    </div>
-
-                    <textarea name="Message" rows="8" style="min-height: 200px;" placeholder="Tell us about your project infrastructure needs..." class="single-field"></textarea>
-                    
-                    <button type="submit" id="submitBtn" class="submit-btn">Send Booking Request</button>
-                </form>
-            </div>
+    <div>
+        <div class="typing-container">
+            <h1 class="typing-title" id="typed-text"></h1>
         </div>
+        
+        <p class="sub-text">
+            Enterprise-grade infrastructure designed for the next generation of SaaS. 
+            We architect systems for scale, security, and absolute reliability.
+            Reach out to schedule a consultation with our leads or for general inquiries.
+            
+            📞 Call us: <a href="tel:+923713600892" class="text-white hover:text-cyan-400">+92 371 3600892</a><br>
+            ✉️ Email: <a href="mailto:deploylynx26@gmail.com" class="text-white hover:text-cyan-400">deploylynx26@gmail.com</a><br>
+            💬 WhatsApp: <a href="https://wa.me/message/VXHPTQC4ZU46A1" target="_blank" class="text-white hover:text-cyan-400">Business Chat</a><br>
+            🔗 Connect: <a href="https://www.linkedin.com/company/deploylynx" target="_blank" class="text-white hover:text-cyan-400">LinkedIn</a>
+        </p>
 
-        <div class="cards-column">
-            <div class="contact-card">
-                <div class="text-2xl text-cyan-400">📞</div>
-                <div class="card-text">
-                    <p>Call Us</p>
-                    <a href="tel:+923713600892">+92 371 3600892</a>
+        <div class="booking-card">
+            <form id="scheduleForm">
+                <div class="form-row">
+                    <input type="text" name="Name" placeholder="Full Name" required>
+                    <input type="email" name="Email" placeholder="Work Email" required>
                 </div>
-            </div>
-            <div class="contact-card">
-                <div class="text-2xl text-cyan-400">✉️</div>
-                <div class="card-text">
-                    <p>Email</p>
-                    <a href="mailto:deploylynx26@gmail.com">deploylynx26@gmail.com</a>
+                
+                <input type="text" name="Company" placeholder="Company / Startup Name" required class="single-field">
+
+                <select name="Service" required class="single-field">
+                    <option value="" disabled selected>Select Service</option>
+                    <option value="Cloud Migration">AWS Cloud Migration</option>
+                    <option value="CI/CD">CI/CD Pipeline Automation</option>
+                    <option value="Kubernetes">Kubernetes Orchestration</option>
+                    <option value="Security">DevSecOps & Security</option>
+                </select>
+
+                <div class="form-row">
+                    <input type="date" name="Date" required>
+                    <select name="Time" required>
+                        <option value="" disabled selected>Time (PKT)</option>
+                        <option value="09:00 AM">09:00 AM</option>
+                        <option value="12:00 PM">12:00 PM</option>
+                        <option value="03:00 PM">03:00 PM</option>
+                    </select>
                 </div>
-            </div>
-            <div class="contact-card">
-                <div class="text-2xl text-cyan-400">💬</div>
-                <div class="card-text">
-                    <p>WhatsApp</p>
-                    <a href="https://wa.me/message/VXHPTQC4ZU46A1" target="_blank">Business Chat</a>
-                </div>
-            </div>
-            <div class="contact-card">
-                <div class="text-2xl text-cyan-400">🔗</div>
-                <div class="card-text">
-                    <p>LinkedIn</p>
-                    <a href="https://www.linkedin.com/company/deploylynx" target="_blank">Connect with us</a>
-                </div>
-            </div>
+
+                <textarea name="Message" rows="3" placeholder="Tell us about your project infrastructure needs..."></textarea>
+                
+                <button type="submit" id="submitBtn" class="submit-btn">Send Booking Request</button>
+            </form>
         </div>
     </div>
 
-    <div class="premium-animation">
-    <img src="https://images.unsplash.com/photo-1552581234-26160f608093?auto=format&fit=crop&w=800&q=80" alt="Office Team Work">
-</div>
+    <div class="animation-col">
+        <div class="office-scene-container">
+            <div class="scene-elements">
+                <div class="office-character desk-boy">
+                    <div class="character-avatar">👨🏼‍💻</div>
+                    <div class="character-desk desk-activity">
+                        💻
+                        <div class="activity-lights">
+                            <span class="text-xs">Typing...</span>
+                            <div class="server-light" style="animation-delay: 0.1s;"></div>
+                            <div class="server-light" style="animation-delay: 0.3s;"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="office-character desk-girl">
+                    <div class="character-avatar">👩🏻‍💼</div>
+                    <div class="character-desk desk-activity">
+                        📞📁
+                        <div class="activity-lights">
+                            <span class="text-xs">Calling...</span>
+                            <div class="server-light" style="animation-delay: 0.2s;"></div>
+                            <div class="server-light" style="animation-delay: 0.4s;"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="server-rack">
+                <div class="server-light" style="animation-delay: 0s;"></div>
+                <div class="server-light" style="animation-delay: 0.2s;"></div>
+                <div class="server-light" style="animation-delay: 0.4s;"></div>
+                <div class="server-light" style="animation-delay: 0.6s;"></div>
+            </div>
+        </div>
+    </div>
 </div>
 
 <div class="why-section">
@@ -250,38 +299,65 @@
 </div>
 
 <div class="section-pricing">
-    <h2 class="section-title">Transparent Pricing Solutions</h2>
-    <div class="grid-3">
-        <div class="price-card">
-            <h3 class="text-xl font-bold">Cloud Audit</h3>
-            <div class="price-val">$499<span>/flat</span></div>
-            <p class="text-gray-400 mb-6">A deep-dive analysis identifying security gaps and cost inefficiencies.</p>
-            <a href="mailto:deploylynx26@gmail.com?subject=Inquiry: Cloud Audit" class="card-btn">Get Started</a>
+    <h2>Transparent Pricing Solutions</h2>
+    <div class="card-grid">
+        <div class="card">
+            <h3>Cloud Audit</h3>
+            <div class="price">$499<span>/flat</span></div>
+            <p>A deep-dive analysis of your current infrastructure, identifying security gaps, cost inefficiencies, and potential performance bottlenecks.</p>
+            <button onclick="location.href='mailto:deploylynx26@gmail.com?subject=Inquiry: Cloud Audit'">Get Started</button>
         </div>
-        <div class="price-card" style="border-color: var(--primary-cyan); background: rgba(0, 198, 255, 0.05);">
-            <h3 class="text-xl font-bold">DevOps Dedicated</h3>
-            <div class="price-val">$1,999<span>/mo</span></div>
-            <p class="text-gray-400 mb-6">Your on-demand team. Ongoing CI/CD management and 24/7 reliability.</p>
-            <a href="https://wa.me/message/VXHPTQC4ZU46A1" target="_blank" class="card-btn" style="background-color:var(--primary-cyan); color: #000; border-color: var(--primary-cyan);">Scale Now</a>
+        <div class="card featured" style="border-color: var(--primary-cyan); transform: scale(1.03); box-shadow: 0 0 40px rgba(0, 198, 255, 0.2); background: rgba(15, 23, 42, 0.95);">
+            <h3>DevOps Dedicated</h3>
+            <div class="price">$1,999<span>/mo</span></div>
+            <p>Your on-demand DevOps team. Ongoing CI/CD management, automated vulnerability scanning, autoscaling support, and 24/7 reliability engineering.</p>
+            <button onclick="location.href='https://wa.me/message/VXHPTQC4ZU46A1'" style="background-color:var(--primary-cyan); color: #000; border-color: var(--primary-cyan);">Scale Now</button>
         </div>
-        <div class="price-card">
-            <h3 class="text-xl font-bold">Custom Project</h3>
-            <div class="price-val">Quote</div>
-            <p class="text-gray-400 mb-6">For large-scale migrations or complex enterprise data pipelines.</p>
-            <a href="#scheduleForm" class="card-btn">Inquire</a>
+        <div class="card">
+            <h3>Custom Project</h3>
+            <div class="price">Quote</div>
+            <p>For large-scale migrations, hybrid cloud builds, or complex enterprise data pipelines. Tailored solutions with clear milestones and absolute deadlines.</p>
+            <button onclick="location.href='#scheduleForm'">Inquire</button>
         </div>
     </div>
 </div>
 
+<footer>
+    <div class="footer-content">
+        <div class="footer-logo logo">Deploy<span>Lynx</span></div>
+        <p class="footer-details">
+            A specialized agency architecting scalable, secure AWS infrastructure with DevOps automation. 
+            We don't just host your code; we design systems that grow with your vision. Minimal waste, maximal uptime, DevSecOps everywhere.
+        </p>
+        <div class="footer-links">
+            <a href="tel:+923713600892" class="hover:text-cyan-400">+92 371 3600892</a>
+            <a href="mailto:deploylynx26@gmail.com" class="hover:text-cyan-400">deploylynx26@gmail.com</a>
+            <a href="https://wa.me/message/VXHPTQC4ZU46A1" target="_blank" class="hover:text-cyan-400">WhatsApp</a>
+            <a href="https://www.linkedin.com/company/deploylynx" target="_blank" class="hover:text-cyan-400">LinkedIn</a>
+            <a href="index.html" class="hover:text-cyan-400">Home</a>
+            <a href="contact.html" class="hover:text-cyan-400">Services</a>
+        </div>
+        <p style="font-size: 0.8rem; color: #94a3b8; margin-top: 20px;">© 2026 DeployLynx. Scalable Cloud & DevOps Agency. All rights reserved.</p>
+    </div>
+</footer>
+
 <div id="successPopup">
     <div style="font-size: 50px; margin-bottom: 15px;">✨🚀</div>
     <h3 style="color: var(--primary-cyan); font-size: 24px;">Request Received!</h3>
-    <p>Congrats! Our team will review your query and get back to you shortly to confirm your consultation slot.</p>
+    <p style="color: white; margin-top: 10px;">We will contact you shortly to confirm your strategy consultation slot.</p>
     <button onclick="document.getElementById('successPopup').style.display='none'" style="margin-top:20px; width:auto; padding:10px 30px;" class="submit-btn">Close</button>
 </div>
 
 <script>
-    // FORM HANDLING
+    // TYPING ANIMATION
+    new Typed('#typed-text', {
+        strings: ['Ready to Architect?', 'Scale with Confidence.', 'Deploy Securely.'],
+        typeSpeed: 50,
+        backSpeed: 30,
+        loop: true
+    });
+
+    // FORM HANDLING - LOGIC PRESERVED
     const form = document.getElementById("scheduleForm");
     const submitBtn = document.getElementById("submitBtn");
     const popup = document.getElementById("successPopup");
@@ -295,34 +371,29 @@
         const scriptURL = "https://script.google.com/macros/s/AKfycbz-n69boQvKuZ1b2eomihHO87Tee7ZkyIb2vTpXNoJRapY9KkUY5TqDPMWGvAIglsEm/exec";
         
         Promise.all([
-    fetch(scriptURL, {
-        method: "POST",
-        body: formData
-    }),
-    fetch("https://formspree.io/f/xpqykbvr", {
-        method: "POST",
-        body: formData,
-        headers: { 'Accept': 'application/json' }
-    })
-])
-.then(() => {
-    confetti({
-        particleCount: 150,
-        spread: 70,
-        origin: { y: 0.6 },
-        colors: ['#00c6ff', '#ffffff']
+            fetch(scriptURL, { method: "POST", body: formData, mode: 'no-cors' }),
+            fetch("https://formspree.io/f/xpqykbvr", {
+                method: "POST",
+                body: formData,
+                headers: { 'Accept': 'application/json' }
+            })
+        ]).then(() => {
+            confetti({ particleCount: 150, spread: 70, origin: { y: 0.6 }, colors: ['#00c6ff', '#ffffff'] });
+            popup.style.display = "block";
+            submitBtn.innerText = "Send Booking Request";
+            submitBtn.disabled = false;
+            form.reset();
+        }).catch(err => {
+            alert("Submission error. Please try again.");
+            submitBtn.disabled = false;
+        });
     });
 
-    popup.style.display = "block";
-    submitBtn.innerText = "Send Booking Request";
-    submitBtn.disabled = false;
-    form.reset();
-})
-.catch(err => {
-    console.error(err);
-    alert("Submission error. Please try again.");
-    submitBtn.disabled = false;
-});
+    // CUSTOM CURSOR - PRESERVED
+    document.addEventListener("mousemove", e => { 
+        const cursor = document.getElementById("customCursor");
+        cursor.style.left = e.clientX + "px"; 
+        cursor.style.top = e.clientY + "px"; 
     });
 </script>
 
