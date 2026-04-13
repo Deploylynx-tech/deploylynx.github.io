@@ -295,7 +295,10 @@
         const scriptURL = "https://script.google.com/macros/s/AKfycbz-n69boQvKuZ1b2eomihHO87Tee7ZkyIb2vTpXNoJRapY9KkUY5TqDPMWGvAIglsEm/exec";
         
         Promise.all([
-            fetch(scriptURL, { method: "POST", body: formData, mode: 'no-cors' }),
+            fetch(scriptURL, {
+    method: "POST",
+    body: formData
+})
             fetch("https://formspree.io/f/xpqykbvr", {
                 method: "POST",
                 body: formData,
