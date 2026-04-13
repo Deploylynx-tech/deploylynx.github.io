@@ -295,15 +295,16 @@
         const scriptURL = "https://script.google.com/macros/s/AKfycbz-n69boQvKuZ1b2eomihHO87Tee7ZkyIb2vTpXNoJRapY9KkUY5TqDPMWGvAIglsEm/exec";
         
         Promise.all([
-            fetch(scriptURL, {
-    method: "POST",
-    body: formData
-})
-            fetch("https://formspree.io/f/xpqykbvr", {
-                method: "POST",
-                body: formData,
-                headers: { 'Accept': 'application/json' }
-            })
+    fetch(scriptURL, {
+        method: "POST",
+        body: formData
+    }),
+    fetch("https://formspree.io/f/xpqykbvr", {
+        method: "POST",
+        body: formData,
+        headers: { 'Accept': 'application/json' }
+    })
+])
         ]).then(() => {
             confetti({ particleCount: 150, spread: 70, origin: { y: 0.6 }, colors: ['#00c6ff', '#ffffff'] });
             popup.style.display = "block";
