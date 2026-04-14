@@ -83,7 +83,6 @@
             max-width: 1400px;
             margin: auto;
             align-items: flex-start;
-            min-height: 80vh;
         }
 
         .typing-title {
@@ -92,7 +91,6 @@
             line-height: 1.1;
             color: #fff;
             margin-bottom: 20px;
-            min-height: 1.2em;
         }
 
         .sub-text {
@@ -222,9 +220,6 @@
             box-shadow: 0 0 30px rgba(0, 198, 255, 0.15);
             margin: auto;
             overflow: hidden;
-            display: flex;
-            justify-content: center;
-            align-items: center;
         }
 
         .premium-animation img {
@@ -234,9 +229,12 @@
             object-fit: cover;
         }
 
+        /* WHY SECTION */
         .why-section {
             padding: 100px 8%;
             text-align: center;
+            max-width: 1400px;
+            margin: auto;
         }
 
         .why-section h2 {
@@ -272,21 +270,12 @@
             margin-bottom: 20px;
         }
 
-        .why-card h3 {
-            font-size: 1.5rem;
-            font-weight: 600;
-            margin-bottom: 15px;
-            color: white;
-        }
-
-        .why-card p {
-            color: #94a3b8;
-            line-height: 1.7;
-        }
-
+        /* PRICING SECTION */
         .section-pricing {
             padding: 100px 8%;
             text-align: center;
+            max-width: 1400px;
+            margin: auto;
         }
 
         .section-title {
@@ -307,6 +296,7 @@
             border-radius: 24px;
             border: 1px solid var(--glass-border);
             transition: 0.3s;
+            text-align: center;
         }
 
         .price-card:hover {
@@ -377,12 +367,6 @@
             max-width: 400px;
             width: 90%;
         }
-
-        #successPopup p {
-            color: #cbd5e1;
-            margin: 10px 0 20px;
-            font-size: 0.95rem;
-        }
     </style>
 </head>
 
@@ -397,6 +381,7 @@
             <a href="contact.html" class="active">Contact</a>
         </div>
     </nav>
+
     <div class="container-main">
         <div class="form-column">
             <div>
@@ -432,6 +417,7 @@
                     </form>
                 </div>
             </div>
+
             <div class="cards-column">
                 <div class="contact-card">
                     <div class="text-2xl text-cyan-400">📞</div>
@@ -458,17 +444,17 @@
                     <div class="text-2xl text-cyan-400">🔗</div>
                     <div class="card-text">
                         <p>LinkedIn</p>
-                        <a href="https://www.linkedin.com/company/deploylynx" target="_blank">Connect with us</a>
+                        <a href="https://www.linkedin.com/company/deploylynx" target="_blank">Connect</a>
                     </div>
                 </div>
             </div>
         </div>
+
         <div class="premium-animation">
-    <img src="https://images.unsplash.com/photo-1521737604893-d14cc237f11d?auto=format&fit=crop&w=1000&q=80"
-    onerror="this.src='https://images.unsplash.com/photo-1551836022-d5d88e9218df?auto=format&fit=crop&w=1000&q=80'"
-    style="width:100%; border-radius:24px;" />
-    </div>
-    <div class="why-section">
+            <img src="https://images.unsplash.com/photo-1521737604893-d14cc237f11d?auto=format&fit=crop&w=1000&q=80"
+                onerror="this.src='https://images.unsplash.com/photo-1551836022-d5d88e9218df?auto=format&fit=crop&w=1000&q=80'" />
+        </div>
+    </div> <div class="why-section">
         <h2>Why Partner with DeployLynx?</h2>
         <div class="why-grid">
             <div class="why-card">
@@ -484,10 +470,11 @@
             <div class="why-card">
                 <div class="why-icon">📉</div>
                 <h3>Cost Efficiency</h3>
-                <p>We optimize resource allocation with advanced autoscaling solutions, growing infrastructure with your users to maintain performance and reduce AWS spend.</p>
+                <p>We optimize resource allocation with advanced autoscaling solutions, growing infrastructure with your users to reduce AWS spend.</p>
             </div>
         </div>
     </div>
+
     <div class="section-pricing">
         <h2 class="section-title">Transparent Pricing Solutions</h2>
         <div class="grid-3">
@@ -511,40 +498,40 @@
             </div>
         </div>
     </div>
+
     <div id="successPopup">
         <div style="font-size: 50px; margin-bottom: 15px;">✨🚀</div>
         <h3 style="color: var(--primary-cyan); font-size: 24px;">Request Received!</h3>
-        <p>Congrats! Our team will review your query and get back to you shortly to confirm your consultation slot.</p>
-        <button onclick="document.getElementById('successPopup').style.display='none'" style="margin-top:20px; width:auto; padding:10px 30px;" class="submit-btn">Close</button>
+        <p>Congrats! Our team will review your query and get back to you shortly.</p>
+        <button onclick="document.getElementById('successPopup').style.display='none'" class="submit-btn" style="width:auto; padding:10px 30px; margin-top:20px;">Close</button>
     </div>
+
     <script>
-        // FORM HANDLING 
         const form = document.getElementById("scheduleForm");
         const submitBtn = document.getElementById("submitBtn");
         const popup = document.getElementById("successPopup");
+
         form.addEventListener("submit", function(e) {
             e.preventDefault();
             submitBtn.disabled = true;
             submitBtn.innerText = "PROCESSING...";
+            
             const formData = new FormData(form);
             const scriptURL = "https://script.google.com/macros/s/AKfycbz-n69boQvKuZ1b2eomihHO87Tee7ZkyIb2vTpXNoJRapY9KkUY5TqDPMWGvAIglsEm/exec";
-            Promise.all([fetch(scriptURL, {
-                method: "POST",
-                body: formData,
-                mode: 'no-cors'
-            }), fetch("https://formspree.io/f/xpqykbvr", {
-                method: "POST",
-                body: formData,
-                headers: {
-                    'Accept': 'application/json'
-                }
-            })]).then(() => {
+            const formspreeURL = "https://formspree.io/f/xpqykbvr";
+
+            Promise.all([
+                fetch(scriptURL, { method: "POST", body: formData, mode: 'no-cors' }),
+                fetch(formspreeURL, { 
+                    method: "POST", 
+                    body: formData, 
+                    headers: { 'Accept': 'application/json' } 
+                })
+            ]).then(() => {
                 confetti({
                     particleCount: 150,
                     spread: 70,
-                    origin: {
-                        y: 0.6
-                    },
+                    origin: { y: 0.6 },
                     colors: ['#00c6ff', '#ffffff']
                 });
                 popup.style.display = "block";
@@ -554,9 +541,9 @@
             }).catch(err => {
                 alert("Submission error. Please try again.");
                 submitBtn.disabled = false;
+                submitBtn.innerText = "Send Booking Request";
             });
         });
     </script>
 </body>
-
 </html>
