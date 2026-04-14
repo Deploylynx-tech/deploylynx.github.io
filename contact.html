@@ -77,10 +77,10 @@
         /* HERO GRID */
         .container-main {
             display: grid;
-            grid-template-columns: 1.1fr 0.9fr;
-            gap: 40px;
+            grid-template-columns: 1fr 1fr; /* Adjusted for equal balance to allow larger image */
+            gap: 50px;
             padding: 60px 8%;
-            max-width: 1400px;
+            max-width: 1500px; /* Slightly wider to accommodate larger visuals */
             margin: auto;
             align-items: flex-start;
             min-height: 80vh;
@@ -216,22 +216,28 @@
 
         .premium-animation {
             width: 100%;
-            max-width: 500px;
+            /* Increased max-width and removed auto margin to fill the grid column better */
+            max-width: 650px; 
             border-radius: 24px;
             border: 1px solid var(--glass-border);
-            box-shadow: 0 0 30px rgba(0, 198, 255, 0.15);
-            margin: auto;
+            box-shadow: 0 0 40px rgba(0, 198, 255, 0.2);
             overflow: hidden;
             display: flex;
             justify-content: center;
             align-items: center;
+            align-self: center; /* Centers vertically in the grid row */
         }
 
         .premium-animation img {
             width: 100%;
-            height: auto;
+            height: 100%;
             display: block;
             object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .premium-animation:hover img {
+            transform: scale(1.03);
         }
 
         .why-section {
@@ -346,11 +352,18 @@
             box-shadow: 0 5px 15px rgba(0, 198, 255, 0.3);
         }
 
-        @media (max-width: 900px) {
+        @media (max-width: 1024px) {
             .container-main {
                 grid-template-columns: 1fr;
+                gap: 40px;
             }
+            .premium-animation {
+                max-width: 100%;
+                order: -1; /* Image appears above form on mobile */
+            }
+        }
 
+        @media (max-width: 640px) {
             .cards-column {
                 grid-template-columns: 1fr;
             }
@@ -463,11 +476,14 @@
                 </div>
             </div>
         </div>
+        
         <div class="premium-animation">
-    <img src="https://images.unsplash.com/photo-1521737604893-d14cc237f11d?auto=format&fit=crop&w=1000&q=80"
-    onerror="this.src='https://images.unsplash.com/photo-1551836022-d5d88e9218df?auto=format&fit=crop&w=1000&q=80'"
-    style="width:100%; border-radius:24px;" />
+            <img src="https://images.unsplash.com/photo-1521737604893-d14cc237f11d?auto=format&fit=crop&w=1000&q=80"
+            onerror="this.src='https://images.unsplash.com/photo-1551836022-d5d88e9218df?auto=format&fit=crop&w=1000&q=80'"
+            alt="DeployLynx Infrastructure Team" />
+        </div>
     </div>
+
     <div class="why-section">
         <h2>Why Partner with DeployLynx?</h2>
         <div class="why-grid">
@@ -488,6 +504,7 @@
             </div>
         </div>
     </div>
+
     <div class="section-pricing">
         <h2 class="section-title">Transparent Pricing Solutions</h2>
         <div class="grid-3">
@@ -511,40 +528,46 @@
             </div>
         </div>
     </div>
+
     <div id="successPopup">
         <div style="font-size: 50px; margin-bottom: 15px;">✨🚀</div>
         <h3 style="color: var(--primary-cyan); font-size: 24px;">Request Received!</h3>
         <p>Congrats! Our team will review your query and get back to you shortly to confirm your consultation slot.</p>
         <button onclick="document.getElementById('successPopup').style.display='none'" style="margin-top:20px; width:auto; padding:10px 30px;" class="submit-btn">Close</button>
     </div>
+
     <script>
         // FORM HANDLING 
         const form = document.getElementById("scheduleForm");
         const submitBtn = document.getElementById("submitBtn");
         const popup = document.getElementById("successPopup");
+
         form.addEventListener("submit", function(e) {
             e.preventDefault();
             submitBtn.disabled = true;
             submitBtn.innerText = "PROCESSING...";
+
             const formData = new FormData(form);
             const scriptURL = "https://script.google.com/macros/s/AKfycbz-n69boQvKuZ1b2eomihHO87Tee7ZkyIb2vTpXNoJRapY9KkUY5TqDPMWGvAIglsEm/exec";
-            Promise.all([fetch(scriptURL, {
-                method: "POST",
-                body: formData,
-                mode: 'no-cors'
-            }), fetch("https://formspree.io/f/xpqykbvr", {
-                method: "POST",
-                body: formData,
-                headers: {
-                    'Accept': 'application/json'
-                }
-            })]).then(() => {
+            
+            Promise.all([
+                fetch(scriptURL, {
+                    method: "POST",
+                    body: formData,
+                    mode: 'no-cors'
+                }), 
+                fetch("https://formspree.io/f/xpqykbvr", {
+                    method: "POST",
+                    body: formData,
+                    headers: {
+                        'Accept': 'application/json'
+                    }
+                })
+            ]).then(() => {
                 confetti({
                     particleCount: 150,
                     spread: 70,
-                    origin: {
-                        y: 0.6
-                    },
+                    origin: { y: 0.6 },
                     colors: ['#00c6ff', '#ffffff']
                 });
                 popup.style.display = "block";
@@ -554,6 +577,7 @@
             }).catch(err => {
                 alert("Submission error. Please try again.");
                 submitBtn.disabled = false;
+                submitBtn.innerText = "Send Booking Request";
             });
         });
     </script>
