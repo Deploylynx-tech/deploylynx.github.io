@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Case Studies & Portfolio | DeployLynx Infrastructure Agency</title>
+    <title>Case Studies | DeployLynx Infrastructure</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
     <style>
@@ -10,245 +10,163 @@
             --primary-cyan: #00c6ff;
             --dark-bg: #030712;
             --card-bg: rgba(17, 24, 39, 0.7);
-            --glass-border: rgba(255, 255, 255, 0.1);
             --text-gray: #94a3b8;
+            --glass-border: rgba(255, 255, 255, 0.08);
         }
 
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', system-ui, sans-serif; }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
 
         body {
             background: var(--dark-bg);
-            /* Add subtle tech background pattern */
-            background-image: linear-gradient(rgba(255, 255, 255, 0.01) 1px, transparent 1px), linear-gradient(90deg, rgba(255, 255, 255, 0.01) 1px, transparent 1px);
-            background-size: 20px 20px;
+            background-image: radial-gradient(circle at 2px 2px, rgba(0, 198, 255, 0.05) 1px, transparent 0);
+            background-size: 30px 30px;
             color: #fff;
             line-height: 1.6;
-            cursor: none; /* Hide default cursor */
         }
 
-        /* CUSTOM CURSOR - Adds premium feel */
-        .custom-cursor {
-            width: 10px; height: 10px; background: rgba(0, 198, 255, 0.5);
-            border-radius: 50%; position: fixed; pointer-events: none;
-            box-shadow: 0 0 10px rgba(0, 198, 255, 0.4); transform: translate(-50%, -50%);
-            transition: width 0.2s, height 0.2s, background 0.2s;
-            z-index: 10000;
-        }
-
-        /* PREMIUM NAV - MOBILE FRIENDLY */
         nav {
             display: flex; justify-content: space-between; align-items: center;
-            padding: 20px 8%; background: rgba(3, 7, 18, 0.85);
-            position: fixed; width: 100%; top: 0; z-index: 2000; backdrop-filter: blur(12px);
+            padding: 20px 8%; background: rgba(3, 7, 18, 0.9);
+            position: sticky; top: 0; z-index: 1000; backdrop-filter: blur(12px);
             border-bottom: 1px solid var(--glass-border);
         }
-        .logo { font-size: 24px; font-weight: 800; letter-spacing: -1.5px; color: #fff; }
+        .logo { font-size: 22px; font-weight: 800; color: #fff; }
         .logo span { color: var(--primary-cyan); }
-        .menu { display: flex; align-items: center; gap: 25px; }
-        .menu a { color: var(--text-gray); text-decoration: none; font-size: 0.95rem; transition: 0.3s; }
-        .menu a:hover { color: var(--primary-cyan); }
+        .menu a { margin-left: 30px; color: var(--text-gray); text-decoration: none; font-size: 0.9rem; }
 
-        /* HERO - MOBILE RESPONSIVE */
+        /* HERO & TYPING ANIMATION FIXED */
         .hero {
-            padding: 160px 8% 60px;
-            display: grid; grid-template-columns: 1.3fr 1fr; align-items: center; gap: 40px;
+            padding: 100px 8% 60px;
+            display: grid; grid-template-columns: 1.2fr 1fr; align-items: center; gap: 40px;
         }
-        .hero h1 { font-size: 3.8rem; line-height: 1.05; margin-bottom: 20px; font-weight: 900; }
-        .hero p { color: var(--text-gray); font-size: 1.25rem; max-width: 500px; }
-
-        /* TYPING ANIMATION (Fixed for mobile and time) */
-        .engineering-excellence {
-            color: var(--primary-cyan); font-weight: 700; font-size: 1.1rem;
-            letter-spacing: 2px; text-transform: uppercase; margin-bottom: 15px;
-            display: inline-block; white-space: nowrap; overflow: hidden;
-            width: 0; animation: typing 3s steps(30, end) forwards, none 0.5s step-end infinite;
-        }
-
-        @keyframes typing {
-            from { width: 0 }
-            to { width: 100% }
-        }
-
-        /* CASE STUDY GRID */
-        .section-header { text-align: center; margin: 100px 0 50px; }
-        .section-header .tag { font-size: 0.9rem; text-transform: uppercase; color: var(--primary-cyan); font-weight: 700; letter-spacing: 2px; }
-        .section-header h2 { font-size: 2.8rem; font-weight: 800; }
-
-        .portfolio-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(380px, 1fr)); gap: 30px; padding: 0 8% 100px; }
         
-        .card {
-            background: var(--card-bg);
-            border: 1px solid var(--glass-border);
-            border-radius: 24px;
-            padding: 40px;
-            transition: 0.4s;
+        .typing-effect {
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            color: var(--primary-cyan);
+            font-weight: 800;
+            letter-spacing: 2px;
+            display: inline-block;
+            overflow: hidden;
+            white-space: nowrap;
+            width: 0;
+            border-right: 2px solid var(--primary-cyan);
+            animation: typing 2.5s steps(25) forwards, hide-cursor 0s forwards 2.5s;
+        }
+
+        @keyframes typing { from { width: 0 } to { width: 100% } }
+        @keyframes hide-cursor { from { border-right-color: var(--primary-cyan); } to { border-right-color: transparent; } }
+
+        .hero h1 { font-size: clamp(2.5rem, 5vw, 3.5rem); line-height: 1.1; margin-bottom: 20px; font-weight: 900; }
+
+        /* VISUAL PROOF GRID - REBUILT FOR MOBILE */
+        .proof-section { background: #050a18; padding: 80px 8%; text-align: center; }
+        .proof-grid { 
+            display: grid; 
+            grid-template-columns: repeat(3, 1fr); 
+            gap: 20px; 
+            margin-top: 50px; 
+        }
+
+        .proof-card { 
+            background: #000; border-radius: 15px; 
+            overflow: hidden; border: 1px solid var(--glass-border); 
+            position: relative;
             display: flex; flex-direction: column;
-            backdrop-filter: blur(10px);
         }
-        .card:hover { transform: translateY(-10px); border-color: var(--primary-cyan); box-shadow: 0 25px 50px rgba(0,0,0,0.5); }
-        
-        .project-tag { font-size: 0.8rem; text-transform: uppercase; color: var(--text-gray); font-weight: 700; letter-spacing: 1px; margin-bottom: 10px; display: block; }
-        .card h3 { font-size: 1.9rem; margin-bottom: 25px; font-weight: 800;}
 
-        .results-box {
-            background: rgba(0, 198, 255, 0.12);
-            border-radius: 14px; padding: 25px; margin-top: auto;
-            border: 1px solid rgba(0, 198, 255, 0.2);
+        /* BRANDING OVERLAY ON LAPTOP */
+        .brand-badge {
+            position: absolute; top: 10px; left: 10px;
+            background: rgba(0, 198, 255, 0.2);
+            backdrop-filter: blur(5px);
+            padding: 5px 12px; border-radius: 6px;
+            border: 1px solid var(--primary-cyan);
+            font-size: 0.7rem; font-weight: 800; color: #fff;
+            z-index: 2;
         }
-        .result-item { font-weight: 800; color: #fff; display: block; margin-bottom: 8px; font-size: 1.05rem; }
 
-        /* TECHNICAL PROOF - Layout Restored & MOBILE FIXED */
-        .proof-section { background: rgba(5, 10, 24, 0.8); padding: 120px 8%; text-align: center; border-top: 1px solid var(--glass-border); border-bottom: 1px solid var(--glass-border); position: relative; }
-        .proof-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 25px; margin-top: 60px; }
-        
-        /* Fixed mobile layout issue by ensuring single column under 768px */
-        @media (max-width: 992px) {
+        .proof-card img { width: 100%; height: 200px; object-fit: cover; opacity: 0.8; transition: 0.4s; }
+        .proof-card:hover img { opacity: 1; }
+        .proof-label { padding: 15px; font-size: 0.85rem; font-weight: 600; color: #cbd5e1; background: #01040a; }
+
+        /* MOBILE RESPONSIVENESS */
+        @media (max-width: 1024px) {
             .proof-grid { grid-template-columns: repeat(2, 1fr); }
             .hero { grid-template-columns: 1fr; text-align: center; }
-            .hero p { margin: 25px auto 0; }
+            .hero p { margin: 0 auto; }
         }
-        @media (max-width: 768px) {
+        @media (max-width: 650px) {
             .proof-grid { grid-template-columns: 1fr; }
             nav { padding: 15px 5%; }
-            .hero { padding-top: 140px; }
-            .hero h1 { font-size: 2.5rem; }
-            .portfolio-grid { grid-template-columns: 1fr; padding: 0 5% 60px; }
+            .menu { display: none; }
         }
-
-        .proof-card { background: #01040a; border-radius: 18px; overflow: hidden; border: 1px solid rgba(255,255,255,0.06); transition: 0.3s; position: relative;}
-        .proof-card:hover { border-color: var(--primary-cyan); }
-        
-        /* Placeholder styling for images to blend - matches reference */
-        .img-wrapper { width: 100%; height: 220px; background: #050a18; display: flex; align-items: center; justify-content: center; overflow: hidden;}
-        .proof-card img { width: 100%; height: 100%; object-fit: cover; opacity: 0.9; transition: 0.5s; }
-        
-        /* Custom image placeholders to match complex reference */
-        .custom-place { font-family: monospace; font-size: 0.75rem; color: #555; text-transform: uppercase; }
-
-        .proof-card:hover img { opacity: 1; transform: scale(1.03); }
-        .proof-label { padding: 18px; font-size: 0.95rem; font-weight: 600; color: #cbd5e1; background: #050a18; position: relative;}
-
-        /* CTA */
-        .cta { text-align: center; padding: 120px 8%; position: relative; border-top: 1px solid var(--glass-border);}
-        .cta-btn { 
-            background: #fff; color: #000; padding: 18px 45px; border-radius: 50px; 
-            text-decoration: none; font-weight: 800; font-size: 1.15rem; transition: 0.3s;
-            display: inline-block; text-transform: uppercase; letter-spacing: 1px;
-        }
-        .cta-btn:hover { background: var(--primary-cyan); transform: translateY(-5px); box-shadow: 0 10px 20px rgba(0, 198, 255, 0.4); }
-
     </style>
 </head>
 <body>
-
-<div class="custom-cursor"></div>
 
 <nav>
     <div class="logo">Deploy<span>Lynx</span></div>
     <div class="menu">
         <a href="index.html">Home</a>
-        <a href="about.html">About</a>
         <a href="services.html">Services</a>
-        <a href="case-studies.html" style="color:white; font-weight:700;">Case Studies</a>
+        <a href="case-studies.html" style="color:white">Case Studies</a>
         <a href="contact.html">Contact</a>
     </div>
 </nav>
 
 <header class="hero">
     <div class="hero-text">
-        <div class="engineering-excellence">Engineering Excellence</div>
+        <div class="typing-effect">Engineering Excellence</div>
         <h1>Proven Cloud Architecture.</h1>
-        <p>Explore detailed breakdowns of how we solve high-stakes infrastructure problems for growing tech companies.</p>
+        <p style="color: var(--text-gray); font-size: 1.1rem;">Technical audits and high-stakes infrastructure solutions for scaling companies.</p>
     </div>
     <div class="lottie-container">
-        <lottie-player src="https://assets3.lottiefiles.com/packages/lf20_qufi1zre.json" background="transparent" speed="1" style="width: 100%; height: 400px;" loop autoplay></lottie-player>
+        <lottie-player src="https://assets3.lottiefiles.com/packages/lf20_qufi1zre.json" background="transparent" speed="1" style="width: 100%; height: 350px;" loop autoplay></lottie-player>
     </div>
 </header>
 
-<section class="section-header">
-    <span class="tag">Internal Portfolio Projects</span>
-    <h2>Expert Infrastructure Solutions</h2>
-</section>
-
-<main class="portfolio-grid">
-    <div class="card">
-        <span class="project-tag">Portfolio Deployment | SaaS Startup</span>
-        <h3>FinTech Scalability</h3>
-        
-        <p style="color:var(--text-gray); margin-bottom:25px;">Migrating high-frequency trading platforms to AWS EKS with zero-downtime cutover.</p>
-
-        <div class="results-box">
-            <span class="result-item">🚀 70% Faster Deployments</span>
-            <span class="result-item">⚡ 99.99% Infrastructure Uptime</span>
-        </div>
-    </div>
-
-    <div class="card">
-        <span class="project-tag">Demo Project | E-Commerce Platform</span>
-        <h3>Auto-Scaling Architecture</h3>
-        
-        <p style="color:var(--text-gray); margin-bottom:25px;">Drastic monthly cost reduction through FinOps tagging and Kubernetes HPA.</p>
-
-        <div class="results-box">
-            <span class="result-item">💰 60% Reduced Cloud Bill</span>
-            <span class="result-item">🛡️ 100% Security Patch Compliance</span>
-        </div>
-    </div>
-</main>
-
 <section class="proof-section">
-    <div class="client-tag">Technical Evidence</div>
-    <h2>Visual Infrastructure Audit</h2>
+    <div style="font-size: 0.8rem; text-transform: uppercase; color: var(--primary-cyan); font-weight: 700; letter-spacing: 2px;">Technical Evidence</div>
+    <h2 style="font-size: 2.5rem; margin-top: 10px;">Visual Infrastructure Audit</h2>
+    
     <div class="proof-grid">
         <div class="proof-card">
-            <div class="img-wrapper">
-                <img src="image_ec3815.png" alt="Grafana">
-            </div>
-            <div class="proof-label">Real-time DeployLynx Monitoring Dashboard</div>
+            <img src="image_fa408f.png" alt="Grafana Monitoring">
+            <div class="proof-label">Real-time DeployLynx Dashboard</div>
         </div>
+
         <div class="proof-card">
-            <div class="img-wrapper">
-                <script src="https://cdn.lordicon.com/lordicon.js"></script>
-                <lord-icon src="https://cdn.lordicon.com/bgeumwre.json" trigger="loop" colors="primary:#00c6ff,secondary:#111827" style="width:100px;height:100px"></lord-icon>
-            </div>
-            <div class="proof-label">DeployLynx Multi-stage CI/CD Pipeline</div>
+            <div class="brand-badge">DeployLynx Verified</div>
+            <img src="image_ec3815.png" alt="Branded Laptop">
+            <div class="proof-label">System Host: DeployLynx-Server-01</div>
         </div>
+
         <div class="proof-card">
-            <div class="img-wrapper">
-                <img src="https://blog.bytebytego.com/_next/image?url=https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F62210162-7691-40e5-b450-2da232890af9_1536x1536.gif&w=1920&q=75" alt="AWS Topology">
-            </div>
-            <div class="proof-label">AWS Resource Topology Audit: ACCOUNT_PROD</div>
+            <img src="https://blog.bytebytego.com/_next/image?url=https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F62210162-7691-40e5-b450-2da232890af9_1536x1536.gif&w=1920&q=75" alt="AWS Topology">
+            <div class="proof-label">AWS Resource Topology Audit</div>
         </div>
-        
+
         <div class="proof-card">
-            <div class="img-wrapper"><span class="custom-place">Terraform_Plan.dl</span></div>
-            <div class="proof-label">Terraform Plan: Staging Infra-Code</div>
+            <img src="image_ee7322.png" alt="Terraform Plan">
+            <div class="proof-label">Terraform Plan - Infrastructure as Code</div>
         </div>
+
         <div class="proof-card">
-            <div class="img-wrapper"><span class="custom-place">Sec_Audit_v4.2.dl</span></div>
-            <div class="proof-label">DevSecOps Compliance Scan v4.2</div>
+            <img src="image_eee43c.png" alt="Security Scan">
+            <div class="proof-label">DevSecOps Compliance Report</div>
+        </div>
+
+        <div class="proof-card">
+            <img src="image_fa40af.png" alt="CI/CD Pipeline">
+            <div class="proof-label">Multi-stage DeployLynx Pipeline</div>
         </div>
     </div>
 </section>
 
-<section class="cta">
-    <h1>Ready to scale your stack?</h1>
-    <p style="color: var(--text-gray); margin-bottom: 30px;">Let’s build a high-availability roadmap for your business.</p>
-    <a href="contact.html" class="cta-btn">Let's build your infrastructure</a>
-</section>
-
-<footer style="text-align: center; padding: 40px; color: #444; border-top: 1px solid #111; font-size: 0.9rem;">
+<footer style="text-align: center; padding: 40px; color: #444; border-top: 1px solid #111;">
     © 2026 DeployLynx | Enterprise Cloud Solutions
 </footer>
-
-<script>
-    /* CUSTOM CURSOR SCRIPT */
-    const cursor = document.querySelector('.custom-cursor');
-    document.addEventListener('mousemove', e => {
-        cursor.style.left = e.clientX + 'px';
-        cursor.style.top = e.clientY + 'px';
-    });
-</script>
 
 </body>
 </html>
