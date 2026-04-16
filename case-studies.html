@@ -18,7 +18,7 @@
 
         body {
             background: var(--dark-bg);
-            /* GRADIENT TECH BACKGROUND */
+            /* ANIMATED TECH GRADIENT & DOT GRID */
             background-image: 
                 radial-gradient(circle at 2px 2px, rgba(255,255,255,0.03) 1px, transparent 0),
                 linear-gradient(135deg, #030712 0%, #060b1d 30%, #0a132e 50%, #060b1d 70%, #030712 100%);
@@ -73,24 +73,14 @@
                 hide-cursor 0s forwards 3s;
         }
 
-        @keyframes typing {
-            from { width: 0 }
-            to { width: 100% }
-        }
-
-        @keyframes blink-caret {
-            from, to { border-color: transparent }
-            50% { border-color: var(--primary-cyan); }
-        }
-
-        @keyframes hide-cursor {
-            to { border-right: none; }
-        }
+        @keyframes typing { from { width: 0 } to { width: 100% } }
+        @keyframes blink-caret { from, to { border-color: transparent } 50% { border-color: var(--primary-cyan); } }
+        @keyframes hide-cursor { to { border-right: none; } }
 
         .hero h1 { font-size: 3.5rem; line-height: 1.1; margin-bottom: 20px; font-weight: 900; }
         .hero p { color: var(--text-gray); font-size: 1.2rem; max-width: 500px; }
 
-        /* CARDS */
+        /* CASE STUDY CARDS */
         .section-title { text-align: center; margin: 80px 0 40px; }
         .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 30px; padding: 0 8% 80px; }
         
@@ -104,8 +94,6 @@
             backdrop-filter: blur(8px);
         }
         .card:hover { transform: translateY(-10px); border-color: var(--primary-cyan); box-shadow: 0 20px 40px rgba(0,0,0,0.4); }
-        
-        .client-tag { font-size: 0.8rem; text-transform: uppercase; color: var(--primary-cyan); font-weight: 700; letter-spacing: 1px; margin-bottom: 10px; }
         .card h3 { font-size: 1.8rem; margin-bottom: 25px; }
 
         .content-block { margin-bottom: 20px; }
@@ -124,73 +112,49 @@
         .proof-section { background: rgba(5, 10, 24, 0.5); padding: 100px 8%; text-align: center; backdrop-filter: blur(4px); }
         .proof-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; margin-top: 50px; }
         
-        /* Updated Proof Card Styles to align with the provided image */
         .proof-card { 
             background: #000; 
-            border-radius: 15px; 
+            border-radius: 20px; 
             overflow: hidden; 
             border: 1px solid rgba(255,255,255,0.1); 
-            display: flex;
-            flex-direction: column;
-            align-items: center; /* Center horizontally */
-            text-align: center;
+            transition: 0.4s;
         }
-        
-        /* New inner container for image and logo to handle padding */
-        .proof-image-container {
-            width: 100%;
-            height: 200px;
-            position: relative;
-            overflow: hidden;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
+        .proof-card:hover { transform: scale(1.02); border-color: var(--primary-cyan); }
 
-        .proof-card img { 
-            width: 100%; 
-            height: 100%; 
-            object-fit: cover; 
-            opacity: 0.7; 
-            transition: 0.5s; 
-        }
+        .proof-img-container { position: relative; height: 220px; background: #000; overflow: hidden; }
+        .proof-img-container img { width: 100%; height: 100%; object-fit: cover; opacity: 0.6; transition: 0.5s; }
+        .proof-card:hover img { opacity: 0.9; }
 
-        /* Styles for the tech logo overlays */
-        .tech-logo {
+        /* Overlays based on screenshots */
+        .overlay-tag {
             position: absolute;
-            top: 20px; /* Aligned vertically */
-            left: 20px; /* Aligned horizontally */
-            height: 25px; /* Adjust size as needed */
-            opacity: 0.8;
-            transition: 0.5s;
+            top: 20px;
+            left: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background: rgba(0,0,0,0.4);
+            padding: 8px 12px;
+            border-radius: 8px;
+            backdrop-filter: blur(4px);
         }
 
-        .proof-card:hover img { opacity: 1; transform: scale(1.05); }
-        .proof-card:hover .tech-logo { opacity: 1; } /* Highlight logo on hover */
-        
-        .proof-label { 
-            padding: 20px 15px; /* Increased top padding to push text down like in image */
-            font-size: 0.95rem; /* Slightly larger text */
-            font-weight: 600; 
-            color: var(--text-gray); 
-            width: 100%;
-        }
+        .proof-label { padding: 25px 15px; font-weight: 700; color: var(--text-gray); font-size: 1rem; }
 
         /* CTA */
         .cta { text-align: center; padding: 100px 8%; }
         .cta-btn { 
             background: #fff; color: #000; padding: 18px 40px; border-radius: 50px; 
-            text-decoration: none; font-weight: 800; font-size: 1.1rem; transition: 0.3s;
-            display: inline-block;
+            text-decoration: none; font-weight: 800; transition: 0.3s; display: inline-block;
         }
         .cta-btn:hover { background: var(--primary-cyan); transform: scale(1.05); }
+
+        footer { text-align: center; padding: 40px; color: #444; border-top: 1px solid #111; }
 
         @media (max-width: 768px) {
             .hero { grid-template-columns: 1fr; text-align: center; }
             .hero h1 { font-size: 2.5rem; }
-            .hero p { margin: 0 auto; }
             .engineering-tag { font-size: 1rem; }
-            .proof-grid { grid-template-columns: 1fr; } /* Stack on mobile */
         }
     </style>
 </head>
@@ -228,54 +192,44 @@
     <div class="card">
         <div class="client-tag">Portfolio Deployment | SaaS Startup</div>
         <h3>FinTech Scalability</h3>
-        
         <div class="content-block">
             <span class="label">Problem</span>
             <ul class="list">
                 <li>Slow manual deployments (45 mins+)</li>
                 <li>Frequent downtime during traffic spikes</li>
-                <li>Zero infrastructure visibility</li>
             </ul>
         </div>
-
         <div class="content-block">
             <span class="label">Solution</span>
             <ul class="list">
-                <li>Automated AWS EKS (Kubernetes) Setup</li>
-                <li>Dockerized microservices architecture</li>
+                <li>Automated AWS EKS Setup</li>
                 <li>Jenkins Groovy-based Pipeline</li>
             </ul>
         </div>
-
         <div class="results-box">
             <span class="label">Impact</span>
             <span class="result-item">🚀 70% Faster Deployments</span>
             <span class="result-item">⚡ 99.99% Infrastructure Uptime</span>
         </div>
-        </div>
+    </div>
 
     <div class="card">
         <div class="client-tag">Demo Project | E-Commerce</div>
         <h3>Auto-Scaling Architecture</h3>
-        
         <div class="content-block">
             <span class="label">Problem</span>
             <ul class="list">
                 <li>High monthly cloud waste ($2k+)</li>
                 <li>Security vulnerabilities in OS</li>
-                <li>Manual database backups</li>
             </ul>
         </div>
-
         <div class="content-block">
             <span class="label">Solution</span>
             <ul class="list">
                 <li>Terraform Infrastructure as Code</li>
-                <li>Implemented FinOps cost tagging</li>
                 <li>Automated RDS failover systems</li>
             </ul>
         </div>
-
         <div class="results-box">
             <span class="label">Impact</span>
             <span class="result-item">💰 60% Reduced Cloud Bill</span>
@@ -290,28 +244,29 @@
     <div class="proof-grid">
         
         <div class="proof-card">
-            <div class="proof-image-container">
-                <img src="path-to-your-grafana-image.jpg" alt="Grafana Dashboard">
-                <div class="tech-logo" style="color: #F46036; font-weight: 800; font-size: 1.1rem; display: flex; align-items: center; gap: 5px;">
-                  <span style="font-size: 1.3rem;">📊</span> Grafana Dashboard
+            <div class="proof-img-container">
+                <img src="https://images.unsplash.com/photo-1551288049-bbbda536339a?auto=format&fit=crop&w=800" alt="Grafana Dashboard">
+                <div class="overlay-tag">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/a/a1/Grafana_logo.svg" style="height: 20px;">
+                    <span style="color: #F46036; font-weight: 800; font-size: 1rem;">Grafana Dashboard</span>
                 </div>
             </div>
             <div class="proof-label">Real-time Grafana Monitoring</div>
         </div>
-        
+
         <div class="proof-card">
-            <div class="proof-image-container">
+            <div class="proof-img-container">
                 <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=800" alt="Jenkins Pipeline">
-                </div>
+            </div>
             <div class="proof-label">Multi-stage Jenkins Pipeline</div>
         </div>
-        
+
         <div class="proof-card">
-            <div class="proof-image-container">
-                <img src="path-to-your-aws-topology-image.jpg" alt="AWS Resource Topology">
-                <div class="tech-logo" style="display: flex; align-items: center; gap: 8px;">
-                  <img src="https://upload.wikimedia.org/wikipedia/commons/9/93/Amazon_Web_Services_Logo.svg" alt="AWS Logo" style="height: 18px; width: auto; opacity: 1;">
-                  <span style="color: #fff; font-weight: 700; font-size: 0.9rem;">Console</span>
+            <div class="proof-img-container">
+                <img src="https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&w=800" alt="AWS Infrastructure">
+                <div class="overlay-tag">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/9/93/Amazon_Web_Services_Logo.svg" style="height: 15px; filter: brightness(0) invert(1);">
+                    <span style="color: #fff; font-weight: 700; font-size: 0.9rem;">Console</span>
                 </div>
             </div>
             <div class="proof-label">AWS Resource Topology</div>
@@ -326,7 +281,7 @@
     <a href="contact.html" class="cta-btn">Let's build your infrastructure</a>
 </section>
 
-<footer style="text-align: center; padding: 40px; color: #444; border-top: 1px solid #111;">
+<footer>
     © 2026 DeployLynx | Enterprise Cloud Solutions
 </footer>
 
