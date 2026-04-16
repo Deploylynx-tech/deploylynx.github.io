@@ -29,10 +29,28 @@
             color: #fff;
             overflow-x: hidden;
             scroll-behavior: smooth;
-            /* Added Tech Background */
+            min-height: 100vh;
+            /* Updated Tech Gradient Background */
             background-image: 
-                radial-gradient(circle at 20% 30%, rgba(0, 198, 255, 0.05) 0%, transparent 40%),
-                radial-gradient(circle at 80% 70%, rgba(0, 198, 255, 0.05) 0%, transparent 40%);
+                radial-gradient(circle at 0% 0%, rgba(0, 198, 255, 0.12) 0%, transparent 35%),
+                radial-gradient(circle at 100% 0%, rgba(0, 198, 255, 0.08) 0%, transparent 35%),
+                radial-gradient(circle at 50% 50%, rgba(15, 23, 42, 1) 0%, rgba(3, 7, 18, 1) 100%);
+            background-attachment: fixed;
+        }
+
+        /* Ambient Glow Orbs */
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(800px circle at 100% 100%, rgba(0, 198, 255, 0.06), transparent),
+                radial-gradient(600px circle at 10% 80%, rgba(0, 198, 255, 0.04), transparent);
+            z-index: -1;
+            pointer-events: none;
         }
 
         /* NAV BAR */
@@ -40,8 +58,8 @@
             position: sticky;
             top: 0;
             z-index: 9999;
-            background: rgba(10, 15, 28, 0.95);
-            backdrop-filter: blur(10px);
+            background: rgba(10, 15, 28, 0.8);
+            backdrop-filter: blur(15px);
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -180,7 +198,7 @@
         }
 
         .contact-card {
-            background: rgba(15, 23, 42, 0.6);
+            background: rgba(15, 23, 42, 0.4);
             border: 1px solid var(--glass-border);
             padding: 20px;
             border-radius: 16px;
@@ -188,11 +206,13 @@
             display: flex;
             align-items: center;
             gap: 15px;
+            backdrop-filter: blur(5px);
         }
 
         .contact-card:hover {
             border-color: var(--primary-cyan);
             transform: scale(1.02);
+            background: rgba(15, 23, 42, 0.7);
         }
 
         .contact-card .card-text {
@@ -255,11 +275,12 @@
         }
 
         .why-card {
-            background: rgba(15, 23, 42, 0.6);
+            background: rgba(15, 23, 42, 0.4);
             padding: 40px;
             border-radius: 20px;
             border: 1px solid var(--glass-border);
             transition: 0.3s;
+            backdrop-filter: blur(5px);
         }
 
         .why-card:hover {
@@ -274,7 +295,7 @@
             margin-bottom: 20px;
         }
 
-        /* NEW SECTIONS: CONSULTATION & TOPICS */
+        /* CONSULTATION & TOPICS */
         .consult-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -293,6 +314,7 @@
             align-items: center;
             gap: 20px;
             transition: 0.3s;
+            backdrop-filter: blur(5px);
         }
 
         .consult-item:hover {
@@ -360,17 +382,19 @@
         }
 
         .price-card {
-            background: rgba(15, 23, 42, 0.6);
+            background: rgba(15, 23, 42, 0.4);
             padding: 40px;
             border-radius: 24px;
             border: 1px solid var(--glass-border);
             transition: 0.3s;
             text-align: center;
+            backdrop-filter: blur(5px);
         }
 
         .price-card:hover {
             border-color: var(--primary-cyan);
             transform: translateY(-10px);
+            background: rgba(15, 23, 42, 0.7);
         }
 
         .price-val {
