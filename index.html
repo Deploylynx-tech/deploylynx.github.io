@@ -23,7 +23,6 @@
 
         /* DROPDOWN STYLING */
         .dropdown { position: relative; display: inline-block; }
-
         .dropdown-content {
             display: none;
             position: absolute;
@@ -36,47 +35,45 @@
             top: 100%;
             left: 0;
         }
-
         .dropdown-content a {
             color: #ccc !important;
             padding: 12px 16px;
             text-decoration: none;
             display: block;
+            margin-left: 0 !important;
             transition: 0.2s;
         }
-
         .dropdown-content a:hover {
             background: rgba(0, 198, 255, 0.1);
             color: #00c6ff !important;
         }
-
         .dropdown:hover .dropdown-content { display: block; }
+        .arrow { font-size: 0.8rem; margin-left: 5px; }
 
-        /* MOBILE OVERRIDES */
+        /* MOBILE RESPONSIVE FIXES */
         @media (max-width: 768px) {
+            .menu-toggle { display: flex !important; }
             #nav-links {
-                display: none; /* Hidden by default on mobile */
-                flex-direction: column;
+                display: none; 
                 position: absolute;
                 top: 100%;
                 left: 0;
                 width: 100%;
-                background: #0a0f1c;
+                flex-direction: column;
+                background: rgba(10, 15, 28, 0.98);
                 padding: 20px;
-                border-bottom: 1px solid rgba(0, 198, 255, 0.3);
                 gap: 15px !important;
+                border-bottom: 1px solid rgba(0, 198, 255, 0.2);
             }
-            #nav-links.active { display: flex; }
-            .menu-toggle { display: flex !important; }
-            .dropdown-content {
-                position: static;
-                width: 100%;
-                box-shadow: none;
-                border: none;
-                background: rgba(255,255,255,0.05);
-                margin-top: 10px;
+            #nav-links.show { display: flex !important; }
+            .dropdown-content { 
+                position: static; 
+                width: 100%; 
+                border: none; 
+                background: rgba(255,255,255,0.05); 
             }
-            .dropdown:hover .dropdown-content { display: block; }
+            h1 { font-size: 3rem !important; }
+            .grid { gap: 2rem !important; }
         }
     </style>
 </head>
@@ -84,29 +81,28 @@
 
     <div class="bg-blue-600/10 border-b border-blue-500/20 py-2 overflow-hidden whitespace-nowrap">
         <div class="animate-marquee flex items-center space-x-12 text-sm font-medium text-blue-400">
-            <span>🚀 NEW: AWS Infrastructure Audits</span>
-            <span>💎 20% Discount for SaaS Migrations</span>
-            <span>⚡ DeployLynx: Future of Automation</span>
-            <span>🚀 NEW: AWS Infrastructure Audits</span>
-            <span>💎 20% Discount for SaaS Migrations</span>
+            <span>🚀 NEW: AWS Infrastructure Audits now available</span>
+            <span>💎 20% Discount for First-Time SaaS Migrations</span>
+            <span>⚡ DeployLynx: The Future of Cloud Automation</span>
+            <span>🚀 NEW: AWS Infrastructure Audits now available</span>
         </div>
     </div>
 
-    <nav class="sticky top-0 z-[9999] bg-[#0a0f1c]/95 backdrop-blur-md flex justify-between items-center px-[5%] py-5 border-b border-white/5">
-        <div class="logo text-2xl text-[#00c6ff] font-bold">DeployLynx</div>
+    <nav style="position: sticky; top: 0; z-index: 9999; background: rgba(10, 15, 28, 0.95); backdrop-filter: blur(10px); display: flex; justify-content: space-between; align-items: center; padding: 20px 5%; border-bottom: 1px solid rgba(255, 255, 255, 0.05);">
+        <div class="logo" style="font-size: 24px; color: #00c6ff; font-weight: bold;">DeployLynx</div>
         
-        <div class="menu-toggle hidden flex-col gap-[5px] cursor-pointer" id="mobile-btn">
-            <span class="w-6 h-0.5 bg-white"></span>
-            <span class="w-6 h-0.5 bg-white"></span>
-            <span class="w-6 h-0.5 bg-white"></span>
+        <div class="menu-toggle" onclick="toggleMenu()" style="display: none; flex-direction: column; gap: 5px; cursor: pointer;">
+            <span style="width: 25px; height: 3px; background: white;"></span>
+            <span style="width: 25px; height: 3px; background: white;"></span>
+            <span style="width: 25px; height: 3px; background: white;"></span>
         </div>
 
-        <div class="menu flex items-center gap-6" id="nav-links">
-            <a href="index.html" class="text-gray-300 hover:text-[#00c6ff]">Home</a>
-            <a href="about.html" class="text-gray-300 hover:text-[#00c6ff]">About</a>
+        <div class="menu" id="nav-links" style="display: flex; align-items: center; gap: 25px;">
+            <a href="index.html" style="color: #ccc; text-decoration: none; font-size: 0.95rem;">Home</a>
+            <a href="about.html" style="color: #ccc; text-decoration: none; font-size: 0.95rem;">About</a>
 
             <div class="dropdown">
-                <a href="#" class="text-gray-300">Services <span class="text-[0.8rem] ml-1">▼</span></a>
+                <a href="#" style="color: #ccc; text-decoration: none; font-size: 0.95rem;">Services <span class="arrow">▼</span></a>
                 <div class="dropdown-content">
                     <a href="services.html#migration">Cloud Migration</a>
                     <a href="services.html#security">DevSecOps & Security</a>
@@ -115,12 +111,12 @@
                 </div>
             </div>
 
-            <a href="case-studies.html" class="text-[#00c6ff] font-bold">Case Studies</a>
-            <a href="contact.html" class="bg-[#00c6ff] text-black px-5 py-2.5 rounded-lg font-bold text-center">Contact</a>
+            <a href="case-studies.html" style="color: #00c6ff; text-decoration: none; font-size: 0.95rem; font-weight: bold;">Case Studies</a>
+            <a href="contact.html" style="background: #00c6ff; color: #000; padding: 10px 20px; border-radius: 8px; text-decoration: none; font-weight: bold; text-align: center;">Contact</a>
         </div>
     </nav>
 
-    <section class="grid md:grid-cols-2 gap-12 items-center px-6 py-12 md:py-20 max-w-7xl mx-auto">
+    <section class="grid md:grid-cols-2 gap-12 items-center px-6 md:px-8 py-12 md:py-20 max-w-7xl mx-auto">
         <div class="text-left order-2 md:order-1">
             <h1 class="text-5xl md:text-7xl font-bold mb-6 tracking-tight leading-tight">Build Scalable <span class="gradient-text">Cloud Systems</span></h1>
             <p class="text-gray-400 text-lg mb-8 leading-relaxed">Enterprise-grade infrastructure for modern SaaS. We automate your DevOps so you can focus on building your product.</p>
@@ -134,25 +130,109 @@
         </div>
     </section>
 
-    <section id="services" class="py-16 px-6 max-w-7xl mx-auto">
+    <section id="services" class="py-16 px-6 md:px-8 max-w-7xl mx-auto">
         <div class="text-center mb-16">
-            <h2 class="text-4xl font-bold mb-4">Our Core Expertise</h2>
+            <h2 class="text-3xl md:text-4xl font-bold mb-4">Our Core Expertise</h2>
             <p class="text-gray-400 max-w-2xl mx-auto">Specialized solutions designed to handle the complexity of modern cloud architecture.</p>
         </div>
         <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div class="glass p-8 rounded-3xl border border-white/10 service-card transition">
+            <div class="glass p-8 rounded-3xl border border-white/10 service-card transition duration-300">
                 <div class="bg-blue-500/20 w-12 h-12 rounded-lg flex items-center justify-center mb-6">
                     <svg class="w-6 h-6 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"/></svg>
                 </div>
                 <h3 class="text-xl font-bold mb-3">Seamless Migration</h3>
                 <p class="text-gray-400 text-sm leading-relaxed">Zero-downtime migrations from on-premise or legacy systems to AWS and Azure.</p>
             </div>
-            <div class="glass p-8 rounded-3xl border border-white/10 service-card transition">
+            <div class="glass p-8 rounded-3xl border border-white/10 service-card transition duration-300">
                 <div class="bg-purple-500/20 w-12 h-12 rounded-lg flex items-center justify-center mb-6">
                     <svg class="w-6 h-6 text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
                 </div>
                 <h3 class="text-xl font-bold mb-3">Advanced DevSecOps</h3>
                 <p class="text-gray-400 text-sm leading-relaxed">Embedding security into your CI/CD pipelines with automated vulnerability scanning.</p>
             </div>
-            <div class="glass p-8 rounded-3xl border border-white/10 service-card transition">
+            <div class="glass p-8 rounded-3xl border border-white/10 service-card transition duration-300">
                 <div class="bg-green-500/20 w-12 h-12 rounded-lg flex items-center justify-center mb-6">
+                    <svg class="w-6 h-6 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"/></svg>
+                </div>
+                <h3 class="text-xl font-bold mb-3">Auto Scaling Solutions</h3>
+                <p class="text-gray-400 text-sm leading-relaxed">Infrastructure that grows with your users. We optimize resource allocation.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-16 px-6 md:px-8 max-w-7xl mx-auto text-center">
+        <h2 class="text-3xl md:text-4xl font-bold mb-12">Who We Are</h2>
+        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">
+            <div class="relative overflow-hidden rounded-[2.5rem] h-80 md:h-96 group border border-white/10">
+                <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&q=80&w=1000" class="absolute inset-0 w-full h-full object-cover">
+                <div class="absolute inset-0 bg-gradient-to-t from-black/90 p-6 flex flex-col justify-end text-left">
+                    <h4 class="font-bold text-lg">Cloud Strategy</h4>
+                </div>
+            </div>
+            <div class="relative overflow-hidden rounded-[2.5rem] h-80 md:h-96 group border border-white/10">
+                <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&q=80&w=1000" class="absolute inset-0 w-full h-full object-cover">
+                <div class="absolute inset-0 bg-gradient-to-t from-black/90 p-6 flex flex-col justify-end text-left">
+                    <h4 class="font-bold text-lg">Infrastructure</h4>
+                </div>
+            </div>
+            <div class="relative overflow-hidden rounded-[2.5rem] h-80 md:h-96 group border border-white/10">
+                <img src="https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?auto=format&fit=crop&q=80&w=1000" class="absolute inset-0 w-full h-full object-cover">
+                <div class="absolute inset-0 bg-gradient-to-t from-black/90 p-6 flex flex-col justify-end text-left">
+                    <h4 class="font-bold text-lg">Automation</h4>
+                </div>
+            </div>
+            <div class="relative overflow-hidden rounded-[2.5rem] h-80 md:h-96 group border border-white/10">
+                <img src="https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&q=80&w=1000" class="absolute inset-0 w-full h-full object-cover">
+                <div class="absolute inset-0 bg-gradient-to-t from-black/90 p-6 flex flex-col justify-end text-left">
+                    <h4 class="font-bold text-lg">Security</h4>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="px-6 md:px-8 py-16 max-w-7xl mx-auto">
+        <div class="bg-blue-600 rounded-[2rem] md:rounded-[3rem] p-8 md:p-20 grid md:grid-cols-2 gap-10 items-center overflow-hidden">
+            <div class="z-10">
+                <h2 class="text-3xl md:text-5xl font-bold mb-6">Ready to scale your infrastructure?</h2>
+                <button onclick="openPopup()" class="bg-white text-blue-600 px-8 py-4 rounded-xl font-bold text-lg w-full md:w-auto flex items-center justify-center">
+                    SPEAK WITH OUR EXPERTS 
+                    <svg class="ml-2 h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+                </button>
+            </div>
+            <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=2426&auto=format&fit=crop" class="rounded-2xl hidden md:block">
+        </div>
+    </section>
+
+    <footer class="py-16 px-8 max-w-7xl mx-auto border-t border-white/10 flex flex-col md:flex-row justify-between items-center text-gray-500 gap-6">
+        <div class="text-center md:text-left">
+            <div class="text-2xl font-bold text-white mb-2">Deploy<span class="text-blue-500">Lynx</span></div>
+            <p class="text-sm">Scalable Cloud & DevOps Agency</p>
+        </div>
+        <div class="flex space-x-8 font-medium">
+            <a href="#" class="hover:text-blue-400">LinkedIn</a>
+            <a href="#" class="hover:text-blue-400">WhatsApp</a>
+            <a href="#" class="hover:text-blue-400">Email</a>
+        </div>
+    </footer>
+
+    <script>
+        function toggleMenu() {
+            document.getElementById('nav-links').classList.toggle('show');
+        }
+        
+        function openPopup() { document.getElementById('lead-popup').classList.remove('hidden'); }
+        function closePopup() { document.getElementById('lead-popup').classList.add('hidden'); }
+
+        // Form Submission Logic
+        const form = document.getElementById('contactForm');
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+            // Your existing Formspree/Google Sheets code here...
+            confetti({ particleCount: 150, spread: 70, origin: { y: 0.6 } });
+            document.getElementById('formHeading').innerText = "Congrats!";
+            form.classList.add('hidden');
+            document.getElementById('successMsg').classList.remove('hidden');
+        });
+    </script>
+</body>
+</html>
