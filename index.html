@@ -21,23 +21,22 @@
         .btn-glow:hover { box-shadow: 0 0 25px rgba(59, 130, 246, 0.6); transform: translateY(-2px); transition: all 0.3s; }
         .service-card:hover { border-color: rgba(96, 165, 250, 0.5); background: rgba(255, 255, 255, 0.05); }
 
-        /* NAV STYLING */
-        nav { position: sticky; top: 0; z-index: 9999; background: rgba(10, 15, 28, 0.95); backdrop-filter: blur(10px); border-bottom: 1px solid rgba(255, 255, 255, 0.05); }
+        /* DROPDOWN STYLING */
+        .dropdown { position: relative; display: inline-block; }
 
-        /* DROPDOWN LOGIC */
-        .dropdown { position: relative; }
         .dropdown-content {
             display: none;
             position: absolute;
             background-color: #0a0f1c; 
             min-width: 220px;
             box-shadow: 0px 8px 16px rgba(0,0,0,0.5);
-            z-index: 10001;
+            z-index: 10001 !important;
             border: 1px solid #00c6ff;
             border-radius: 8px;
             top: 100%;
             left: 0;
         }
+
         .dropdown-content a {
             color: #ccc !important;
             padding: 12px 16px;
@@ -45,16 +44,40 @@
             display: block;
             transition: 0.2s;
         }
-        .dropdown-content a:hover { background: rgba(0, 198, 255, 0.1); color: #00c6ff !important; }
-        
-        /* Show dropdown on hover (Desktop) */
-        @media (min-width: 768px) {
-            .dropdown:hover .dropdown-content { display: block; }
+
+        .dropdown-content a:hover {
+            background: rgba(0, 198, 255, 0.1);
+            color: #00c6ff !important;
         }
 
-        /* MOBILE MENU OPEN STATE */
-        #nav-links.active { display: flex !important; flex-direction: column; position: absolute; top: 100%; left: 0; width: 100%; background: #0a0f1c; padding: 20px; border-bottom: 1px solid #00c6ff; }
-        #nav-links.active .dropdown-content { position: static; display: block; background: transparent; border: none; box-shadow: none; padding-left: 20px; }
+        .dropdown:hover .dropdown-content { display: block; }
+
+        /* MOBILE OVERRIDES */
+        @media (max-width: 768px) {
+            #nav-links {
+                display: none; /* Hidden by default on mobile */
+                flex-direction: column;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background: #0a0f1c;
+                padding: 20px;
+                border-bottom: 1px solid rgba(0, 198, 255, 0.3);
+                gap: 15px !important;
+            }
+            #nav-links.active { display: flex; }
+            .menu-toggle { display: flex !important; }
+            .dropdown-content {
+                position: static;
+                width: 100%;
+                box-shadow: none;
+                border: none;
+                background: rgba(255,255,255,0.05);
+                margin-top: 10px;
+            }
+            .dropdown:hover .dropdown-content { display: block; }
+        }
     </style>
 </head>
 <body class="antialiased">
@@ -62,27 +85,28 @@
     <div class="bg-blue-600/10 border-b border-blue-500/20 py-2 overflow-hidden whitespace-nowrap">
         <div class="animate-marquee flex items-center space-x-12 text-sm font-medium text-blue-400">
             <span>🚀 NEW: AWS Infrastructure Audits</span>
-            <span>💎 20% Discount for Migrations</span>
-            <span>⚡ DeployLynx: Cloud Automation</span>
+            <span>💎 20% Discount for SaaS Migrations</span>
+            <span>⚡ DeployLynx: Future of Automation</span>
             <span>🚀 NEW: AWS Infrastructure Audits</span>
+            <span>💎 20% Discount for SaaS Migrations</span>
         </div>
     </div>
 
-    <nav class="flex justify-between items-center px-6 py-4 md:px-[5%]">
-        <div class="logo text-2xl font-bold text-[#00c6ff]">DeployLynx</div>
+    <nav class="sticky top-0 z-[9999] bg-[#0a0f1c]/95 backdrop-blur-md flex justify-between items-center px-[5%] py-5 border-b border-white/5">
+        <div class="logo text-2xl text-[#00c6ff] font-bold">DeployLynx</div>
         
-        <div class="md:hidden flex flex-col gap-1.5 cursor-pointer" onclick="toggleMenu()">
+        <div class="menu-toggle hidden flex-col gap-[5px] cursor-pointer" id="mobile-btn">
             <span class="w-6 h-0.5 bg-white"></span>
             <span class="w-6 h-0.5 bg-white"></span>
             <span class="w-6 h-0.5 bg-white"></span>
         </div>
 
-        <div class="hidden md:flex items-center gap-8" id="nav-links">
-            <a href="index.html" class="text-gray-300 hover:text-white text-sm">Home</a>
-            <a href="about.html" class="text-gray-300 hover:text-white text-sm">About</a>
+        <div class="menu flex items-center gap-6" id="nav-links">
+            <a href="index.html" class="text-gray-300 hover:text-[#00c6ff]">Home</a>
+            <a href="about.html" class="text-gray-300 hover:text-[#00c6ff]">About</a>
 
             <div class="dropdown">
-                <a href="#" class="text-gray-300 hover:text-white text-sm flex items-center">Services <span class="ml-1 text-[10px]">▼</span></a>
+                <a href="#" class="text-gray-300">Services <span class="text-[0.8rem] ml-1">▼</span></a>
                 <div class="dropdown-content">
                     <a href="services.html#migration">Cloud Migration</a>
                     <a href="services.html#security">DevSecOps & Security</a>
@@ -91,19 +115,15 @@
                 </div>
             </div>
 
-            <a href="case-studies.html" class="text-[#00c6ff] font-bold text-sm">Case Studies</a>
-            <a href="contact.html" class="bg-[#00c6ff] text-black px-5 py-2.5 rounded-lg font-bold hover:scale-105 transition">Contact</a>
+            <a href="case-studies.html" class="text-[#00c6ff] font-bold">Case Studies</a>
+            <a href="contact.html" class="bg-[#00c6ff] text-black px-5 py-2.5 rounded-lg font-bold text-center">Contact</a>
         </div>
     </nav>
 
-    <section class="grid md:grid-cols-2 gap-10 items-center px-6 py-12 md:py-24 max-w-7xl mx-auto">
+    <section class="grid md:grid-cols-2 gap-12 items-center px-6 py-12 md:py-20 max-w-7xl mx-auto">
         <div class="text-left order-2 md:order-1">
-            <h1 class="text-4xl md:text-7xl font-bold mb-6 tracking-tight leading-tight">
-                Build Scalable <span class="gradient-text">Cloud Systems</span>
-            </h1>
-            <p class="text-gray-400 text-base md:text-lg mb-8 leading-relaxed">
-                Enterprise-grade infrastructure for modern SaaS. We automate your DevOps so you can focus on building your product.
-            </p>
+            <h1 class="text-5xl md:text-7xl font-bold mb-6 tracking-tight leading-tight">Build Scalable <span class="gradient-text">Cloud Systems</span></h1>
+            <p class="text-gray-400 text-lg mb-8 leading-relaxed">Enterprise-grade infrastructure for modern SaaS. We automate your DevOps so you can focus on building your product.</p>
             <div class="flex flex-col sm:flex-row gap-4">
                 <a href="https://wa.me/923713600892" target="_blank" class="bg-blue-600 text-center px-8 py-4 rounded-xl font-bold text-lg btn-glow">Get Free Consultation</a>
                 <button onclick="openPopup()" class="glass px-8 py-4 rounded-xl font-bold text-lg border border-white/10 hover:bg-white/5">Quick Lead Form</button>
@@ -115,75 +135,24 @@
     </section>
 
     <section id="services" class="py-16 px-6 max-w-7xl mx-auto">
-        <div class="text-center mb-12">
-            <h2 class="text-3xl md:text-4xl font-bold mb-4">Our Core Expertise</h2>
+        <div class="text-center mb-16">
+            <h2 class="text-4xl font-bold mb-4">Our Core Expertise</h2>
             <p class="text-gray-400 max-w-2xl mx-auto">Specialized solutions designed to handle the complexity of modern cloud architecture.</p>
         </div>
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <div class="glass p-8 rounded-3xl service-card">
-                <h3 class="text-xl font-bold mb-3 text-blue-400">Seamless Migration</h3>
-                <p class="text-gray-400 text-sm">Zero-downtime migrations from on-premise to AWS and Azure.</p>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div class="glass p-8 rounded-3xl border border-white/10 service-card transition">
+                <div class="bg-blue-500/20 w-12 h-12 rounded-lg flex items-center justify-center mb-6">
+                    <svg class="w-6 h-6 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"/></svg>
+                </div>
+                <h3 class="text-xl font-bold mb-3">Seamless Migration</h3>
+                <p class="text-gray-400 text-sm leading-relaxed">Zero-downtime migrations from on-premise or legacy systems to AWS and Azure.</p>
             </div>
-            <div class="glass p-8 rounded-3xl service-card">
-                <h3 class="text-xl font-bold mb-3 text-purple-400">Advanced DevSecOps</h3>
-                <p class="text-gray-400 text-sm">Embedding security into your CI/CD pipelines automatically.</p>
+            <div class="glass p-8 rounded-3xl border border-white/10 service-card transition">
+                <div class="bg-purple-500/20 w-12 h-12 rounded-lg flex items-center justify-center mb-6">
+                    <svg class="w-6 h-6 text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
+                </div>
+                <h3 class="text-xl font-bold mb-3">Advanced DevSecOps</h3>
+                <p class="text-gray-400 text-sm leading-relaxed">Embedding security into your CI/CD pipelines with automated vulnerability scanning.</p>
             </div>
-            <div class="glass p-8 rounded-3xl service-card">
-                <h3 class="text-xl font-bold mb-3 text-green-400">Auto Scaling</h3>
-                <p class="text-gray-400 text-sm">Infrastructure that grows with your users while optimizing costs.</p>
-            </div>
-        </div>
-    </section>
-
-    <footer class="py-12 px-6 max-w-7xl mx-auto border-t border-white/10 flex flex-col md:flex-row justify-between items-center gap-6 text-gray-500">
-        <div class="text-center md:text-left">
-            <div class="text-2xl font-bold text-white mb-1">Deploy<span class="text-blue-500">Lynx</span></div>
-            <p class="text-xs">Scalable Cloud & DevOps Agency</p>
-        </div>
-        <div class="flex space-x-6 text-sm">
-            <a href="#" class="hover:text-blue-400">LinkedIn</a>
-            <a href="#" class="hover:text-blue-400">WhatsApp</a>
-            <a href="#" class="hover:text-blue-400">Email</a>
-        </div>
-    </footer>
-
-    <div id="lead-popup" class="fixed inset-0 bg-black/90 backdrop-blur-md flex items-center justify-center z-[10002] hidden px-4">
-        <div class="glass p-8 rounded-3xl w-full max-w-md relative">
-            <button onclick="closePopup()" class="absolute top-4 right-4 text-gray-400 text-2xl">&times;</button>
-            <h3 class="text-2xl font-bold mb-6 text-center gradient-text">Get Free Quote</h3>
-            <form id="contactForm" class="space-y-4">
-                <input type="text" name="Name" placeholder="Your Name" required class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 outline-none focus:border-blue-500">
-                <input type="email" name="Email" placeholder="Email" required class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 outline-none focus:border-blue-500">
-                <textarea name="Message" placeholder="Project details" rows="3" required class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 outline-none focus:border-blue-500"></textarea>
-                <button type="submit" id="submitBtn" class="w-full bg-blue-600 py-3 rounded-xl font-bold btn-glow">Send Inquiry</button>
-            </form>
-            <p id="successMsg" class="hidden text-center text-blue-400 font-bold mt-4">✨ Message Sent!</p>
-        </div>
-    </div>
-
-    <script>
-        function toggleMenu() {
-            const nav = document.getElementById('nav-links');
-            nav.classList.toggle('active');
-        }
-
-        function openPopup() { document.getElementById('lead-popup').classList.remove('hidden'); }
-        function closePopup() { document.getElementById('lead-popup').classList.add('hidden'); }
-
-        // Form Logic
-        const form = document.getElementById('contactForm');
-        form.addEventListener('submit', function(e) {
-            e.preventDefault();
-            const btn = document.getElementById('submitBtn');
-            btn.innerText = "SENDING...";
-            
-            // Simulating success for preview
-            setTimeout(() => {
-                confetti({ particleCount: 100, spread: 70, origin: { y: 0.6 } });
-                form.classList.add('hidden');
-                document.getElementById('successMsg').classList.remove('hidden');
-            }, 1000);
-        });
-    </script>
-</body>
-</html>
+            <div class="glass p-8 rounded-3xl border border-white/10 service-card transition">
+                <div class="bg-green-500/20 w-12 h-12 rounded-lg flex items-center justify-center mb-6">
