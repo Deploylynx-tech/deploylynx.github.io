@@ -19,8 +19,9 @@
         .animate-marquee { display: flex; width: 200%; animation: scroll 20s linear infinite; }
         
         .btn-glow:hover { box-shadow: 0 0 25px rgba(59, 130, 246, 0.6); transform: translateY(-2px); transition: all 0.3s; }
+        .service-card:hover { border-color: rgba(96, 165, 250, 0.5); background: rgba(255, 255, 255, 0.05); }
 
-        /* DROPDOWN STYLING - UNIVERSAL */
+        /* DROPDOWN STYLING */
         .dropdown { position: relative; display: inline-block; }
         .dropdown-content {
             display: none;
@@ -47,38 +48,31 @@
         }
         .dropdown:hover .dropdown-content { display: block; }
 
-        /* MOBILE OVERRIDES - THE CLICKABILITY FIX */
+        /* MOBILE OVERRIDES - FIXED CLICKABILITY */
         @media (max-width: 768px) {
             #nav-links {
+                display: none; /* Keep hidden by default */
+                flex-direction: column;
                 position: absolute;
                 top: 100%;
                 left: 0;
                 width: 100%;
                 background: rgba(10, 15, 28, 0.98);
-                flex-direction: column;
                 padding: 30px 20px;
                 gap: 20px !important;
                 border-bottom: 2px solid #00c6ff;
-                text-align: center;
-                /* CRITICAL FIX: Hide physically when not active */
-                opacity: 0;
-                pointer-events: none;
-                transform: translateY(-10px);
-                transition: all 0.3s ease;
                 z-index: 9999;
+                text-align: center;
             }
-            #nav-links.active {
-                opacity: 1;
-                pointer-events: auto;
-                transform: translateY(0);
-            }
+            #nav-links.active { display: flex !important; }
             .menu-toggle { display: flex !important; }
             .dropdown-content {
                 position: static;
                 width: 100%;
+                box-shadow: none;
+                border: 1px solid rgba(0, 198, 255, 0.3);
                 background: rgba(255, 255, 255, 0.05);
-                border: none;
-                margin-top: 5px;
+                margin-top: 10px;
             }
         }
     </style>
@@ -97,7 +91,7 @@
     <nav style="position: sticky; top: 0; z-index: 9999; background: #0a0f1c; display: flex; justify-content: space-between; align-items: center; padding: 20px 5%; border-bottom: 1px solid rgba(255, 255, 255, 0.05);">
         <div class="logo" style="font-size: 24px; color: #00c6ff; font-weight: bold;">DeployLynx</div>
         
-        <div class="menu-toggle" onclick="toggleMobileMenu(event)" style="display: none; flex-direction: column; gap: 5px; cursor: pointer;">
+        <div class="menu-toggle" id="mobile-trigger" style="display: none; flex-direction: column; gap: 5px; cursor: pointer;">
             <span style="width: 25px; height: 3px; background: white;"></span>
             <span style="width: 25px; height: 3px; background: white;"></span>
             <span style="width: 25px; height: 3px; background: white;"></span>
@@ -118,7 +112,7 @@
             </div>
 
             <a href="case-studies.html" style="color: #00c6ff; text-decoration: none; font-size: 0.95rem; font-weight: bold;">Case Studies</a>
-            <a href="contact.html" style="background: #00c6ff; color: #000; padding: 12px 24px; border-radius: 8px; text-decoration: none; font-weight: bold; text-align: center;">Contact</a>
+            <a href="contact.html" style="background: #00c6ff; color: #000; padding: 12px 24px; border-radius: 8px; text-decoration: none; font-weight: bold;">Contact</a>
         </div>
     </nav>
 
@@ -132,33 +126,49 @@
             </div>
         </div>
         <div class="relative order-1 md:order-2">
-            <img src="https://images.unsplash.com/photo-1550751827-4bd374c3f58b?q=80&w=2070&auto=format&fit=crop" class="rounded-3xl border border-white/10 shadow-2xl w-full">
+            <img src="https://images.unsplash.com/photo-1550751827-4bd374c3f58b?q=80&w=2070&auto=format&fit=crop" alt="Hero Tech" class="rounded-3xl border border-white/10 shadow-2xl w-full">
         </div>
     </section>
 
-    <section id="services" class="py-16 px-8 max-w-7xl mx-auto">
+    <section id="services" class="py-20 px-8 max-w-7xl mx-auto">
+        <div class="text-center mb-16">
+            <h2 class="text-4xl font-bold mb-4">Our Core Expertise</h2>
+            <p class="text-gray-400 max-w-2xl mx-auto">Specialized solutions designed to handle the complexity of modern cloud architecture.</p>
+        </div>
         <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div class="glass p-8 rounded-3xl border border-white/10">
+            <div class="glass p-8 rounded-3xl border border-white/10 service-card">
                 <h3 class="text-xl font-bold mb-3">Seamless Migration</h3>
-                <p class="text-gray-400 text-sm">Zero-downtime migrations from on-premise to AWS.</p>
+                <p class="text-gray-400 text-sm">Zero-downtime migrations from on-premise to AWS with full data integrity.</p>
             </div>
-            <div class="glass p-8 rounded-3xl border border-white/10">
+            <div class="glass p-8 rounded-3xl border border-white/10 service-card">
                 <h3 class="text-xl font-bold mb-3">Advanced DevSecOps</h3>
-                <p class="text-gray-400 text-sm">Embedding security into your CI/CD pipelines.</p>
+                <p class="text-gray-400 text-sm">Embedding security into your CI/CD pipelines with automated scanning.</p>
             </div>
-            <div class="glass p-8 rounded-3xl border border-white/10">
+            <div class="glass p-8 rounded-3xl border border-white/10 service-card">
                 <h3 class="text-xl font-bold mb-3">Auto Scaling</h3>
-                <p class="text-gray-400 text-sm">Infrastructure that grows with your users.</p>
+                <p class="text-gray-400 text-sm">Infrastructure that grows with your users while optimizing resource costs.</p>
             </div>
         </div>
     </section>
 
-    <footer class="py-12 px-8 max-w-7xl mx-auto border-t border-white/10 flex flex-col md:flex-row justify-between items-center gap-6">
-        <div class="text-center md:text-left">
-            <div class="text-2xl font-bold text-white tracking-tighter">Deploy<span class="text-blue-500">Lynx</span></div>
-            <p class="text-sm text-gray-500">Scalable Cloud & DevOps Agency</p>
+    <section class="px-8 py-16 max-w-7xl mx-auto">
+        <div class="bg-blue-600 rounded-[3rem] p-10 md:p-20 grid md:grid-cols-2 gap-10 items-center overflow-hidden">
+            <div>
+                <h2 class="text-3xl md:text-5xl font-bold mb-6">Ready to scale your infrastructure?</h2>
+                <button onclick="openPopup()" class="bg-white text-blue-600 px-8 py-4 rounded-xl font-bold text-lg w-full md:w-auto">
+                    SPEAK WITH OUR EXPERTS
+                </button>
+            </div>
+            <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=2426&auto=format&fit=crop" class="rounded-2xl hidden md:block">
         </div>
-        <div class="flex space-x-8 text-gray-500">
+    </section>
+
+    <footer class="py-16 px-8 max-w-7xl mx-auto border-t border-white/10 flex flex-col md:flex-row justify-between items-center text-gray-500 gap-6">
+        <div class="text-center md:text-left">
+            <div class="text-2xl font-bold text-white mb-2">Deploy<span class="text-blue-500">Lynx</span></div>
+            <p class="text-sm">Scalable Cloud & DevOps Agency</p>
+        </div>
+        <div class="flex space-x-8 font-medium">
             <a href="#" class="hover:text-blue-400">LinkedIn</a>
             <a href="#" class="hover:text-blue-400">WhatsApp</a>
             <a href="#" class="hover:text-blue-400">Email</a>
@@ -168,29 +178,29 @@
     <div id="lead-popup" class="fixed inset-0 bg-black/90 backdrop-blur-md flex items-center justify-center z-[10002] hidden px-4">
         <div class="glass p-8 rounded-3xl w-full max-w-md relative border border-white/20">
             <button onclick="closePopup()" class="absolute top-4 right-4 text-gray-400 text-3xl">&times;</button>
-            <h3 id="formHeading" class="text-2xl font-bold mb-6 text-center gradient-text">Get Free Quote</h3>
+            <h3 id="formHeading" class="text-3xl font-bold mb-6 text-center gradient-text">Get Free Quote</h3>
             <form id="contactForm" class="space-y-4">
-                <input type="text" placeholder="Your Name" required class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 outline-none">
-                <button type="submit" class="w-full bg-blue-600 py-4 rounded-xl font-bold">Send Inquiry</button>
+                <input type="text" placeholder="Your Name" required class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-4 focus:border-blue-500 outline-none">
+                <input type="email" placeholder="Email" required class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-4 focus:border-blue-500 outline-none">
+                <textarea placeholder="Project details" rows="3" required class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-4 focus:border-blue-500 outline-none"></textarea>
+                <button type="submit" class="w-full bg-blue-600 py-4 rounded-xl font-bold text-lg btn-glow">Send Inquiry</button>
             </form>
-            <p id="successMsg" class="hidden text-center text-blue-400 font-bold mt-4">✨ Sent Successfully!</p>
+            <p id="successMsg" class="hidden text-center text-blue-400 font-bold mt-4">✨ Message Sent Successfully!</p>
         </div>
     </div>
 
     <script>
-        // MOBILE MENU HANDLER
-        function toggleMobileMenu(e) {
-            e.stopPropagation();
-            const navLinks = document.getElementById('nav-links');
-            navLinks.classList.toggle('active');
-        }
+        const mobileBtn = document.getElementById('mobile-trigger');
+        const navMenu = document.getElementById('nav-links');
 
-        // Close menu when clicking anywhere else
+        mobileBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            navMenu.classList.toggle('active');
+        });
+
+        // Close menu if clicking outside
         document.addEventListener('click', () => {
-            const navLinks = document.getElementById('nav-links');
-            if(navLinks.classList.contains('active')) {
-                navLinks.classList.remove('active');
-            }
+            navMenu.classList.remove('active');
         });
 
         function openPopup() { document.getElementById('lead-popup').classList.remove('hidden'); }
@@ -199,8 +209,8 @@
         const form = document.getElementById('contactForm');
         form.addEventListener('submit', function(e) {
             e.preventDefault();
-            confetti({ particleCount: 100, spread: 70, origin: { y: 0.6 } });
-            document.getElementById('formHeading').innerText = "Sent!";
+            confetti({ particleCount: 150, spread: 70, origin: { y: 0.6 } });
+            document.getElementById('formHeading').innerText = "Congrats!";
             form.classList.add('hidden');
             document.getElementById('successMsg').classList.remove('hidden');
         });
