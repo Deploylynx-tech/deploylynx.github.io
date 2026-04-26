@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>About - DeployLynx</title>
   <script src="https://cdn.tailwindcss.com"></script>
+
   <style>
     /* Smooth animation */
     .fade-in {
@@ -27,11 +28,14 @@
     }
   </style>
 </head>
+
 <body class="bg-gray-950 text-white">
 
   <!-- Navbar -->
   <nav class="flex items-center justify-between px-6 py-4 bg-gray-900 sticky top-0 z-50">
     <h1 class="text-xl font-bold text-blue-500">DeployLynx</h1>
+
+    <!-- Desktop Menu -->
     <div class="hidden md:flex space-x-6">
       <a href="index.html" class="hover:text-blue-400">Home</a>
       <a href="about.html" class="text-blue-400">About</a>
@@ -39,76 +43,90 @@
       <a href="case-studies.html" class="hover:text-blue-400">Case Studies</a>
       <a href="contact.html" class="hover:text-blue-400">Contact</a>
     </div>
+
+    <!-- Mobile Button -->
+    <button id="menu-btn" class="md:hidden text-white text-2xl">
+      ☰
+    </button>
   </nav>
 
+  <!-- Mobile Menu -->
+  <div id="mobile-menu" class="hidden flex flex-col bg-gray-900 px-6 py-4 space-y-4 md:hidden">
+    <a href="index.html" class="hover:text-blue-400">Home</a>
+    <a href="about.html" class="text-blue-400">About</a>
+    <a href="services.html" class="hover:text-blue-400">Services</a>
+    <a href="case-studies.html" class="hover:text-blue-400">Case Studies</a>
+    <a href="contact.html" class="hover:text-blue-400">Contact</a>
+  </div>
+
   <!-- Hero Section -->
-  <section class="text-center px-6 py-16 fade-in">
-    <h2 class="text-3xl md:text-5xl font-bold leading-tight">
+  <section class="text-center px-6 py-12 md:py-16 fade-in">
+    <h2 class="text-2xl md:text-5xl font-bold leading-tight">
       Engineering Scalable Digital Infrastructure
     </h2>
-    <p class="mt-6 text-gray-400 max-w-3xl mx-auto">
+    <p class="mt-6 text-gray-400 max-w-3xl mx-auto text-sm md:text-base">
       At DeployLynx, we architect, automate, and optimize cloud-native systems that power modern businesses. Our mission is to transform ideas into resilient, high-performance infrastructure with enterprise-grade reliability.
     </p>
   </section>
 
   <!-- Stats Section -->
-  <section class="grid grid-cols-2 md:grid-cols-4 gap-6 px-6 py-10 text-center">
-    <div class="bg-gray-900 p-6 rounded-2xl">
-      <h3 class="text-2xl font-bold text-blue-400 counter">12+</h3>
-      <p class="text-gray-400">Active Clients</p>
+  <section class="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6 px-6 py-10 text-center">
+    <div class="bg-gray-900 p-4 md:p-6 rounded-2xl">
+      <h3 class="text-xl md:text-2xl font-bold text-blue-400 counter">12+</h3>
+      <p class="text-gray-400 text-sm md:text-base">Active Clients</p>
     </div>
-    <div class="bg-gray-900 p-6 rounded-2xl">
-      <h3 class="text-2xl font-bold text-blue-400 counter">45+</h3>
-      <p class="text-gray-400">Deployments</p>
+    <div class="bg-gray-900 p-4 md:p-6 rounded-2xl">
+      <h3 class="text-xl md:text-2xl font-bold text-blue-400 counter">45+</h3>
+      <p class="text-gray-400 text-sm md:text-base">Deployments</p>
     </div>
-    <div class="bg-gray-900 p-6 rounded-2xl">
-      <h3 class="text-2xl font-bold text-blue-400 counter">99%</h3>
-      <p class="text-gray-400">SLA Uptime</p>
+    <div class="bg-gray-900 p-4 md:p-6 rounded-2xl">
+      <h3 class="text-xl md:text-2xl font-bold text-blue-400 counter">99%</h3>
+      <p class="text-gray-400 text-sm md:text-base">SLA Uptime</p>
     </div>
-    <div class="bg-gray-900 p-6 rounded-2xl">
-      <h3 class="text-2xl font-bold text-blue-400 counter">70%</h3>
-      <p class="text-gray-400">Cost Optimization</p>
+    <div class="bg-gray-900 p-4 md:p-6 rounded-2xl">
+      <h3 class="text-xl md:text-2xl font-bold text-blue-400 counter">70%</h3>
+      <p class="text-gray-400 text-sm md:text-base">Cost Optimization</p>
     </div>
   </section>
 
   <!-- About Content -->
-  <section class="px-6 py-16 max-w-5xl mx-auto fade-in">
+  <section class="px-6 py-12 md:py-16 max-w-5xl mx-auto fade-in">
     <h2 class="text-2xl md:text-4xl font-bold mb-6">Who We Are</h2>
-    <p class="text-gray-400 mb-6 leading-relaxed">
+    <p class="text-gray-400 mb-6 leading-relaxed text-sm md:text-base">
       DeployLynx is a cloud engineering and DevOps solutions company focused on building scalable, secure, and automated infrastructure for startups and enterprises. We specialize in transforming traditional systems into modern cloud-native architectures.
     </p>
 
-    <p class="text-gray-400 mb-6 leading-relaxed">
+    <p class="text-gray-400 mb-6 leading-relaxed text-sm md:text-base">
       Our expertise spans across cloud platforms, containerization, CI/CD pipelines, and infrastructure as code. We don't just deploy applications—we design ecosystems that ensure performance, scalability, and reliability at every stage.
     </p>
 
-    <p class="text-gray-400 leading-relaxed">
+    <p class="text-gray-400 leading-relaxed text-sm md:text-base">
       Whether you're launching a startup or scaling an enterprise system, DeployLynx ensures your infrastructure evolves with your business needs.
     </p>
   </section>
 
   <!-- Tech Animation Section -->
-  <section class="px-6 py-16 text-center">
+  <section class="px-6 py-12 md:py-16 text-center">
     <h2 class="text-2xl md:text-4xl font-bold mb-10">Our Technology Stack</h2>
-    <div class="flex flex-wrap justify-center gap-6">
-      <div class="bg-gray-900 px-6 py-4 rounded-xl float">Docker</div>
-      <div class="bg-gray-900 px-6 py-4 rounded-xl float">Kubernetes</div>
-      <div class="bg-gray-900 px-6 py-4 rounded-xl float">AWS</div>
-      <div class="bg-gray-900 px-6 py-4 rounded-xl float">Terraform</div>
-      <div class="bg-gray-900 px-6 py-4 rounded-xl float">Jenkins</div>
+    <div class="flex flex-wrap justify-center gap-4 md:gap-6">
+      <div class="bg-gray-900 px-4 md:px-6 py-3 md:py-4 rounded-xl float">Docker</div>
+      <div class="bg-gray-900 px-4 md:px-6 py-3 md:py-4 rounded-xl float">Kubernetes</div>
+      <div class="bg-gray-900 px-4 md:px-6 py-3 md:py-4 rounded-xl float">AWS</div>
+      <div class="bg-gray-900 px-4 md:px-6 py-3 md:py-4 rounded-xl float">Terraform</div>
+      <div class="bg-gray-900 px-4 md:px-6 py-3 md:py-4 rounded-xl float">Jenkins</div>
     </div>
   </section>
 
   <!-- Testimonials -->
-  <section class="px-6 py-16 bg-gray-900">
+  <section class="px-6 py-12 md:py-16 bg-gray-900">
     <h2 class="text-2xl md:text-4xl font-bold text-center mb-10">What Clients Say</h2>
     <div class="grid md:grid-cols-2 gap-6 max-w-5xl mx-auto">
-      <div class="bg-gray-800 p-6 rounded-2xl">
-        <p class="text-gray-300">“DeployLynx transformed our infrastructure into a scalable system. Deployment time reduced drastically.”</p>
+      <div class="bg-gray-800 p-4 md:p-6 rounded-2xl">
+        <p class="text-gray-300 text-sm md:text-base">“DeployLynx transformed our infrastructure into a scalable system. Deployment time reduced drastically.”</p>
         <h4 class="mt-4 font-bold">— Startup Founder</h4>
       </div>
-      <div class="bg-gray-800 p-6 rounded-2xl">
-        <p class="text-gray-300">“Professional, reliable, and highly skilled team. Our uptime improved significantly.”</p>
+      <div class="bg-gray-800 p-4 md:p-6 rounded-2xl">
+        <p class="text-gray-300 text-sm md:text-base">“Professional, reliable, and highly skilled team. Our uptime improved significantly.”</p>
         <h4 class="mt-4 font-bold">— Tech Lead</h4>
       </div>
     </div>
@@ -120,7 +138,15 @@
   </footer>
 
   <script>
-    // Smooth Counter Animation (Fixed)
+    // Mobile Menu Toggle
+    const btn = document.getElementById('menu-btn');
+    const menu = document.getElementById('mobile-menu');
+
+    btn.addEventListener('click', () => {
+      menu.classList.toggle('hidden');
+    });
+
+    // Counter Animation
     const counters = document.querySelectorAll('.counter');
 
     const animateCounter = (counter) => {
@@ -130,7 +156,7 @@
       const isPlus = text.includes('+');
 
       let count = 0;
-      const duration = 1500; // total animation time
+      const duration = 1500;
       const stepTime = 20;
       const increment = target / (duration / stepTime);
 
