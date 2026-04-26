@@ -1,275 +1,221 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DeployLynx | Enterprise Cloud & DevOps Solutions</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
-    <style>
-        body { font-family: 'Inter', sans-serif; background-color: #030712; color: white; overflow-x: hidden; }
-        .glass { background: rgba(255, 255, 255, 0.03); backdrop-filter: blur(12px); border: 1px solid rgba(255, 255, 255, 0.1); }
-        .gradient-text { background: linear-gradient(90deg, #60a5fa, #a855f7); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-        
-        @keyframes scroll {
-            0% { transform: translateX(0); }
-            100% { transform: translateX(-50%); }
-        }
-        .animate-marquee { display: flex; width: 200%; animation: scroll 20s linear infinite; }
-        
-        .btn-glow:hover { box-shadow: 0 0 25px rgba(59, 130, 246, 0.6); transform: translateY(-2px); transition: all 0.3s; }
-        .service-card:hover { border-color: rgba(96, 165, 250, 0.5); background: rgba(255, 255, 255, 0.05); }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DeployLynx | Enterprise Cloud & DevOps Solutions</title>
 
-        /* DROPDOWN STYLING */
-        .dropdown { position: relative; display: inline-block; }
-        .dropdown-content {
-            display: none;
-            position: absolute;
-            background-color: #0a0f1c; 
-            min-width: 220px;
-            box-shadow: 0px 8px 16px rgba(0,0,0,0.5);
-            z-index: 10001 !important;
-            border: 1px solid #00c6ff;
-            border-radius: 8px;
-            top: 100%;
-            left: 0;
-        }
-        .dropdown-content a {
-            color: #ccc !important;
-            padding: 12px 16px;
-            text-decoration: none;
-            display: block;
-            margin-left: 0 !important;
-            transition: 0.2s;
-        }
-        .dropdown-content a:hover { background: rgba(0, 198, 255, 0.1); color: #00c6ff !important; }
-        .dropdown:hover .dropdown-content { display: block; }
-        .arrow { font-size: 0.8rem; margin-left: 5px; }
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
 
-        /* MOBILE NAV FIXES */
-        @media (max-width: 768px) {
-            #nav-links {
-                position: fixed;
-                top: 80px;
-                left: 0;
-                width: 100%;
-                background: #0a0f1c;
-                flex-direction: column;
-                padding: 40px 20px;
-                gap: 20px !important;
-                border-bottom: 2px solid #00c6ff;
-                /* Hidden state */
-                opacity: 0;
-                pointer-events: none;
-                transform: translateY(-10px);
-                transition: 0.3s ease;
-                z-index: 9999;
-            }
-            #nav-links.mobile-active {
-                opacity: 1;
-                pointer-events: auto;
-                transform: translateY(0);
-            }
-            .menu-toggle { display: flex !important; }
-            .dropdown-content { position: static; width: 100%; box-shadow: none; border: none; background: rgba(255,255,255,0.05); }
-            h1 { font-size: 3.5rem !important; }
-        }
-    </style>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+<style>
+body { font-family: 'Inter', sans-serif; background-color: #030712; color: white; overflow-x: hidden; }
+
+.glass { background: rgba(255, 255, 255, 0.03); backdrop-filter: blur(12px); border: 1px solid rgba(255, 255, 255, 0.1); }
+
+.gradient-text { background: linear-gradient(90deg, #60a5fa, #a855f7); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+
+@keyframes scroll {
+0% { transform: translateX(0); }
+100% { transform: translateX(-50%); }
+}
+.animate-marquee { display: flex; width: 200%; animation: scroll 20s linear infinite; }
+
+.btn-glow:hover { box-shadow: 0 0 25px rgba(59, 130, 246, 0.6); transform: translateY(-2px); transition: all 0.3s; }
+
+.service-card:hover { border-color: rgba(96, 165, 250, 0.5); background: rgba(255, 255, 255, 0.05); }
+
+/* DROPDOWN */
+.dropdown { position: relative; }
+
+.dropdown-content {
+display: none;
+position: absolute;
+background-color: #0a0f1c;
+min-width: 220px;
+box-shadow: 0px 8px 16px rgba(0,0,0,0.5);
+z-index: 10001;
+border: 1px solid #00c6ff;
+border-radius: 8px;
+top: 100%;
+left: 0;
+}
+
+.dropdown-content a {
+color: #ccc !important;
+padding: 12px 16px;
+display: block;
+transition: 0.2s;
+}
+
+.dropdown-content a:hover {
+background: rgba(0, 198, 255, 0.1);
+color: #00c6ff !important;
+}
+
+.dropdown:hover .dropdown-content { display: block; }
+
+/* MOBILE FIX */
+@media (max-width: 768px) {
+
+#nav-links {
+position: fixed;
+top: 70px;
+left: 0;
+width: 100%;
+background: #0a0f1c;
+flex-direction: column;
+padding: 25px 20px;
+gap: 15px !important;
+border-bottom: 2px solid #00c6ff;
+
+opacity: 0;
+pointer-events: none;
+transform: translateY(-10px);
+transition: 0.3s ease;
+z-index: 9999;
+}
+
+#nav-links.mobile-active {
+opacity: 1;
+pointer-events: auto;
+transform: translateY(0);
+}
+
+.menu-toggle { display: flex !important; }
+
+/* dropdown mobile */
+.dropdown-content {
+position: static;
+display: none;
+width: 100%;
+box-shadow: none;
+border: none;
+background: rgba(255,255,255,0.05);
+}
+
+.dropdown.active .dropdown-content {
+display: block;
+}
+
+/* better spacing */
+nav { padding: 15px 5%; }
+
+h1 { font-size: 2.5rem !important; line-height: 1.2; }
+
+}
+
+/* EXTRA SMALL */
+@media (max-width: 480px) {
+h1 { font-size: 2rem !important; }
+}
+</style>
 </head>
-<body class="antialiased">
 
-    <div class="bg-blue-600/10 border-b border-blue-500/20 py-2 overflow-hidden whitespace-nowrap">
-        <div class="animate-marquee flex items-center space-x-12 text-sm font-medium text-blue-400">
-            <span>🚀 NEW: AWS Infrastructure Audits now available</span>
-            <span>💎 20% Discount for First-Time SaaS Migrations</span>
-            <span>⚡ DeployLynx: The Future of Cloud Automation</span>
-            <span>🚀 NEW: AWS Infrastructure Audits now available</span>
-            <span>💎 20% Discount for First-Time SaaS Migrations</span>
-            <span>⚡ DeployLynx: The Future of Cloud Automation</span>
-        </div>
-    </div>
+<body>
 
-    <nav style="position: sticky; top: 0; z-index: 10000; background: rgba(10, 15, 28, 0.95); backdrop-filter: blur(10px); display: flex; justify-content: space-between; align-items: center; padding: 20px 5%; border-bottom: 1px solid rgba(255, 255, 255, 0.05);">
-        <div class="logo" style="font-size: 24px; color: #00c6ff; font-weight: bold;">DeployLynx</div>
-        
-        <div class="menu-toggle" onclick="toggleMobileMenu(event)" style="display: none; flex-direction: column; gap: 5px; cursor: pointer; z-index: 10001;">
-            <span style="width: 25px; height: 3px; background: white;"></span>
-            <span style="width: 25px; height: 3px; background: white;"></span>
-            <span style="width: 25px; height: 3px; background: white;"></span>
-        </div>
+<!-- TOP BAR -->
+<div class="bg-blue-600/10 border-b border-blue-500/20 py-2 overflow-hidden whitespace-nowrap">
+<div class="animate-marquee flex items-center space-x-12 text-sm font-medium text-blue-400">
+<span>🚀 NEW: AWS Infrastructure Audits now available</span>
+<span>💎 20% Discount for First-Time SaaS Migrations</span>
+<span>⚡ DeployLynx: The Future of Cloud Automation</span>
+</div>
+</div>
 
-        <div class="menu" id="nav-links" style="display: flex; align-items: center; gap: 25px;">
-            <a href="index.html" style="color: #ccc; text-decoration: none; font-size: 0.95rem;">Home</a>
-            <a href="about.html" style="color: #ccc; text-decoration: none; font-size: 0.95rem;">About</a>
-            <div class="dropdown">
-                <a href="#" style="color: #ccc; text-decoration: none; font-size: 0.95rem;">Services <span class="arrow">▼</span></a>
-                <div class="dropdown-content">
-                    <a href="services.html#migration">Cloud Migration</a>
-                    <a href="services.html#security">DevSecOps & Security</a>
-                    <a href="services.html#scaling">Auto Scaling Systems</a>
-                    <a href="services.html#automation">CI/CD Automation</a>
-                </div>
-            </div>
-            <a href="case-studies.html" style="color: #00c6ff; text-decoration: none; font-size: 0.95rem; font-weight: bold;">Case Studies</a>
-            <a href="contact.html" style="background: #00c6ff; color: #000; padding: 10px 20px; border-radius: 8px; text-decoration: none; font-weight: bold; margin-left: 10px; display: inline-block;">Contact</a>
-        </div>
-    </nav>
+<!-- NAVBAR -->
+<nav style="position: sticky; top: 0; z-index: 10000; background: rgba(10, 15, 28, 0.95); backdrop-filter: blur(10px); display: flex; justify-content: space-between; align-items: center; padding: 20px 5%; border-bottom: 1px solid rgba(255,255,255,0.05);">
 
-    <section class="grid md:grid-cols-2 gap-12 items-center px-8 py-20 max-w-7xl mx-auto">
-        <div class="text-left" style="position: relative; z-index: 1;">
-            <h1 class="text-6xl md:text-7xl font-bold mb-6 tracking-tight leading-tight">Build Scalable <span class="gradient-text">Cloud Systems</span></h1>
-            <p class="text-gray-400 text-lg mb-8 leading-relaxed">Enterprise-grade infrastructure for modern SaaS. We automate your DevOps so you can focus on building your product.</p>
-            <div class="flex flex-wrap gap-4">
-                <a href="https://wa.me/923713600892" target="_blank" class="bg-blue-600 px-8 py-4 rounded-xl font-bold text-lg btn-glow" style="position: relative; z-index: 5;">Get Free Consultation</a>
-                <button onclick="openPopup()" class="glass px-8 py-4 rounded-xl font-bold text-lg border border-white/10 hover:bg-white/5" style="position: relative; z-index: 5;">Quick Lead Form</button>
-            </div>
-        </div>
-        <div class="relative">
-            <img src="https://images.unsplash.com/photo-1550751827-4bd374c3f58b?q=80&w=2070&auto=format&fit=crop" alt="Hero Tech" class="rounded-3xl border border-white/10 shadow-2xl shadow-blue-500/10">
-        </div>
-    </section>
+<div style="font-size: 24px; color: #00c6ff; font-weight: bold;">DeployLynx</div>
 
-    <section id="services" class="py-24 px-8 max-w-7xl mx-auto">
-        <div class="text-center mb-16">
-            <h2 class="text-4xl font-bold mb-4">Our Core Expertise</h2>
-            <p class="text-gray-400 max-w-2xl mx-auto">Specialized solutions designed to handle the complexity of modern cloud architecture.</p>
-        </div>
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div class="glass p-8 rounded-3xl border border-white/10 service-card transition duration-300">
-                <h3 class="text-xl font-bold mb-3">Seamless Migration</h3>
-                <p class="text-gray-400 text-sm leading-relaxed">Zero-downtime migrations from on-premise or legacy systems to AWS.</p>
-            </div>
-            <div class="glass p-8 rounded-3xl border border-white/10 service-card transition duration-300">
-                <h3 class="text-xl font-bold mb-3">Advanced DevSecOps</h3>
-                <p class="text-gray-400 text-sm leading-relaxed">Embedding security into your CI/CD pipelines with automated vulnerability scanning.</p>
-            </div>
-            <div class="glass p-8 rounded-3xl border border-white/10 service-card transition duration-300">
-                <h3 class="text-xl font-bold mb-3">Auto Scaling Solutions</h3>
-                <p class="text-gray-400 text-sm leading-relaxed">Infrastructure that grows with your users. We optimize resource allocation.</p>
-            </div>
-        </div>
-    </section>
+<div class="menu-toggle" onclick="toggleMobileMenu(event)" style="display:none; flex-direction:column; gap:5px; cursor:pointer;">
+<span style="width:25px;height:3px;background:white;"></span>
+<span style="width:25px;height:3px;background:white;"></span>
+<span style="width:25px;height:3px;background:white;"></span>
+</div>
 
-    <section class="py-24 px-8 max-w-7xl mx-auto text-center">
-        <h2 class="text-4xl font-bold mb-16">Who We Are</h2>
-        <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
-            <div class="relative overflow-hidden rounded-[2.5rem] h-96 group border border-white/10">
-                <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&q=80&w=1000" class="absolute inset-0 w-full h-full object-cover">
-                <div class="absolute inset-0 bg-gradient-to-t from-black/90 p-6 flex flex-col justify-end text-left">
-                    <h4 class="font-bold text-lg">Cloud Strategy</h4>
-                </div>
-            </div>
-            <div class="relative overflow-hidden rounded-[2.5rem] h-96 group border border-white/10">
-                <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&q=80&w=1000" class="absolute inset-0 w-full h-full object-cover">
-                <div class="absolute inset-0 bg-gradient-to-t from-black/90 p-6 flex flex-col justify-end text-left">
-                    <h4 class="font-bold text-lg">Infrastructure</h4>
-                </div>
-            </div>
-            <div class="relative overflow-hidden rounded-[2.5rem] h-96 group border border-white/10">
-                <img src="https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?auto=format&fit=crop&q=80&w=1000" class="absolute inset-0 w-full h-full object-cover">
-                <div class="absolute inset-0 bg-gradient-to-t from-black/90 p-6 flex flex-col justify-end text-left">
-                    <h4 class="font-bold text-lg">Automation</h4>
-                </div>
-            </div>
-            <div class="relative overflow-hidden rounded-[2.5rem] h-96 group border border-white/10">
-                <img src="https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&q=80&w=1000" class="absolute inset-0 w-full h-full object-cover">
-                <div class="absolute inset-0 bg-gradient-to-t from-black/90 p-6 flex flex-col justify-end text-left">
-                    <h4 class="font-bold text-lg">Security</h4>
-                </div>
-            </div>
-        </div>
-    </section>
+<div id="nav-links" style="display:flex; align-items:center; gap:25px;">
+<a href="index.html" style="color:#ccc;">Home</a>
+<a href="about.html" style="color:#ccc;">About</a>
 
-    <section class="px-8 py-16 max-w-7xl mx-auto">
-        <div class="bg-blue-600 rounded-[3rem] p-12 md:p-20 grid md:grid-cols-2 gap-10 items-center overflow-hidden">
-            <div>
-                <h2 class="text-4xl md:text-5xl font-bold mb-6">Ready to scale your infrastructure?</h2>
-                <button onclick="openPopup()" class="bg-white text-blue-600 px-8 py-4 rounded-xl font-bold text-lg hover:bg-gray-100 transition flex items-center">
-                    SPEAK WITH OUR EXPERTS 
-                    <svg class="ml-2 h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
-                </button>
-            </div>
-            <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=2426&auto=format&fit=crop" class="rounded-2xl hidden md:block">
-        </div>
-    </section>
+<div class="dropdown" onclick="toggleDropdown(event)">
+<a href="#" style="color:#ccc;">Services ▼</a>
+<div class="dropdown-content">
+<a href="services.html#migration">Cloud Migration</a>
+<a href="services.html#security">DevSecOps & Security</a>
+<a href="services.html#scaling">Auto Scaling Systems</a>
+<a href="services.html#automation">CI/CD Automation</a>
+</div>
+</div>
 
-    <footer class="py-16 px-8 max-w-7xl mx-auto border-t border-white/10 flex flex-col md:flex-row justify-between items-center text-gray-500">
-        <div class="mb-6 md:mb-0 text-center md:text-left">
-            <div class="text-2xl font-bold text-white mb-2 tracking-tighter">Deploy<span class="text-blue-500">Lynx</span></div>
-            <p class="text-sm">Scalable Cloud & DevOps Agency</p>
-        </div>
-        <div class="flex space-x-8 font-medium">
-            <a href="https://www.linkedin.com/company/linkedin-deploylynx-devops/" class="hover:text-blue-400">LinkedIn</a>
-            <a href="https://wa.me/923713600892" class="hover:text-blue-400">WhatsApp</a>
-            <a href="mailto:deploylynx26@gmail.com" class="hover:text-blue-400">Email</a>
-        </div>
-    </footer>
+<a href="case-studies.html" style="color:#00c6ff; font-weight:bold;">Case Studies</a>
 
-    <div id="lead-popup" class="fixed inset-0 bg-black/90 backdrop-blur-md flex items-center justify-center z-[20000] hidden px-4">
-        <div class="glass p-10 rounded-3xl w-full max-w-md relative border border-white/20">
-            <button onclick="closePopup()" class="absolute top-5 right-5 text-gray-400 text-3xl">&times;</button>
-            <h3 id="formHeading" class="text-3xl font-bold mb-6 text-center gradient-text">Get Free Quote</h3>
-            <form id="contactForm" class="space-y-4">
-                <input type="text" name="Name" id="userName" placeholder="Your Name" required class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-4 focus:border-blue-500 outline-none">
-                <input type="email" name="Email" id="userEmail" placeholder="Email" required class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-4 focus:border-blue-500 outline-none">
-                <textarea name="Message" id="userMessage" placeholder="Project details" rows="3" required class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-4 focus:border-blue-500 outline-none"></textarea>
-                <input type="hidden" name="Country" id="trackCountry">
-                <input type="hidden" name="City" id="trackCity">
-                <button type="submit" id="submitBtn" class="w-full bg-blue-600 py-4 rounded-xl font-bold text-lg btn-glow">Send Inquiry</button>
-            </form>
-            <p id="successMsg" class="hidden text-center text-blue-400 font-bold mt-4">✨ Message Sent Successfully!</p>
-        </div>
-    </div>
+<a href="contact.html" style="background:#00c6ff;color:#000;padding:10px 20px;border-radius:8px;font-weight:bold;">
+Contact
+</a>
 
-    <script>
-        // MOBILE MENU LOGIC
-        function toggleMobileMenu(e) {
-            e.stopPropagation();
-            const navLinks = document.getElementById('nav-links');
-            navLinks.classList.toggle('mobile-active');
-        }
+</div>
+</nav>
 
-        // Close menu clicking outside
-        document.addEventListener('click', function(e) {
-            const navLinks = document.getElementById('nav-links');
-            if (navLinks.classList.contains('mobile-active') && !navLinks.contains(e.target)) {
-                navLinks.classList.remove('mobile-active');
-            }
-        });
+<!-- HERO -->
+<section class="grid md:grid-cols-2 gap-12 items-center px-6 md:px-8 py-16 md:py-20 max-w-7xl mx-auto">
 
-        function openPopup() { document.getElementById('lead-popup').classList.remove('hidden'); }
-        function closePopup() { document.getElementById('lead-popup').classList.add('hidden'); }
+<div>
+<h1 class="text-6xl md:text-7xl font-bold mb-6 leading-tight">
+Build Scalable <span class="gradient-text">Cloud Systems</span>
+</h1>
 
-        // IP Tracking Logic
-        fetch('https://ipapi.co/json/').then(res => res.json()).then(data => {
-            document.getElementById('trackCountry').value = data.country_name || "Unknown";
-            document.getElementById('trackCity').value = data.city || "Unknown";
-        }).catch(e => console.log("Tracker blocked"));
+<p class="text-gray-400 text-lg mb-8">
+Enterprise-grade infrastructure for modern SaaS.
+</p>
 
-        // Form Submission Logic
-        const form = document.getElementById('contactForm');
-        const btn = document.getElementById('submitBtn');
+<div class="flex flex-wrap gap-4">
+<a href="https://wa.me/923713600892" target="_blank"
+class="bg-blue-600 px-6 py-3 rounded-xl font-bold btn-glow">
+Get Free Consultation
+</a>
 
-        form.addEventListener('submit', function(e) {
-            e.preventDefault();
-            btn.disabled = true;
-            btn.innerText = "SENDING...";
+<button onclick="openPopup()"
+class="glass px-6 py-3 rounded-xl font-bold border border-white/10">
+Quick Lead Form
+</button>
+</div>
+</div>
 
-            const formData = new FormData(form);
-            const scriptURL = "https://script.google.com/macros/s/AKfycbz-n69boQvKuZ1b2eomihHO87Tee7ZkyIb2vTpXNoJRapY9KkUY5TqDPMWGvAIglsEm/exec";
-            
-            fetch(scriptURL, { method: 'POST', body: formData, mode: 'no-cors' })
-            .then(() => {
-                confetti({ particleCount: 150, spread: 70, origin: { y: 0.6 } });
-                document.getElementById('formHeading').innerText = "Congrats!";
-                form.classList.add('hidden');
-                document.getElementById('successMsg').classList.remove('hidden');
-            }).catch(() => {
-                btn.disabled = false;
-                btn.innerText = "Send Inquiry";
-            });
-        });
-    </script>
+<div>
+<img src="https://images.unsplash.com/photo-1550751827-4bd374c3f58b?q=80&w=2070"
+class="rounded-3xl border border-white/10">
+</div>
+
+</section>
+
+<script>
+
+/* MOBILE MENU */
+function toggleMobileMenu(e){
+e.stopPropagation();
+document.getElementById('nav-links').classList.toggle('mobile-active');
+}
+
+/* DROPDOWN MOBILE */
+function toggleDropdown(e){
+if(window.innerWidth <= 768){
+e.preventDefault();
+e.currentTarget.classList.toggle('active');
+}
+}
+
+/* CLOSE OUTSIDE */
+document.addEventListener('click', function(e){
+const nav = document.getElementById('nav-links');
+if(!nav.contains(e.target)){
+nav.classList.remove('mobile-active');
+}
+});
+
+</script>
+
 </body>
 </html>
